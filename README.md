@@ -1,10 +1,12 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/23b8f4ad-c3b9-4fe5-9412-f1679f68b6b2/deploy-status)](https://app.netlify.com/sites/thecollective/deploys) &nbsp; &nbsp; [![Supertype](https://img.shields.io/badge/supertype.ai-incubate-b1976b)](https://supertype.ai)
+
 # Supertype Collective 
 ![Supertype Collective](./assets/header.png)
 
-Supertype Collective is a community of analytics developers, data scientists and engineering leaders passionate about solving the region's most pressing problems with data and technology. 
+[Supertype Collective](https://collective.supertype.ai) is a community of analytics developers, data scientists and engineering leaders passionate about solving the region's most pressing problems with data and technology. 
 
 ## Joining the Collective
-You can join the Collective through **one** of the following ways:
+You can join the [Collective](https://collective.supertype.ai) through **one** of the following ways:
 - Joining the [Supertype Fellowship program](https://fellowship.supertype.ai)
 - Verifiably contributing to one or more open source projects in Supertype's GitHub organization
 - Full time employment at [Supertype](https://supertype.ai) or [Algoritma](https://algorit.ma)
