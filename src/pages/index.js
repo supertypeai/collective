@@ -30,7 +30,7 @@ export default function Home() {
             <a
               href="https://supertype.ai"
               target="_blank"
-              rel="noopener"
+              rel="noreferrer noopener"
             >
               by{' '}
               <Image
