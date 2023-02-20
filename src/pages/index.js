@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link';
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import Github from '@/icons/Github'
@@ -23,13 +24,13 @@ export default function Home() {
         <div className={styles.description}>
           <p>
             Add your profile in &nbsp;
-            <code className={styles.code}>src/pages/&#123;your_name&#125;</code>
+            <code className={styles.code}>src/pages/p/&#123;your_name&#125;</code>
           </p>
           <div>
             <a
               href="https://supertype.ai"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
             >
               by{' '}
               <Image
@@ -54,8 +55,6 @@ export default function Home() {
             className="font-display text-center font-extrabold text-4xl sm:text-5xl text-white lg:text-[length:72px] lg:leading-[64px] xl:text-7xl typewriter inline">
             Collective
           </h2>
-
-
 
         </div>
 
@@ -89,11 +88,9 @@ export default function Home() {
             </p>
           </a>
 
-          <a
-            href="https://supertype.ai"
+          <Link
+            href="/templates"
             className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
           >
             <h2 className={inter.className}>
               Templates <span>-&gt;</span>
@@ -101,10 +98,10 @@ export default function Home() {
             <p className={inter.className}>
               Boilerplates and References to build out your profile page.
             </p>
-          </a>
+          </Link>
 
           <a
-            href="https://supertype.ai"
+            href="https://github.com/supertypeai/collective"
             className={styles.card}
             target="_blank"
             rel="noopener noreferrer"
