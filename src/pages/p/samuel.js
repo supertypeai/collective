@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -7,6 +5,7 @@ import styles from '@/styles/Home.module.css'
 import Home from '@/icons/Home'
 
 import useWordPressFeed from '@/hooks/useWordPressFeed'
+import WordPressBlogroll from '@/blocks/WordPressBlogroll'
 
 const Samuel = () => {
 
@@ -99,25 +98,8 @@ const Samuel = () => {
 
                                 <div className="grid grid-cols-5 gap-4 mt-10">
                                     <div className="col-span-5 lg:col-span-2">
-                                        <h3 className="text-lg semibold">Articles</h3>
-                                        <div className="mt-4">
-                                            {!loading && feed.map(post => (
-                                                <div className="mb-4" key={post.id}>
-                                                    <h4 className="text-sm font-semibold link">
-                                                        <Link href={post.link} target="_blank"
-                                                            rel="noreferrer noopener">
-                                                            <h4>{post.title}</h4>
-                                                        </Link>
-                                                    </h4>
-                                                    <p className="text-xs text-slate-300">
-                                                        {post.date}
-                                                    </p>
-                                                    <p className="text-sm text-slate-300">
-                                                        {post.excerpt}
-                                                    </p>
-                                                </div>
-                                            ))}
-                                        </div>
+                                        <h3 className="text-lg semibold mb-4">Articles</h3>
+                                        {!loading && <WordPressBlogroll feed={feed} />}
                                     </div>
                                     <div className="col-span-5 lg:col-span-3">
                                         <h3 className="text-lg semibold">Background</h3>
