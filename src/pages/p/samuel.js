@@ -4,12 +4,11 @@ import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import Home from '@/icons/Home'
 
-import useWordPressFeed from '@/hooks/useWordPressFeed'
-import WordPressBlogroll from '@/blocks/WordPressBlogroll'
+import { WordPressBlogroll, useWordPressFeed } from 'wordpress-posts-react'
 
 const Samuel = () => {
 
-    const { feed, loading } = useWordPressFeed('https://supertype.ai', 1)
+    const { feed, loading } = useWordPressFeed('https://supertype.ai', 1, 5)
 
     return (
         <main className={styles.main}>
@@ -20,7 +19,7 @@ const Samuel = () => {
                     </Link>
                 </p>
                 <div>
-                    <a
+                    <Link
                         href="https://supertype.ai"
                         target="_blank"
                         rel="noreferrer noopener"
@@ -29,12 +28,11 @@ const Samuel = () => {
                         <Image
                             src="/supertype.svg"
                             alt="Supertype Logo"
-                            // className={styles.SupertypeLogo}
                             width={100}
                             height={100}
                             priority
                         />
-                    </a>
+                    </Link>
                 </div>
             </div>
 
@@ -97,7 +95,7 @@ const Samuel = () => {
                                 </div>
 
                                 <div className="grid grid-cols-5 gap-4 mt-10">
-                                    <div className="col-span-5 lg:col-span-2">
+                                    <div className="col-span-5 lg:col-span-2 lg:pr-4">
                                         <h3 className="text-lg semibold mb-4">Articles</h3>
                                         {!loading && <WordPressBlogroll feed={feed} />}
                                     </div>
