@@ -6,94 +6,11 @@ import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import Home from '@/icons/Home'
 
-
-const timeAgo = (date) => {
-    const diff = Number(new Date()) - date;
-    const minute = 60 * 1000;
-    const hour = minute * 60;
-    const day = hour * 24;
-    const week = day * 7;
-    const month = day * 30;
-    const year = day * 365;
-    switch (true) {
-        case diff < minute:
-            return 'just now';
-        case diff < hour:
-            return `${Math.floor(diff / minute)} minutes ago`;
-        case diff < day:
-            return `${Math.floor(diff / hour)} hours ago`;
-        case diff < 2 * week:
-            return Math.round(diff / day) + ' days ago';
-        case diff < 3 * month:
-            return Math.round(diff / week) + ' weeks ago';
-        case diff < 2 * year:
-            return Math.round(diff / month) + ' months ago';
-        case diff > 2 * year:
-            return Math.round(diff / year) + ' years ago';
-        default:
-            return ""
-    }
-}
-
-const parse_url_string = (url) => {
-    return url.replace(/\\/g, '')
-}
-
-const decodeHtml = (html) => {
-    let txt = document.createElement("textarea");
-    txt.innerHTML = html;
-    // remove html tags like <p> etc
-    txt.value = txt.value.replace(/<\/?[^>]+(>|$)/g, "");
-    return txt.value;
-}
-
-
-const feed_from_wordpress = async (site_url, author_id, page_limit = 10) => {
-
-    if (!site_url) {
-        return Promise.reject('site_url is required')
-    }
-
-
-    const url = `${site_url}/wp-json/wp/v2/posts?per_page=${page_limit}` +
-        (author_id ? `&author=${author_id}` : '')
-    console.log(url)
-
-    // if(author_id){
-    //     url = `${site_url}/wp-json/wp/v2/posts?author=${author_id}&per_page=${page_limit || 10}`
-    // }else{
-    //     url = `${site_url}/wp-json/wp/v2/posts?per_page=${page_limit || 10}`
-    // }
-
-    const res = await fetch(url)
-    const posts = await res.json()
-    return posts.map(post => {
-        return {
-            title: decodeHtml(post.title.rendered),
-            // processed link: https:\/\/supertype.ai\/p\/samuel\/ -> https://supertype.ai/p/samuel/
-            link: parse_url_string(post.link),
-            slug: post.slug,
-            date: timeAgo(new Date(post.date).getTime()),
-            excerpt: decodeHtml(post.excerpt.rendered),
-            content: post.content.rendered,
-            author: post.author
-        }
-    })
-}
-
+import useWordPressFeed from '@/hooks/useWordPressFeed'
 
 const Samuel = () => {
 
-    const [feedRoll, setFeedRoll] = useState([])
-
-    useEffect(() => {
-        // ('https://supertype.ai', null, 3) gets you the latest 3 posts from the site
-        feed_from_wordpress('https://supertype.ai', 1)
-            .then(posts => {
-                setFeedRoll(posts)
-            })
-    }, [])
-
+    const { feed, loading } = useWordPressFeed('https://supertype.ai', 1)
 
     return (
         <main className={styles.main}>
@@ -151,7 +68,7 @@ const Samuel = () => {
                                                 <div className="text-xs">Fellowship Badges</div>
                                             </div>
                                             <div className="lg:mr-4 p-1 text-center">
-                                                <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{feedRoll.length}</span>
+                                                <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">{feed.length}</span>
                                                 <div className="text-xs">Articles</div>
                                             </div>
                                         </div>
@@ -182,12 +99,13 @@ const Samuel = () => {
 
                                 <div className="grid grid-cols-5 gap-4 mt-10">
                                     <div className="col-span-5 lg:col-span-2">
-                                        <h3 className="text-lg semibold">Expertise</h3>
+                                        <h3 className="text-lg semibold">Articles</h3>
                                         <div className="mt-4">
-                                            {feedRoll.map(post => (
+                                            {!loading && feed.map(post => (
                                                 <div className="mb-4" key={post.id}>
                                                     <h4 className="text-sm font-semibold link">
-                                                        <Link href={post.link} rel="noopener noreferrer">
+                                                        <Link href={post.link} target="_blank"
+                                                            rel="noreferrer noopener">
                                                             <h4>{post.title}</h4>
                                                         </Link>
                                                     </h4>
@@ -202,7 +120,7 @@ const Samuel = () => {
                                         </div>
                                     </div>
                                     <div className="col-span-5 lg:col-span-3">
-                                        <h3 className="text-lg semibold">Feed</h3>
+                                        <h3 className="text-lg semibold">Background</h3>
                                         <p className="mb-4 text-slate-300">
                                             Samuel is the co-founder of Supertype and has been building world-class software and analytics
                                             teams since 2014.
