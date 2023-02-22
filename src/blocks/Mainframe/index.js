@@ -1,6 +1,8 @@
-import React from "react";
+import Toprow from '../Toprow';
 
-const RowOfTwo = ({ children }) => {
+import Home from '@/icons/Home'
+
+const Body = ({ children }) => {
   return (
     <div>
       <div className="col-span-12 rounded-lg border border-gray-500 bg-gray-200 p-32 sm:col-span-8">
@@ -13,18 +15,17 @@ const RowOfTwo = ({ children }) => {
   );
 };
 
-const Mainframe = ({ children }) => {
+export const Mainframe = ({ children }) => {
   return (
-    <div className="mx-auto grid max-w-4xl grid-cols-12 gap-4 bg-zinc-50 p-1">
-      <div className="header col-span-12 rounded-lg border border-gray-300 bg-gray-600 py-8">
-        {/* <!-- Header content --> */}
+    <main className={`max-w-4xl mx-auto gap-4 backdrop-blur-lg rounded drop-shadow-lg  min-w-0 break-words bg-gradient-to-r from-amber-700 to-rose-900 w-full mb-6 shadow-xl rounded-lg`} >
+
+      <div className="grid grid-cols-4 gap-4 bg-black bg-opacity-30 rounded-lg ">
+        {children}
+        <div className="footer col-span-12 rounded-lg border bg-opacity-30 bg-gray-200 p-6">
+          {/* <!-- Footer content --> */}
+        </div>
       </div>
-      {children}
-      <div className="footer col-span-12 rounded-lg border border-gray-800 bg-gray-700 p-6">
-        {/* <!-- Footer content --> */}
-      </div>
-    </div>
+    </main >
   );
 };
 
-export default Mainframe;

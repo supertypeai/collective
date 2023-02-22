@@ -11,7 +11,7 @@ const TAGS = ["data science", "MLOps", "artificial intelligence", "machine learn
 
 const Samuel = () => {
 
-    const { feed, loading } = useWordPressFeed('https://supertype.ai', 1, 5)
+    const { feed, loading } = useWordPressFeed('https://supertype.ai', 1, 3)
 
     return (
         <main className={styles.main}>
