@@ -82,7 +82,7 @@ const Samuel = () => {
                                         <i className="fas fa-map-marker-alt mr-2 text-lg -400"></i>
                                         Bogor, Indonesia
                                     </div>
-                                    <div className="mb-2 -600 mt-10 text-sm">
+                                    <div className="mb-2 mt-10 text-sm">
                                         <Pills tags={TAGS} />
                                     </div>
 
