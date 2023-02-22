@@ -1,4 +1,19 @@
-const createColorfulTags = (tags, colors = []) => {
+const COLORS = [
+  "rose",
+  "pink",
+  "fuchsia",
+  "purple",
+  "violet",
+  "indigo",
+  "blue",
+  "sky",
+  "cyan",
+  "teal",
+  "emerald",
+  "green",
+]
+
+const createColorfulTags = (tags, colors = COLORS) => {
   const pills = [];
   for (let i = 0; i < tags.length; i++) {
     const pill = tags[i];
@@ -6,7 +21,7 @@ const createColorfulTags = (tags, colors = []) => {
     pills.push(
       <span
         key={pill}
-        className={`text-${color}-500 hover:bg-rose-900 cursor-pointer border rounded-full text-xs 
+        className={`text-rose-100 text-${color}-100 hover:bg-rose-900 cursor-pointer border rounded-full text-xs 
                     whitespace-nowrap font-medium mr-1 px-2.5 pt-0.5 pb-1 leading-6`}
       >
         {pill}

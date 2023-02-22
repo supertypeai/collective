@@ -14,7 +14,7 @@ function Toprow({ data, children }) {
                     </div>
                 </div>
                 {data.supertype_proof_of_verification &&
-                    <div className="bg-white/10 rounded mt-4 p-2">
+                    <div className="bg-white/10 rounded mt-4 p-2 cursor-pointer">
                         <p className='text-sm'>
                             <CheckBadge /> &nbsp;
                             Verified by Fellowship</p>
@@ -28,13 +28,12 @@ function Toprow({ data, children }) {
                 <div className="max-w-[400px] sm:max-w-lg lg:max-w-xl prose text-sm text-slate-400 ">
                     <p className='mb-4'>{data.short || 'Full Stack Engineer'}</p>
                     <p className='mb-4'>{data.long || ''}</p>
+                    {children}
                     <Pills tags={data.tags} />
                 </div>
             </div>
 
-            {/* <div className="w-full lg:col-span-3">
-                {children}
-            </div> */}
+
         </>
     );
 };
