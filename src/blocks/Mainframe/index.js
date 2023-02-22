@@ -17,9 +17,9 @@ const Body = ({ children }) => {
 
 export const Mainframe = ({ children }) => {
   return (
-    <main className={`max-w-4xl mx-auto gap-4 backdrop-blur-lg rounded drop-shadow-lg  min-w-0 break-words bg-gradient-to-r from-amber-700 to-rose-900 w-full mb-6 shadow-xl rounded-lg`} >
+    <main className={`max-w-5xl mx-auto gap-4 backdrop-blur-lg rounded drop-shadow-lg my-12 min-w-0 break-words bg-gradient-to-r from-amber-700 to-rose-900 w-full mb-6 shadow-xl rounded-lg`} >
 
-      <div className="grid grid-cols-4 gap-4 bg-black bg-opacity-30 rounded-lg ">
+      <div className="grid grid-cols-12 gap-4 bg-black bg-opacity-30 rounded-lg px-4 lg:px-8">
         {children}
         <div className="footer col-span-12 rounded-lg border bg-opacity-30 bg-gray-200 p-6">
           {/* <!-- Footer content --> */}

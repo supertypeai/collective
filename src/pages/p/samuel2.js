@@ -14,30 +14,30 @@ import { PROFILES } from '@/data/profiles'
 
 const me = PROFILES['samuel']
 
-export async function getStaticProps({ pathname }) {
+export async function getStaticProps() {
 
     const res = await fetch(`https://api.github.com/users/${me['github_handle']}`);
     const github_data = await res.json();
-    console.log(github_data, "github_data")
-    console.log(pathname, "pathname")
+    console.log(github_data)
 
     return {
         props: {
-            github_data
+            data: {
+                ...me,
+                gh: github_data,
+            }
         },
     }
 
 }
 
-const Samuel = ({ me, github_data }) => {
+const Samuel = ({ data }) => {
 
     return (
         // needs some navbar here to return to home
         <Mainframe>
-            <Toprow github_handle="onlyphantom" name="samuel"
-                github_data={github_data}
-            >
-                lorem ipsum dolor sit amet
+            <Toprow data={data}>
+                {JSON.stringify(data)}
             </Toprow>
         </Mainframe>
     )

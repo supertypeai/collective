@@ -1,21 +1,25 @@
-
-import { useEffect, useState } from "react";
-
 import Image from 'next/image'
 
-
-function Toprow({ me, github_data, children }) {
+function Toprow({ data, children }) {
     return (
         <>
-            {/* {JSON.stringify(github_data)} */}
-
-            <div className="w-full lg:col-span-1  flex justify-center mt-8">
-                <Image src={github_data.avatar_url}
-                    alt={`${github_data.name || me.name} supertype`} className="mt-8" width={200} height={200} priority />
-                <h3 className="text-4xl font-semibold leading-normal mb-2 -700 mb-2">
-                    {github_data.name}
-                </h3>
+            <div className="col-span-12 lg:col-span-4 justify-center justify-self-center lg:justify-self-start mt-8">
+                <div className="avatar">
+                    <div className="w-52 rounded-lg">
+                        <Image src={data.gh.avatar_url}
+                            alt={`${data.gh.name || data.fullname} supertype`}
+                            className="mt-8 object-cover rounded text-center" width={300} height={300} priority />
+                    </div>
+                </div>
             </div>
+            <div className="col-span-12 lg:col-span-8 justify-center justify-self-center lg:justify-self-start mt-8">
+
+                <h3 className="text-xl lg:text-3xl font-semibold leading-normal mb-2 -700 mb-2">
+                    {data.gh.name || data.fullname}
+                </h3>
+                <p className='prose text-sm'>{data.short || 'Full Stack Engineer'}</p>
+            </div>
+
             <div className="w-full lg:col-span-3">
                 {children}
             </div>
