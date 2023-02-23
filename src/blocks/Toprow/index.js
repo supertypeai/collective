@@ -5,7 +5,7 @@ import CheckBadge from '@/icons/CheckBadge';
 function Toprow({ data, children }) {
     return (
         <>
-            <div className="col-span-12 lg:col-span-4 justify-center justify-self-center lg:justify-self-start mt-8">
+            <div className="col-span-12 lg:col-span-4 justify-center justify-self-center mt-8">
                 <div className="avatar">
                     <div className="w-52 rounded-lg">
                         <Image src={data.gh.avatar_url}

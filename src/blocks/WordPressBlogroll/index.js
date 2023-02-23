@@ -3,17 +3,17 @@ import { useEffect, useState } from "react";
 
 const WordPressBlogroll = ({ wp_data }) => {
 
-    const [feed, setFeed] = useState(wp_data);
+    const [feed, setFeed] = useState([]);
 
     useEffect(() => {
         if (wp_data) {
             const posts = wp_data.map((post) => {
-                const { title, link, date, excerpt } = post;
+                const { id, title, link, date, excerpt } = post;
                 return {
-                    id: post.id,
+                    id: id,
                     title: decodeHtml(title.rendered),
                     link: parseUrlString(link),
-                    date: timeAgo(new Date(post.date).getTime()),
+                    date: timeAgo(new Date(date).getTime()),
                     excerpt: decodeHtml(excerpt.rendered),
                 };
             });
@@ -22,6 +22,8 @@ const WordPressBlogroll = ({ wp_data }) => {
     }, [wp_data]);
 
     // return JSON.stringify(feed)
+
+    if (!feed) return (<div>loading...</div>)
 
     return feed.map((post) => (
         <div style={{ marginBottom: "2rem" }} key={post.id}>
@@ -36,6 +38,7 @@ const WordPressBlogroll = ({ wp_data }) => {
                     className="link"
                 >
                     <h4 style={{ fontSize: "0.875rem", lineHeight: "1rem" }}>
+                        {/* {JSON.stringify(post.title)} */}
                         {post.title}
                     </h4>
                 </a>

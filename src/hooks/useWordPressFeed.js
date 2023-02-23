@@ -28,7 +28,7 @@ const timeAgo = (date) => {
     }
 }
 
-const parse_url_string = (url) => {
+const parseUrlString = (url) => {
     return url.replace(/\\/g, '')
 }
 
@@ -76,7 +76,7 @@ export default function useWordPressFeed(site_url, author_id, number_of_posts = 
                         return {
                             title: decodeHtml(post.title.rendered),
                             // processed link: https:\/\/supertype.ai\/p\/samuel\/ -> https://supertype.ai/p/samuel/
-                            link: parse_url_string(post.link),
+                            link: parseUrlString(post.link),
                             slug: post.slug,
                             date: timeAgo(new Date(post.date).getTime()),
                             excerpt: decodeHtml(post.excerpt.rendered),

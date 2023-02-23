@@ -1,19 +1,64 @@
-export const PROFILES = {
-    'samuel': {
-        // you should fill in your own data here
-        'fullname': 'Samuel Chan',
-        'github_handle': 'onlyphantom',
-        'tags': ["data science", "MLOps", "artificial intelligence", "machine learning", "data engineering", "data visualization", "data analytics", "bash", "gcp", "data warehouse", "api engineering", "django", "rest framework", "linux", "react"],
-        'short': 'MLOps (Machine Learning Ops) & Full Stack Engineer, Supertype.ai',
-        'long': 'Samuel is the co-founder of HyperGrowth (2014 - 2016 exit), Algoritma (2016 - Present) and Supertype (2022 - Present) and has been building world-class engineering and analytics \
+export const duplicateThis = {
+
+
+
+}
+
+
+export const samuel = {
+    // you should fill in your own data here
+    'fullname': 'Samuel Chan',
+    'github_handle': 'onlyphantom',
+    'tags': ["data science", "MLOps", "artificial intelligence", "machine learning", "data engineering", "data visualization", "data analytics", "bash", "gcp", "data warehouse", "api engineering", "django", "rest framework", "linux", "react"],
+    'short': 'MLOps (Machine Learning Ops) & Full Stack Engineer, Supertype.ai',
+    'long': 'Samuel is the co-founder of HyperGrowth (2014 - 2016 exit), Algoritma (2016 - Present) and Supertype (2022 - Present) and has been building world-class engineering and analytics \
                 teams since 2014. He is passionate about accessible software education, and have years of experience \
                 building scalable, robust, and maintainable analytics infrastructure for companies across his time spent \
                 living and working in China, Singapore and Japan. Samuel is a guest lecturer at several universities across Singapore and Indonesia.',
-        // optional, but nice to have
-        'wp_blog_root_url': 'https://supertype.ai',
-        'wp_blog_author_id': 1,
-        // supertype-specific settings (please ignore unless instructed)
-        'supertype_fellowship_id': 44,
-        'supertype_proof_of_verification': true,
-    }
+    'affiliations': [
+        {
+            title: 'Supertype',
+            position: 'Co-founder',
+            start: ["Jul '21", 'Current'],
+            description: [
+                'Oversee all Research and Development operations in the company',
+                "Co-lead the team in all areas of new product development initiatives, and upholding the company's 'built-well, shipped frequently' philosophy",
+                'Take on consultation projects for clients in the areas of data science, machine learning, and analytics engineering',
+                'Spearhead the development of Supertype Fellowship, a program that pairs you with mentors while you learn, build, ship and deploy code in the real world.',
+            ],
+            tags: ['API Engineering', 'Django', 'REST Framework', 'Linux', 'React'],
+        },
+        {
+            title: 'Algoritma',
+            position: 'Co-founder',
+            start: ["Jun '16", 'Current'],
+            description: [
+                'Lead the team in consultative training for education and corporate clients, with topics as varied as data visualization, machine learning, automation and data analytics',
+                "Lead the Data Science bootcamp academy team on the development of the curriculum, and the hiring of instructors and mentors",
+                'Built and launched several software for the education industry, including Corgi, a course authoring and automation tool, and Pedagogy, a teaching performance system',
+            ],
+            tags: ['Data Science', 'Machine Learning', 'Data Engineering', 'Data Visualization', 'Data Analytics', 'Bash', 'GCP', 'Data Warehouse'],
+        },
+        {
+            title: 'Adaro Energy',
+            position: 'Principal Consultant, Data Science & Engineering',
+            start: ["Jun '21", 'Current'],
+            description: 'Spearhead major data science, analytics and engineering initiatives under the various companies in the Adaro Group as an in-house consultant. In charge of the recruitment and training strategies of the sister companies within the Group.',
+            tags: ['Data Science', 'Machine Learning', 'Data Engineering', 'Data Visualization', 'Data Analytics', 'Bash', 'GCP', 'Data Warehouse'],
+        },
+        {
+            title: 'Supertype Fellowship',
+            position: 'Technical Mentor and Quiz Master',
+            start: ["Mar '23", "April"],
+            description: 'Author and design the various electives offered in the Supertype Fellowship program, and create meaningful learning experiences using Github Automation and a learning management system incubated by Supertype',
+            tags: ['API Engineering', 'Django', 'REST Framework', 'Linux', 'React'],
+        },
+    ],
+    // optional, but nice to have
+    'wp_blog_root_url': 'https://supertype.ai',
+    'wp_blog_author_id': 1,
+    // supertype-specific settings (please ignore unless instructed)
+    'supertype_fellowship_id': 44,
+    'supertype_proof_of_verification': true,
 }
+
