@@ -1,4 +1,5 @@
 import Home from '@/icons/Home'
+import Image from 'next/image'
 
 import { Mainframe } from '@/blocks/Mainframe'
 import Toprow from '@/blocks/Toprow'
@@ -86,7 +87,14 @@ const Affiliations = ({ affiliations }) => {
         </div>
     </>
     )
+}
 
+const IconRow = ({ tags }) => {
+    return (
+        <div className="flex mb-4 space-x-16">
+            {tags.map((tag, index) => <Image key={index} src={`/techicons/${tag}_inv.png`} width={50} height={50} alt={tag} />)}
+        </div>
+    )
 }
 
 
@@ -112,39 +120,9 @@ const Samuel = ({ data }) => {
                                 </div>
 
                                 <div className="ml-6 pt-5">
-                                    <div className="flex mb-4 space-x-16">
-                                        <div>
-                                            <img src="/techicons/pytorch_inv.png" className="w-10 max-w-fit" />
-                                        </div>
-                                        <div>
-                                            <img src="/techicons/sql_inv.png" className="w-10 max-w-fit" />
-                                        </div>
-                                        <div>
-                                            <img src="/techicons/python_inv.png" className="w-10 max-w-fit" />
-                                        </div>
-                                    </div>
-                                    <div className="flex mb-4 space-x-16">
-                                        <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/react_inv.png" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/r_inv.png" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/gcp_inv.png" />
-                                        </div>
-                                    </div>
-                                    <div className="flex mb-4 space-x-16">
-                                        <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/bash_inv.png" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/postgresql_inv.png" />
-                                        </div>
-                                        <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/nextjs_inv.png" />
-                                        </div>
-                                    </div>
+                                    <IconRow tags={['html', 'css', 'js']} />
+                                    <IconRow tags={['react', 'nextjs', 'tableau']} />
+                                    <IconRow tags={['powerbi']} />
                                 </div>
                             </div>
 
@@ -159,35 +137,35 @@ const Samuel = ({ data }) => {
                                 <div className="ml-6 pt-5">
                                     <div className="flex mb-4 space-x-16">
                                         <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/nextjs_inv.png" />
+                                            <img src="/techicons/pytorch_inv.png" className="w-10 max-w-fit" />
                                         </div>
                                         <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/elastic_inv.png" />
+                                            <img src="/techicons/r_inv.png" className="w-10 max-w-fit" />
                                         </div>
                                         <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/django_inv.png" />
-                                        </div>
-                                    </div>
-                                    <div className="flex mb-4 space-x-16">
-                                        <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/azure_inv.png" />
-                                        </div>
-                                        <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/postman_inv.png" />
-                                        </div>
-                                        <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/api_inv.png" />
+                                            <img src="/techicons/sql_inv.png" className="w-10 max-w-fit" />
                                         </div>
                                     </div>
                                     <div className="flex mb-4 space-x-16">
                                         <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/docker_inv.png" />
+                                            <img src="/techicons/deeplearning_inv.png" className="w-10 max-w-fit" />
                                         </div>
                                         <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/mysql_inv.png" />
+                                            <img src="/techicons/nlp_inv.png" className="w-10 max-w-fit" />
                                         </div>
                                         <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/s3_inv.png" />
+                                            <img src="/techicons/algorithm_inv.png" className="w-10 max-w-fit" />
+                                        </div>
+                                    </div>
+                                    <div className="flex mb-4 space-x-16">
+                                        <div>
+                                            <img src="/techicons/computervision_inv.png" className="w-10 max-w-fit" />
+                                        </div>
+                                        <div>
+                                            <img src="/techicons/jupyter_inv.png" className="w-10 max-w-fit" />
+                                        </div>
+                                        <div>
+                                            <img src="/techicons/selenium_inv.png" className="w-10 max-w-fit" />
                                         </div>
                                     </div>
                                 </div>
@@ -205,35 +183,35 @@ const Samuel = ({ data }) => {
                                 <div className="ml-6 pt-5">
                                     <div className="flex mb-4 space-x-16">
                                         <div>
+                                            <img className="w-10 max-w-fit" src="/techicons/bash_inv.png" alt="" />
+                                        </div>
+                                        <div>
+                                            <img className="w-10 max-w-fit" src="/techicons/python_inv.png" />
+                                        </div>
+                                        <div>
+                                            <img className="w-10 max-w-fit" src="/techicons/mysql_inv.png" />
+                                        </div>
+                                    </div>
+                                    <div className="flex mb-4 space-x-16">
+                                        <div>
+                                            <img className="w-10 max-w-fit" src="/techicons/postgresql_inv.png" alt="" />
+                                        </div>
+                                        <div>
+                                            <img className="w-10 max-w-fit" src="/techicons/django_inv.png" />
+                                        </div>
+                                        <div>
+                                            <img className="w-10 max-w-fit" src="/techicons/solidity_inv.png" />
+                                        </div>
+                                    </div>
+                                    <div className="flex mb-4 space-x-16">
+                                        <div>
                                             <img className="w-10 max-w-fit" src="/techicons/github_inv.png" alt="" />
                                         </div>
                                         <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/cloudfront_inv.png" />
+                                            <img className="w-10 max-w-fit" src="/techicons/api_inv.png" />
                                         </div>
                                         <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/powerbi_inv.png" />
-                                        </div>
-                                    </div>
-                                    <div className="flex mb-4 space-x-16">
-                                        <div>
-                                            <img className="w-10 m-w-full" src="/techicons/gce_inv.png" />
-                                        </div>
-                                        <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/figma_inv.png" />
-                                        </div>
-                                        <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/flutter_inv.png" />
-                                        </div>
-                                    </div>
-                                    <div className="flex mb-4 space-x-16">
-                                        <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/androidstudio_inv.png" />
-                                        </div>
-                                        <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/c++_inv.png" />
-                                        </div>
-                                        <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/css_inv.png" />
+                                            <img className="w-10 max-w-fit" src="/techicons/postman_inv.png" />
                                         </div>
                                     </div>
                                 </div>
@@ -252,35 +230,24 @@ const Samuel = ({ data }) => {
                                 <div className="ml-6 pt-5">
                                     <div className="flex mb-4 space-x-16">
                                         <div>
-                                            <img src="/techicons/angular_inv.png" className="w-10 max-w-fit" />
+                                            <img src="/techicons/gce_inv.png" className="w-10 max-w-fit" />
+                                        </div>
+                                        <div>
+                                            <img src="/techicons/elastic_inv.png" className="w-10 max-w-fit" />
                                         </div>
                                         <div>
                                             <img src="/techicons/prisma_inv.png" className="w-10 max-w-fit" />
                                         </div>
-                                        <div>
-                                            <img src="/techicons/selenium_inv.png" className="w-10 max-w-fit" />
-                                        </div>
                                     </div>
                                     <div className="flex mb-4 space-x-16">
                                         <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/solidity_inv.png" alt="" />
+                                            <img className="w-10 max-w-fit" src="/techicons/docker_inv.png" alt="" />
                                         </div>
                                         <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/kubernetes_inv.png" alt="" />
+                                            <img className="w-10 max-w-fit" src="/techicons/azure_inv.png" alt="" />
                                         </div>
                                         <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/jupyter_inv.png" />
-                                        </div>
-                                    </div>
-                                    <div className="flex mb-4 space-x-16">
-                                        <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/js_inv.png" alt="" />
-                                        </div>
-                                        <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/webgl_inv.png" />
-                                        </div>
-                                        <div>
-                                            <img className="w-10 max-w-fit" src="/techicons/swift_inv.png" />
+                                            <img className="w-10 max-w-fit" src="/techicons/heroku_inv.png" />
                                         </div>
                                     </div>
                                 </div>
