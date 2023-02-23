@@ -3,7 +3,7 @@ export const PROFILES = {
         // you should fill in your own data here
         'fullname': 'Samuel Chan',
         'github_handle': 'onlyphantom',
-        'tags': ["data science", "MLOps", "artificial intelligence", "machine learning", "data engineering", "data visualization", "data analytics", "bash", "gcp", "linux", "react"],
+        'tags': ["data science", "MLOps", "artificial intelligence", "machine learning", "data engineering", "data visualization", "data analytics", "bash", "gcp", "data warehouse", "api engineering", "django", "rest framework", "linux", "react"],
         'short': 'MLOps (Machine Learning Ops) & Full Stack Engineer, Supertype.ai',
         'long': 'Samuel is the co-founder of HyperGrowth (2014 - 2016 exit), Algoritma (2016 - Present) and Supertype (2022 - Present) and has been building world-class engineering and analytics \
                 teams since 2014. He is passionate about accessible software education, and have years of experience \

@@ -2349,10 +2349,10 @@ word-wrap@^1.2.3:
   resolved "https://registry.yarnpkg.com/word-wrap/-/word-wrap-1.2.3.tgz#610636f6b1f703891bd34771ccb17fb93b47079c"
   integrity sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==
 
-wordpress-posts-react@^1.1.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/wordpress-posts-react/-/wordpress-posts-react-1.2.0.tgz#7030922a119ede65f1d032048c646b4c0f544a33"
-  integrity sha512-3/Bx8Dmpp7LmD/dIn/zY1BdtNMxafXjwxZLl7+tqJBl9UfSyRU6icseaP57aELjmi0mJwNTib2Icv5iMY+bIoQ==
+wordpress-posts-react@^1.2.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/wordpress-posts-react/-/wordpress-posts-react-1.3.0.tgz#444faee31a5d08d0bf7828692adae31a512c9fb5"
+  integrity sha512-i7wUWERncf+yFt+gag6zqeJjv3KwYHOdGLobXY8kGwkCS70mgKg2VH94tPmF2xPLnjqioikK5GdYQ65zMKWflA==
 
 wrappy@1:
   version "1.0.2"

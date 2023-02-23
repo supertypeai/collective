@@ -25,7 +25,7 @@ function Toprow({ data, children }) {
                 <h3 className="text-xl lg:text-3xl font-semibold leading-normal mb-2 -700 mb-2">
                     {data.gh.name || data.fullname}
                 </h3>
-                <div className="max-w-[400px] sm:max-w-lg lg:max-w-xl prose text-sm text-slate-400 ">
+                <div className="max-w-[400px] sm:max-w-lg lg:max-w-xl prose text-sm text-slate-200 ">
                     <p className='mb-4'>{data.short || 'Full Stack Engineer'}</p>
                     <p className='mb-4'>{data.long || ''}</p>
                     {children}

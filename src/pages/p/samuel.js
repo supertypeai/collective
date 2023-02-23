@@ -4,7 +4,7 @@ import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import Home from '@/icons/Home'
 
-import { WordPressBlogroll, useWordPressFeed } from 'wordpress-posts-react'
+import { WordPressBlogroll } from 'wordpress-posts-react'
 import Pills from '@/blocks/Pills'
 
 const TAGS = ["data science", "MLOps", "artificial intelligence", "machine learning", "data engineering", "data visualization", "data analytics", "bash", "gcp", "linux", "react"]
