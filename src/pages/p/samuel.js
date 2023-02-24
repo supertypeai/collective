@@ -29,7 +29,6 @@ export async function getStaticProps() {
     }
 }
 
-
 const Samuel = ({ data }) => {
 
     return (
