@@ -33,7 +33,6 @@ export async function getStaticProps() {
 const Samuel = ({ data }) => {
 
     return (
-        // needs some navbar here to return to home
         <Mainframe data={data}>
             <Toprow>
                 Hire me to work on your analytics backend, <b>operationlize</b> your data science models,

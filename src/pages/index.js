@@ -74,7 +74,7 @@ export default function Home() {
           </a>
 
           <a
-            href="https://supertype.ai"
+            href="https://fellowship.supertype.ai"
             className={styles.card}
             target="_blank"
             rel="noopener noreferrer"
@@ -89,16 +89,19 @@ export default function Home() {
           </a>
 
           <Link
-            href="/templates"
+            // href="/templates"
+            href="/p/samuel"
             className={styles.card}
           >
             <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
+              Example <span>-&gt;</span>
             </h2>
             <p className={inter.className}>
-              Boilerplates and References to build out your profile page.
+              {/* Boilerplates and References to build out your profile page. */}
+              An example developer profile to get you started.
             </p>
           </Link>
+
 
           <a
             href="https://github.com/supertypeai/collective"

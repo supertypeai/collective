@@ -147,3 +147,9 @@ a {
     transform-origin: 0 0;
     top: 60%;
 }
+
+.timeline-dates {
+    right: 200px;
+    position: relative;
+    bottom: 40px;
+}

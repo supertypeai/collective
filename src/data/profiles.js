@@ -19,7 +19,7 @@ export const samuel = {
         {
             title: 'Supertype',
             position: 'Co-founder',
-            start: ["Jul '21", 'Current'],
+            period: "July '21 - Present",
             description: [
                 'Oversee all Research and Development operations in the company',
                 "Co-lead the team in all areas of new product development initiatives, and upholding the company's 'built-well, shipped frequently' philosophy",
@@ -31,7 +31,7 @@ export const samuel = {
         {
             title: 'Algoritma',
             position: 'Co-founder',
-            start: ["Jun '16", 'Current'],
+            period: "June '16 - Present",
             description: [
                 'Lead the team in consultative training for education and corporate clients, with topics as varied as data visualization, machine learning, automation and data analytics',
                 "Lead the Data Science bootcamp academy team on the development of the curriculum, and the hiring of instructors and mentors",
@@ -42,14 +42,14 @@ export const samuel = {
         {
             title: 'Adaro Energy',
             position: 'Principal Consultant, Data Science & Engineering',
-            start: ["Jun '21", 'Current'],
+            period: "June '21 - Present",
             description: 'Spearhead major data science, analytics and engineering initiatives under the various companies in the Adaro Group as an in-house consultant. In charge of the recruitment and training strategies of the sister companies within the Group.',
             tags: ['Data Science', 'Machine Learning', 'Data Engineering', 'Data Visualization', 'Data Analytics', 'Bash', 'GCP', 'Data Warehouse'],
         },
         {
             title: 'Supertype Fellowship',
             position: 'Technical Mentor and Quiz Master',
-            start: ["Mar '23", "April"],
+            period: "March '23 - Present",
             description: 'Author and design the various electives offered in the Supertype Fellowship program, and create meaningful learning experiences using Github Automation and a learning management system incubated by Supertype',
             tags: ['API Engineering', 'Django', 'REST Framework', 'Linux', 'React'],
         },

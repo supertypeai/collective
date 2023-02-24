@@ -1,9 +1,8 @@
 
-const TimelineDate = ({ start }) => {
+const TimelineDate = ({ period }) => {
     return (
-        <div className="hidden md:block w-36 -rotate-90 hover:rotate-0 cursor-pointer">
-            <div className="md:flex space-x-1 text-xs">{start[0]} - </div>
-            <div className="font-bold text-sm">{start[1]}</div>
+        <div className="hidden timeline-dates md:block w-80 -rotate-90 whitespace-nowrap">
+            <div className="md:flex space-x-1 text-xs">{period}</div>
         </div>
     )
 }
@@ -16,21 +15,20 @@ const Affiliations = ({ affiliations }) => {
             {
                 affiliations.map((affiliation, index) => {
                     return (
-                        <div className="flex items-center relative md:space-x-5" key={index}>
-                            <TimelineDate start={affiliation['start']} />
+                        <div className="w-full" key={index}>
+                            <TimelineDate period={affiliation['period']} />
 
-                            <div className="border-r-2 border-white opacity-40 absolute h-full left-1 md:left-8 top-2 z-10">
+                            <div className="border-r-2 border-white opacity-30 absolute h-full left-1 md:left-4 top-2 z-10">
                                 <i className="-top-1 -ml-1 absolute">●</i>
                             </div>
 
-                            <div className="ml-10 w-screen max-w-xs sm:max-w-sm xl:max-w-md xl:pr-4">
+                            <div className="ml-10 w-screen max-w-xs sm:max-w-sm xl:max-w-md xl:pr-4 w-auto">
                                 <div className="font-bold">{affiliation['title']}</div>
                                 <div className="italic md:mb-4 text-sm">{affiliation['position']}</div>
                                 <div className="mb-4 mt-2 md:hidden">
-                                    <div className="font-bold">{affiliation['start'][1]}</div>
-                                    <div className="text-xs">{affiliation['start'][0]}</div>
+                                    <div className="font-bold">{affiliation['period']}</div>
                                 </div>
-                                <div className="mb-10 text-xs">
+                                <div className="mb-10 text-xs w-full lg:w-60 lg:max-w-md xl:w-full xl:max-w-lg xl:pr-4">
                                     {
                                         Array.isArray(affiliation['description']) ?
                                             (
