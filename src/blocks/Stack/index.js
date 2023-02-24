@@ -12,11 +12,11 @@ export const Stack = ({ children }) => {
 export const StackSection = ({ sectionName, children }) => {
     return (
         <div className="flex items-center relative pb-5 justify-start">
-            <div className="border-r-2 border-black absolute h-full top-2 z-10">
-                <i className="-top-1 -ml-1 absolute text-black">●</i>
-                <div className="absolute stack -ml-8 font-bold text-gray-400 text-sm w-max">
-                    {sectionName}
-                </div>
+            <div className="border-r-2 border-white opacity-50 absolute h-full top-2 z-10">
+                <i className="-top-1 -ml-1 absolute">●</i>
+            </div>
+            <div className="absolute stack -ml-8 font-bold text-gray-400 text-sm w-max">
+                {sectionName}
             </div>
 
             <div className="ml-6 pt-5">

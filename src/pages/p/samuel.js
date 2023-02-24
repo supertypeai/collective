@@ -34,13 +34,13 @@ const Samuel = ({ data }) => {
 
     return (
         // needs some navbar here to return to home
-        <Mainframe>
-            <Toprow data={data}>
+        <Mainframe data={data}>
+            <Toprow>
                 Hire me to work on your analytics backend, <b>operationlize</b> your data science models,
                 or architect your <b>end-to-end machine learning pipelines.</b>
             </Toprow>
-            <Body data={data}>
-                <div className="md:mr-12 md:w-1/3">
+            <Body>
+                <div className="w-full md:mr-12 md:w-1/3">
                     <Stack>
                         <StackSection sectionName="Frontend">
                             <IconRow tags={['html', 'css', 'js']} />

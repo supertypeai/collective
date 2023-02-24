@@ -1,8 +1,13 @@
+import { useContext } from 'react';
+
 import Image from 'next/image'
 import Pills from '@/blocks/Pills'
 import CheckBadge from '@/icons/CheckBadge';
+import { MeContext } from '@/contexts/MeContext';
 
-function Toprow({ data, children }) {
+function Toprow({ children }) {
+    const data = useContext(MeContext);
+
     return (
         <>
             <div className="col-span-12 lg:col-span-4 justify-center justify-self-center mt-8">

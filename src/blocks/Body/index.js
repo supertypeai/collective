@@ -1,6 +1,11 @@
+import { useContext } from 'react';
 import WpArticles from "../WpArticles"
 
-const Body = ({ data, children }) => {
+import { MeContext } from '@/contexts/MeContext';
+
+const Body = ({ children }) => {
+
+    const data = useContext(MeContext);
 
     if (data['wp']) {
 
@@ -9,7 +14,7 @@ const Body = ({ data, children }) => {
                 <div className="col-span-12 lg:col-span-4 justify-center justify-self-center lg:justify-self-start mt-8">
                     <WpArticles wp_data={data['wp']} />
                 </div>
-                <div className="mx-auto max-w-80 lg:col-span-8 justify-center justify-self-center lg:justify-self-start mt-8">
+                <div className="mx-auto max-w-80 col-span-12 lg:col-span-8 justify-center justify-self-center lg:justify-self-start mt-8">
                     <div className="md:flex mt-14 text-center md:ml-8">
                         {children}
                     </div>

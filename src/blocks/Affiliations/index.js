@@ -19,8 +19,8 @@ const Affiliations = ({ affiliations }) => {
                         <div className="flex items-center relative md:space-x-5" key={index}>
                             <TimelineDate start={affiliation['start']} />
 
-                            <div className="border-r-2 border-black absolute h-full left-1 md:left-8 top-2 z-10">
-                                <i className="-top-1 -ml-1 absolute text-black">●</i>
+                            <div className="border-r-2 border-white opacity-40 absolute h-full left-1 md:left-8 top-2 z-10">
+                                <i className="-top-1 -ml-1 absolute">●</i>
                             </div>
 
                             <div className="ml-10 w-screen max-w-xs sm:max-w-sm xl:max-w-md xl:pr-4">
