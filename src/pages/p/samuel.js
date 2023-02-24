@@ -63,7 +63,7 @@ const Samuel = ({ data }) => {
                         </StackSection>
                     </Stack>
                 </div>
-                <div className="md:w-2/3">
+                <div className="w-full md:w-2/3">
                     <Affiliations affiliations={me['affiliations']} />
                 </div>
             </Body>

@@ -23,7 +23,7 @@ const Affiliations = ({ affiliations }) => {
                                 <i className="-top-1 -ml-1 absolute text-black">●</i>
                             </div>
 
-                            <div className="ml-10">
+                            <div className="ml-10 w-screen max-w-xs sm:max-w-sm xl:max-w-md xl:pr-4">
                                 <div className="font-bold">{affiliation['title']}</div>
                                 <div className="italic md:mb-4 text-sm">{affiliation['position']}</div>
                                 <div className="mb-4 mt-2 md:hidden">
@@ -36,14 +36,14 @@ const Affiliations = ({ affiliations }) => {
                                             (
                                                 <ul className="list-disc">
                                                     {affiliation['description'].map((desc, index) => {
-                                                        return <li key={index}>{desc}</li>
+                                                        return <li key={index} className="text-justify">{desc}</li>
                                                     })}
                                                 </ul>
 
                                             )
                                             :
                                             <ul className="list-disc">
-                                                <li>{affiliation['description']}</li>
+                                                <li className="text-justify">{affiliation['description']}</li>
                                             </ul>
                                     }
                                 </div>
