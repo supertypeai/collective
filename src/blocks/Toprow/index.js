@@ -13,7 +13,7 @@ function Toprow({ children }) {
             <div className="col-span-12 lg:col-span-4 justify-center justify-self-center mt-8">
                 <div className="avatar">
                     <div className="w-52 rounded-lg">
-                        <Image src={data.gh.avatar_url}
+                        <Image src={data.gh.avatar_url || data.avatar_url}
                             alt={`${data.gh.name || data.fullname} supertype`}
                             className="mt-8 object-cover rounded text-center" width={300} height={300} priority />
                     </div>

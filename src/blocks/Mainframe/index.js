@@ -15,6 +15,11 @@ export const Mainframe = ({ children, data }) => {
         <title>{`${data.fullname} on Supertype Collective`}</title>
         <meta name="description" content={`${data.fullname} (${data.short}) | ${data.affiliations.length > 0 && data.affiliations[0]['title'] + ' ' + data.affiliations[0]['position']} | Supertype Collective`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* this is for image appearing on opengraph when shared on social media */}
+        <meta property="og:image" content={data.gh.avatar_url || data.avatar_url} />
+        <meta property="og:title" content={`${data.fullname} on Supertype Collective`} />
+        <meta property="og:description" content={`${data.fullname} (${data.short}) | ${data.affiliations.length > 0 && data.affiliations[0]['title'] + ' ' + data.affiliations[0]['position']} | Supertype Collective`} />
+        <meta property="og:site_name" content="Supertype Collective" />
         <link rel="icon" href="/favicon-32x32.png" />
       </Head>
       <Navbar />
