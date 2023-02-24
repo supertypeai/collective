@@ -1,6 +1,5 @@
 import WpArticles from "../WpArticles"
 
-
 const Body = ({ data, children }) => {
 
     if (data['wp']) {
@@ -11,7 +10,9 @@ const Body = ({ data, children }) => {
                     <WpArticles wp_data={data['wp']} />
                 </div>
                 <div className="mx-auto max-w-80 lg:col-span-8 justify-center justify-self-center lg:justify-self-start mt-8">
-                    {children}
+                    <div className="md:flex mt-14 text-center ml-8">
+                        {children}
+                    </div>
                 </div>
             </>
         )
