@@ -9,7 +9,8 @@ const TechIcon = ({ key, tag, dark }) => {
     return (
         <div className="tooltip flex" key={key} data-tip={tag}>
             <Image
-                src={imgSrc} width={50} height={50} alt={tag} className="max-w-fit"
+                src={imgSrc || "/techicons/badge_inv.png"}
+                width={50} height={50} alt={tag} className="max-w-fit"
                 onError={() => {
                     setImgSrc(dark ? `/techicons/badge.png` : `/techicons/badge_inv.png`)
                 }}
@@ -21,7 +22,7 @@ const TechIcon = ({ key, tag, dark }) => {
 
 const IconRow = ({ tags, dark }) => {
     return (
-        <div className="flex mb-4 space-x-16" >
+        <div className="flex mb-4 space-x-12 xl:space-x-16" >
             {
                 tags.map((tag, index) => <TechIcon key={index} tag={tag} dark={dark} />)
             }

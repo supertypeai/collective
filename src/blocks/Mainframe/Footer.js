@@ -3,7 +3,7 @@ import { LinkToHome } from "./Navbar"
 
 const Footer = () => {
     return (
-        <div className="col-span-12 bg-black pt-4">
+        <div className="col-span-12 bg-black pb-4">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 <div className="flex items-center">
