@@ -2,7 +2,7 @@ import Head from 'next/head'
 
 import { MeContext } from '@/contexts/MeContext';
 
-import { Navbar, LinkToHome } from './Navbar';
+import { Navbar } from './Navbar';
 import Footer from './Footer';
 
 

@@ -85,12 +85,10 @@ export default function useWordPressFeed(site_url, author_id, number_of_posts = 
                     })
                 })
                 .then(posts => {
-                    console.log("posts", posts)
                     setFeed(posts)
                     setLoading(false)
                 })
                 .catch(error => {
-                    console.log('fetch posts', error.message);
                     alert('Your posts could not be fetched from the specified address.\nError: ' + error.message);
                 });
         }
