@@ -58,7 +58,6 @@ const Samuel = ({ data }) => {
                         <StackSection sectionName="Backend">
                             <IconRow tags={['gce', 'elastic', 'prisma']} />
                             <IconRow tags={['docker', 'azure', 'heroku']} />
-                            <IconRow tags={['dbt', 'airflow']} />
                         </StackSection>
                     </Stack>
                 </div>

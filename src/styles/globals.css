@@ -154,10 +154,15 @@ a {
     bottom: 40px;
 }
 
-@media (max-width: 380px){
+@media (max-width: 400px){
   .adapt-xs {
     max-width: 360px;
     margin-right: 4px;
   }
+}
 
+@media (min-width: 400px) and (max-width: 460px){
+  .adapt-xs {
+    max-width: 400px
+  }
 }

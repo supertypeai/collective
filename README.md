@@ -1,9 +1,9 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/23b8f4ad-c3b9-4fe5-9412-f1679f68b6b2/deploy-status)](https://app.netlify.com/sites/thecollective/deploys) &nbsp; &nbsp; [![Supertype](https://img.shields.io/badge/supertype.ai-incubate-b1976b)](https://supertype.ai)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/23b8f4ad-c3b9-4fe5-9412-f1679f68b6b2/deploy-status)](https://app.netlify.com/sites/thecollective/deploys) &nbsp; &nbsp; [![Supertype](https://img.shields.io/badge/supertype.ai-incubate-b1976b)](https://supertype.ai/incubate)
 
 # Supertype Collective 
 ![Supertype Collective](./assets/header.png)
 
-[Supertype Collective](https://collective.supertype.ai) is a community of analytics developers, data scientists and engineering leaders passionate about solving the region's most pressing problems with data and technology. 
+[Supertype Collective](https://collective.supertype.ai) is a community of analytics developers, data scientists & engineering leaders building products across the full stack.
 
 ## Joining the Collective
 You can join the [Collective](https://collective.supertype.ai) through **one** of the following ways:
@@ -47,3 +47,6 @@ To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+## About Supertype Incubator
+Supertype Incubator is the in-house product factory of [Supertype](https://supertype.ai/incubate), a full cycle data science consultancy. It is the birthplace for several of Supertype products, and is a place where our members can experiment on new ideas with total freedom, world class engineering support, absolute creativity and autonomy.
