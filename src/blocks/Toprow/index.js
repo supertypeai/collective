@@ -25,7 +25,7 @@ function Toprow({ children }) {
                             Verified by Fellowship</p>
                     </div>}
             </div>
-            <div className="mx-auto max-w-80 lg:col-span-8 justify-center justify-self-center lg:justify-self-start mt-8">
+            <div className="mx-auto max-w-[18rem] sm:max-w-none lg:col-span-8 justify-center justify-self-center lg:justify-self-start mt-8">
 
                 <h3 className="text-xl lg:text-3xl font-semibold leading-normal mb-2 -700 mb-2">
                     {data.gh.name || data.fullname}

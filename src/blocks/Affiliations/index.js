@@ -11,7 +11,7 @@ const Affiliations = ({ affiliations }) => {
 
     return (<>
         <h3 className="text-2xl font-semibold leading-normal mb-2 -700 mb-2">Affiliations</h3>
-        <div className="relative mt-5 text-left">
+        <div className="relative mt-5 text-left text-white">
             {
                 affiliations.map((affiliation, index) => {
                     return (
@@ -22,7 +22,7 @@ const Affiliations = ({ affiliations }) => {
                                 <i className="-top-1 -ml-1 absolute">●</i>
                             </div>
 
-                            <div className="ml-10 w-screen max-w-xs sm:max-w-sm xl:max-w-md xl:pr-4 w-auto">
+                            <div className="ml-10 max-w-[18rem] sm:max-w-sm xl:max-w-md xl:pr-4 w-auto">
                                 <div className="font-bold">{affiliation['title']}</div>
                                 <div className="italic md:mb-4 text-sm">{affiliation['position']}</div>
                                 <div className="mb-4 mt-2 md:hidden">
