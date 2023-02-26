@@ -1,9 +1,14 @@
+import CollectiveMark from "../Toprow/CollectiveMark"
+
 export const Stack = ({ children }) => {
     return (
         <>
             <h3 className="text-2xl font-semibold leading-normal mb-2 -700 mb-2">My Stack</h3>
             <div className="relative mt-5 text-left">
                 {children}
+            </div>
+            <div className="text-xs my-4 text-left ml-2 hidden lg:block">
+                Developer Profile by <CollectiveMark />
             </div>
         </>
     )
