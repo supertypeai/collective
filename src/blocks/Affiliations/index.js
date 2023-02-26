@@ -11,7 +11,7 @@ const Affiliations = ({ affiliations }) => {
 
     return (<>
         <h3 className="text-2xl font-semibold leading-normal mb-2 -700 mb-2">Affiliations</h3>
-        <div className="relative mt-5 text-left text-white">
+        <div className="relative mt-5 text-left text-white md:ml-4 md:max-w-[15rem] xl:max-w-none">
             {
                 affiliations.map((affiliation, index) => {
                     return (
@@ -28,7 +28,7 @@ const Affiliations = ({ affiliations }) => {
                                 <div className="mb-4 mt-2 md:hidden">
                                     <div className="font-bold">{affiliation['period']}</div>
                                 </div>
-                                <div className="mb-10 text-xs w-full lg:w-60 lg:max-w-md xl:w-full xl:max-w-lg xl:pr-4">
+                                <div className="mb-10 text-xs w-full lg:w-60 lg:max-w-md xl:w-full">
                                     {
                                         Array.isArray(affiliation['description']) ?
                                             (
