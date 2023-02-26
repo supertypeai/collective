@@ -5,7 +5,6 @@ import { MeContext } from '@/contexts/MeContext';
 import { Navbar } from './Navbar';
 import Footer from './Footer';
 
-
 export const Mainframe = ({ children, data }) => {
 
   return (

@@ -153,3 +153,11 @@ a {
     position: relative;
     bottom: 40px;
 }
+
+@media (max-width: 380px){
+  .adapt-xs {
+    max-width: 360px;
+    margin-right: 4px;
+  }
+
+}
