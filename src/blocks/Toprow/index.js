@@ -30,12 +30,11 @@ function Toprow({ children }) {
                             Verified by Fellowship</p>
                     </div>}
             </div>
-            <div className="mx-auto lg:col-span-8 justify-center justify-self-center lg:justify-self-start mt-8 adapt-xs max-w-[18rem] sm:max-w-none">
-
+            <div className="mx-auto lg:col-span-8 justify-center justify-self-center lg:justify-self-start mt-8 adapt-xs max-w-sm sm:max-w-none mx-auto">
                 <h3 className="text-xl lg:text-3xl font-semibold leading-normal mb-2 -700 mb-2">
                     {data.gh.name || data.fullname}
                 </h3>
-                <div className="max-w-[400px] sm:max-w-lg lg:max-w-xl prose text-sm text-slate-200 ">
+                <div className="adapt-xs sm:max-w-lg w-full mx-auto lg:max-w-xl text-sm text-slate-200 ">
                     <p className='mb-4'>{data.short || 'Full Stack Engineer'}</p>
                     <p className='mb-4'>{data.long || ''}</p>
                     {children}

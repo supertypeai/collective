@@ -13,9 +13,7 @@ export default function Home() {
       <Head>
         <title>Supertype Collective</title>
         <meta name="description" content="
-          Supertype Collective is a community of analytics developers, data scientists 
-          and engineering leaders passionate about solving the region's most pressing 
-          problems with data and engineering. 
+          Supertype Collective is a community of analytics developers, data scientists &#38; engineering leaders building products across the full stack.
           " />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon-32x32.png" />
