@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import { MeContext } from '@/contexts/MeContext';
 
 const TimelineDate = ({ period }) => {
     return (
@@ -7,7 +9,9 @@ const TimelineDate = ({ period }) => {
     )
 }
 
-const Affiliations = ({ affiliations }) => {
+const Affiliations = () => {
+
+    const affiliations = useContext(MeContext).affiliations;
 
     return (<>
         <h3 className="text-2xl font-semibold leading-normal mb-2 -700 mb-2">Affiliations</h3>

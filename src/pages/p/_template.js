@@ -1,3 +1,4 @@
+// template for your Developer Profile
 import { Mainframe } from '@/blocks/Mainframe'
 import Toprow from '@/blocks/Toprow'
 import Body from '@/blocks/Body'
@@ -5,9 +6,15 @@ import IconRow from '@/blocks/IconRow'
 import Affiliations from '@/blocks/Affiliations'
 import { Stack, StackSection } from '@/blocks/Stack'
 
-import me from '@/data/profiles/samuel.json'
+import me from '@/data/profiles/_template.json'
 
 export async function getStaticProps() {
+
+    /*
+    you shouldn't have to modify any of the
+    following in this function; it returns the prop data
+    which is passed to the Profile component below
+    */
 
     if (me['github_handle']) {
         const res_gh = await fetch(`https://api.github.com/users/${me['github_handle']}`);
@@ -33,7 +40,6 @@ const MyStack = () => {
     return (
         <Stack>
             <StackSection sectionName="Frontend">
-                <IconRow tags={['html', 'css', 'js']} />
                 <IconRow tags={['react', 'nextjs', 'tableau']} />
                 <IconRow tags={['powerbi', 'graphql']} />
             </StackSection>
@@ -45,11 +51,9 @@ const MyStack = () => {
             <StackSection sectionName="Engineering">
                 <IconRow tags={['bash', 'python', 'mysql']} />
                 <IconRow tags={['postgresql', 'django', 'solidity']} />
-                <IconRow tags={['github', 'api', 'postman']} />
             </StackSection>
             <StackSection sectionName="Backend">
-                <IconRow tags={['gce', 'elastic', 'prisma']} />
-                <IconRow tags={['docker', 'azure', 'heroku']} />
+                <IconRow tags={['gce', 'elastic', 'heroku']} />
             </StackSection>
         </Stack>
     )
@@ -59,12 +63,8 @@ const Profile = ({ data }) => {
 
     return (
         <Mainframe data={data}>
-            <Toprow>
-                Hire me to work on your analytics backend, <b>operationlize</b> your data science models,
-                or architect your <b>end-to-end machine learning pipelines.</b>
-            </Toprow>
-            <Body stack={<MyStack />} affiliations={<Affiliations />}>
-            </Body>
+            <Toprow />
+            <Body stack={<MyStack />} affiliations={<Affiliations />} />
         </Mainframe>
     )
 }

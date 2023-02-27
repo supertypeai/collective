@@ -1,0 +1,63 @@
+{
+    "fullname": "Dwight Schrute",
+    "github_handle": "supertypeai",
+    "data.avatar_url": "https://avatars.githubusercontent.com/u/69116237",
+    "tags": [
+        "data science",
+        "MLOps",
+        "machine learning",
+        "elastic search"
+    ],
+    "short": "Full Stack Data Scientist @SupertypeAI and Head of Analytics @DunderMifflin",
+    "long": "Dwight is a salesman-turned data scientist who leads the analytics team at esteemed paper distribution company Dunder Mifflin. He is also a technical mentor and quiz master for Supertype Fellowship, a program that pairs you with mentors while you learn, build, ship and deploy code in the real world. Dwight spearheads the digital transformation initiatives at Dunder Mifflin and is now hoping to lend his expertise to more companies.",
+    "affiliations": [
+        {
+            "title": "Dunder Mifflin",
+            "position": "Head of Analytics",
+            "period": "July '05 - Present",
+            "description": [
+                "Oversee all Analytics engineering operations in the company",
+                "Helps the company sell more paper using customer data and analytics",
+                "Use the Traveling Salesman Problem to optimize the routes of the sales team at Dunder Mifflin Scranton branch"
+            ],
+            "tags": [
+                "traveling sales",
+                "djikstra algorithm",
+                "Analytics Engineering",
+                "Django",
+                "REST Framework",
+                "React"
+            ]
+        },
+        {
+            "title": "Dunder Mifflin",
+            "position": "Data Quality Analyst",
+            "period": "July '03 - June '05",
+            "description": [
+                "Responsible for entering data into the company's database system",
+                "Maintain the validity and accuracy of the data in the database",
+                "Schedule periodic maintenance tasks to ensure the database is up to date and able to handle the company's analytics needs in the future"
+            ],
+            "tags": [
+                "python",
+                "djikstra algorithm",
+                "sql",
+                "dbt"
+            ]
+        },
+        {
+            "title": "Supertype Fellowship",
+            "position": "Technical Mentor and Quiz Master",
+            "period": "March '23 - Present",
+            "description": "Author and design the various electives offered in the Supertype Fellowship program, and create meaningful learning experiences using Github Automation and a learning management system incubated by Supertype",
+            "tags": [
+                "API Engineering",
+                "REST Framework",
+                "Cloud Computing",
+                "sql"
+            ]
+        }
+    ],
+    "wp_blog_root_url": null,
+    "wp_blog_author_id": null
+}

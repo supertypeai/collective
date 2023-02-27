@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import Image from 'next/image'
 
-const TechIcon = ({ key, tag, dark }) => {
+const TechIcon = ({ tag, dark }) => {
 
     const originalSrc = dark ? `/techicons/${tag}.png` : `/techicons/${tag}_inv.png`
     const [imgSrc, setImgSrc] = useState(originalSrc)
 
     return (
-        <div className="tooltip flex" key={key} data-tip={tag}>
+        <div className="tooltip flex" data-tip={tag}>
             <Image
                 src={imgSrc || "/techicons/badge_inv.png"}
                 width={50} height={50} alt={tag} className="max-w-fit"
