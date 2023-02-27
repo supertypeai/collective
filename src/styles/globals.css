@@ -22,7 +22,7 @@
     transparent 360deg
   );
   --secondary-glow: radial-gradient(
-    rgba(255, 255, 255, 1),
+    rgba(255, 255, 255, 0),
     rgba(255, 255, 255, 0)
   );
 
@@ -44,39 +44,38 @@
   --card-border-rgb: 131, 134, 135;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 100, 0, 0;
-    --background-end-rgb: 0, 0, 0; 
 
-    --primary-glow: radial-gradient(
-      rgba(255, 1, 158, 0.4), 
-      rgba(236, 27, 27, 0));
-    --secondary-glow: linear-gradient(
-      to bottom right,
-      rgba(236, 27, 27, 0),
-      rgba(240, 64, 122, 0.517),
-      rgba(255, 1, 158, 0.4), 
-    );
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 100, 0, 0;
+  --background-end-rgb: 0, 0, 0; 
 
-    --tile-start-rgb: 2, 13, 46;
-    --tile-end-rgb: 2, 5, 19;
-    --tile-border: conic-gradient(
-      #ffffff80,
-      #ffffff40,
-      #ffffff30,
-      #ffffff20,
-      #ffffff10,
-      #ffffff10,
-      #ffffff80
-    );
+  --primary-glow: radial-gradient(
+    rgba(255, 1, 158, 0.4), 
+    rgba(236, 27, 27, 0));
+  --secondary-glow: linear-gradient(
+    to bottom right,
+    rgba(236, 27, 27, 0),
+    rgba(240, 64, 122, 0.517),
+    rgba(255, 1, 158, 0.4), 
+  );
 
-    --callout-rgb: 20, 20, 20;
-    --callout-border-rgb: 108, 108, 108;
-    --card-rgb: 100, 100, 100;
-    --card-border-rgb: 200, 200, 200;
-  }
+  --tile-start-rgb: 2, 13, 46;
+  --tile-end-rgb: 2, 5, 19;
+  --tile-border: conic-gradient(
+    #ffffff80,
+    #ffffff40,
+    #ffffff30,
+    #ffffff20,
+    #ffffff10,
+    #ffffff10,
+    #ffffff80
+  );
+
+  --callout-rgb: 20, 20, 20;
+  --callout-border-rgb: 108, 108, 108;
+  --card-rgb: 100, 100, 100;
+  --card-border-rgb: 200, 200, 200;
 }
 
 * {
@@ -149,7 +148,7 @@ a {
 }
 
 .timeline-dates {
-    right: 200px;
+    right: 10rem;
     position: relative;
     bottom: 40px;
 }

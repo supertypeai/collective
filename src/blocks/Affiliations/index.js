@@ -23,7 +23,6 @@ const Affiliations = () => {
                             <TimelineDate period={affiliation['period']} />
 
                             <div className="border-r-2 border-white opacity-30 absolute h-full left-1 md:left-4 top-2 z-10">
-                                <i className="-top-1 -ml-1 absolute">●</i>
                             </div>
 
                             <div className="ml-10 max-w-[18rem] sm:max-w-sm xl:max-w-md xl:pr-4 w-auto">

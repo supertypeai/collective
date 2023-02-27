@@ -21,7 +21,6 @@ const WordPressBlogroll = ({ wp_data }) => {
         }
     }, [wp_data]);
 
-    // return JSON.stringify(feed)
 
     if (!feed) return (<div>loading...</div>)
 

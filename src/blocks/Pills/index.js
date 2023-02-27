@@ -21,19 +21,19 @@ const createColorfulTags = (tags, colors = COLORS) => {
     pills.push(
       <span
         key={pill}
-        className={`text-rose-100 text-${color}-100 hover:bg-rose-900 cursor-pointer border rounded-full text-xs 
-                    whitespace-nowrap font-medium mr-1 px-2.5 pt-0.5 pb-1 leading-6`}
+        className={`text-rose-100 text-${color}-100 hover:bg-rose-900 cursor-pointer border rounded rounded-md text-xs 
+                    whitespace-nowrap font-medium mr-1 px-2 mb-1 leading-6`}
       >
         {pill}
       </span>
     );
   }
-  return pills;
+  return pills
 };
 
 const Pills = ({ tags, colors }) => {
   return (
-    <div className="mb-2 -600 mt-10 text-sm">
+    <div className="mb-2 mt-10 text-sm flex flex-wrap w-screen adapt-xs lg:max-w-[760px]">
       {createColorfulTags(tags, colors)}
     </div>
   );
