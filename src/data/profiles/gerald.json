@@ -1,0 +1,60 @@
+{
+    "fullname": "Gerald Bryan",
+    "github_handle": "geraldbryan",
+    "tags": [
+        "data science",
+        "machine learning",
+        "data visualization",
+        "data analytics",
+        "django",
+        "rest framework",
+        "swift",
+        "react",
+        "python",
+        "r",
+        "powerbi"
+    ],
+    "short": "Full Stack Data Scientist @SupertypeAI",
+    "long": "Gerald is a full stack data scientist in SupertypeAI responsible for the consultancy project in the areas of data science and machine learning. He is very interested about data science, data analytics industry in the hope of making the impact of data become more influential in the business decision making. He is also a junior ios developer who got a scholarship in the Apple Developer Academy and has been graduated in 2022.",
+    "affiliations": [
+        {
+            "title": "Gerald Bryan",
+            "position": "Full Stack Data Scientist",
+            "period": "August '20 - Present",
+            "description": [
+                "Take on consultation projects for clients in the areas of data science and machine learning",
+                "Doing research on some product development initiatives",
+                "Helps the company on the daily operations things."
+            ],
+            "tags": [
+                "data science",
+                "machine learning",
+                "data visualization",
+                "data analytics",
+                "gcp",
+                "django",
+                "rest framework",
+                "react",
+                "python",
+                "r"
+            ]
+        },
+        {
+            "title": "Gerald Bryan",
+            "position": "Junior IOS Developer",
+            "period": "March '22 - December '22",
+            "description": [
+                "Responsible on creating an ios negotiation application that has been published in the app store",
+                "Build 1 ios application focusing on marketing industry that has been tested into test flight",
+                "Developing 3 mini ios applications"
+            ],
+            "tags": [
+                "figma",
+                "swift",
+                "project management"
+            ]
+        }
+    ],
+    "wp_blog_root_url": null,
+    "wp_blog_author_id": null
+}
