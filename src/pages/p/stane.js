@@ -43,7 +43,7 @@ const MyStack = () => {
                 <IconRow tags={['jupyter', 'tensorflow', 'pytorch']} />
             </StackSection>
             <StackSection sectionName="Visualization">
-                <IconRow tags={['tableau', 'google data studio']} />
+                <IconRow tags={['tableau', 'looker']} />
             </StackSection>
         </Stack>
     )
