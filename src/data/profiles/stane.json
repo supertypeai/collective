@@ -1,0 +1,51 @@
+{
+    "fullname": "Stane Aurelius Ronotana",
+    "github_handle": "staneaurelius",
+    "data.avatar_url": "https://avatars.githubusercontent.com/u/69116237",
+    "tags": [
+        "MLOps",
+        "artificial intelligence",
+        "machine learning",
+        "deep learning",
+        "data engineering",
+        "data science",
+        "data analytics",
+        "gcp"
+    ],
+    "short": "Cloud and Data Engineer, Supertype.ai",
+    "long": "A certified Google Cloud Professional Data Engineer and Tensorflow Developer, Stane is keen on leveraging the use of cloud computing services to streamline data and machine learning pipelines. In addition to combining programming expertise and intricate mathematical ideas to create accurate custom deep learning models, he is also passionate on optimizing the whole environment and flow process of data.",
+    "affiliations": [
+        {
+            "title": "Supertype",
+            "position": "Cloud and Data Engineer",
+            "period": "October '21 - Present",
+            "description": [
+                "Handles cloud-related engineering operations in the company",
+                "Providing optimizations, in terms of both cost and performance, to the use of cloud computing services for storing and processing data",
+                "Works on client projects, with varied topics including but not limited to data analytics, machine learning, and automation"
+            ],
+            "tags": [
+                "data engineering",
+                "data science",
+                "data analytics",
+                "Cloud Computing",
+                "gcp",
+                "machine learning",
+                "artificial intelligence"
+            ]
+        },
+        {
+            "title": "Supertype Fellowship",
+            "position": "Quiz Master",
+            "period": "March '23 - Present",
+            "description": "Author and creator of the Google Cloud elective offered in the Supertype Fellowship program",
+            "tags": [
+                "Cloud Computing",
+                "gcp"
+            ]
+        }
+    ],
+    "wp_blog_root_url": "https://supertype.ai",
+    "wp_blog_author_id": 9,
+    "supertype_proof_of_verification": true
+}
