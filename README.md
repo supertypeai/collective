@@ -10,9 +10,15 @@
 We welcome members from all backgrounds, anywhere in the world, who wish to contribute to the Collective's vision of building an inclusive, collaborative, and healthy community of full stack analytics developers. 
 
 Read [the Wiki page](https://github.com/supertypeai/collective/wiki) for more details on:
-- [Building your Developer Profile](https://github.com/supertypeai/collective/wiki#instructions-to-create-your-developer-profile)
+- [Building your Developer Profile](https://github.com/supertypeai/collective/wiki/Getting-Started-(for-Collective-members))
 - [Special instructions for Supertype Fellowship members](https://github.com/supertypeai/collective/wiki/Supertype-Fellowship-Development-Challenge)
 - [Improving Collective platform as a code contributor](https://github.com/supertypeai/collective/wiki/Development-(for-Maintainers))
+
+### Help Supertype Community grow 
+- ⭐ Star this repo to show your support! 
+- 📣 Share this repo with your full-stack developer friends!
+- 📝 Contribute to the Wiki page to help others get started
+- 📧 [Email us](mailto:s@supertype.ai) with questions or feedback if you have other means of helping us grow the Collective
 
 ## Getting Started (for Collective members)
 Supertype Collective is built with Next.js and Tailwind CSS. You should be able to get started by cloning the repo and running `yarn install` (preferred) or `npm install`. This installs all the dependencies and you should be able to run the development server with `yarn dev` (preferred) or `npm run dev`. Proceed to the [Wiki page](https://github.com/supertypeai/collective/wiki) for instructions on creating your Developer Profile.
@@ -26,6 +32,7 @@ Out of the box, your Developer Profile will:
 - 🔗 API-driven, connect to your GitHub and WordPress accounts to automatically populate your profile with relevant information (more integrations to be supported soon)
 - 📄 Export Developer Profile to PDF directly 
 - 📦 Infinitely customizable! Using React's famous composition pattern, you can easily author your Developer Profile using the pre-made blocks provided in the `blocks` directory, but still have the flexibility to build your own blocks
+- 💻 More than 100 icons to choose from, including the most popular programming languages, frameworks, databases and tools in the data science and software engineering domains
 
 ### Building Blocks 
 Supertype Collective comes with a set of React components that can be used to build your profile. We call them "blocks". They are built with Tailwind CSS and are available in the `blocks` directory.
