@@ -6,7 +6,7 @@ import IconRow from '@/blocks/IconRow'
 import Affiliations from '@/blocks/Affiliations'
 import { Stack, StackSection } from '@/blocks/Stack'
 
-import me from '@/data/profiles/_template.json'
+import me from '@/data/profiles/gerald.json'
 
 export async function getStaticProps() {
 
@@ -40,20 +40,20 @@ const MyStack = () => {
     return (
         <Stack>
             <StackSection sectionName="Frontend">
-                <IconRow tags={['react', 'nextjs', 'tableau']} />
-                <IconRow tags={['powerbi', 'graphql']} />
+                <IconRow tags={['react', 'powerbi', 'tableau']} />
+                <IconRow tags={['figma', 'html', 'css']} />
             </StackSection>
             <StackSection sectionName="AI &#38; Data">
-                <IconRow tags={['pytorch', 'r', 'sql']} />
+                <IconRow tags={['pytorch', 'r', 'tensorflow']} />
                 <IconRow tags={['numpy', 'pandas', 'sklearn']} />
                 <IconRow tags={['tidyverse', 'jupyter', 'selenium']} />
             </StackSection>
             <StackSection sectionName="Engineering">
-                <IconRow tags={['bash', 'python', 'mysql']} />
-                <IconRow tags={['postgresql', 'django', 'solidity']} />
+                <IconRow tags={['django', 'python', 'mysql']} />
+                <IconRow tags={['postgresql', 'gcp', 'azure']} />
             </StackSection>
             <StackSection sectionName="Backend">
-                <IconRow tags={['gce', 'elastic', 'heroku']} />
+                <IconRow tags={['swift', 'elastic', 'heroku']} />
             </StackSection>
         </Stack>
     )
