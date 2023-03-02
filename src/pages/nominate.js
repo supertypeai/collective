@@ -41,7 +41,7 @@ const NominationForm = () => {
                         <label className={labelCls} htmlFor="first"> First Name
                         </label>
                         <input
-                            className="appearance-none block w-full bg-gray-100 text-gray-400 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="first" name="first" type="text" placeholder="Pam" required minlength="5" maxlength="20" />
+                            className="appearance-none block w-full bg-gray-100 text-gray-400 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="first" name="first" type="text" placeholder="Pam" required minLength="5" maxLength="20" />
                         <p className="text-gray-400 text-xs italic">This will be used as your as your username, if available</p>
                     </div>
                     <div className="w-full md:w-1/2 px-3">
@@ -71,7 +71,7 @@ const NominationForm = () => {
                 </div>
 
 
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary text-white">Submit</button>
 
             </form>
         </div>
