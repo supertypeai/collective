@@ -1,6 +1,8 @@
+import IconRow from '@/blocks/IconRow'
 import CollectiveMark from "../Toprow/CollectiveMark"
 
 export const Stack = ({ children }) => {
+
     return (
         <>
             <h3 className="text-2xl font-semibold leading-normal mb-2 -700 mb-2">My Stack</h3>
@@ -28,5 +30,37 @@ export const StackSection = ({ sectionName, children }) => {
                 {children}
             </div>
         </div>
+    )
+}
+
+export const generateStack = (stack) => {
+    const sections = []
+    for (const [key, value] of Object.entries(stack)) {
+
+        let section = []
+
+        // iterate through value, to form rows of 3
+        for (let i = 0; i < value.length; i += 3) {
+            let icons = []
+            value.map((icon, index) => {
+                if (index >= i && index < i + 3) {
+                    icons.push(icon)
+                }
+            })
+            section.push(
+                <IconRow tags={icons} />
+            )
+        }
+
+        sections.push(
+            <StackSection sectionName={key}>
+                {section}
+            </StackSection>
+        )
+    }
+    return (
+        <Stack>
+            {sections}
+        </Stack>
     )
 }

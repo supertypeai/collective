@@ -27,16 +27,27 @@ module.exports = {
         yellow: colors.yellow,
       }
     },
-    // colors: {
-    //   transparent: 'transparent',
-    //   current: 'currentColor',
-    //   black: colors.black,
-    //   white: colors.white,
-    //   gray: colors.gray,
-    //   emerald: colors.emerald,
-    //   indigo: colors.indigo,
-    //   yellow: colors.yellow,
-    // }
+  },
+  daisyui: {
+    themes: [
+      {
+        'supertype': {
+          'primary': '#80102b',
+          'primary-focus': '#c4002f',
+          'primary-content': '#000000',
+          'secondary': '#1A202C',
+          'secondary-focus': '#1A202C',
+          'secondary-content': '#FFFFFF',
+          'accent': '#37CDFF',
+          'accent-focus': '#37CDFF',
+          'accent-content': '#FFFFFF',
+          'neutral': '#3D4451',
+          'neutral-focus': '#3D4451',
+          'neutral-content': '#FFFFFF',
+        },
+      },
+      "halloween"
+    ]
   },
   plugins: [require("daisyui"), require('@tailwindcss/typography')],
 }
