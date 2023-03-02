@@ -37,6 +37,10 @@ export async function getStaticProps() {
 }
 
 const MyStack = () => {
+    // if you want to customize your stack, you can do so here
+    // otherwise just use generateStack(me.stack) so it reads
+    // from your profile.json file. generateStack is imported
+    // from '@/blocks/Stack'. Example in _template_ext.js
     return (
         <Stack>
             <StackSection sectionName="Frontend">
