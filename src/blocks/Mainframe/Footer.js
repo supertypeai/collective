@@ -21,7 +21,7 @@ const Footer = () => {
 
                             <Link href="https://supertype.ai/incubate" target="_blank" rel="noopener noreferrer">
                                 <Image src="/incubated.svg" alt="Incubated by Supertype"
-                                    className="max-w-fit inline ml-2 mb-1" width={120} height={120} />
+                                    className="max-w-fit inline ml-2 mb-1" width={136} height={20} />
                             </Link>
                         </div>
                     </div>

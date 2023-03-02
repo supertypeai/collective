@@ -2,13 +2,18 @@
 import { Mainframe } from '@/blocks/Mainframe'
 import Toprow from '@/blocks/Toprow'
 import Body from '@/blocks/Body'
-import IconRow from '@/blocks/IconRow'
 import Affiliations from '@/blocks/Affiliations'
-import { Stack, StackSection } from '@/blocks/Stack'
+import { generateStack } from '@/blocks/Stack'
 
-import me from '@/data/profiles/stane.json'
+import me from '@/data/profiles/_template_ext.json'
 
 export async function getStaticProps() {
+
+    /*
+    you shouldn't have to modify any of the
+    following in this function; it returns the prop data
+    which is passed to the Profile component below
+    */
 
     if (me['github_handle']) {
         const res_gh = await fetch(`https://api.github.com/users/${me['github_handle']}`);
@@ -30,31 +35,12 @@ export async function getStaticProps() {
     }
 }
 
-const MyStack = () => {
-    return (
-        <Stack>
-            <StackSection sectionName="Engineering">
-                <IconRow tags={['gcp', 'azure', 'docker']} />
-                <IconRow tags={['bash', 'github']} />
-            </StackSection>
-            <StackSection sectionName="AI &#38; Data">
-                <IconRow tags={['python', 'r', 'sql']} />
-                <IconRow tags={['numpy', 'pandas', 'sklearn']} />
-                <IconRow tags={['jupyter', 'tensorflow', 'pytorch']} />
-            </StackSection>
-            <StackSection sectionName="Visualization">
-                <IconRow tags={['tableau', 'looker']} />
-            </StackSection>
-        </Stack>
-    )
-}
-
 const Profile = ({ data }) => {
 
     return (
         <Mainframe data={data}>
             <Toprow />
-            <Body stack={<MyStack />} affiliations={<Affiliations />} />
+            <Body stack={generateStack(me.stack)} affiliations={<Affiliations />} />
         </Mainframe>
     )
 }

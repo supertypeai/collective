@@ -141,7 +141,7 @@ const Discover = () => {
                 setNodes(filteredNodes)
             }
         })
-    }, [visJsRef, nodes, edges]);
+    }, [visJsRef, nodes, edges, options]);
 
     const resetFilter = () => {
         setNodes(dataNodes)
