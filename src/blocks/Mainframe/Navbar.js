@@ -38,12 +38,9 @@ export const Navbar = () => {
 
 
                     </div>
-                    {/* goes to far right / end of navbar */}
                     <div className="flex items-center">
                         <div className="hidden md:block ">
                             <div className="ml-10 flex items-baseline space-x-4">
-                                {/* <a href="/collective" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a> */}
-                                {/* <a href="/explore" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Contact</a> */}
                                 {/* button to download this page as PDF */}
                                 <button onClick={onCreatePDF}
                                     className="text-white group hover:border hover:text-rose-200 px-3 py-1 rounded-md text-sm">
