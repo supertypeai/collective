@@ -138,7 +138,7 @@ const Discover = () => {
                     }
                 })
                 setSelectedId(tempIds)
-                const filteredNodes = nodes.filter((dataNode) => tempIds.includes(dataNode.id))
+                const filteredNodes = dataNodes.filter((dataNode) => tempIds.includes(dataNode.id))
                 setNodes(filteredNodes)
             }
         })
