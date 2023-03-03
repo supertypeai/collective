@@ -13,7 +13,6 @@ export async function getStaticProps() {
     if (me['github_handle']) {
         const res_gh = await fetch(`https://api.github.com/users/${me['github_handle']}`);
         const github_data = await res_gh.json();
-        console.log(github_data)
         me['gh'] = github_data
     }
 
