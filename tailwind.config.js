@@ -32,7 +32,7 @@ module.exports = {
     themes: [
       {
         'supertype': {
-          'primary': '#80102b',
+          'primary': '#ad0705',
           'primary-focus': '#c4002f',
           'primary-content': '#000000',
           'secondary': '#1A202C',
