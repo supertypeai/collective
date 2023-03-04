@@ -4,6 +4,10 @@
         "label": "React"
     },
     {
+        "value": "nextjs",
+        "label": "NextJS"
+    },
+    {
         "value": "vue",
         "label": "Vue"
     },

@@ -1,0 +1,148 @@
+[
+    {
+        "value": "frontend",
+        "label": "Front End",
+        "examples": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "jQuery",
+            "React",
+            "Angular",
+            "Vue",
+            "Bootstrap",
+            "Sass",
+            "Less",
+            "NextJS",
+            "Material Design",
+            "UI/UX"
+        ]
+    },
+    {
+        "value": "backend",
+        "label": "Back End",
+        "examples": [
+            "NodeJS",
+            "Express",
+            "PHP",
+            "Laravel",
+            "Python",
+            "Django",
+            "Flask",
+            "Django Rest Framework",
+            "Ruby",
+            "Ruby on Rails",
+            "Java",
+            "Spring"
+        ]
+    },
+    {
+        "value": "AI & Data",
+        "label": "AI & Data",
+        "examples": [
+            "TensorFlow",
+            "Keras",
+            "PyTorch",
+            "Pandas",
+            "Numpy",
+            "Scikit-Learn",
+            "ggPlot",
+            "Matplotlib",
+            "Seaborn",
+            "dplyr",
+            "Shiny (R framework)",
+            "OpenCV"
+        ]
+    },
+    {
+        "value": "devops",
+        "label": "Dev Ops",
+        "examples": [
+            "AWS",
+            "Azure",
+            "Google Cloud",
+            "Docker",
+            "Kubernetes",
+            "Terraform",
+            "Ansible",
+            "Snowflake",
+            "Puppet",
+            "Chef",
+            "Jenkins",
+            "Travis CI",
+            "GitHub Actions",
+            "Bitbucket Pipelines",
+            "AWS Lambda",
+            "Azure Functions",
+            "Google Cloud Functions"
+        ]
+    },
+    {
+        "value": "database",
+        "label": "Database",
+        "examples": [
+            "MySQL",
+            "PostgreSQL",
+            "MongoDB",
+            "Redis",
+            "Elasticsearch",
+            "Cassandra",
+            "Neo4j",
+            "SQL Server",
+            "Oracle",
+            "SQLite",
+            "MariaDB"
+        ]
+    },
+    {
+        "value": "mobile",
+        "label": "Mobile",
+        "examples": [
+            "React Native",
+            "Flutter",
+            "Swift",
+            "Kotlin",
+            "Objective-C",
+            "Java",
+            "Android",
+            "iOS"
+        ]
+    },
+    {
+        "value": "iot",
+        "label": "IoT",
+        "examples": [
+            "Arduino",
+            "Raspberry Pi",
+            "ESP32",
+            "ESP8266",
+            "NodeMCU",
+            "BeagleBone",
+            "CircuitPython",
+            "MicroPython",
+            "C/C++",
+            "Python",
+            "Java",
+            "Go",
+            "Rust",
+            "C#"
+        ]
+    },
+    {
+        "value": "blockchain",
+        "label": "Blockchain",
+        "examples": [
+            "Ethereum",
+            "Solidity",
+            "Truffle",
+            "Web3.js",
+            "Hyperledger",
+            "EVM",
+            "Vyper",
+            "Quorum",
+            "Corda",
+            "IOTA",
+            "EOS"
+        ]
+    }
+]

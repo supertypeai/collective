@@ -1,4 +1,4 @@
-import { useState, useContext } from "react"
+import { useContext } from "react"
 import dynamic from 'next/dynamic'
 import { useForm, Controller } from "react-hook-form"
 import Select from "react-select";
@@ -10,7 +10,6 @@ import profileTagsChoices from './profileTagsChoices.json';
 const PersonalDetails = ({ nextFormStep }) => {
 
     const context = useContext(NominateContext);
-    const [selectedOptions, setSelectedOptions] = useState([])
     const [form, setForm] = context.f
 
     const { register, control, handleSubmit, watch, formState: { errors } } = useForm({ defaultValues: form, mode: "onSubmit" });
@@ -24,7 +23,7 @@ const PersonalDetails = ({ nextFormStep }) => {
     return (
         <Form onSubmit={handleSubmit(saveData)}>
             <fieldset>
-                <legend>Developer Profile details</legend>
+                <legend>Developer Profile</legend>
                 <Field label="Full name" error={errors?.fullname}>
                     <Input
                         {...register("fullname", { required: "Full name is a required field" })}

@@ -39,7 +39,9 @@ function Toprow({ children }) {
                     <p className='mb-4'>{data.long || ''}</p>
                     {children}
                 </div>
-                <Pills tags={data.tags} />
+                <div className="mt-4">
+                    <Pills tags={data.tags} maxWidth="800px" />
+                </div>
             </div>
         </>
     );
