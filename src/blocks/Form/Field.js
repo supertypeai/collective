@@ -19,7 +19,7 @@ export const Field = ({ children, label, error, hint }) => {
             </label>
             {children}
             {hint && <Hint>{hint}</Hint>}
-            {error && <small className="error">{error.message}</small>}
+            {error && <p className="text-xs text-error">{error.message}</p>}
         </div>
     );
 };

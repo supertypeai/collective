@@ -25,8 +25,8 @@ const NominationForm = () => {
             <FormBlock
                 currentStep={formStep}
                 prevFormStep={prevFormStep}>
-                {formStep >= 0 && (
-                    <PersonalDetails formStep={formStep} nextFormStep={nextFormStep} />
+                {formStep === 0 && (
+                    <PersonalDetails nextFormStep={nextFormStep} />
                 )}
                 {formStep >= 1 && (
                     <StackDetails formStep={formStep} nextFormStep={nextFormStep} />

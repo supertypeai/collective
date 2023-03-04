@@ -12,12 +12,12 @@
         "label": "Angular"
     },
     {
-        "value": "node",
-        "label": "Node"
-    },
-    {
         "value": "python",
         "label": "Python"
+    },
+    {
+        "value": "r",
+        "label": "R (programming language)"
     },
     {
         "value": "ruby",
@@ -68,8 +68,8 @@
         "label": "TypeScript"
     },
     {
-        "value": "graphql",
-        "label": "GraphQL"
+        "value": "node",
+        "label": "NodeJS"
     },
     {
         "value": "docker",
