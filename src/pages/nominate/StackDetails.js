@@ -2,6 +2,7 @@ import { useState, useContext } from "react"
 import dynamic from 'next/dynamic'
 import { useForm } from "react-hook-form"
 import Select from "react-select";
+import useLocalStorage from "use-local-storage";
 
 import { NominateContext } from "@/contexts/NominateContext"
 import { Field, Form, Hint } from "@/blocks/Form"
@@ -14,7 +15,8 @@ const StackDetails = ({ nextFormStep }) => {
     const context = useContext(NominateContext);
     const [form, setForm] = context.f
 
-    const [stackExamples, setStackExamples] = useState({})
+    // const [stackExamples, setStackExamples] = useState({})
+    const [stackExamples, setStackExamples] = useLocalStorage("stackExamples", {});
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm({ defaultValues: form, mode: "onSubmit" });
 
