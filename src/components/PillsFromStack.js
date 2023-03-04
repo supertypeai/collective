@@ -1,41 +1,49 @@
 import Pills from '@/blocks/Pills'
 
-export const PillsFromStack = ({ stackExamples, setStackExamples }) => {
+export const PillsFromStack = ({ id, stackExamples, setStackExamples }) => {
     return <Pills
         tags={
-            stackExamples?.stack1_child.filter(
-                item => !stackExamples?.stack1_selected.includes(item)
+            stackExamples[id].child.filter(
+                item => !stackExamples[id].selected.includes(item)
             )
         }
         onClick={e => {
             console.log(e)
-            // add this to stack1_selected if stackExamples.stack1_selected.length < 10
-            if (stackExamples.stack1_selected.length >= 9) return
+            // max 9 choices
+            if (stackExamples[id].selected.length >= 9) return
+
             setStackExamples(
-                {
-                    ...stackExamples,
-                    "stack1_selected": [
-                        ...stackExamples?.stack1_selected,
-                        e
-                    ]
-                }
+                prev => ({
+                    ...prev,
+                    [id]: {
+                        ...prev[id],
+                        "selected": [
+                            ...prev[id]?.selected,
+                            e
+                        ]
+                    }
+                })
             )
         }}
         maxWidth="40"
     />
 }
 
-export const PillsFromSelected = ({ stackExamples, setStackExamples }) => {
+export const PillsFromSelected = ({ id, stackExamples, setStackExamples }) => {
     return <Pills
-        tags={stackExamples.stack1_selected}
+        tags={stackExamples[id].selected}
         onClick={e => {
+            console.log("stackExamples[id]", stackExamples[id])
             console.log(e)
-            // remove this from stack1_selected
+            // remove this from stack[id]
             setStackExamples(
-                {
-                    ...stackExamples,
-                    "stack1_selected": stackExamples?.stack1_selected.filter(item => item !== e)
-                }
+                prev => ({
+                    ...prev,
+                    [id]: {
+                        ...prev[id],
+                        "selected": prev[id]?.selected.filter(item => item !== e)
+                    }
+                })
             )
         }}
     />
