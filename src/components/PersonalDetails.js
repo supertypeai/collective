@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useId } from "react"
 import dynamic from 'next/dynamic'
 import { useForm, Controller } from "react-hook-form"
 import Select from "react-select";
@@ -6,6 +6,11 @@ import Select from "react-select";
 import { NominateContext } from "@/contexts/NominateContext"
 import { Field, Form, Input } from "@/blocks/Form"
 import profileTagsChoices from '@/data/profileTagsChoices.json';
+
+
+function StableSelect({ ...props }) {
+    return <Select {...props} instanceId={useId()} />;
+}
 
 const PersonalDetails = ({ nextFormStep }) => {
 
@@ -23,7 +28,10 @@ const PersonalDetails = ({ nextFormStep }) => {
     return (
         <Form onSubmit={handleSubmit(saveData)}>
             <fieldset>
-                <legend>Developer Profile</legend>
+                <legend>
+                    <h3 className="text-2xl font-bold">🧑‍💼 Developer Profile</h3>
+                    <p className="text-sm">The following details will be used to create a Developer Profile on Supertype Collective if your nomination is successful.</p>
+                </legend>
                 <Field label="Full name" error={errors?.fullname}>
                     <Input
                         {...register("fullname", { required: "Full name is a required field" })}
@@ -92,7 +100,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                         name="tags"
                         defaultValue={[]}
                         render={({ field: { onChange, value, ref } }) => (
-                            <Select
+                            <StableSelect
                                 inputRef={ref}
                                 isMulti
                                 options={profileTagsChoices}
@@ -103,7 +111,6 @@ const PersonalDetails = ({ nextFormStep }) => {
                                 }
                                 onChange={val => val.length <= 10 && onChange(val.map(c => c.value))}
                                 // value={selectedOptions}
-                                // onChange={o => setSelectedOptions(o)}
                                 theme={theme => ({
                                     ...theme,
                                     borderRadius: 0,
