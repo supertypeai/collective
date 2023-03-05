@@ -3,7 +3,7 @@ import { PillsFromSelected } from "@/components/PillsFromStack"
 
 const AddedToStack = ({ stackExamples, setStackExamples }) => {
     return (
-        <div className="w-full lg:col-span-2 lg:ml-8">
+        <div className="w-full col-span-12 lg:col-span-2 lg:ml-8 order-first lg:order-last">
             <div className="m-2 rounded border p-2">
                 <div className="mb-4">
                     <Hint>Maximum of 9 in each Stack. Click to drop from Stack</Hint>

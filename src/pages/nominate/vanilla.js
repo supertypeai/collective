@@ -3,7 +3,7 @@ import { useState } from "react";
 import Select from "react-select";
 
 import Pageframe from '@/blocks/Mainframe/Pageframe';
-import profileTagsChoices from './profileTagsChoices.json';
+import profileTagsChoices from '@/data/profileTagsChoices.json';
 
 const NominationForm = () => {
 

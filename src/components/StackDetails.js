@@ -1,4 +1,4 @@
-import { useState, useContext } from "react"
+import { useContext } from "react"
 import dynamic from 'next/dynamic'
 import { useForm } from "react-hook-form"
 import Select from "react-select";
@@ -6,7 +6,7 @@ import useLocalStorage from "use-local-storage";
 
 import { NominateContext } from "@/contexts/NominateContext"
 import { Field, Form, Hint } from "@/blocks/Form"
-import stackSectionChoices from './stackSectionChoices.json';
+import stackSectionChoices from "@/data/stackSectionChoices.json"
 import { PillsFromStack } from "@/components/PillsFromStack";
 import AddedToStack from "@/components/AddedToStack";
 
@@ -35,7 +35,7 @@ const StackDetails = ({ nextFormStep }) => {
         console.log({ ...data, stack: stack });
 
 
-        setForm({ ...form, ...data });
+        setForm({ ...data, stack: stack });
         // uncomment this when ready
         // nextFormStep();
     };
@@ -50,10 +50,30 @@ const StackDetails = ({ nextFormStep }) => {
                     <Select
                         id={`stack-${id}`}
                         className="text-black max-w-3xl"
+                        theme={theme => ({
+                            ...theme,
+                            borderRadius: 0,
+                            colors: {
+                                ...theme.colors,
+                                primary25: '#fcaa8c',
+                                primary: '#f46d75',
+                            },
+                        })}
+                        styles={{
+                            // change text color of selected option
+                            singleValue: (provided, state) => ({
+                                ...provided,
+                                color: '#ad0705',
+                                fontWeight: 'bold',
+                                fontSize: '0.8rem',
+                                textTransform: 'uppercase'
+                            }),
+                        }}
                         options={
                             // needs to be filtered by what's already in state
                             stackSectionChoices.filter((choice) => !Object.values(stackExamples).map(x => x.name).includes(choice.value))
                         }
+                        value={stackExamples[id] ? { value: stackExamples[id].name, label: stackExamples[id].label } : null}
                         onChange={e => {
                             setStackExamples(
                                 {
@@ -79,7 +99,7 @@ const StackDetails = ({ nextFormStep }) => {
 
     return (
         <div className="max-w-6xl grid grid-cols-5">
-            <div className="w-full lg:col-span-3">
+            <div className="w-full col-span-12 lg:col-span-3">
                 <Form onSubmit={handleSubmit(saveData)}>
                     <fieldset>
                         <legend>🛠️ Configure Tech Stack</legend>
@@ -100,9 +120,9 @@ const StackDetails = ({ nextFormStep }) => {
     )
 }
 
-const StackDetailsNonSSR = dynamic(() => Promise.resolve(StackDetails), {
-    ssr: false,
-})
+// const StackDetailsNonSSR = dynamic(() => Promise.resolve(StackDetails), {
+//     ssr: false,
+// })
 
 
-export default StackDetailsNonSSR
+export default StackDetails

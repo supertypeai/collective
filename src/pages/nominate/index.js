@@ -3,12 +3,11 @@ import { useState, useContext } from "react";
 import { NominateContext } from "@/contexts/NominateContext";
 
 import Pageframe from '@/blocks/Mainframe/Pageframe';
-// import profileTagsChoices from './profileTagsChoices.json';
 import FormBlock from "@/blocks/Form/FormBlock";
-import PersonalDetails from "./PersonalDetails";
-import StackDetails from "./StackDetails";
-import AffiliationDetails from "./AffiliationDetails";
-import NominationCompleted from "./NominationCompleted";
+import PersonalDetails from "@/components/PersonalDetails";
+import StackDetails from "@/components/StackDetails";
+import AffiliationDetails from "@/components/AffiliationDetails";
+import NominationCompleted from "@/components/NominationCompleted";
 
 const NominationForm = () => {
 

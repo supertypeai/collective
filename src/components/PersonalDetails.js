@@ -5,7 +5,7 @@ import Select from "react-select";
 
 import { NominateContext } from "@/contexts/NominateContext"
 import { Field, Form, Input } from "@/blocks/Form"
-import profileTagsChoices from './profileTagsChoices.json';
+import profileTagsChoices from '@/data/profileTagsChoices.json';
 
 const PersonalDetails = ({ nextFormStep }) => {
 
@@ -140,9 +140,9 @@ const PersonalDetails = ({ nextFormStep }) => {
     )
 }
 
-const PersonalDetailsNonSSR = dynamic(() => Promise.resolve(PersonalDetails), {
-    ssr: false,
-})
+// const PersonalDetailsNonSSR = dynamic(() => Promise.resolve(PersonalDetails), {
+//     ssr: false,
+// })
 
 
-export default PersonalDetailsNonSSR
+export default PersonalDetails
