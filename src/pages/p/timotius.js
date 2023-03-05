@@ -2,8 +2,9 @@
 import { Mainframe } from '@/blocks/Mainframe'
 import Toprow from '@/blocks/Toprow'
 import Body from '@/blocks/Body'
+import IconRow from '@/blocks/IconRow'
 import Affiliations from '@/blocks/Affiliations'
-import { generateStack } from '@/blocks/Stack'
+import { Stack, StackSection } from '@/blocks/Stack'
 
 import me from '@/data/profiles/timotius.json'
 
@@ -39,11 +40,14 @@ const MyStack = () => {
         <Stack>
             <StackSection sectionName="AI &#38; Data">
                 <IconRow tags={['python', 'sql', 'jupyter']} />
-                <IconRow tags={['numpy', 'pandas', 'plotly']} />
-                <IconRow tags={['sklearn', 'tensorflow', 'streamlit']} />
+                <IconRow tags={['numpy', 'pandas', 'sklearn']} />
+                <IconRow tags={['tensorflow']} />
             </StackSection>
             <StackSection sectionName="Visualization">
                 <IconRow tags={['tableau']} />
+            </StackSection>
+            <StackSection sectionName="Engineering">
+                <IconRow tags={['github']} />
             </StackSection>
         </Stack>
     )
@@ -54,7 +58,7 @@ const Profile = ({ data }) => {
     return (
         <Mainframe data={data}>
             <Toprow />
-            <Body stack={generateStack(me.stack)} affiliations={<Affiliations />} />
+            <Body stack={<MyStack />} affiliations={<Affiliations />} />
         </Mainframe>
     )
 }
