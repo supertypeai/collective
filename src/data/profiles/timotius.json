@@ -1,0 +1,31 @@
+{
+    "fullname": "Timotius Marselo",
+    "github_handle": "tmtsmrsl",
+    "tags": [
+        "data analytics",
+        "data science",
+        "machine learning",
+        "data visualization",
+        "python"
+    ],
+    "short": "Data Scientist, Supertype.ai",
+    "long": "Timotius is a data scientist in Supertype's Collective Development Program. He is highly passionate about data science and is continuously improving his skills in various areas such as machine learning and programming. He is also involved in real client projects that involve predictive maintenance and forecasting.",
+    "affiliations": [
+        {
+            "title": "Supertype",
+            "position": "Data Scientist",
+            "period": "January 2023 - Present",
+            "description": [
+                "Works on client projects related to data science and machine learning",
+                "Producing articles based on completed portfolio project"
+            ],
+            "tags": [
+                "data science",
+                "machine learning",
+                "python"
+            ]
+        }
+    ],
+    "wp_blog_root_url": "https://supertype.ai",
+    "wp_blog_author_id": 10
+}
