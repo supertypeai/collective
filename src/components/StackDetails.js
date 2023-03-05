@@ -5,7 +5,7 @@ import Select from "react-select";
 import useLocalStorage from "use-local-storage";
 
 import { NominateContext } from "@/contexts/NominateContext"
-import { Field, Form, Hint } from "@/blocks/Form"
+import { Field, Form } from "@/blocks/Form"
 import stackSectionChoices from "@/data/stackSectionChoices.json"
 import { PillsFromStack } from "@/components/PillsFromStack";
 import AddedToStack from "@/components/AddedToStack";
@@ -31,13 +31,20 @@ const StackDetails = ({ nextFormStep }) => {
                 [stackExamples[key].name]: stackExamples[key].selected
             }
         });
+        // check that user has at least 3 stacks
+        if (Object.keys(stack).length < 3) {
+            alert("Please select at least one tag for each stack");
+            return;
+        } else if (Object.values(stack).some((el) => Object.values(el).flat().length < 3)) {
+            // check that user has at least three tags for each 3 stacks
+            alert("Please select at least three tags for each stack");
+            return;
+        }
 
         console.log({ ...data, stack: stack });
 
-
         setForm({ ...data, stack: stack });
-        // uncomment this when ready
-        // nextFormStep();
+        nextFormStep();
     };
 
     const StackSelectFactory = ({ id, name }) => {
