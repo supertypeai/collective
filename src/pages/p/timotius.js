@@ -34,6 +34,21 @@ export async function getStaticProps() {
     }
 }
 
+const MyStack = () => {
+    return (
+        <Stack>
+            <StackSection sectionName="AI &#38; Data">
+                <IconRow tags={['python', 'sql', 'jupyter']} />
+                <IconRow tags={['numpy', 'pandas', 'plotly']} />
+                <IconRow tags={['sklearn', 'tensorflow', 'streamlit']} />
+            </StackSection>
+            <StackSection sectionName="Visualization">
+                <IconRow tags={['tableau']} />
+            </StackSection>
+        </Stack>
+    )
+}
+
 const Profile = ({ data }) => {
 
     return (
