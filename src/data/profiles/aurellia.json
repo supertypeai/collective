@@ -1,0 +1,111 @@
+{
+    "fullname": "Aurellia Christie",
+    "github_handle": "AurelliaChristie",
+    "avatar_url": "https://avatars.githubusercontent.com/u/69672839",
+    "tags": [
+        "api engineering",
+        "data analytics",
+        "data science",
+        "data visualization",
+        "django",
+        "javascript",
+        "machine learning",
+        "nextjs",
+        "node",
+        "python",
+        "r",
+        "react",
+        "rest framework",
+        "web development"
+    ],
+    "short": "Full Stack Data Scientist, Supertype.ai",
+    "long": "As a full stack data scientist at Supertype, Aurellia works with Supertype's clients on various data science, machine learning, and web development scenarios. Motivated by her passion in data science and web development, she is also involved in the development of Supertype's in-house products and has spoken at several workshops in the domains of these subjects.",
+    "stack": {
+        "AI & Data": [
+            "jupyter",
+            "numpy",
+            "pandas",
+            "r",
+            "selenium",
+            "sklearn",
+            "sql",
+            "tidyverse"
+        ],
+        "Frontend": [
+            "css",
+            "figma",
+            "html",
+            "js",
+            "nextjs",
+            "powerbi",
+            "react",
+            "shiny",
+            "tableau"
+        ],
+        "Engineering": [
+            "api",
+            "github",
+            "mongodb",
+            "mysql",
+            "postgresql",
+            "postman",
+            "python"
+        ],
+        "Backend": [
+            "django",
+            "expressjs",
+            "heroku",
+            "nodejs",
+            "strapi"
+        ]
+    },
+    "affiliations": [
+        {
+            "title": "Supertype",
+            "position": "Full Stack Data Scientist",
+            "period": "August '20 - Present",
+            "description": [
+                "Works on consultation projects in the fields of data science, machine learning, and web development",
+                "Develops frontend and backend logics for the company's in-house products, including Supertype Fellowship",
+                "Involves in the day-to-day operations of the company"
+            ],
+            "tags": [
+                "api engineering",
+                "data analytics",
+                "data science",
+                "data visualization",
+                "django",
+                "javascript",
+                "machine learning",
+                "nextjs",
+                "python",
+                "r",
+                "react",
+                "rest framework",
+                "web development"
+            ]
+        },
+        {
+            "title": "Skilvul: Tech4Impact",
+            "position": "Full Stack Web Development Bootcamp Student",
+            "period": "August '21 - January '22",
+            "description": [
+                "Learned full stack web development using HTML, CSS, JavaScript, React, Node.JS, Express.JS, etc.",
+                "Developed 3 web applications"
+            ],
+            "tags": [
+                "api engineering",
+                "css",
+                "html",
+                "javascript",
+                "node",
+                "express",
+                "react",
+                "rest framework",
+                "web development"
+            ]
+        }
+    ],
+    "wp_blog_root_url": null,
+    "wp_blog_author_id": null
+}
