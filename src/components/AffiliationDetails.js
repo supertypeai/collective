@@ -1,4 +1,4 @@
-import { useContext, useId } from "react"
+import { useContext, useId, useState } from "react"
 import { useForm, Controller } from "react-hook-form"
 import Select from "react-select";
 
@@ -28,17 +28,18 @@ const AffiliationDetails = ({ nextFormStep }) => {
 
     const context = useContext(NominateContext);
     const [form, setForm] = context.f
+    const [addThirdAff, setAddThirdAff] = useState(false)
 
     // const [stackExamples, setStackExamples] = useLocalStorage("stackExamples", {});
     const { register, control, handleSubmit, watch, formState: { errors } } = useForm({ defaultValues: form, mode: "onSubmit" });
 
     const saveData = (data) => {
-        console.log(data);
+        // console.log(data);
         // console.log({ ...form, ...data });
         // check that at least 2 are completed, else alert()
 
-        // setForm({ ...form, ...data });
-        // nextFormStep();
+        setForm({ ...form, ...data });
+        nextFormStep();
     };
     const tagOptions = form.tags.map((obj) => ({ value: obj, label: obj }))
 
@@ -89,48 +90,56 @@ const AffiliationDetails = ({ nextFormStep }) => {
         return (
             <>
                 <input
-                    htmlFor={`currentWorkHere${id}`}
-                    className="checkbox checkbox-primary border-2 focus:outline-none transition duration-200 align-top mr-2"
+                    htmlFor={`affiliations.org${id}.currentWorkHere`}
+                    className="checkbox checkbox-secondary border-2 focus:outline-none transition duration-200 align-top mr-2"
                     type="checkbox"
-                    value={`currentWorkHere${id}`}
-                    id={`currentWorkHere${id}`}
-                    name={`currentWorkHere${id}`}
+                    value={true}
+                    id={`affiliations.org${id}.currentWorkHere`}
+                    name={`affiliations.org${id}.currentWorkHere`}
                     {...register(`affiliations.org${id}.currentWorkHere`)}
                 // checked
                 />
-                <span className="label-text">Current work here</span>
+                <span className="label-text">Currently work here</span>
             </>
         )
     }
 
     const AffiliateDescription = ({ id }) => {
         return (
-            <textarea {...register(`affiliations.org${id}.description`)}
+            <textarea
                 id={`affiliations.org${id}.description`} name={`affiliations.org${id}.description`}
                 rows="5" required minLength="40" maxLength="250"
                 placeholder="Being a Technical Mentor at Supertype Fellowship, I am tasked to look after the technical coaching of fellows in the program as they attempt to make their first open source contributions. I provide timely feedback, review pull requests, and help 13 fellows on the API engineering elective complete their elective challenge."
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                {...register(`affiliations.org${id}.description`,
+                    {
+                        required: (id === "3" && addThirdAff && !watch(`affiliations.org${id}.title`)) ||
+                            id !== "3" ? "Describe what you do in the organization and " : false
+                    }
+
+
+                )}
             />
         )
     }
 
-    const OrganizationNameInput = ({ id }) => {
+    const OrganizationNameInput = ({ id, is_required = true }) => {
         return (
             <Input
                 id={`affiliations.org${id}.title`}
                 placeholder={placeholder[id].organization}
-                {...register(`affiliations.org${id}.title`, { required: "Please specify the name of the organization" })}
+                {...register(`affiliations.org${id}.title`, { required: is_required ? "Please specify your organization" : false })}
             />
         )
     }
 
-    const PositionInput = ({ id }) => {
+    const PositionInput = ({ id, is_required = true }) => {
         return (
             <Input
                 id={`affiliations.org${id}.position`}
                 type="text"
                 placeholder={placeholder[1].position}
-                {...register(`affiliations.org${id}.position`, { required: "Please specify your role in this organization" })}
+                {...register(`affiliations.org${id}.position`, { required: is_required ? "Please specify your role in this organization" : false })}
             />
         )
     }
@@ -140,7 +149,11 @@ const AffiliationDetails = ({ nextFormStep }) => {
             <Input
                 id={`affiliations.org${id}.start`}
                 type="date"
-                {...register(`affiliations.org${id}.start`, { required: "Please specify a start date" })}
+                className="mt-2 p-2 block w-full rounded border-gray-400 text-sm dark:border-gray-600 dark:text-white dark:bg-dark-bg bg-opacity-25"
+                {...register(`affiliations.org${id}.start`, {
+                    required: (id === "3" && addThirdAff) || id !== "3"
+                        ? "Please specify a start date" : false
+                })}
             />
         )
     }
@@ -151,8 +164,15 @@ const AffiliationDetails = ({ nextFormStep }) => {
                 id={`affiliations.org${id}.end`}
                 // conditionally disable if currentWorkHere is checked
                 disabled={watch(`affiliations.org${id}.currentWorkHere`)}
+                className="mt-2 p-2 block w-full rounded border-gray-400 text-sm dark:border-gray-600 dark:text-white dark:bg-dark-bg"
                 type="date"
-                {...register(`affiliations.org${id}.end`)}
+                {...register(`affiliations.org${id}.end`, {
+                    // required if currentWorkHere is not checked
+                    required: (id === "3" && addThirdAff && !watch(`affiliations.org${id}.currentWorkHere`)) ||
+                        (id !== "3" && !watch(`affiliations.org${id}.currentWorkHere`))
+                        ? "Please specify an end date or check Currently Work Here" : false
+                })
+                }
             />
         )
     }
@@ -187,10 +207,10 @@ const AffiliationDetails = ({ nextFormStep }) => {
                         </div>
                     </div>
                     <div className="w-full md:w-1/2 px-3">
-                        <Field label="🖊️ Description" >
+                        <Field label="🖊️ Description" error={errors?.affiliations?.org1?.description}>
                             <AffiliateDescription id="1" />
                         </Field>
-                        <Field label="📚 Tag Relevant Qualifications" error={errors?.tags} hint="Tag the relevant qualifications for this position">
+                        <Field label="📚 Tag Relevant Qualifications" error={errors?.affiliations?.org1?.tags} hint="Tag the relevant qualifications for this position">
                             <QualificationTagger id="1" />
                         </Field>
                     </div>
@@ -228,11 +248,52 @@ const AffiliationDetails = ({ nextFormStep }) => {
                         </div>
                     </div>
                     <div className="w-full md:w-1/2 px-3">
-                        <Field label="🖊️ Description" >
+                        <Field label="🖊️ Description" error={errors?.affiliations?.org2?.description}>
                             <AffiliateDescription id="2" />
                         </Field>
-                        <Field label="📚 Tag Relevant Qualifications" error={errors?.tags} hint="Tag the relevant qualifications for this position">
+                        <Field label="📚 Tag Relevant Qualifications" error={errors?.affiliations?.org2?.tags} hint="Tag the relevant qualifications for this position">
                             <QualificationTagger id="2" />
+                        </Field>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    const renderThirdAffiliation = () => {
+        return (
+            <div className="my-4">
+                <div className="divider">{`Third Affiliation (Optional)`}</div>
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <Field label="Organization / Company" error={errors?.affiliations?.org3?.title}>
+                            <OrganizationNameInput id="3" is_required={addThirdAff} />
+                        </Field>
+                    </div>
+                    <div className="w-full md:w-1/2 px-3">
+                        <Field label="Position" error={errors?.affiliations?.org3?.position}>
+                            <PositionInput id="3" is_required={addThirdAff} />
+                        </Field>
+                    </div>
+                </div>
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <Field label="Start Date" error={errors?.affiliations?.org3?.start} hint="Used to create the timeline on your Developer Profile">
+                            <StartDate id="3" />
+                        </Field>
+                        <Field label="End Date" error={errors?.affiliations?.org3?.end} hint="Ignored if 'Currently work here' is checked">
+                            <EndDate id="3" />
+                        </Field>
+                        <div className="flex mt-2">
+                            <CurrentlyWorkHere id="3" />
+                        </div>
+                    </div>
+                    <div className="w-full md:w-1/2 px-3">
+                        <Field label="🖊️ Description" error={errors?.affiliations?.org3?.description}>
+                            <AffiliateDescription id="3" />
+                        </Field>
+                        <Field label="📚 Tag Relevant Qualifications" error={errors?.affiliations?.org3?.tags} hint="Tag the relevant qualifications for this position">
+                            <QualificationTagger id="3" />
                         </Field>
                     </div>
                 </div>
@@ -251,6 +312,26 @@ const AffiliationDetails = ({ nextFormStep }) => {
                         </legend>
                         {renderFirstAffiliation()}
                         {renderSecondAffiliation()}
+
+                        <div className="collapse">
+                            <input type="checkbox"
+                                {...register("affiliations.org3.optionally_selected")}
+                                className="collapse-checkbox"
+                                onChange={(e) => {
+                                    setAddThirdAff(prev => !prev)
+                                }}
+                            />
+                            <div className="collapse-title font-medium underline">
+                                {
+                                    addThirdAff ? "Remove third Affiliation" : "Optionally Add a Third Affiliation"
+                                }
+
+                            </div>
+                            <div className="collapse-content">
+                                {renderThirdAffiliation()}
+                            </div>
+                        </div>
+
                         <button type="submit" className="btn btn-primary text-white">Next {">"}</button>
                     </fieldset>
                 </Form>

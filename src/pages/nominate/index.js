@@ -32,7 +32,7 @@ const NominationForm = () => {
                     <AffiliationDetails formStep={formStep} nextFormStep={nextFormStep} />
                 )}
 
-                {formStep > 2 && <NominationCompleted />}
+                {formStep === 3 && <NominationCompleted />}
             </FormBlock>
         </NominateContext.Provider>
     )
