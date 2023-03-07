@@ -87,7 +87,7 @@ const NominatedCompleted = () => {
                             hint="This is your Author ID on WordPress. You can find it in your WordPress profile or in the URL of your author page."
                         >
                             <Input
-                                {...register("wp_blog_author_id")}
+                                {...register("wp_blog_author_id", {valueAsNumber: true})}
                                 id="wp_blog_author_id"
                                 placeholder="14"
                             />
