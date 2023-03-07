@@ -144,7 +144,8 @@ const AffiliationDetails = ({ nextFormStep }) => {
             <Input
                 id={`affiliations.org${id}.start`}
                 type="date"
-                className="mt-2 p-2 block w-full rounded border-gray-400 text-sm border-gray-600 text-white bg-black bg-opacity-25"
+                max={new Date().toISOString().split("T")[0]}
+                className="mt-2 p-2 block w-full rounded text-sm border-gray-600 text-white bg-black bg-opacity-25"
                 {...register(`affiliations.org${id}.start`, {
                     required: (id === "3" && addThirdAff) || id !== "3"
                         ? "Please specify a start date" : false
@@ -158,9 +159,11 @@ const AffiliationDetails = ({ nextFormStep }) => {
             <Input
                 id={`affiliations.org${id}.end`}
                 // conditionally disable if currentWorkHere is checked
-                disabled={watch(`affiliations.org${id}.currentWorkHere`)}
-                className="mt-2 p-2 block w-full rounded border-gray-400 text-sm border-gray-600 text-white bg-black bg-opacity-25"
+                disabled={watch(`affiliations.org${id}.currentWorkHere`) === "true"}
+                className="mt-2 p-2 block w-full rounded text-sm border-gray-600 text-white bg-black bg-opacity-25"
                 type="date"
+                min={watch(`affiliations.org${id}.start`)}
+                max={new Date().toISOString().split("T")[0]}
                 {...register(`affiliations.org${id}.end`, {
                     // required if currentWorkHere is not checked
                     required: (id === "3" && addThirdAff && !watch(`affiliations.org${id}.currentWorkHere`)) ||
