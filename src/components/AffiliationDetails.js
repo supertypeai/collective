@@ -30,14 +30,9 @@ const AffiliationDetails = ({ nextFormStep }) => {
     const [form, setForm] = context.f
     const [addThirdAff, setAddThirdAff] = useState(false)
 
-    // const [stackExamples, setStackExamples] = useLocalStorage("stackExamples", {});
     const { register, control, handleSubmit, watch, formState: { errors } } = useForm({ defaultValues: form, mode: "onSubmit" });
 
     const saveData = (data) => {
-        // console.log(data);
-        // console.log({ ...form, ...data });
-        // check that at least 2 are completed, else alert()
-
         setForm({ ...form, ...data });
         nextFormStep();
     };
@@ -149,7 +144,7 @@ const AffiliationDetails = ({ nextFormStep }) => {
             <Input
                 id={`affiliations.org${id}.start`}
                 type="date"
-                className="mt-2 p-2 block w-full rounded border-gray-400 text-sm dark:border-gray-600 dark:text-white dark:bg-dark-bg bg-opacity-25"
+                className="mt-2 p-2 block w-full rounded border-gray-400 text-sm border-gray-600 text-white bg-black bg-opacity-25"
                 {...register(`affiliations.org${id}.start`, {
                     required: (id === "3" && addThirdAff) || id !== "3"
                         ? "Please specify a start date" : false
@@ -164,7 +159,7 @@ const AffiliationDetails = ({ nextFormStep }) => {
                 id={`affiliations.org${id}.end`}
                 // conditionally disable if currentWorkHere is checked
                 disabled={watch(`affiliations.org${id}.currentWorkHere`)}
-                className="mt-2 p-2 block w-full rounded border-gray-400 text-sm dark:border-gray-600 dark:text-white dark:bg-dark-bg"
+                className="mt-2 p-2 block w-full rounded border-gray-400 text-sm border-gray-600 text-white bg-black bg-opacity-25"
                 type="date"
                 {...register(`affiliations.org${id}.end`, {
                     // required if currentWorkHere is not checked
