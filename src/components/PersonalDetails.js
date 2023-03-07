@@ -1,15 +1,14 @@
 import { useContext, useId } from "react"
 import dynamic from 'next/dynamic'
 import { useForm, Controller } from "react-hook-form"
-import Select from "react-select";
+import CreatableSelect from 'react-select/creatable';
 
 import { NominateContext } from "@/contexts/NominateContext"
 import { Field, Form, Input } from "@/blocks/Form"
 import profileTagsChoices from '@/data/profileTagsChoices.json';
 
-
 function StableSelect({ ...props }) {
-    return <Select {...props} instanceId={useId()} />;
+    return <CreatableSelect {...props} instanceId={useId()} />;
 }
 
 const PersonalDetails = ({ nextFormStep }) => {
@@ -107,10 +106,15 @@ const PersonalDetails = ({ nextFormStep }) => {
                                 classNamePrefix="select"
                                 className="text-black max-w-3xl"
                                 value={
-                                    profileTagsChoices.filter(option => value.includes(option.value))
+                                    value.map(v => {
+                                        if(profileTagsChoices.map(option => option.value).includes(v)) {
+                                            return (profileTagsChoices.find(opt => opt.value === v))
+                                        } else {
+                                            return({ "value": v, "label" : v })
+                                        }
+                                    })
                                 }
                                 onChange={val => val.length <= 10 && onChange(val.map(c => c.value))}
-                                // value={selectedOptions}
                                 theme={theme => ({
                                     ...theme,
                                     borderRadius: 0,
