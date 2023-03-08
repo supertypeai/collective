@@ -30,9 +30,9 @@ function Toprow({ children }) {
                             Verified by Fellowship</p>
                     </div>}
             </div>
-            <div className="mx-auto grid lg:col-span-8 justify-center justify-self-center lg:justify-self-start mt-8 adapt-xs max-w-sm sm:max-w-none mx-auto">
-                <div className="mx-auto sm:max-w-screen w-full mx-auto lg:max-w-xl text-sm text-slate-200 ">
-                    <h3 className="text-xl lg:text-3xl font-semibold leading-normal mb-2 -700 mb-2">
+            <div className="mx-auto grid col-span-12 lg:col-span-8 justify-center justify-self-center lg:justify-self-start mt-8 adapt-xs max-w-sm sm:max-w-none">
+                <div className="mx-auto sm:max-w-screen w-full lg:max-w-xl text-sm text-slate-200 ">
+                    <h3 className="text-xl lg:text-3xl font-semibold leading-normal mb-2">
                         {data.gh.name || data.fullname}
                     </h3>
                     <p className='mb-4'>{data.short || 'Full Stack Engineer'}</p>

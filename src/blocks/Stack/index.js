@@ -5,7 +5,7 @@ export const Stack = ({ children }) => {
 
     return (
         <>
-            <h3 className="text-2xl font-semibold leading-normal mb-2 -700 mb-2">My Stack</h3>
+            <h3 className="text-2xl font-semibold leading-normal mb-2">My Stack</h3>
             <div className="relative mt-5 text-left">
                 {children}
             </div>
