@@ -107,10 +107,11 @@ const PersonalDetails = ({ nextFormStep }) => {
                                 className="text-black max-w-3xl"
                                 value={
                                     value.map(v => {
-                                        if(profileTagsChoices.map(option => option.value).includes(v)) {
-                                            return (profileTagsChoices.find(opt => opt.value === v))
+                                        const index = profileTagsChoices.findIndex(option => option.value === v);
+                                        if(index != -1) {
+                                            return (profileTagsChoices[index]);
                                         } else {
-                                            return({ "value": v, "label" : v })
+                                            return({ "value": v, "label" : v });
                                         }
                                     })
                                 }
