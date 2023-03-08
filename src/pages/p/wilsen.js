@@ -52,3 +52,15 @@ const MyStack = () => {
         </Stack>
     )
 }
+
+const Profile = ({ data }) => {
+
+    return (
+        <Mainframe data={data}>
+            <Toprow />
+            <Body stack={<MyStack />} affiliations={<Affiliations />} />
+        </Mainframe>
+    )
+}
+
+export default Profile
