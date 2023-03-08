@@ -21,7 +21,7 @@ const createColorfulTags = (tags, colors = COLORS, onClick) => {
     pills.push(
       <span
         key={pill}
-        className={`text-rose-100 text-${color}-100 hover:bg-rose-900 cursor-pointer border rounded rounded-md text-xs 
+        className={`text-rose-100 text-${color}-100 hover:bg-rose-900 cursor-pointer border rounded-md text-xs 
                     whitespace-nowrap font-medium mr-1 px-2 mb-1 leading-6`}
         onClick={() => onClick(pill)}
       >
