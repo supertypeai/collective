@@ -22,7 +22,7 @@ export const Mainframe = ({ children, data }) => {
 
         <link rel="icon" href="/favicon-32x32.png" />
       </Head>
-      <Navbar />
+      <Navbar pdfBtn={true} />
 
       {/* <!-- Main content --> */}
       <main className={`max-w-7xl mx-auto gap-4 backdrop-blur-lg drop-shadow-lg my-12 break-words bg-gradient-to-r from-amber-700 to-rose-900 mb-6 shadow-xl rounded-lg`} id="mainframe">
