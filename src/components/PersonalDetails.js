@@ -1,5 +1,4 @@
 import { useContext, useId } from "react"
-import dynamic from 'next/dynamic'
 import { useForm, Controller } from "react-hook-form"
 import CreatableSelect from 'react-select/creatable';
 
@@ -108,10 +107,10 @@ const PersonalDetails = ({ nextFormStep }) => {
                                 value={
                                     value.map(v => {
                                         const index = profileTagsChoices.findIndex(option => option.value === v);
-                                        if(index != -1) {
+                                        if (index != -1) {
                                             return (profileTagsChoices[index]);
                                         } else {
-                                            return({ "value": v, "label" : v });
+                                            return ({ "value": v, "label": v });
                                         }
                                     })
                                 }

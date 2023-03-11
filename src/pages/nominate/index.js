@@ -9,7 +9,23 @@ import StackDetails from "@/components/StackDetails";
 import AffiliationDetails from "@/components/AffiliationDetails";
 import NominationCompleted from "@/components/NominationCompleted";
 
+/* Testing superinference
+*/
+// import { inferFromDevto, inferFromGithub } from "superinference";
+
 const NominationForm = () => {
+
+    // useEffect(() => {
+
+    //     const { profile, stats } =
+    //         inferFromGithub("onlyphantom").then((data) => {
+    //             console.log("githubdata", data)
+    //         })
+
+    //     const devtoProfile = inferFromDevto("onlyphantom").then((data) => {
+    //         console.log("devto", data)
+    //     })
+    // }, [])
 
     const [formStep, setFormStep] = useState(0);
 
