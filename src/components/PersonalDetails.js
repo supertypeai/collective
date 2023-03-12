@@ -1,10 +1,14 @@
 import { useContext, useId } from "react"
 import { useForm, Controller } from "react-hook-form"
+import Image from 'next/image';
 import CreatableSelect from 'react-select/creatable';
+import { supabase } from "@/lib/supabaseClient";
 
-import { NominateContext } from "@/contexts/NominateContext"
 import { Field, Form, Input } from "@/blocks/Form"
 import profileTagsChoices from '@/data/profileTagsChoices.json';
+import { signInWithGitHub } from "@/blocks/Mainframe/Navbar";
+import { NominateContext } from "@/contexts/NominateContext"
+import { AppContext } from "@/contexts/AppContext";
 
 function StableSelect({ ...props }) {
     return <CreatableSelect {...props} instanceId={useId()} />;
@@ -13,6 +17,7 @@ function StableSelect({ ...props }) {
 const PersonalDetails = ({ nextFormStep }) => {
 
     const context = useContext(NominateContext);
+    const { isLoggedIn } = useContext(AppContext);
     const [form, setForm] = context.f
 
     const { register, control, handleSubmit, watch, formState: { errors } } = useForm({ defaultValues: form, mode: "onSubmit" });
@@ -25,27 +30,26 @@ const PersonalDetails = ({ nextFormStep }) => {
 
     return (
         <Form onSubmit={handleSubmit(saveData)}>
+
+            {
+                // prompt user to sign in with GitHub if not already signed in
+                !isLoggedIn &&
+                <div className="my-4">
+                    <p className="text-sm mb-4">You can expedite the application process by signing in with GitHub</p>
+                    <button onClick={() => signInWithGitHub()}
+                        className="text-white group hover:text-rose-200 px-3 py-1 rounded-md text-sm hover:bg-secondary border-2">
+                        <Image src="/techicons/github_inv.png" alt="GitHub Logo" width={20} height={20} className="inline mr-2" />
+                        Sign In with GitHub
+                    </button>
+                </div>
+            }
+
+
             <fieldset>
                 <legend>
                     <h3 className="text-2xl font-bold">🧑‍💼 Developer Profile</h3>
                     <p className="text-sm">The following details will be used to create a Developer Profile on Supertype Collective if your nomination is successful.</p>
                 </legend>
-                <Field label="Full name" error={errors?.fullname}>
-                    <Input
-                        {...register("fullname", { required: "Full name is a required field" })}
-                        id="fullname"
-                        placeholder="Pamela Morgan Beesly"
-                    />
-                </Field>
-                <Field label="Email" error={errors?.email} hint='We will send an acknowledgment of your nomination to this email.'>
-                    <Input
-                        {...register("email", { required: "Email is required" })}
-                        type="email"
-                        id="email"
-                        placeholder="pamela@dundermifflin.com"
-                    />
-                </Field>
-
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <Field label="Preferred Collective Handle"
@@ -72,6 +76,22 @@ const PersonalDetails = ({ nextFormStep }) => {
                         </Field>
                     </div>
                 </div>
+                <Field label="Full name" error={errors?.fullname}>
+                    <Input
+                        {...register("fullname", { required: "Full name is a required field" })}
+                        id="fullname"
+                        placeholder="Pamela Morgan Beesly"
+                    />
+                </Field>
+                <Field label="Email" error={errors?.email} hint='We will send an acknowledgment of your nomination to this email.'>
+                    <Input
+                        {...register("email", { required: "Email is required" })}
+                        type="email"
+                        id="email"
+                        placeholder="pamela@dundermifflin.com"
+                    />
+                </Field>
+
 
                 <Field label="🖊️ Introduction" error={errors?.long}>
                     <textarea {...register("long")} id="long" name="long"
@@ -146,7 +166,9 @@ const PersonalDetails = ({ nextFormStep }) => {
 
                 <button type="submit" className="btn btn-primary text-white">Next {">"}</button>
             </fieldset>
-
+            {/* <p className="text-xs">
+                {JSON.stringify(isLoggedIn)}
+            </p> */}
         </Form>
     )
 }

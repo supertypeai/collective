@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react"
 import Head from "next/head"
+import { supabase } from "@/lib/supabaseClient";
+
 import { Navbar } from "./Navbar"
 import Footer from "./Footer"
-
-import { supabase } from "@/lib/supabaseClient";
 import { AppContext } from "@/contexts/AppContext";
 
 const siteDescription = "Supertype Collective is a community of analytics developers, data scientists &#38; engineering leaders building products across the full stack."
@@ -17,10 +17,13 @@ const Pageframe = ({ children, title }) => {
 
         async function checkUser() {
             const { data, error } = await supabase.auth.getSession()
-            console.log("session data", data)
-            setIsLoggedIn(data ? {
-                githubToken: data.session.access_token,
-            } : false)
+
+            if (data.session) {
+                setIsLoggedIn(data ? {
+                    githubToken: data.session.access_token,
+                    githubUser: data.session.user
+                } : false)
+            }
         }
         checkUser()
     }, [])

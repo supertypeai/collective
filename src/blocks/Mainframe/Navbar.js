@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 import Link from 'next/link'
 import Image from 'next/image';
+import { supabase } from "@/lib/supabaseClient";
 import Home from '@/icons/Home'
 import Download from '@/icons/Download';
 import { AppContext } from "@/contexts/AppContext";
 
-import { supabase } from "@/lib/supabaseClient";
 
 const onCreatePDF = async () => {
     const html2pdf = (await import('html2pdf.js')).default;
@@ -21,9 +21,7 @@ const onCreatePDF = async () => {
     // pdf.save();
 }
 
-async function signInWithGitHub(setGithubToken) {
-    // if successful oauth, set token in state / context
-
+export async function signInWithGitHub() {
     const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'github',
         options: {
@@ -61,7 +59,7 @@ export const Navbar = ({ pdfBtn }) => {
 
     const { isLoggedIn } = useContext(AppContext);
     // isLoggedIn.githubToken contains the token we can use in our fetch calls
-
+    console.log(isLoggedIn)
 
     return (
         <nav className="bg-gradient-to-r backdrop-blur-lg from-amber-700 to-rose-900 shadow-lg opacity-80">
@@ -88,7 +86,7 @@ export const Navbar = ({ pdfBtn }) => {
                                             Profile
                                         </button>
                                         :
-                                        <button onClick={() => signInWithGitHub(setGithubToken)}
+                                        <button onClick={() => signInWithGitHub()}
                                             className="text-white group hover:border hover:text-rose-200 px-3 py-1 rounded-md text-sm hover:bg-secondary">
                                             <Image src="/techicons/github_inv.png" alt="GitHub Logo" width={20} height={20} className="inline mr-2" />
                                             Login with GitHub

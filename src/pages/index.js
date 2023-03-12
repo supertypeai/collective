@@ -58,7 +58,7 @@ export default function Home() {
 
         <div className={styles.grid}>
           <Link
-            href="/nominate"
+            href="/enroll"
             className={styles.card}
           >
             <h2 className={inter.className}>
