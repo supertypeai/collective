@@ -16,6 +16,22 @@ function StableSelect({ ...props }) {
 
 const PersonalDetails = ({ nextFormStep }) => {
 
+    const context = useContext(NominateContext);
+    const { isLoggedIn } = useContext(AppContext);
+    const [form, setForm] = context.f
+
+    const { register, control, handleSubmit, watch, formState: { errors }, reset } = useForm({
+        defaultValues: {
+            ...form
+        }, mode: "onSubmit"
+    });
+
+    const saveData = (data) => {
+        console.log(data);
+        setForm({ ...form, ...data });
+        nextFormStep();
+    };
+
     useEffect(() => {
 
         if (isLoggedIn.githubUser) {
@@ -36,25 +52,7 @@ const PersonalDetails = ({ nextFormStep }) => {
         }
 
 
-    }, [])
-
-
-
-    const context = useContext(NominateContext);
-    const { isLoggedIn } = useContext(AppContext);
-    const [form, setForm] = context.f
-
-    const { register, control, handleSubmit, watch, formState: { errors }, reset } = useForm({
-        defaultValues: {
-            ...form
-        }, mode: "onSubmit"
-    });
-
-    const saveData = (data) => {
-        console.log(data);
-        setForm({ ...form, ...data });
-        nextFormStep();
-    };
+    }, [isLoggedIn])
 
     return (
         <Form onSubmit={handleSubmit(saveData)}>
