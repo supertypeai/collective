@@ -7,7 +7,7 @@ export default function FormBlock({ children, currentStep, prevFormStep }) {
                         <button
                             onClick={prevFormStep}
                             type="button"
-                            className="btn btn-secondary btn-outline btn-sm mr-4"
+                            className="btn btn-secondary btn-sm mr-4"
                         >
                             {'< back'}
                         </button>

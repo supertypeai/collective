@@ -20,7 +20,7 @@ const Pageframe = ({ children, title }) => {
 
             if (data.session) {
                 setIsLoggedIn(data ? {
-                    githubToken: data.session.access_token,
+                    githubToken: data.session.provider_token,
                     githubUser: data.session.user
                 } : false)
             }

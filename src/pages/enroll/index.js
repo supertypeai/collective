@@ -57,7 +57,7 @@ const NominationForm = () => {
 
 const Page = () => {
     return (
-        <Pageframe title="Nomination Form | Supertype Collective">
+        <Pageframe title="Enrollment | Supertype Collective">
             <h1 className="text-4xl font-bold">Application</h1>
             <NominationForm />
         </Pageframe>

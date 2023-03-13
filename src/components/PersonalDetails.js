@@ -1,8 +1,8 @@
-import { useContext, useId } from "react"
+import { useContext, useId, useEffect } from "react"
 import { useForm, Controller } from "react-hook-form"
 import Image from 'next/image';
 import CreatableSelect from 'react-select/creatable';
-import { supabase } from "@/lib/supabaseClient";
+import { inferFromGithub } from "superinference";
 
 import { Field, Form, Input } from "@/blocks/Form"
 import profileTagsChoices from '@/data/profileTagsChoices.json';
@@ -16,11 +16,35 @@ function StableSelect({ ...props }) {
 
 const PersonalDetails = ({ nextFormStep }) => {
 
+    useEffect(() => {
+        inferFromGithub("onlyphantom").then((data) => {
+            console.log("githubdata", data)
+
+            // call reset to update form values
+            reset({
+                "fullname": data.profile.name,
+                "s_preferred_handle": data.profile.login,
+                "github_handle": data.profile.login,
+                "email": isLoggedIn.githubUser.email
+                // ...data.profile,
+            })
+
+            return data;
+        })
+
+    }, [])
+
+
+
     const context = useContext(NominateContext);
     const { isLoggedIn } = useContext(AppContext);
     const [form, setForm] = context.f
 
-    const { register, control, handleSubmit, watch, formState: { errors } } = useForm({ defaultValues: form, mode: "onSubmit" });
+    const { register, control, handleSubmit, watch, formState: { errors }, reset } = useForm({
+        defaultValues: {
+            ...form
+        }, mode: "onSubmit"
+    });
 
     const saveData = (data) => {
         console.log(data);
@@ -76,7 +100,8 @@ const PersonalDetails = ({ nextFormStep }) => {
                         </Field>
                     </div>
                 </div>
-                <Field label="Full name" error={errors?.fullname}>
+                <Field label="Full name" error={errors?.fullname}
+                >
                     <Input
                         {...register("fullname", { required: "Full name is a required field" })}
                         id="fullname"
