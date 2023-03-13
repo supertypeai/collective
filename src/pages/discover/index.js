@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useId } from "react";
 import Select from "react-select";
 import { Network } from "vis-network";
 
-import Pageframe from "@/blocks/Mainframe/Pageframe";
+import { Mainframe } from "@/blocks/Mainframe";
 
 const imgUrl = '/favicon-32x32.png'
 const customStyles = {
@@ -190,9 +190,9 @@ const Discover = () => {
 
 const Page = () => {
     return (
-        <Pageframe>
+        <Mainframe title="Discover | Supertype Collective">
             <Discover />
-        </Pageframe>
+        </Mainframe>
     );
 }
 

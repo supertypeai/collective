@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { NominateContext } from "@/contexts/NominateContext";
 
-import Pageframe from '@/blocks/Mainframe/Pageframe';
+import { Mainframe } from "@/blocks/Mainframe";
 import FormBlock from "@/blocks/Form/FormBlock";
 import PersonalDetails from "@/components/PersonalDetails";
 import StackDetails from "@/components/StackDetails";
@@ -41,10 +41,10 @@ const NominationForm = () => {
 
 const Page = () => {
     return (
-        <Pageframe title="Nomination Form | Supertype Collective">
+        <Mainframe title="Enrollment | Supertype Collective">
             <h1 className="text-4xl font-bold">Application</h1>
             <NominationForm />
-        </Pageframe>
+        </Mainframe>
     );
 }
 
