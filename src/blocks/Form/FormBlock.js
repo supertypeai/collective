@@ -1,6 +1,6 @@
 export default function FormBlock({ children, currentStep, prevFormStep }) {
     return (
-        <div className="mt-4">
+        <div className="my-4">
             {currentStep < 4 && (
                 <div className="mb-4">
                     {currentStep > 0 && (

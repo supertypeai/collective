@@ -6,6 +6,8 @@ import { Navbar } from './Navbar';
 import Footer from './Footer';
 import { MeContext } from '@/contexts/MeContext';
 import { AppContext } from '@/contexts/AppContext';
+import Link from 'next/link';
+import X from '@/icons/X';
 
 
 
@@ -32,7 +34,7 @@ const PageHead = ({ data, title }) => {
     const siteDescription = "Supertype Collective is a community of analytics developers, data scientists &#38; engineering leaders building products across the full stack."
     return (
       <>
-        <title>{title || `Supertype Collective`}</title>
+        <title>{`${title}` || `Supertype Collective`}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content={siteDescription} />
 
@@ -65,7 +67,7 @@ const AppContextWrapper = ({ children }) => {
       console.log("supabase data", data)
       if (data.session) {
         setIsLoggedIn(data ? {
-          githubToken: data.session.provider_token,
+          githubToken: data.session.access_token,
           githubUser: data.session.user
         } : false)
       }
@@ -83,6 +85,8 @@ const AppContextWrapper = ({ children }) => {
 
 export const Mainframe = ({ children, data, title }) => {
 
+  const [createProfileCTA, setCreateProfileCTA] = useState(true)
+
   if (data) {
     return (
       <MeContextWrapper data={data}>
@@ -93,6 +97,17 @@ export const Mainframe = ({ children, data, title }) => {
           <Navbar pdfBtn={true} />
           {/* <!-- Main content --> */}
           <main className={`max-w-7xl mx-auto gap-4 backdrop-blur-lg drop-shadow-lg my-12 break-words bg-gradient-to-r from-amber-700 to-rose-900 mb-6 shadow-xl rounded-lg`} id="mainframe">
+            {
+              createProfileCTA && (
+                <h4 className='text-right text-xs mx-4 font-medium'>
+                  <X onClick={() => setCreateProfileCTA(false)} /> &nbsp;
+                  Create a <Link
+                    href="/enroll"
+                    className="link link-info hover:opacity-70"
+                  >Developer Profile</Link> like this in 3 mins!
+                </h4>
+              )
+            }
             <div className="grid grid-cols-12 items-center grid-flow gap-4 bg-black bg-opacity-30 rounded-lg px-2 sm:px-4 lg:px-8 rounded-b-none">
               {children}
             </div>

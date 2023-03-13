@@ -11,7 +11,7 @@ const Footer = () => {
                     <div className="flex-shrink-0">
                         <LinkToHome />
                         <div className='text-xs w-screen max-w-sm lg:max-w-lg xl:max-w-xl pr-4'>
-                            Supertype Collective Collective is a community of analytics developers, data scientists & engineering leaders building products across the full stack.
+                            Supertype Collective is a community of analytics developers, data scientists & engineering leaders building products across the full stack.
                             <br />Incubated by &nbsp;
                             <Link href="https://supertype.ai/incubate" className="text-rose-200 hover:text-rose-100"
                                 target="_blank" rel="noopener noreferrer">

@@ -39,15 +39,15 @@ module.exports = {
           'secondary': '#6a1622',
           'secondary-focus': '#1A202C',
           'secondary-content': '#FFFFFF',
-          'tertiary': '#6a1622',
-          'tertiary-focus': '#6a1622',
-          'tertiary-content': '#FFFFFF',
           'accent': '#37CDFF',
           'accent-focus': '#37CDFF',
           'accent-content': '#FFFFFF',
           'neutral': '#3D4451',
           'neutral-focus': '#3D4451',
           'neutral-content': '#FFFFFF',
+          // info
+          'info': '#b1976b',
+          'info-focus': '#2094F3',
         },
       },
       "halloween"
