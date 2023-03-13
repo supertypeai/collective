@@ -17,20 +17,24 @@ function StableSelect({ ...props }) {
 const PersonalDetails = ({ nextFormStep }) => {
 
     useEffect(() => {
-        inferFromGithub("onlyphantom").then((data) => {
-            console.log("githubdata", data)
 
-            // call reset to update form values
-            reset({
-                "fullname": data.profile.name,
-                "s_preferred_handle": data.profile.login,
-                "github_handle": data.profile.login,
-                "email": isLoggedIn.githubUser.email
-                // ...data.profile,
+        if (isLoggedIn.githubUser) {
+            inferFromGithub(isLoggedIn.githubUser.user_metadata.user_name).then((data) => {
+                console.log("githubdata", data)
+
+                // call reset to update form values
+                reset({
+                    "fullname": data.profile.name,
+                    "s_preferred_handle": data.profile.login,
+                    "github_handle": data.profile.login,
+                    "email": isLoggedIn.githubUser.email
+                    // ...data.profile,
+                })
+
+                return data;
             })
+        }
 
-            return data;
-        })
 
     }, [])
 
