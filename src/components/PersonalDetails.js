@@ -43,7 +43,8 @@ const PersonalDetails = ({ nextFormStep }) => {
                     "fullname": data.profile.name,
                     "s_preferred_handle": data.profile.login,
                     "github_handle": data.profile.login,
-                    "email": isLoggedIn.githubUser.email
+                    "email": isLoggedIn.githubUser.email,
+                    "short": data.profile.bio,
                     // ...data.profile,
                 })
 
@@ -74,7 +75,7 @@ const PersonalDetails = ({ nextFormStep }) => {
             <fieldset>
                 <legend>
                     <h3 className="text-2xl font-bold">🧑‍💼 Developer Profile</h3>
-                    <p className="text-sm">The following details will be used to create a Developer Profile on Supertype Collective if your nomination is successful.</p>
+                    <p className="text-sm">The following details will be used to create a Developer Profile on Supertype Collective after a manual review.</p>
                 </legend>
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">

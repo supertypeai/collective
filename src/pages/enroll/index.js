@@ -2,30 +2,14 @@ import { useState } from "react";
 
 import { NominateContext } from "@/contexts/NominateContext";
 
-import Pageframe from '@/blocks/Mainframe/Pageframe';
+import { Mainframe } from "@/blocks/Mainframe";
 import FormBlock from "@/blocks/Form/FormBlock";
 import PersonalDetails from "@/components/PersonalDetails";
 import StackDetails from "@/components/StackDetails";
 import AffiliationDetails from "@/components/AffiliationDetails";
 import NominationCompleted from "@/components/NominationCompleted";
 
-/* Testing superinference
-*/
-// import { inferFromDevto, inferFromGithub } from "superinference";
-
 const NominationForm = () => {
-
-    // useEffect(() => {
-
-    //     const { profile, stats } =
-    //         inferFromGithub("onlyphantom").then((data) => {
-    //             console.log("githubdata", data)
-    //         })
-
-    //     const devtoProfile = inferFromDevto("onlyphantom").then((data) => {
-    //         console.log("devto", data)
-    //     })
-    // }, [])
 
     const [formStep, setFormStep] = useState(0);
 
@@ -57,10 +41,10 @@ const NominationForm = () => {
 
 const Page = () => {
     return (
-        <Pageframe title="Enrollment | Supertype Collective">
+        <Mainframe title="Enrollment | Supertype Collective">
             <h1 className="text-4xl font-bold">Application</h1>
             <NominationForm />
-        </Pageframe>
+        </Mainframe>
     );
 }
 

@@ -59,7 +59,7 @@ export const Navbar = ({ pdfBtn }) => {
 
     const { isLoggedIn } = useContext(AppContext);
     // isLoggedIn.githubToken contains the token we can use in our fetch calls
-    console.log(isLoggedIn)
+    console.log("isloggedin", isLoggedIn)
 
     return (
         <nav className="bg-gradient-to-r backdrop-blur-lg from-amber-700 to-rose-900 shadow-lg opacity-80">
@@ -74,12 +74,7 @@ export const Navbar = ({ pdfBtn }) => {
                         <div className="hidden md:block ">
                             <div className="ml-10 flex items-baseline space-x-4">
                                 {pdfBtn && <DownloadPDFBtn />}
-
                                 {
-                                    // check if user is logged in
-                                    // if not, show login button
-                                    // if yes, show logout button
-
                                     isLoggedIn ?
                                         <button
                                             className="text-white group hover:border hover:text-rose-200 text-sm px-3 py-1 rounded-md text-sm">
