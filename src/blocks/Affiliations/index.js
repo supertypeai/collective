@@ -15,7 +15,7 @@ const Affiliations = () => {
 
     return (<>
         <h3 className="text-2xl font-semibold leading-normal mb-2">Affiliations</h3>
-        <div className="relative mt-5 text-left text-white md:ml-4 md:max-w-[15rem] xl:max-w-none">
+        <div className="relative mt-5 text-left text-white md:ml-4 md:max-w-[15rem] xl:max-w-none" id="affiliations">
             {
                 affiliations.map((affiliation, index) => {
                     return (

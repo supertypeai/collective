@@ -81,7 +81,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <Field label="Preferred Collective Handle"
                             error={errors?.s_preferred_handle}
-                            hint="This will be used as your as your username, if available"
+                            hint="This will be in the link to your Developer Profile, if available"
                         >
                             <Input
                                 {...register("s_preferred_handle")}

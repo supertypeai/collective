@@ -47,7 +47,7 @@ module.exports = {
           'neutral-content': '#FFFFFF',
           // info
           'info': '#b1976b',
-          'info-focus': '#2094F3',
+          'info-focus': '#887048',
         },
       },
       "halloween"

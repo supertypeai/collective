@@ -46,9 +46,9 @@ function Toprow({ children }) {
                 </div>
                 <div className="mt-4">
                     <Pills tags={data.tags} maxWidth="800px"
-                        // onClick={tag => null}
                         onClick={
-                            () => scrollToSection(`aff-1`)
+                            // () => scrollToSection(`aff-0`)
+                            () => scrollToSection("affiliations")
                         }
                     />
                 </div>
