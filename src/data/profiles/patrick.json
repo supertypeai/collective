@@ -33,7 +33,7 @@
             "django",
             "php"
         ],
-        "Frontend":[
+        "Frontend": [
             "react",
             "nextjs"
         ],
@@ -103,7 +103,7 @@
             ]
         },
         {
-            "title" : "Wilov.id",
+            "title": "Wilov.id",
             "position": "Data Scientist Intern",
             "period": "June '21 - December '21",
             "description": [
@@ -119,5 +119,5 @@
         }
     ],
     "wp_blog_root_url": "https://supertype.ai",
-    "wp_blog_author_id": 12
+    "wp_blog_author_id": null
 }
