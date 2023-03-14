@@ -19,7 +19,7 @@ const Affiliations = () => {
             {
                 affiliations.map((affiliation, index) => {
                     return (
-                        <div className="w-full" key={index}>
+                        <div className="w-full" key={index} id={`aff-${index}`}>
                             <TimelineDate period={affiliation['period']} />
 
                             <div className="border-r-2 border-white opacity-30 absolute h-full left-1 md:left-4 top-2 z-10">

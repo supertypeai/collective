@@ -53,7 +53,7 @@ const PersonalDetails = ({ nextFormStep }) => {
         }
 
 
-    }, [isLoggedIn])
+    }, [isLoggedIn, reset])
 
     return (
         <Form onSubmit={handleSubmit(saveData)}>
