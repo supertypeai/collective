@@ -8,6 +8,11 @@ import CollectiveMark from './CollectiveMark';
 
 import { MeContext } from '@/contexts/MeContext';
 
+export const scrollToSection = (sectionName) => {
+    const section = document.querySelector(`#${sectionName}`);
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+
 function Toprow({ children }) {
     const data = useContext(MeContext);
 
@@ -40,7 +45,12 @@ function Toprow({ children }) {
                     {children}
                 </div>
                 <div className="mt-4">
-                    <Pills tags={data.tags} maxWidth="800px" />
+                    <Pills tags={data.tags} maxWidth="800px"
+                        onClick={
+                            // () => scrollToSection(`aff-0`)
+                            () => scrollToSection("affiliations")
+                        }
+                    />
                 </div>
             </div>
         </>

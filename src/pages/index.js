@@ -48,7 +48,7 @@ export default function Home() {
             className='font-display text-center font-extrabold text-4xl sm:text-5xl text-white lg:text-[length:72px] lg:leading-[64px] xl:text-7xl'>
             Supertype
           </h2>
-          <span style={{ width: '1.2em' }}>{" "}</span>
+          <span style={{ width: '1.2em', minWidth: '1.2em' }}>{" "}</span>
           <h2
             className="font-display text-center font-extrabold text-4xl sm:text-5xl text-white lg:text-[length:72px] lg:leading-[64px] xl:text-7xl typewriter inline">
             Collective
