@@ -1,5 +1,4 @@
 import { useContext } from "react"
-import dynamic from 'next/dynamic'
 import { useForm } from "react-hook-form"
 import Select from "react-select";
 import useLocalStorage from "use-local-storage";

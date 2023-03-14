@@ -1,6 +1,10 @@
+import { useContext } from 'react';
 import Link from 'next/link'
+import Image from 'next/image';
+import { supabase } from "@/lib/supabaseClient";
 import Home from '@/icons/Home'
 import Download from '@/icons/Download';
+import { AppContext } from "@/contexts/AppContext";
 
 
 const onCreatePDF = async () => {
@@ -10,13 +14,25 @@ const onCreatePDF = async () => {
         filename: 'collective_profile.pdf',
         jsPDF: { format: 'a2', orientation: 'portrait' }
     };
-    // New Promise-based usage:
+    // Promise-based usage:
     await html2pdf().set(opt).from(element).save();
 
     // const pdf = await html2pdf().from(document.body).toPdf().get('pdf');
     // pdf.save();
 }
 
+export async function signInWithGitHub() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'github',
+        options: {
+            // redirect to their last page
+            redirectTo: window.location.href
+        }
+    });
+    if (error) {
+        console.log(error);
+    }
+}
 
 export const LinkToHome = () => {
     return (
@@ -26,7 +42,25 @@ export const LinkToHome = () => {
     )
 }
 
-export const Navbar = () => {
+const DownloadPDFBtn = () => {
+    return (
+        <button onClick={onCreatePDF}
+            className="text-white group hover:border hover:text-rose-200 text-sm px-3 py-1 rounded-md text-sm">
+
+            <span className='hidden group-hover:inline group-hover:animate-spin'>
+                <Download />
+            </span>
+            Download
+        </button>
+    )
+}
+
+export const Navbar = ({ pdfBtn }) => {
+
+    const { isLoggedIn } = useContext(AppContext);
+    // isLoggedIn.githubToken contains the token we can use in our fetch calls
+    console.log("isloggedin", isLoggedIn)
+
     return (
         <nav className="bg-gradient-to-r backdrop-blur-lg from-amber-700 to-rose-900 shadow-lg opacity-80">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,21 +69,24 @@ export const Navbar = () => {
                         <div className="flex-shrink-0">
                             <LinkToHome />
                         </div>
-
-
                     </div>
                     <div className="flex items-center">
                         <div className="hidden md:block ">
                             <div className="ml-10 flex items-baseline space-x-4">
-                                {/* button to download this page as PDF */}
-                                <button onClick={onCreatePDF}
-                                    className="text-white group hover:border hover:text-rose-200 px-3 py-1 rounded-md text-sm">
-
-                                    <span className='hidden group-hover:inline group-hover:animate-spin'>
-                                        <Download />
-                                    </span>
-                                    Download
-                                </button>
+                                {pdfBtn && <DownloadPDFBtn />}
+                                {
+                                    isLoggedIn ?
+                                        <button
+                                            className="text-white group hover:border hover:text-rose-200 text-sm px-3 py-1 rounded-md text-sm">
+                                            Profile
+                                        </button>
+                                        :
+                                        <button onClick={() => signInWithGitHub()}
+                                            className="text-white group hover:border hover:text-rose-200 px-3 py-1 rounded-md text-sm hover:bg-secondary">
+                                            <Image src="/techicons/github_inv.png" alt="GitHub Logo" width={20} height={20} className="inline mr-2" />
+                                            Login with GitHub
+                                        </button>
+                                }
                             </div>
                         </div>
                     </div>

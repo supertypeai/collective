@@ -57,6 +57,17 @@ export default function Home() {
         </div>
 
         <div className={styles.grid}>
+          <Link
+            href="/enroll"
+            className={styles.card}
+          >
+            <h2 className={inter.className}>
+              Create a Profile <span>-&gt;</span>
+            </h2>
+            <p className={inter.className}>
+              A simple wizard to register for a profile on Supertype Collective
+            </p>
+          </Link>
           <a
             href="https://supertype.ai"
             className={styles.card}
@@ -112,7 +123,7 @@ export default function Home() {
               {" "}Source Code <span>-&gt;</span>
             </h2>
             <p className={inter.className}>
-              Add your profile by submitting a pull request to this repository on GitHub.
+              Add a feature or enhancement to this repository on GitHub.
             </p>
           </a>
         </div>
