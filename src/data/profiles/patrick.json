@@ -1,0 +1,123 @@
+{
+    "fullname": "Patrick Amadeus Irawan",
+    "github_handle": "patrickamadeus",
+    "avatar_url": "https://avatars.githubusercontent.com/u/65403659",
+    "tags": [
+        "data analytics",
+        "data science",
+        "data visualization",
+        "artificial intelligence",
+        "machine learning",
+        "deep learning",
+        "software engineering",
+        "backend development",
+        "software testing"
+    ],
+    "short": "Full Stack Data Scientist, Supertype.ai",
+    "long": "Passionate about building software around Data Science & AI. Currently learning and gathering pieces to fulfill his childhood aspiration of bringing a contribution through healthcare and technology integration.",
+    "stack": {
+        "AI & Data": [
+            "python",
+            "jupyter",
+            "numpy",
+            "pandas",
+            "sklearn",
+            "tensorflow",
+            "sql",
+            "looker"
+        ],
+        "Backend": [
+            "go",
+            "expressjs",
+            "nodejs",
+            "django",
+            "php"
+        ],
+        "Frontend":[
+            "react",
+            "nextjs"
+        ],
+        "Engineering": [
+            "mongodb",
+            "mysql",
+            "postgresql",
+            "github",
+            "postman",
+            "docker",
+            "selenium",
+            "gcp",
+            "heroku"
+        ]
+    },
+    "affiliations": [
+        {
+            "title": "Supertype",
+            "position": "Full Stack Data Scientist",
+            "period": "Feb '23 - Present",
+            "description": [
+                "Coupling deep learning expertise with engineering prowess. Developing software-based solution alongside integrated data products."
+            ],
+            "tags": [
+                "data analytics",
+                "data science",
+                "data visualization",
+                "machine learning",
+                "web development",
+                "django",
+                "python"
+            ]
+        },
+        {
+            "title": "Blibli",
+            "position": "Software Development Engineer in Test Intern",
+            "period": "June '22 - December '22",
+            "description": [
+                "Responsible for internal UI & API automation test management and creation",
+                "Kept track on multiple environments' data consistency for testing purpose",
+                "Worked with Customer Experience Checkout & Promotion Team"
+            ],
+            "tags": [
+                "selenium",
+                "web development",
+                "mongodb",
+                "java"
+            ]
+        },
+        {
+            "title": "Ruangguru",
+            "position": "Software Engineer Intern",
+            "period": "January '22 - April '22",
+            "description": [
+                "Developed online grader software from scratch. Made to assist newcoming Kampus Merdeka student and instructor for grading purposes within web-based dashboard and integrated CLI",
+                "Inspected and conducted exploration on how to leverage BE platform development process",
+                "Actively engaged in a 3-weeks academy conducted within the REA program"
+            ],
+            "tags": [
+                "web development",
+                "backend development",
+                "monitoring & logging",
+                "go",
+                "postgresql",
+                "docker",
+                "kubernetes"
+            ]
+        },
+        {
+            "title" : "Wilov.id",
+            "position": "Data Scientist Intern",
+            "period": "June '21 - December '21",
+            "description": [
+                "Managed, maintained, and preserved company analytics data",
+                "Gathered valuable business-related insights from centralized mobile-app data"
+            ],
+            "tags": [
+                "data analytics",
+                "data visualization",
+                "looker studio",
+                "gcp"
+            ]
+        }
+    ],
+    "wp_blog_root_url": "https://supertype.ai",
+    "wp_blog_author_id": 12
+}
