@@ -1,314 +1,174 @@
 [
-    {
-        "value": "react",
-        "label": "React"
-    },
-    {
-        "value": "nextjs",
-        "label": "NextJS"
-    },
-    {
-        "value": "vue",
-        "label": "Vue"
-    },
-    {
-        "value": "angular",
-        "label": "Angular"
-    },
-    {
-        "value": "python",
-        "label": "Python"
-    },
-    {
-        "value": "r",
-        "label": "R (programming language)"
-    },
-    {
-        "value": "ruby",
-        "label": "Ruby"
-    },
-    {
-        "value": "java",
-        "label": "Java"
-    },
-    {
-        "value": "csharp",
-        "label": "C#"
-    },
-    {
-        "value": "php",
-        "label": "PHP"
-    },
-    {
-        "value": "rust",
-        "label": "Rust"
-    },
-    {
-        "value": "go",
-        "label": "Go"
-    },
-    {
-        "value": "swift",
-        "label": "Swift"
-    },
-    {
-        "value": "kotlin",
-        "label": "Kotlin"
-    },
-    {
-        "value": "elixir",
-        "label": "Elixir"
-    },
-    {
-        "value": "clojure",
-        "label": "Clojure"
-    },
-    {
-        "value": "scala",
-        "label": "Scala"
-    },
-    {
-        "value": "typescript",
-        "label": "TypeScript"
-    },
-    {
-        "value": "node",
-        "label": "NodeJS"
-    },
-    {
-        "value": "docker",
-        "label": "Docker"
-    },
-    {
-        "value": "kubernetes",
-        "label": "Kubernetes"
-    },
-    {
-        "value": "aws",
-        "label": "AWS"
-    },
-    {
-        "value": "azure",
-        "label": "Azure"
-    },
-    {
-        "value": "gcp",
-        "label": "GCP"
-    },
-    {
-        "value": "terraform",
-        "label": "Terraform"
-    },
-    {
-        "value": "puppet",
-        "label": "Puppet"
-    },
-    {
-        "value": "jenkins",
-        "label": "Jenkins"
-    },
-    {
-        "value": "gitlab",
-        "label": "GitLab"
-    },
-    {
-        "value": "github",
-        "label": "GitHub"
-    },
-    {
-        "value": "bitbucket",
-        "label": "Bitbucket"
-    },
-    {
-        "value": "git",
-        "label": "Git"
-    },
-    {
-        "value": "linux",
-        "label": "Linux"
-    },
-    {
-        "value": "macos",
-        "label": "macOS"
-    },
-    {
-        "value": "windows",
-        "label": "Windows"
-    },
-    {
-        "value": "powershell",
-        "label": "PowerShell"
-    },
-    {
-        "value": "snowflake",
-        "label": "Snowflake"
-    },
-    {
-        "value": "redshift",
-        "label": "Redshift"
-    },
-    {
-        "value": "bigquery",
-        "label": "BigQuery"
-    },
-    {
-        "value": "postgres",
-        "label": "Postgres"
-    },
-    {
-        "value": "mysql",
-        "label": "MySQL"
-    },
-    {
-        "value": "mongodb",
-        "label": "MongoDB"
-    },
-    {
-        "value": "redis",
-        "label": "Redis"
-    },
-    {
-        "value": "elasticsearch",
-        "label": "Elasticsearch"
-    },
-    {
-        "value": "kafka",
-        "label": "Kafka"
-    },
-    {
-        "value": "rabbitmq",
-        "label": "RabbitMQ"
-    },
-    {
-        "value": "graphql",
-        "label": "GraphQL"
-    },
-    {
-        "value": "javascript",
-        "label": "JavaScript"
-    },
-    {
-        "value": "mlOps",
-        "label": "MLOps"
-    },
-    {
-        "value": "devOps",
-        "label": "DevOps"
-    },
-    {
-        "value": "datascience",
-        "label": "Data Science"
-    },
-    {
-        "value": "machinelearning",
-        "label": "Machine Learning"
-    },
-    {
-        "value": "pytorch",
-        "label": "PyTorch"
-    },
-    {
-        "value": "tensorflow",
-        "label": "TensorFlow"
-    },
-    {
-        "value": "keras",
-        "label": "Keras"
-    },
-    {
-        "value": "scikit",
-        "label": "Scikit Learn"
-    },
-    {
-        "value": "pandas",
-        "label": "Pandas"
-    },
-    {
-        "value": "ggplot",
-        "label": "GGPlot"
-    },
-    {
-        "value": "matplotlib",
-        "label": "Matplotlib"
-    },
-    {
-        "value": "seaborn",
-        "label": "Seaborn"
-    },
-    {
-        "value": "plotly",
-        "label": "Plotly"
-    },
-    {
-        "value": "dash",
-        "label": "Dash"
-    },
-    {
-        "value": "d3",
-        "label": "D3"
-    },
-    {
-        "value": "shiny",
-        "label": "Shiny (R framework)"
-    },
-    {
-        "value": "dataengineering",
-        "label": "Data Engineering"
-    },
-    {
-        "value": "django",
-        "label": "Django"
-    },
-    {
-        "value": "flask",
-        "label": "Flask"
-    },
-    {
-        "value": "fastapi",
-        "label": "FastAPI"
-    },
-    {
-        "value": "streamlit",
-        "label": "Streamlit"
-    },
-    {
-        "value": "jupyter",
-        "label": "Jupyter"
-    },
-    {
-        "value": "rstudio",
-        "label": "RStudio"
-    },
-    {
-        "value": "tableau",
-        "label": "Tableau"
-    },
-    {
-        "value": "powerbi",
-        "label": "Power BI"
-    },
-    {
-        "value": "qlik",
-        "label": "Qlik"
-    },
-    {
-        "value": "superset",
-        "label": "Superset"
-    },
-    {
-        "value": "looker",
-        "label": "Looker (formerly Google Data Studio)"
-    },
-    {
-        "value": "api engineering",
-        "label": "API Engineering"
-    },
-    {
-        "value": "microservices",
-        "label": "Microservices"
-    },
-    {
-        "value": "serverless",
-        "label": "Serverless"
-    }
-]
+    { "value": "ab-testing", "label": "A/B Testing" },
+    { "value": "api-engineering", "label": "API Engineering" },
+    { "value": "aws", "label": "AWS" },
+    { "value": "analytics-engineer", "label": "Analytics Engineer" },
+    { "value": "angular", "label": "Angular" },
+    { "value": "ai", "label": "Artificial Intelligence" },
+    { "value": "ar", "label": "Augmented Reality" },
+    { "value": "azure", "label": "Azure" },
+    { "value": "back-end-developer", "label": "Back-end Developer" },
+    { "value": "big-data", "label": "Big Data" },
+    { "value": "big-data-analyst", "label": "Big Data Analyst" },
+    { "value": "bigquery", "label": "BigQuery" },
+    { "value": "bitbucket", "label": "Bitbucket" },
+    { "value": "blockchain", "label": "Blockchain" },
+    { "value": "bi", "label": "Business Intelligence" },
+    {
+      "value": "business-process-automation",
+      "label": "Business Process Automation"
+    },
+    { "value": "csharp", "label": "C#" },
+    { "value": "clojure", "label": "Clojure" },
+    { "value": "cloud-computing", "label": "Cloud Computing" },
+    { "value": "cloud-security", "label": "Cloud Security" },
+    { "value": "cloud-storage", "label": "Cloud Storage" },
+    { "value": "computer-graphics", "label": "Computer Graphics" },
+    { "value": "computer-vision", "label": "Computer Vision" },
+    { "value": "consultancy", "label": "Consultancy" },
+    { "value": "cybersecurity", "label": "Cybersecurity" },
+    { "value": "d3", "label": "D3" },
+    { "value": "dash", "label": "Dash" },
+    { "value": "data-analysis", "label": "Data Analysis" },
+    { "value": "data-analysis-software", "label": "Data Analysis Software" },
+    { "value": "data-analyst", "label": "Data Analyst" },
+    { "value": "data-analytics", "label": "Data Analytics" },
+    { "value": "data-architecture", "label": "Data Architecture" },
+    { "value": "data-center", "label": "Data Center" },
+    { "value": "data-cleansing", "label": "Data Cleansing" },
+    { "value": "data-discovery", "label": "Data Discovery" },
+    { "value": "data-engineering", "label": "Data Engineering" },
+    { "value": "data-enrichment", "label": "Data Enrichment" },
+    { "value": "data-erasure", "label": "Data Erasure" },
+    { "value": "data-extraction", "label": "Data Extraction" },
+    { "value": "data-governance", "label": "Data Governance" },
+    { "value": "data-integration", "label": "Data Integration" },
+    { "value": "data-management", "label": "Data Management" },
+    { "value": "data-migration", "label": "Data Migration" },
+    { "value": "data-mining", "label": "Data Mining" },
+    { "value": "data-modeling", "label": "Data Modeling" },
+    { "value": "data-privacy", "label": "Data Privacy" },
+    { "value": "data-protection", "label": "Data Protection" },
+    { "value": "data-quality", "label": "Data Quality" },
+    { "value": "data-replication", "label": "Data Replication" },
+    { "value": "datascience", "label": "Data Science" },
+    { "value": "data-security", "label": "Data Security" },
+    { "value": "data-storage", "label": "Data Storage" },
+    { "value": "data-transformation", "label": "Data Transformation" },
+    { "value": "data-visualization", "label": "Data Visualization" },
+    {
+      "value": "data-visualization-software",
+      "label": "Data Visualization Software"
+    },
+    {
+      "value": "data-visualization-tools",
+      "label": "Data Visualization Tools"
+    },
+    { "value": "data-warehousing", "label": "Data Warehousing" },
+    { "value": "data-ops", "label": "DataOps" },
+    { "value": "database-administrator", "label": "Database Administrator" },
+    { "value": "database-management", "label": "Database Management" },
+    { "value": "database-security", "label": "Database Security" },
+    { "value": "deep-learning", "label": "Deep Learning" },
+    { "value": "dev-ops", "label": "DevOps" },
+    { "value": "distributed-systems", "label": "Distributed Systems" },
+    { "value": "django", "label": "Django" },
+    { "value": "docker", "label": "Docker" },
+    { "value": "etl", "label": "ETL (Extract, Transform, Load)" },
+    { "value": "edge-analytics", "label": "Edge Analytics" },
+    { "value": "edge-computing", "label": "Edge Computing" },
+    { "value": "elasticsearch", "label": "Elasticsearch" },
+    { "value": "elixir", "label": "Elixir" },
+    { "value": "fastapi", "label": "FastAPI" },
+    { "value": "flask", "label": "Flask" },
+    { "value": "fog-computing", "label": "Fog Computing" },
+    { "value": "front-end-developer", "label": "Front-end Developer" },
+    { "value": "full-stack-developer", "label": "Full Stack Developer" },
+    { "value": "gcp", "label": "GCP" },
+    { "value": "ggplot", "label": "GGPlot" },
+    { "value": "git", "label": "Git" },
+    { "value": "github", "label": "GitHub" },
+    { "value": "gitlab", "label": "GitLab" },
+    { "value": "go", "label": "Go" },
+    { "value": "graphql", "label": "GraphQL" },
+    { "value": "ios-developer", "label": "IOS Developer" },
+    { "value": "internet-security", "label": "Internet Security" },
+    { "value": "iot", "label": "Internet of Things" },
+    { "value": "java", "label": "Java" },
+    { "value": "javascript", "label": "JavaScript" },
+    { "value": "jenkins", "label": "Jenkins" },
+    { "value": "jupyter", "label": "Jupyter" },
+    { "value": "kafka", "label": "Kafka" },
+    { "value": "keras", "label": "Keras" },
+    { "value": "kotlin", "label": "Kotlin" },
+    { "value": "kubernetes", "label": "Kubernetes" },
+    { "value": "linux", "label": "Linux" },
+    { "value": "looker", "label": "Looker (formerly Google Data Studio)" },
+    { "value": "machine-learning", "label": "Machine Learning" },
+    { "value": "macos", "label": "macOS" },
+    { "value": "matplotlib", "label": "Matplotlib" },
+    { "value": "microservices", "label": "Microservices" },
+    { "value": "ml-ops", "label": "MLOps" },
+    { "value": "mobile-app-development", "label": "Mobile App Development" },
+    { "value": "mobile-developer", "label": "Mobile Developer" },
+    { "value": "mongodb", "label": "MongoDB" },
+    { "value": "mysql", "label": "MySQL" },
+    {
+        "value": "natural-language-generation",
+        "label": "Natural Language Generation"
+    },
+    { "value": "nlp", "label": "Natural Language Processing" },
+    {
+        "value": "natural-language-understanding",
+        "label": "Natural Language Understanding"
+    },
+    { "value": "neural-networks", "label": "Neural Networks" },
+    { "value": "nextjs", "label": "NextJS" },
+    { "value": "nosql-databases", "label": "NoSQL Databases" },
+    { "value": "node", "label": "NodeJS" },
+    { "value": "php", "label": "PHP" },
+    { "value": "pandas", "label": "Pandas" },
+    { "value": "plotly", "label": "Plotly" },
+    { "value": "postgres", "label": "Postgres" },
+    { "value": "power-bi", "label": "Power BI" },
+    { "value": "powershell", "label": "PowerShell" },
+    { "value": "predictive-analytics", "label": "Predictive Analytics" },
+    { "value": "predictive-modeling", "label": "Predictive Modeling" },
+    { "value": "puppet", "label": "Puppet" },
+    { "value": "pytorch", "label": "PyTorch" },
+    { "value": "python", "label": "Python" },
+    { "value": "qlik", "label": "Qlik" },
+    { "value": "quality-assurance", "label": "Quality Assurance" },
+    { "value": "r", "label": "R (programming language)" },
+    { "value": "rstudio", "label": "RStudio" },
+    { "value": "rabbitmq", "label": "RabbitMQ" },
+    { "value": "react", "label": "React" },
+    { "value": "redis", "label": "Redis" },
+    { "value": "redshift", "label": "Redshift" },
+    { "value": "robotics", "label": "Robotics" },
+    { "value": "ruby", "label": "Ruby" },
+    { "value": "rust", "label": "Rust" },
+    { "value": "sql-databases", "label": "SQL Databases" },
+    { "value": "scala", "label": "Scala" },
+    { "value": "scikit", "label": "Scikit Learn" },
+    { "value": "seaborn", "label": "Seaborn" },
+    { "value": "serverless", "label": "Serverless" },
+    { "value": "serverless-computing", "label": "Serverless Computing" },
+    { "value": "shiny", "label": "Shiny (R framework)" },
+    { "value": "snowflake", "label": "Snowflake" },
+    { "value": "software-developer", "label": "Software Developer" },
+    { "value": "software-development", "label": "Software Development" },
+    { "value": "streamlit", "label": "Streamlit" },
+    { "value": "superset", "label": "Superset" },
+    { "value": "swift", "label": "Swift" },
+    { "value": "tableau", "label": "Tableau" },
+    { "value": "tensorflow", "label": "TensorFlow" },
+    { "value": "terraform", "label": "Terraform" },
+    { "value": "typescript", "label": "TypeScript" },
+    { "value": "ui-ux-designer", "label": "UI/UX Designer" },
+    { "value": "ux-design", "label": "User Experience Design" },
+    { "value": "vr", "label": "Virtual Reality" },
+    { "value": "vue", "label": "Vue" },
+    { "value": "web-development", "label": "Web Development" },
+    { "value": "windows", "label": "Windows" }
+  ]
