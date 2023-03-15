@@ -100,7 +100,7 @@ const Page = () => {
     }, []);
 
     return (
-        <Mainframe title="Enrollment | Supertype Collective">
+        <Mainframe title="Supertype Collective | A network of the builders and makers in analytics, data science, and engineering.">
             <div className='place-self-center inline-flex items-center'>
                 <div className="md:flex justify-center col-span-12">
                     <h2
