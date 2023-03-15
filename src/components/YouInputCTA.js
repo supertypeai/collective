@@ -11,11 +11,11 @@ const YouInputCTA = () => {
                 placeholder="your_username"
                 onChange={(e) => setYouInput(e.target.value)}
             />
-            <div class="absolute top-[0.6rem] right-2">
-                <button className="inline btn btn-xs btn-info">Join</button>
+            <div className="absolute top-[0.6rem] right-2">
+                <button className="inline btn btn-xs btn-info drop-shadow-lg">Join</button>
             </div>
             <label
-                for="youInput"
+                htmlFor="youInput"
                 className="pointer-events-none text-sm font-medium absolute top-0 left-0 origin-[0_0] border border-solid border-transparent pt-[0.8rem] px-3 transition-[opacity,_transform] duration-100 ease-in-out peer-focus:translate-x-[0.15rem] peer-focus:-translate-y-2 peer-focus:scale-[0.85] peer-focus:opacity-[0.65] peer-[:not(:placeholder-shown)]:translate-x-[0.15rem] peer-[:not(:placeholder-shown)]:-translate-y-2 peer-[:not(:placeholder-shown)]:scale-[0.85] peer-[:not(:placeholder-shown)]:opacity-[0.65] motion-reduce:transition-none"
             >{`collective.supertype.ai/p/${youInput}`}</label>
         </div>
