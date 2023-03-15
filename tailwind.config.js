@@ -25,7 +25,10 @@ module.exports = {
         emerald: colors.emerald,
         indigo: colors.indigo,
         yellow: colors.yellow,
-      }
+      },
+      animation: {
+        'spin-slow': 'spin 5s linear infinite',
+      },
     },
   },
   daisyui: {

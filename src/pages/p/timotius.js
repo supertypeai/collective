@@ -39,15 +39,15 @@ const MyStack = () => {
     return (
         <Stack>
             <StackSection sectionName="AI &#38; Data">
-                <IconRow tags={['python', 'sql', 'jupyter']} />
+                <IconRow tags={['sql', 'jupyter', 'streamlit']} />
                 <IconRow tags={['numpy', 'pandas', 'sklearn']} />
                 <IconRow tags={['tensorflow']} />
             </StackSection>
             <StackSection sectionName="Visualization">
-                <IconRow tags={['tableau']} />
+                <IconRow tags={['tableau', 'plotly']} />
             </StackSection>
             <StackSection sectionName="Engineering">
-                <IconRow tags={['github']} />
+                <IconRow tags={['python', 'github']} />
             </StackSection>
         </Stack>
     )
