@@ -1,4 +1,4 @@
-import { useContext, useId, useEffect } from "react"
+import { useContext, useId, useEffect, useState } from "react"
 import { useForm, Controller } from "react-hook-form"
 import Image from 'next/image';
 import CreatableSelect from 'react-select/creatable';
@@ -19,8 +19,9 @@ const PersonalDetails = ({ nextFormStep }) => {
     const context = useContext(NominateContext);
     const { isLoggedIn } = useContext(AppContext);
     const [form, setForm] = context.f
+    const [loading, setLoading] = useState(false);
 
-    const { register, control, handleSubmit, watch, formState: { errors }, reset } = useForm({
+    const { register, control, handleSubmit, formState: { errors }, reset } = useForm({
         defaultValues: {
             ...form
         }, mode: "onSubmit"
@@ -33,45 +34,64 @@ const PersonalDetails = ({ nextFormStep }) => {
     };
 
     useEffect(() => {
+        const githubInference = localStorage.getItem("githubInference") && JSON.parse(localStorage.getItem("githubInference"));
+        const lastUpdateInference = githubInference
+            ? Math.ceil(
+                (new Date() - new Date(githubInference.updated_at)) / (1000 * 60 * 60 * 24)
+              )
+            : 0;
 
-        if (isLoggedIn.githubUser) {
-            inferFromGithub(isLoggedIn.githubUser.user_metadata.user_name).then((data) => {
-                console.log("githubdata", data)
+        if ( isLoggedIn.githubUser ) {
+            if( !githubInference || lastUpdateInference > 30 ) {
+                setLoading(true);
 
-                // call reset to update form values
+                inferFromGithub({ githubHandle:isLoggedIn.githubUser.user_metadata.user_name }).then((data) => {
+                    console.log("githubdata", data);
+
+                    // save githubInference in local storage
+                    localStorage.setItem("githubInference", JSON.stringify({
+                        ...data,
+                        updated_at: new Date()
+                    }));
+    
+                    // call reset to update form values
+                    reset({
+                        "fullname": data.profile.name,
+                        "s_preferred_handle": data.profile.login,
+                        "github_handle": data.profile.login,
+                        "email": isLoggedIn.githubUser.email,
+                        "short": data.profile.bio,
+                        "tags": data.skill.key_qualifications
+                        // ...data.profile,
+                    });
+
+                    setLoading(false);
+    
+                    return data;
+                })
+            } else {
                 reset({
-                    "fullname": data.profile.name,
-                    "s_preferred_handle": data.profile.login,
-                    "github_handle": data.profile.login,
+                    "fullname": githubInference.profile.name,
+                    "s_preferred_handle": githubInference.profile.login,
+                    "github_handle": githubInference.profile.login,
                     "email": isLoggedIn.githubUser.email,
-                    "short": data.profile.bio,
+                    "short": githubInference.profile.bio,
+                    "tags": githubInference.skill.key_qualifications
                     // ...data.profile,
                 })
-
-                return data;
-            })
+            }
         }
 
 
     }, [isLoggedIn, reset])
 
+    if(loading) return (<div>loading...</div>)
+
     return (
         <Form onSubmit={handleSubmit(saveData)}>
-
-            {
-                // prompt user to sign in with GitHub if not already signed in
-                !isLoggedIn &&
-                <div className="my-4">
-                    <p className="text-sm mb-4">You can expedite the application process by signing in with GitHub</p>
-                    <button onClick={() => signInWithGitHub()}
-                        className="text-white group hover:text-rose-200 px-3 py-1 rounded-md text-sm hover:bg-secondary border-2">
-                        <Image src="/techicons/github_inv.png" alt="GitHub Logo" width={20} height={20} className="inline mr-2" />
-                        Sign In with GitHub
-                    </button>
-                </div>
-            }
-
-
+            <div className="my-4">
+                <p className="text-sm mb-4">You can expedite the application process by signing in with GitHub</p>
+            </div>
             <fieldset>
                 <legend>
                     <h3 className="text-2xl font-bold">🧑‍💼 Developer Profile</h3>
@@ -95,11 +115,22 @@ const PersonalDetails = ({ nextFormStep }) => {
                             error={errors?.github_handle}
                             hint="Used to automatically populate your Developer Profile"
                         >
-                            <Input
-                                {...register("github_handle", { required: "Your GitHub username is a required field" })}
-                                id="github_handle"
-                                placeholder="pambeesly"
-                            />
+                            { !isLoggedIn ? (
+                                <div>
+                                    <button onClick={() => signInWithGitHub()}
+                                        className="text-white group hover:text-rose-200 px-3 py-2 my-auto rounded-md text-sm hover:bg-secondary border-2">
+                                        <Image src="/techicons/github_inv.png" alt="GitHub Logo" width={20} height={20} className="inline mr-2" />
+                                        Sign In with GitHub
+                                    </button>
+                                </div>
+                            ) : (
+                                <Input
+                                    {...register("github_handle", { required: "Your GitHub username is a required field" })}
+                                    id="github_handle"
+                                    placeholder="pambeesly"
+                                    disabled={true}
+                                />
+                            )}
                         </Field>
                     </div>
                 </div>
