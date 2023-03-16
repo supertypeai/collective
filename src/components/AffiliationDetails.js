@@ -4,6 +4,7 @@ import Select from "react-select";
 
 import { NominateContext } from "@/contexts/NominateContext"
 import { Field, Form, Input } from "@/blocks/Form"
+import profileTagsChoices from '@/data/profileTagsChoices.json';
 
 const placeholder = {
     1: {
@@ -36,7 +37,7 @@ const AffiliationDetails = ({ nextFormStep }) => {
         setForm({ ...form, ...data });
         nextFormStep();
     };
-    const tagOptions = form.tags.map((obj) => ({ value: obj, label: obj }))
+    const tagOptions = profileTagsChoices.filter(tag => form.tags.includes(tag.value));
 
     const QualificationTagger = ({ id }) => {
         return <Controller
