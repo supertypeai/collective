@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import Head from 'next/head'
+import Head from 'next/head';
 import { supabase } from "@/lib/supabaseClient";
-
 import { Navbar } from './Navbar';
 import Footer from './Footer';
 import { MeContext } from '@/contexts/MeContext';
@@ -16,7 +15,7 @@ const PageHead = ({ data, title }) => {
   if (data) {
     // this is for all profile pages
     return (
-      <>
+      <Head>
         <title>{`${data.fullname} on Supertype Collective`}</title>
         <meta name="description" content={`${data.fullname} (${data.short}) | ${data.affiliations.length > 0 && data.affiliations[0]['title'] + ' ' + data.affiliations[0]['position']} | Supertype Collective`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -27,14 +26,14 @@ const PageHead = ({ data, title }) => {
         <meta property="og:site_name" content="Supertype Collective" />
 
         <link rel="icon" href="/favicon-32x32.png" />
-      </>
+      </Head>
     )
   }
   else {
     const siteDescription = "Supertype Collective is a community of analytics developers, data scientists &#38; engineering leaders building products across the full stack."
     return (
-      <>
-        <title>{`${title}` || `Supertype Collective`}</title>
+      <Head>
+        <title>{title || `Supertype Collective`}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content={siteDescription} />
 
@@ -44,7 +43,7 @@ const PageHead = ({ data, title }) => {
         <meta property="og:site_name" content="Supertype Collective" />
 
         <link rel="icon" href="/favicon-32x32.png" />
-      </>
+      </Head>
     )
   }
 }
@@ -83,7 +82,7 @@ const AppContextWrapper = ({ children }) => {
 }
 
 
-export const Mainframe = ({ children, data, title }) => {
+export const Mainframe = ({ data, title, children }) => {
 
   const [createProfileCTA, setCreateProfileCTA] = useState(true)
 
@@ -91,9 +90,7 @@ export const Mainframe = ({ children, data, title }) => {
     return (
       <MeContextWrapper data={data}>
         <AppContextWrapper>
-          <Head>
-            <PageHead data={data} />
-          </Head>
+          <PageHead data={data} />
           <Navbar pdfBtn={true} />
           {/* <!-- Main content --> */}
           <main className={`max-w-7xl mx-auto gap-4 backdrop-blur-lg drop-shadow-lg my-12 break-words bg-gradient-to-r from-amber-700 to-rose-900 mb-6 shadow-xl rounded-lg`} id="mainframe">
@@ -119,9 +116,7 @@ export const Mainframe = ({ children, data, title }) => {
   } else {
     return (
       <AppContextWrapper>
-        <Head>
-          <PageHead title={title} />
-        </Head>
+        <PageHead title={title} />
         <Navbar />
         {/* <!-- Main content --> */}
         <main className={`max-w-7xl mx-auto gap-4 backdrop-blur-lg drop-shadow-lg my-12 break-words bg-gradient-to-r from-amber-700 to-rose-900  mb-6 shadow-xl rounded-lg`} id="mainframe">
