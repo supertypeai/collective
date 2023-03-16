@@ -20,12 +20,16 @@ const NominatedCompleted = () => {
 
     const postToSupabase = async (data) => {
         setIsSubmitting(true)
+
+        const { data: { user } } = await supabase.auth.getUser();
+
         const { error } = await supabase
             .from('profile')
             .insert([
                 {
                     ...data,
                     created_at: new Date(),
+                    auth_uuid: user.id
                 }
             ])
 
