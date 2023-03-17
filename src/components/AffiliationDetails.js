@@ -64,11 +64,11 @@ const AffiliationDetails = ({ nextFormStep }) => {
                     })}
                     styles={{
                         // change z-index of the option menu
-                        menu: (styles, { data }) => { 
+                        menu: (styles, { data }) => {
                             return {
-                                ...styles, 
+                                ...styles,
                                 zIndex: 10
-                            } 
+                            }
                         },
                         // change background color of tags
                         multiValue: (styles, { data }) => {
@@ -282,8 +282,8 @@ const AffiliationDetails = ({ nextFormStep }) => {
                         </Field>
                     </div>
                 </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <div className="flex flex-wrap min-h-[480px]">
+                    <div className="w-full md:w-1/2 px-3 md:mb-0">
                         <Field label="Start Date" error={errors?.affiliations?.org3?.start} hint="Used to create the timeline on your Developer Profile">
                             <StartDate id="3" />
                         </Field>
