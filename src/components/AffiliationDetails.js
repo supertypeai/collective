@@ -63,6 +63,13 @@ const AffiliationDetails = ({ nextFormStep }) => {
                         },
                     })}
                     styles={{
+                        // change z-index of the option menu
+                        menu: (styles, { data }) => { 
+                            return {
+                                ...styles, 
+                                zIndex: 10
+                            } 
+                        },
                         // change background color of tags
                         multiValue: (styles, { data }) => {
                             return {
