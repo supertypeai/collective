@@ -38,14 +38,14 @@ const PersonalDetails = ({ nextFormStep }) => {
         const lastUpdateInference = githubInference
             ? Math.ceil(
                 (new Date() - new Date(githubInference.updated_at)) / (1000 * 60 * 60 * 24)
-              )
+            )
             : 0;
 
-        if ( isLoggedIn.githubUser ) {
-            if( !githubInference || lastUpdateInference > 30 ) {
+        if (isLoggedIn.githubUser) {
+            if (!githubInference || lastUpdateInference > 30) {
                 setLoading(true);
 
-                inferFromGithub({ githubHandle:isLoggedIn.githubUser.user_metadata.user_name }).then((data) => {
+                inferFromGithub({ githubHandle: isLoggedIn.githubUser.user_metadata.user_name }).then((data) => {
                     console.log("githubdata", data);
 
                     // save githubInference in local storage
@@ -53,7 +53,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                         ...data,
                         updated_at: new Date()
                     }));
-    
+
                     // call reset to update form values
                     reset({
                         "fullname": data.profile.name,
@@ -66,7 +66,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                     });
 
                     setLoading(false);
-    
+
                     return data;
                 })
             } else {
@@ -85,23 +85,20 @@ const PersonalDetails = ({ nextFormStep }) => {
 
     }, [isLoggedIn, reset])
 
-    if(loading) return (<div>loading...</div>)
+    if (loading) return (<div>loading...</div>)
 
     return (
         <Form onSubmit={handleSubmit(saveData)}>
-            <div className="my-4">
-                <p className="text-sm mb-4">You can expedite the application process by signing in with GitHub</p>
-            </div>
             <fieldset>
                 <legend>
-                    <h3 className="text-2xl font-bold">🧑‍💼 Developer Profile</h3>
-                    <p className="text-sm">The following details will be used to create a Developer Profile on Supertype Collective after a manual review.</p>
+                    <h3 className="text-2xl font-bold">🧑‍💼 Maker&apos;s Profile</h3>
+                    <p className="text-sm">The following details will be used to create your Maker&apos; s Profile.</p>
                 </legend>
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <Field label="Preferred Collective Handle"
                             error={errors?.s_preferred_handle}
-                            hint="This will be in the link to your Developer Profile, if available"
+                            hint="This will be in the link to your Maker's Profile, if available"
                         >
                             <Input
                                 {...register("s_preferred_handle")}
@@ -113,9 +110,9 @@ const PersonalDetails = ({ nextFormStep }) => {
                     <div className="w-full md:w-1/2 px-3">
                         <Field label="GitHub Username"
                             error={errors?.github_handle}
-                            hint="Used to automatically populate your Developer Profile"
+                            hint="Used to automatically populate your Maker's Profile"
                         >
-                            { !isLoggedIn ? (
+                            {!isLoggedIn ? (
                                 <div>
                                     <button onClick={() => signInWithGitHub()}
                                         className="text-white group hover:text-rose-200 px-3 py-2 my-auto rounded-md text-sm hover:bg-secondary border-2">
