@@ -20,24 +20,33 @@ const NominatedCompleted = () => {
 
     const postToSupabase = async (data) => {
         setIsSubmitting(true)
+
+        const { data: { user } } = await supabase.auth.getUser();
+
         const { error } = await supabase
             .from('profile')
             .insert([
                 {
                     ...data,
                     created_at: new Date(),
+                    auth_uuid: user.id
                 }
             ])
 
-        if (error) {
-            console.log(error);
+        if (error?.code === "23505") {
+            alert("Your email already exists, please use another email.");
+            setIsSubmitting(false);
+        } else if (error) {
+            alert("Sorry, something went wrong. Please try again.");
+            setIsSubmitting(false);
+            console.log(error)
+        } else {
+            // if successful, alert() for 2 seconds and redirect to home page
+            alert("Thank you for completing the nomination process. We will be in touch.")
+            setTimeout(() => {
+                router.push("/")
+            }, 2000);
         }
-
-        // if successful, alert() for 2 seconds and redirect to home page
-        alert("Thank you for completing the nomination process. We will be in touch.")
-        setTimeout(() => {
-            router.push("/")
-        }, 2000);
     }
 
     const saveData = (data) => {

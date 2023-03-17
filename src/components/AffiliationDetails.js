@@ -4,6 +4,7 @@ import Select from "react-select";
 
 import { NominateContext } from "@/contexts/NominateContext"
 import { Field, Form, Input } from "@/blocks/Form"
+import profileTagsChoices from '@/data/profileTagsChoices.json';
 
 const placeholder = {
     1: {
@@ -36,7 +37,7 @@ const AffiliationDetails = ({ nextFormStep }) => {
         setForm({ ...form, ...data });
         nextFormStep();
     };
-    const tagOptions = form.tags.map((obj) => ({ value: obj, label: obj }))
+    const tagOptions = profileTagsChoices.filter(tag => form.tags.includes(tag.value));
 
     const QualificationTagger = ({ id }) => {
         return <Controller
@@ -62,6 +63,13 @@ const AffiliationDetails = ({ nextFormStep }) => {
                         },
                     })}
                     styles={{
+                        // change z-index of the option menu
+                        menu: (styles, { data }) => {
+                            return {
+                                ...styles,
+                                zIndex: 10
+                            }
+                        },
                         // change background color of tags
                         multiValue: (styles, { data }) => {
                             return {
@@ -274,8 +282,8 @@ const AffiliationDetails = ({ nextFormStep }) => {
                         </Field>
                     </div>
                 </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <div className="flex flex-wrap min-h-[480px]">
+                    <div className="w-full md:w-1/2 px-3 md:mb-0">
                         <Field label="Start Date" error={errors?.affiliations?.org3?.start} hint="Used to create the timeline on your Developer Profile">
                             <StartDate id="3" />
                         </Field>
