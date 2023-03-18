@@ -8,7 +8,7 @@ import { Field, Form, Input } from "@/blocks/Form"
 
 
 
-const NominatedCompleted = () => {
+const RegistrationCompleted = () => {
 
     const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -70,7 +70,7 @@ const NominatedCompleted = () => {
                         placeholder="https://www.linkedin.com/in/chansamuel"
                     />
                 </Field>
-                <Field label="Website" hint='This might also appear on your Developer Profile.'>
+                <Field label="Website" hint='This might also appear on your profile.'>
                     <Input
                         {...register("website")}
                         type="url"
@@ -96,7 +96,7 @@ const NominatedCompleted = () => {
                             hint="This is your Author ID on WordPress. You can find it in your WordPress profile or in the URL of your author page."
                         >
                             <Input
-                                {...register("wp_blog_author_id", {valueAsNumber: true})}
+                                {...register("wp_blog_author_id", { valueAsNumber: true })}
                                 id="wp_blog_author_id"
                                 placeholder="14"
                             />
@@ -107,7 +107,7 @@ const NominatedCompleted = () => {
                     isSubmitting ?
                         <button type="submit" className="btn btn-primary text-white" disabled>Submitting...</button>
                         :
-                        <button type="submit" className="btn btn-primary text-white">Complete Nomination</button>
+                        <button type="submit" className="btn btn-primary text-white">Complete Registration</button>
                 }
             </fieldset>
 
@@ -115,9 +115,9 @@ const NominatedCompleted = () => {
     )
 }
 
-// const NominatedCompletedNonSSR = dynamic(() => Promise.resolve(NominatedCompleted), {
+// const RegistrationCompletedNonSSR = dynamic(() => Promise.resolve(RegistrationCompleted), {
 //     ssr: false,
 // })
 
 
-export default NominatedCompleted
+export default RegistrationCompleted

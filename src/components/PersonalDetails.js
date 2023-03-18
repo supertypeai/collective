@@ -131,8 +131,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                         </Field>
                     </div>
                 </div>
-                <Field label="Full name" error={errors?.fullname}
-                >
+                <Field label="Full name" error={errors?.fullname}>
                     <Input
                         {...register("fullname", { required: "Full name is a required field" })}
                         id="fullname"
