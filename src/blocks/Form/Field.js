@@ -25,5 +25,5 @@ export const Field = ({ children, label, error, hint }) => {
 };
 
 export const Hint = ({ children }) => {
-    return <small className="text-gray-400 text-xs italic text-muted -mt-2">{children}</small>;
+    return <p className="text-gray-400 mt-1 text-xs italic text-muted -mt-2">{children}</p>;
 }

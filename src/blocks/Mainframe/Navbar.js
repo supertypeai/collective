@@ -58,7 +58,7 @@ const DownloadPDFBtn = () => {
 export const Navbar = ({ pdfBtn }) => {
 
     const { isLoggedIn } = useContext(AppContext);
-    // isLoggedIn.githubToken contains the token we can use in our fetch calls
+    // isLoggedIn contains the token we can use in our fetch calls
     console.log("isloggedin", isLoggedIn)
 
     return (
