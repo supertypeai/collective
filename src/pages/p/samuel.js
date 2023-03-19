@@ -4,6 +4,7 @@ import Body from '@/blocks/Body'
 import IconRow from '@/blocks/IconRow'
 import Affiliations from '@/blocks/Affiliations'
 import { Stack, StackSection } from '@/blocks/Stack'
+import { inferFromGithub } from "superinference";
 
 import me from '@/data/profiles/samuel.json'
 
@@ -13,10 +14,21 @@ export async function getStaticProps() {
         const res_gh = await fetch(`https://api.github.com/users/${me['github_handle']}`);
         const github_data = await res_gh.json();
         me['gh'] = github_data
+
+        await inferFromGithub({
+            githubHandle: me['github_handle'],
+            token: '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',
+            top_repo_n: 5
+        }).then(
+            (data) => {
+                me['gh2'] = data
+            }
+        )
+
     }
 
     if (me['wp_blog_root_url'] && me['wp_blog_author_id']) {
-        const res_wp = await fetch(`${me['wp_blog_root_url']}/wp-json/wp/v2/posts?per_page=5&author=${me['wp_blog_author_id']}&categories=4&5`);
+        const res_wp = await fetch(`${me['wp_blog_root_url']}/wp-json/wp/v2/posts?per_page=6&author=${me['wp_blog_author_id']}&categories=4&5`);
         const wp_data = await res_wp.json();
         me['wp'] = wp_data
     }
@@ -63,6 +75,9 @@ const Profile = ({ data }) => {
                 or architect your <b>end-to-end machine learning pipelines.</b>
             </Toprow>
             <Body stack={<MyStack />} affiliations={<Affiliations />}>
+                <div className='hidden'>
+                    {JSON.stringify(data['gh2'])}
+                </div>
             </Body>
         </Mainframe>
     )

@@ -25,6 +25,20 @@ export async function signInWithLinkedIn() {
     }
 }
 
+const RegistrationBtn = ({ isSubmitting }) => {
+
+    return (
+        <div className="my-6">
+            {
+                isSubmitting ?
+                    <button type="submit" className="btn btn-primary text-white" disabled>Submitting...</button>
+                    :
+                    <button type="submit" className="btn btn-primary text-white">Complete Registration</button>
+            }
+        </div>
+    )
+}
+
 const ExecutiveForm = () => {
 
     const { isLoggedIn } = useContext(AppContext);
@@ -37,7 +51,7 @@ const ExecutiveForm = () => {
     });
 
     const saveData = (data) => {
-        console.log(data)
+        console.log(data, "save data")
         setIsSubmitting(true)
         // postToSupabase(data);
     };
@@ -94,7 +108,7 @@ const ExecutiveForm = () => {
                     <Field label="LinkedIn Profile"
                         error={errors?.linkedin_handle}>
                         <div>
-                            {!isLoggedIn ? (
+                            {!isLoggedIn.linkedinUser ? (
                                 <div>
                                     <button onClick={() => signInWithLinkedIn()}
                                         className="text-white group hover:text-rose-200 px-3 py-2 my-auto rounded-md text-sm hover:bg-secondary border-2">
@@ -125,7 +139,7 @@ const ExecutiveForm = () => {
                             {...register("s_preferred_handle")}
                             id="s_preferred_handle"
                             placeholder={
-                                isLoggedIn ?
+                                isLoggedIn.linkedinUser ?
                                     isLoggedIn.linkedinUser.user_metadata.full_name.substring(0, isLoggedIn.linkedinUser.user_metadata.full_name.indexOf(' ')) : ''
                             }
                         />
@@ -226,8 +240,7 @@ const ExecutiveForm = () => {
                     className="collapse-checkbox"
                     onChange={(e) => {
                         setHaveWebsiteBlog(prev => !prev);
-                    }}
-                />
+                    }} />
                 <div className="collapse-title font-medium underline">
                     {
                         haveWebsiteBlog ? "Remove the website / blog section" : "(Optional) I have a website or blog"
@@ -239,15 +252,7 @@ const ExecutiveForm = () => {
                 </div>
             </div>
 
-
-            <div className="my-6">
-                {
-                    isSubmitting ?
-                        <button type="submit" className="btn btn-primary text-white" disabled>Submitting...</button>
-                        :
-                        <button type="submit" className="btn btn-primary text-white">Complete Registration</button>
-                }
-            </div>
+            <RegistrationBtn isSubmitting={isSubmitting} />
         </Form>
     )
 }

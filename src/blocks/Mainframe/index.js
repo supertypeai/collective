@@ -71,7 +71,8 @@ const AppContextWrapper = ({ children }) => {
         setIsLoggedIn(data ? {
           ...isLoggedIn,
           [tokenProvider]: data.session.access_token,
-          [tokenUser]: data.session.user
+          [tokenUser]: data.session.user,
+          providerToken: data.session.provider_token
         } : false)
       }
     }
