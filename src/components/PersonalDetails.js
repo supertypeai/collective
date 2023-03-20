@@ -49,13 +49,23 @@ const PersonalDetails = ({ nextFormStep }) => {
                 inferFromGithub({ githubHandle: isLoggedIn.githubUser.user_metadata.user_name }).then((data) => {
                     console.log("githubdata", data);
 
+                    const { profile, skill, stats, activity, contribution, closest_user } = data;
+
+                    const {
+                        created_pr,
+                        created_issue,
+                        ...contrib
+                    } = contribution;
+
+                    const d = { profile, skill, stats, activity, contribution: contrib, closest_user };
+
                     // save githubInference in local storage
                     localStorage.setItem("githubInference", JSON.stringify({
-                        ...data,
+                        ...d,
                         updated_at: new Date()
                     }));
 
-                    setSuperinference(data);
+                    setSuperinference(d);
 
                     // call reset to update form values
                     reset({
