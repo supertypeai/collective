@@ -1,6 +1,6 @@
 [
     {
-        "value": "frontend",
+        "value": "Frontend",
         "label": "Front End",
         "examples": [
             "HTML",
@@ -19,7 +19,7 @@
         ]
     },
     {
-        "value": "backend",
+        "value": "Backend",
         "label": "Back End",
         "examples": [
             "NodeJS",
@@ -55,7 +55,7 @@
         ]
     },
     {
-        "value": "devops",
+        "value": "DevOps",
         "label": "Dev Ops",
         "examples": [
             "AWS",
@@ -78,7 +78,7 @@
         ]
     },
     {
-        "value": "database",
+        "value": "Database",
         "label": "Database",
         "examples": [
             "MySQL",
@@ -95,7 +95,7 @@
         ]
     },
     {
-        "value": "mobile",
+        "value": "Mobile",
         "label": "Mobile",
         "examples": [
             "React Native",
@@ -109,7 +109,7 @@
         ]
     },
     {
-        "value": "iot",
+        "value": "IoT",
         "label": "IoT",
         "examples": [
             "Arduino",
@@ -129,7 +129,7 @@
         ]
     },
     {
-        "value": "blockchain",
+        "value": "Blockchain",
         "label": "Blockchain",
         "examples": [
             "Ethereum",
