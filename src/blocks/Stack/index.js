@@ -35,29 +35,58 @@ export const StackSection = ({ sectionName, children }) => {
 
 export const generateStack = (stack) => {
     const sections = []
-    for (const [key, value] of Object.entries(stack)) {
 
-        let section = []
-
-        // iterate through value, to form rows of 3
-        for (let i = 0; i < value.length; i += 3) {
-            let icons = []
-            value.map((icon, index) => {
-                if (index >= i && index < i + 3) {
-                    icons.push(icon)
-                }
-            })
-            section.push(
-                <IconRow tags={icons} />
+    if(!Object.keys(stack).includes("1")) { 
+        for (const [key, value] of Object.entries(stack)) {
+            let section = []
+    
+            // iterate through value, to form rows of 3
+            for (let i = 0; i < value.length; i += 3) {
+                let icons = []
+                value.map((icon, index) => {
+                    if (index >= i && index < i + 3) {
+                        icons.push(icon)
+                    }
+                })
+                section.push(
+                    <IconRow tags={icons} key={`${key}-${i}`}/>
+                )
+            }
+    
+            sections.push(
+                <StackSection sectionName={key} key={key}>
+                    {section}
+                </StackSection>
             )
         }
-
-        sections.push(
-            <StackSection sectionName={key}>
-                {section}
-            </StackSection>
-        )
+    } else {
+        Object.keys(stack).map(key => {
+            const s = stack[key];
+            for (const [key, value] of Object.entries(s)) {
+                let section = []
+        
+                // iterate through value, to form rows of 3
+                for (let i = 0; i < value.length; i += 3) {
+                    let icons = []
+                    value.map((icon, index) => {
+                        if (index >= i && index < i + 3) {
+                            icons.push(icon)
+                        }
+                    })
+                    section.push(
+                        <IconRow tags={icons} key={`${key}-${i}`}/>
+                    )
+                }
+        
+                sections.push(
+                    <StackSection sectionName={key} key={key}>
+                        {section}
+                    </StackSection>
+                )
+            }
+        })
     }
+    
     return (
         <Stack>
             {sections}

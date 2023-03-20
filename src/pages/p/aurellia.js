@@ -4,32 +4,32 @@ import Toprow from '@/blocks/Toprow'
 import Body from '@/blocks/Body'
 import Affiliations from '@/blocks/Affiliations'
 import { generateStack } from '@/blocks/Stack'
-
-import me from '@/data/profiles/aurellia.json'
+import { supabase } from "@/lib/supabaseClient";
 
 export async function getStaticProps() {
 
-    /*
-    you shouldn't have to modify any of the
-    following in this function; it returns the prop data
-    which is passed to the Profile component below
-    */
+    const { data, error } = await supabase
+        .from('profile')
+        .select()
+        .eq('s_preferred_handle', 'aurellia')
+    
+    const profile = data[0];
 
-    if (me['github_handle']) {
-        const res_gh = await fetch(`https://api.github.com/users/${me['github_handle']}`);
+    if (profile['github_handle']) {
+        const res_gh = await fetch(`https://api.github.com/users/${profile['github_handle']}`);
         const github_data = await res_gh.json();
-        me['gh'] = github_data
+        profile['gh'] = github_data
     }
 
-    if (me['wp_blog_root_url'] && me['wp_blog_author_id']) {
-        const res_wp = await fetch(`${me['wp_blog_root_url']}/wp-json/wp/v2/posts?per_page=5&author=${me['wp_blog_author_id']}&categories=4&5`);
+    if (profile['wp_blog_root_url'] && profile['wp_blog_author_id']) {
+        const res_wp = await fetch(`${profile['wp_blog_root_url']}/wp-json/wp/v2/posts?per_page=6&author=${profile['wp_blog_author_id']}&categories=4&5`);
         const wp_data = await res_wp.json();
-        me['wp'] = wp_data
+        profile['wp'] = wp_data
     }
 
     return {
         props: {
-            data: me
+            data: profile,
         },
     }
 }
@@ -39,7 +39,7 @@ const Profile = ({ data }) => {
     return (
         <Mainframe data={data}>
             <Toprow />
-            <Body stack={generateStack(me.stack)} affiliations={<Affiliations />} />
+            <Body stack={generateStack(data.stack)} affiliations={<Affiliations />} />
         </Mainframe>
     )
 }
