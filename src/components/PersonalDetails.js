@@ -119,7 +119,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                                     <button onClick={() => signInWithGitHub()}
                                         className="text-white group hover:text-rose-200 px-3 py-2 my-auto rounded-md text-sm hover:bg-secondary border-2">
                                         <Image src="/techicons/github_inv.png" alt="GitHub Logo" width={20} height={20} className="inline mr-2" />
-                                        Sign In with GitHub
+                                        Authorize with GitHub
                                     </button>
                                 </div>
                             ) : (
