@@ -64,10 +64,11 @@ const AppContextWrapper = ({ children }) => {
     async function checkUser() {
       const { data } = await supabase.auth.getSession()
       console.log("supabase data", data)
-      const tokenProvider = `${data.session.user.app_metadata.provider}Token`
-      const tokenUser = `${data.session.user.app_metadata.provider}User`
 
       if (data.session) {
+        const tokenProvider = `${data.session.user.app_metadata.provider}Token`
+        const tokenUser = `${data.session.user.app_metadata.provider}User`
+
         setIsLoggedIn(data ? {
           ...isLoggedIn,
           [tokenProvider]: data.session.access_token,
