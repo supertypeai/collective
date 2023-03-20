@@ -20,6 +20,7 @@ const PersonalDetails = ({ nextFormStep }) => {
     const { isLoggedIn } = useContext(AppContext);
     const [form, setForm] = context.f
     const [loading, setLoading] = useState(false);
+    const [superinference, setSuperinference] = useState({});
 
     const { register, control, handleSubmit, formState: { errors }, reset } = useForm({
         defaultValues: {
@@ -29,7 +30,7 @@ const PersonalDetails = ({ nextFormStep }) => {
 
     const saveData = (data) => {
         console.log(data);
-        setForm({ ...form, ...data });
+        setForm({ ...form, ...data, superinference:  superinference});
         nextFormStep();
     };
 
@@ -54,6 +55,8 @@ const PersonalDetails = ({ nextFormStep }) => {
                         updated_at: new Date()
                     }));
 
+                    setSuperinference(data);
+
                     // call reset to update form values
                     reset({
                         "fullname": data.profile.name,
@@ -72,6 +75,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                     return data;
                 })
             } else {
+                setSuperinference(githubInference);
                 reset({
                     "fullname": githubInference.profile.name,
                     "s_preferred_handle": githubInference.profile.login,
@@ -87,7 +91,7 @@ const PersonalDetails = ({ nextFormStep }) => {
 
     }, [isLoggedIn, reset])
 
-    if (loading) return (<div>loading...</div>)
+    if (loading) return (<div className="min-h-screen">loading...</div>)
 
     return (
         <Form onSubmit={handleSubmit(saveData)}>
