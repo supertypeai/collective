@@ -31,7 +31,9 @@ const fetchUser = async (user) => {
 }
 
 const useUser = (user) => {
-    return useQuery(['user'], () => fetchUser(user))
+    return useQuery(['user'], () => fetchUser(user), {
+        // staleTime: 1000 * 60 * 60 * 24, // 24 hours
+    })
 }
 
 export async function getStaticProps() {

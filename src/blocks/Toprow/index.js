@@ -13,27 +13,42 @@ export const scrollToSection = (sectionName) => {
     section.scrollIntoView({ behavior: "smooth", block: "start" });
 };
 
+const Badge = ({ children }) => {
+    return (
+        <div className="bg-black/10 rounded m-1 py-2 px-4 cursor-pointer inline-grid">
+            <p className='text-xs font-light font-semibold'>
+                {children}
+            </p>
+        </div>
+    )
+}
+
 function Toprow({ children }) {
     const data = useContext(MeContext);
 
     return (
         <>
             <div className="col-span-12 lg:col-span-4 justify-center justify-self-center mt-8">
-                <div className="avatar">
-                    <div className="w-52 rounded-lg">
-                        {/* phasing out gh */}
-                        <Image src={data.superinference.profile.avatar_url}
-                            alt={`${data.fullname} supertype`}
-                            className="mt-8 object-cover rounded text-center" width={300} height={300} priority />
+                {/* align avatar to center of div */}
+                <div className="flex justify-center mb-2">
+                    <div className="avatar">
+                        <div className="w-52 rounded-lg">
+                            {/* phasing out gh */}
+                            <Image src={data.superinference.profile.avatar_url}
+                                alt={`${data.fullname} supertype`}
+                                className="mt-8 object-cover rounded text-center" width={300} height={300} priority />
+                        </div>
                     </div>
                 </div>
-                <CollectiveMark />
-                {data.supertype_proof_of_verification &&
-                    <div className="bg-white/10 rounded mt-4 p-2 cursor-pointer">
-                        <p className='text-sm font-light'>
-                            <CheckBadge /> &nbsp;
-                            Verified by Fellowship</p>
-                    </div>}
+
+                <Badge>
+                    {data.isExecutive ? <>👔 &nbsp; executive</> : <>⛑ &nbsp; maker</>}
+                </Badge>
+                <Badge>⭐ {data.superinference.stats.stargazers_count} stars</Badge>
+                <Badge>🚩 {data.superinference.profile.followers} followers</Badge>
+                <Badge>🍴 {data.superinference.stats.forks_count} forks</Badge>
+                <Badge>📦 {data.superinference.activity.commit_count} commits</Badge>
+
             </div>
             <div className="mx-auto grid col-span-12 lg:col-span-8 justify-center justify-self-center lg:justify-self-start mt-8 adapt-xs max-w-sm sm:max-w-none">
                 <div className="mx-auto sm:max-w-screen w-full lg:max-w-xl text-sm text-slate-200 ">
