@@ -36,26 +36,73 @@ const useUser = (user) => {
     })
 }
 
-export async function getStaticProps() {
+const fetchCollectiveHandles = async () => {
+    const { data, error } = await supabase
+        .from('profile')
+        .select('s_preferred_handle')
+        .eq('accepted', true)
+
+    if (error) {
+        console.log(error)
+        throw new Error(error, "Error fetching collective handles")
+    }
+
+    if (!data) {
+        throw new Error("Unavailable collective handle in the database")
+    }
+    return data
+}
+
+const getPathList = ((data) => {
+    return data.map((handle) => {
+        return {
+            params : {
+                user: handle.s_preferred_handle
+            }
+        }
+    })
+})
+
+export async function getStaticPaths() {
+    const queryClient = new QueryClient()
+
+    try{
+        const data = await queryClient.fetchQuery({ 
+            queryKey:['handles'], 
+            queryFn:() => fetchCollectiveHandles(),
+            staleTime: 1000 * 60 * 10, // 10 minutes
+        });
+
+        return {
+            paths: getPathList(data),
+            fallback: false,
+        };
+    } catch(error) {
+        console.log(error)
+    }
+}
+
+export async function getStaticProps({ params }) {
     // Access the client
     // const queryClient = useQueryClient()
     const queryClient = new QueryClient()
 
     await queryClient.prefetchQuery({
         queryKey: ['user'],
-        queryFn: () => fetchUser('samuel'),
+        queryFn: () => fetchUser(params.user),
     })
 
     return {
         props: {
-            dehydratedState: dehydrate(queryClient)
+            dehydratedState: dehydrate(queryClient),
+            user: params.user
         }
     }
 }
 
-const Profile = () => {
+const Profile = (props) => {
 
-    const { isLoading, isError, data, error } = useUser('samuel')
+    const { isLoading, isError, data, error } = useUser(props.user)
 
     console.log("data", data)
     // return <p>{JSON.stringify(data)}</p>
