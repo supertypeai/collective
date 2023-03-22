@@ -100,7 +100,7 @@ const FendyProfile = () => {
     return <ProfileCard person={{
         imgUrl: "https://avatars.githubusercontent.com/u/50945163?v=4",
         name: "Fendy Hendriyanto",
-        profileLink: "/p/fendy",
+        profileLink: "/p/fendy07",
         short: "Artificial Intelligence Instructor @Orbit Future Academy. Enthusiastic about computer vision work for Humaniora.",
         tags: ['AI', 'Database']
     }} />
