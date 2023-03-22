@@ -62,7 +62,7 @@ const PatrickProfile = () => {
         name: "Pat Amadeus Irawan",
         profileLink: "/p/patrick",
         short: "Full Stack Data Scientist @Supertype.ai. Coupling deep learning with engineering prowess at scale.",
-        tags: ['AI', 'Database', 'API', 'Cloud', 'Server']
+        tags: ['AI', 'DataOps', 'Cloud', 'API', 'Frontend']
     }} />
 }
 
@@ -93,6 +93,16 @@ const DivaProfile = () => {
         profileLink: "/p/divakartika",
         short: "Data Science Instructor @Algoritma. A physics graduate but now solving problems with Mathematics and Programming.",
         tags: ['AI', 'IOT', 'Frontend']
+    }} />
+}
+
+const FendyProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://avatars.githubusercontent.com/u/50945163?v=4",
+        name: "Fendy Hendriyanto",
+        profileLink: "/p/fendy",
+        short: "Artificial Intelligence Instructor @Orbit Future Academy. Enthusiastic about computer vision work for Humaniora.",
+        tags: ['AI', 'Database']
     }} />
 }
 
@@ -146,6 +156,7 @@ const Page = () => {
                                 <TimotiusProfile />
                                 <WilsenProfile />
                                 <DivaProfile />
+                                <FendyProfile />
                             </div>
                             <div className={styles.description}>
                                 <div>

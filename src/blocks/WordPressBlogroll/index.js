@@ -12,7 +12,7 @@ const WordPressBlogroll = ({ wp_data }) => {
                 return {
                     id: id,
                     title: decodeHtml(title.rendered),
-                    link: parseUrlString(link),
+                    link: link ? parseUrlString(link) : parseUrlString(post['data-permalink']),
                     date: timeAgo(new Date(date).getTime()),
                     excerpt: decodeHtml(excerpt.rendered),
                 };
