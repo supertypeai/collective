@@ -30,7 +30,7 @@ const PersonalDetails = ({ nextFormStep }) => {
 
     const saveData = (data) => {
         console.log(data);
-        setForm({ ...form, ...data, superinference:  superinference});
+        setForm({ ...form, ...data, superinference: superinference });
         nextFormStep();
     };
 
@@ -245,12 +245,22 @@ const PersonalDetails = ({ nextFormStep }) => {
                         )}
                     />
                 </Field>
+                <div className="my-4">
+                    {
+                        isLoggedIn.githubUser ? (
+                            <button type="submit" className="btn btn-primary text-white">Next {">"}</button>
+                        ) : (
+                            <button onClick={() => signInWithGitHub()}
+                                className="text-white group hover:text-rose-200 px-3 py-2 my-auto rounded-md text-sm hover:bg-secondary border-2">
+                                <Image src="/techicons/github_inv.png" alt="GitHub Logo" width={20} height={20} className="inline mr-2" />
+                                Authorize with GitHub
+                            </button>
+                        )
+                    }
+                </div>
 
-                <button type="submit" className="btn btn-primary text-white">Next {">"}</button>
             </fieldset>
-            {/* <p className="text-xs">
-                {JSON.stringify(isLoggedIn)}
-            </p> */}
+
         </Form>
     )
 }

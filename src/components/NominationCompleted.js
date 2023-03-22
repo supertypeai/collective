@@ -89,7 +89,7 @@ const RegistrationCompleted = () => {
 
                         <Field label="WordPress Site ID (Optional)"
                             hint={<>
-                                <label htmlFor="my-modal" className="link link-info hover:text-gray-400"><Tooltip />Optional article blogroll if you write on WordPress</label>. Use the root domain for self-hosted WordPress sites.</>
+                                <label htmlFor="wp-helper" className="link link-info hover:text-gray-400"><Tooltip />Optional article blogroll if you write on WordPress</label>. Use the root domain for self-hosted WordPress sites.</>
                             }
                         >
                             <Input
@@ -119,11 +119,10 @@ const RegistrationCompleted = () => {
                 }
             </fieldset>
             {/* helper modal for wordpress blog */}
-            <input type="checkbox" id="my-modal" className="modal-toggle" />
+            <input type="checkbox" id="wp-helper" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box w-4/5 max-w-4xl text-gray-500">
                     <h3 className="font-bold text-xl">Instructions for WordPress-powered Sites</h3>
-                    {/* two column layout */}
                     <div className="flex flex-wrap my-4">
                         <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                             <h4 className="font-bold">Hosted by WordPress.com</h4>
@@ -145,7 +144,7 @@ const RegistrationCompleted = () => {
                     </div>
                     <p className="text-sm">You should leave the Site ID and Author ID field blank if you are not able to get the right JSON data from the REST API above after substituting your Site ID (or root domain) and Author ID.</p>
                     <div className="modal-action">
-                        <label htmlFor="my-modal" className="btn">Got it</label>
+                        <label htmlFor="wp-helper" className="btn">Got it</label>
                     </div>
                 </div>
             </div>

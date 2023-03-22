@@ -6,6 +6,7 @@ import { supabase } from "@/lib/supabaseClient";
 import CreatableSelect from 'react-select/creatable';
 
 import { Field, Form, Input } from "@/blocks/Form"
+import Tooltip from "@/icons/Tooltip";
 import profileTagsChoices from "@/data/profileTagsChoices.json"
 import { AppContext } from "@/contexts/AppContext";
 
@@ -41,18 +42,29 @@ export async function signInWithLinkedIn() {
     }
 }
 
-const RegistrationBtn = ({ isSubmitting }) => {
+const RegistrationBtn = ({ isLoggedIn, isSubmitting }) => {
 
-    return (
-        <div className="my-6">
-            {
-                isSubmitting ?
-                    <button type="submit" className="btn btn-primary text-white" disabled>Submitting...</button>
-                    :
-                    <button type="submit" className="btn btn-primary text-white">Complete Registration</button>
-            }
-        </div>
-    )
+
+    if (isLoggedIn.linkedinUser) {
+        return (
+            <div className="my-6">
+                {
+                    isSubmitting ?
+                        <button type="submit" className="btn btn-primary text-white" disabled>Submitting...</button>
+                        :
+                        <button type="submit" className="btn btn-primary text-white">Complete Registration</button>
+                }
+            </div>
+        )
+    } else {
+        return (
+            <div className="my-6">
+                <button type="button" className="btn btn-primary text-white" onClick={signInWithLinkedIn}>
+                    Sign in with LinkedIn to register
+                </button>
+            </div>
+        )
+    }
 }
 
 const ExecutiveForm = () => {
@@ -137,18 +149,20 @@ const ExecutiveForm = () => {
 
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <Field label="WordPress blog domain"
-                            hint="Optional article blogroll if you write on WordPress. Use the root domain (no trailing slash)."
+                        <Field label="WordPress Site ID (Optional)"
+                            hint={<>
+                                <label htmlFor="wp-helper" className="link link-info hover:text-gray-400"><Tooltip />Optional article blogroll if you write on WordPress</label>. Use the root domain for self-hosted WordPress sites.</>
+                            }
                         >
                             <Input
                                 {...register("wp_blog_root_url")}
                                 id="wp_blog_root_url"
-                                placeholder="supertype.ai"
+                                placeholder="self-hosted-site.com OR 2384101920 (WordPress.com Site ID)"
                             />
                         </Field>
                     </div>
                     <div className="w-full md:w-1/2 px-3">
-                        <Field label="WordPress author ID"
+                        <Field label="WordPress Author ID (Optional)"
                             hint="This is your Author ID on WordPress. You can find it in your WordPress profile or in the URL of your author page."
                         >
                             <Input
@@ -499,7 +513,7 @@ const ExecutiveForm = () => {
                     id="email"
                     placeholder={
                         isLoggedIn.linkedinUser ?
-                            isLoggedIn.linkedinUser.user_metadata.email: 'michael@dundermifflin.com'
+                            isLoggedIn.linkedinUser.user_metadata.email : 'michael@dundermifflin.com'
                     }
                 />
             </Field>
@@ -510,7 +524,7 @@ const ExecutiveForm = () => {
                     id="linkedin"
                     placeholder={
                         isLoggedIn.linkedinUser ?
-                            `https://www.linkedin.com/in/${isLoggedIn.linkedinUser.user_metadata.full_name.toLowerCase().split(" ").join("-")}`: 
+                            `https://www.linkedin.com/in/${isLoggedIn.linkedinUser.user_metadata.full_name.toLowerCase().split(" ").join("-")}` :
                             'https://www.linkedin.com/in/chansamuel'
                     }
                 />
@@ -558,7 +572,7 @@ const ExecutiveForm = () => {
                                 })
                             }
                             onChange={val => {
-                                val.length <= 10 && onChange(val.map(c => c.value)) && setTagOptions(val) 
+                                val.length <= 10 && onChange(val.map(c => c.value)) && setTagOptions(val)
                             }}
                             theme={theme => ({
                                 ...theme,
@@ -591,28 +605,28 @@ const ExecutiveForm = () => {
 
             <Field label="💼 Affiliation &#38; Work" error={errors?.tags}>
                 <>
-                <p className="text-gray-400 mt-1 text-xs italic text-muted">A list of past and present affiliations to be featured on your Developer Profile</p>
-                {renderFirstAffiliation()}
-                {renderSecondAffiliation()}
+                    <p className="text-gray-400 mt-1 text-xs italic text-muted">A list of past and present affiliations to be featured on your Developer Profile</p>
+                    {renderFirstAffiliation()}
+                    {renderSecondAffiliation()}
 
-                <div className="collapse">
-                    <input type="checkbox"
-                        {...register("affiliations.org3.optionally_selected")}
-                        className="collapse-checkbox"
-                        onChange={(e) => {
-                            setAddThirdAff(prev => !prev)
-                        }}
-                    />
-                    <div className="collapse-title font-medium underline">
-                        {
-                            addThirdAff ? "Remove third Affiliation" : "Optionally Add a Third Affiliation"
-                        }
+                    <div className="collapse">
+                        <input type="checkbox"
+                            {...register("affiliations.org3.optionally_selected")}
+                            className="collapse-checkbox"
+                            onChange={(e) => {
+                                setAddThirdAff(prev => !prev)
+                            }}
+                        />
+                        <div className="collapse-title font-medium underline">
+                            {
+                                addThirdAff ? "Remove third Affiliation" : "Optionally Add a Third Affiliation"
+                            }
 
+                        </div>
+                        <div className="collapse-content">
+                            {renderThirdAffiliation()}
+                        </div>
                     </div>
-                    <div className="collapse-content">
-                        {renderThirdAffiliation()}
-                    </div>
-                </div>
                 </>
             </Field>
 
@@ -634,7 +648,38 @@ const ExecutiveForm = () => {
                 </div>
             </div>
 
-            <RegistrationBtn isSubmitting={isSubmitting} />
+            <RegistrationBtn isLoggedIn={isLoggedIn} isSubmitting={isSubmitting} />
+
+            {/* helper modal for wordpress blog */}
+            <input type="checkbox" id="wp-helper" className="modal-toggle" />
+            <div className="modal modal-bottom sm:modal-middle lg:fixed lg:top-[1280px]">
+                <div className="modal-box md:w-4/5 md:max-w-5xl text-gray-500">
+                    <h3 className="font-bold text-xl">Instructions for WordPress-powered Sites</h3>
+                    <div className="flex flex-wrap my-4">
+                        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                            <h4 className="font-bold">Hosted by WordPress.com</h4>
+                            <p className="text-sm">Find your Author ID (typically the same as your WordPress user id) and Site ID in your WordPress profile. Verify that you can access the REST API
+                                <br /><code className="block text-xs bg-gray-100">{`https://public-api.wordpress.com/rest/v1.1/sites/{siteID}/posts?author={authorID}`}</code> to know that your Site ID and
+                                Author IDs are correct.
+                            </p>
+                            <Image src="/forms/wptutorial1.png" alt="WordPress.com hosted site" width={250} height={250} className="mx-auto mt-1" />
+                        </div>
+                        <div className="w-full md:w-1/2 px-3">
+                            <h4 className="font-bold">Self-hosted WordPress site</h4>
+                            <p className="text-sm">Use the root domain (no trailing slash) as your Site ID instead. Your Author ID is
+                                found on your WordPress profile or from your site admin. Verify that you can access the REST API on
+                                <br /><code className="block text-xs bg-gray-100">{`https://{rootDomain}/wp-json/wp/v2/posts?author={authorID}`}</code> to know that your Site ID and
+                                Author IDs are correct before proceeding.
+                            </p>
+                            <Image src="/forms/wptutorial2.png" alt="WordPress.com hosted site" width={250} height={250} className="mx-auto mt-1" />
+                        </div>
+                    </div>
+                    <p className="text-sm">You should leave the Site ID and Author ID field blank if you are not able to get the right JSON data from the REST API above after substituting your Site ID (or root domain) and Author ID.</p>
+                    <div className="modal-action">
+                        <label htmlFor="wp-helper" className="btn">Got it</label>
+                    </div>
+                </div>
+            </div>
         </Form>
     )
 }

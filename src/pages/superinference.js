@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { Mainframe } from "@/blocks/Mainframe"
 import { inferFromGithub } from "superinference"
 
-const superinference = () => {
+const Superinference = () => {
 
     const [inferred, setInferred] = useState("Nothing to infer yet. Clone the repo to use this feature.")
 
@@ -26,4 +26,4 @@ const superinference = () => {
     )
 }
 
-export default superinference
+export default Superinference
