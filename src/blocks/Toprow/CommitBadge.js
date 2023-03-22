@@ -19,9 +19,9 @@ const CommitBadge = ({ count }) => {
     return (
         <div className="bg-black/30 rounded m-1 p-2 cursor-pointer inline-flex grid-cols-3 grid-rows-2 gap-x-1 drop-shadow border-2 border-rose-500">
             <div className="col-span-1 row-span-2">
-                <Image src={chooseImage(count)} width={50} height={50} alt="1000 commits" className='inline' />
+                <Image src={chooseImage(count)} width={40} height={40} alt="commits" className='inline' />
             </div>
-            <div className="col-span-2 self-center text-center">
+            <div className="col-span-2 self-center text-center leading-none">
                 <p className='text-rose-500 font-bold text-md'>{count.toLocaleString()}</p>
                 <p className='text-xs'>📦commits</p>
             </div>
