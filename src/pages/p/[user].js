@@ -56,7 +56,7 @@ const fetchCollectiveHandles = async () => {
 const getPathList = ((data) => {
     return data.map((handle) => {
         return {
-            params : {
+            params: {
                 user: handle.s_preferred_handle
             }
         }
@@ -66,10 +66,10 @@ const getPathList = ((data) => {
 export async function getStaticPaths() {
     const queryClient = new QueryClient()
 
-    try{
-        const data = await queryClient.fetchQuery({ 
-            queryKey:['handles'], 
-            queryFn:() => fetchCollectiveHandles(),
+    try {
+        const data = await queryClient.fetchQuery({
+            queryKey: ['handles'],
+            queryFn: () => fetchCollectiveHandles(),
             staleTime: 1000 * 60 * 10, // 10 minutes
         });
 
@@ -77,7 +77,7 @@ export async function getStaticPaths() {
             paths: getPathList(data),
             fallback: false,
         };
-    } catch(error) {
+    } catch (error) {
         console.log(error)
     }
 }
@@ -110,8 +110,6 @@ const Profile = (props) => {
     return (
         <Mainframe data={data}>
             <Toprow>
-                Hire me to work on your analytics backend, <b>operationlize</b> your data science models,
-                or architect your <b>end-to-end machine learning pipelines.</b>
             </Toprow>
             <Body stack={generateStack(data.stack)} affiliations={<Affiliations />}>
                 {/* <p>{JSON.stringify(data)}</p> */}

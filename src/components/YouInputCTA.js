@@ -24,8 +24,8 @@ const YouInputCTA = () => {
                 >{`collective.supertype.ai/p/${youInput}`}</label>
             </div>
             <p className="text-xs text-gray-400 text-justify">
-                Collective is a community for anyone looking to collaborate on building exciting projects and empowering the local developer community through open source. By completing a 3-min <Link href="/enroll" className="text-info hover:text-rose-300">
-                    enrollment form </Link>, your developer profile will be created with a unique link to share with your network.
+                Collective is a community for anyone looking to collaborate on building exciting projects and empowering the local developer community through open source. By completing a 3-min
+                <Link href="/enroll" className="text-info hover:text-rose-300"> enrollment form</Link>, your developer profile will be created with a unique link to share with your network.
             </p>
         </>
     )

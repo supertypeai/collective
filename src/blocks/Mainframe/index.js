@@ -37,7 +37,7 @@ const PageHead = ({ data, title }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content={siteDescription} />
 
-        <meta property="og:image" content="/assets/collective_promo.png" />
+        <meta property="og:image" content="/collective_promo.png" />
         <meta property="og:title" content={title || `Supertype Collective`} />
         <meta property="og:description" content={siteDescription} />
         <meta property="og:site_name" content="Supertype Collective" />

@@ -4,6 +4,7 @@ import YouInputCTA from "@/components/YouInputCTA";
 import ProfileCard from "@/components/ProfileCard";
 import { AppContext } from "@/contexts/AppContext";
 import AddDevProfileCTA from "@/components/AddDevProfileCTA";
+import styles from '@/styles/Home.module.css'
 
 const AurelliaProfile = () => {
     return <ProfileCard person={{
@@ -85,6 +86,16 @@ const WilsenProfile = () => {
     }} />
 }
 
+const DivaProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://avatars.githubusercontent.com/u/79572421?v=4",
+        name: "Diva Kartika",
+        profileLink: "/p/divakartika",
+        short: "Data Science Instructor @Algoritma. A physics graduate but now solving problems with Mathematics and Programming.",
+        tags: ['AI', 'IOT', 'Frontend']
+    }} />
+}
+
 const Page = () => {
 
     const { isLoggedIn } = useContext(AppContext);
@@ -134,6 +145,12 @@ const Page = () => {
                                 <PatrickProfile />
                                 <TimotiusProfile />
                                 <WilsenProfile />
+                                <DivaProfile />
+                            </div>
+                            <div className={styles.description}>
+                                <div>
+
+                                </div>
                             </div>
                         </div>
                     </section>

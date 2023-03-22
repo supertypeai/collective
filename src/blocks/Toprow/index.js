@@ -3,25 +3,15 @@ import { useContext } from 'react';
 import Image from 'next/image'
 
 import Pills from '@/blocks/Pills'
-import CheckBadge from '@/icons/CheckBadge';
-import CollectiveMark from './CollectiveMark';
 
 import { MeContext } from '@/contexts/MeContext';
+import CommitBadge from './CommitBadge';
 
 export const scrollToSection = (sectionName) => {
     const section = document.querySelector(`#${sectionName}`);
     section.scrollIntoView({ behavior: "smooth", block: "start" });
 };
 
-const Badge = ({ children }) => {
-    return (
-        <div className="bg-black/10 rounded m-1 py-2 px-4 cursor-pointer inline-grid">
-            <p className='text-xs font-light font-semibold'>
-                {children}
-            </p>
-        </div>
-    )
-}
 
 function Toprow({ children }) {
     const data = useContext(MeContext);
@@ -33,21 +23,21 @@ function Toprow({ children }) {
                 <div className="flex justify-center mb-2">
                     <div className="avatar">
                         <div className="w-52 rounded-lg">
-                            {/* phasing out gh */}
                             <Image src={data.superinference.profile.avatar_url}
                                 alt={`${data.fullname} supertype`}
                                 className="mt-8 object-cover rounded text-center" width={300} height={300} priority />
                         </div>
                     </div>
                 </div>
-
-                <Badge>
-                    {data.isExecutive ? <>👔 &nbsp; executive</> : <>⛑ &nbsp; maker</>}
+                {/* 
+                <Badge emoji={data.isExecutive ? "👔" : "⛑"} show={true}>
+                    {data.isExecutive ? "executive" : "maker"}
                 </Badge>
-                <Badge>⭐ {data.superinference.stats.stargazers_count} stars</Badge>
-                <Badge>🚩 {data.superinference.profile.followers} followers</Badge>
-                <Badge>🍴 {data.superinference.stats.forks_count} forks</Badge>
-                <Badge>📦 {data.superinference.activity.commit_count} commits</Badge>
+                <Badge count={data.superinference.stats.stargazers_count} emoji="⭐">stars</Badge>
+                <Badge count={data.superinference.profile.followers} emoji="🚩">followers</Badge>
+                <Badge count={data.superinference.stats.forks_count} emoji="🍴">forks</Badge> */}
+
+                <CommitBadge count={data.superinference.activity.commit_count} />
 
             </div>
             <div className="mx-auto grid col-span-12 lg:col-span-8 justify-center justify-self-center lg:justify-self-start mt-8 adapt-xs max-w-sm sm:max-w-none">
