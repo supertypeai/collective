@@ -20,6 +20,7 @@ const PersonalDetails = ({ nextFormStep }) => {
     const { isLoggedIn } = useContext(AppContext);
     const [form, setForm] = context.f
     const [loading, setLoading] = useState(false);
+    const [superinference, setSuperinference] = useState({});
 
     const { register, control, handleSubmit, formState: { errors }, reset } = useForm({
         defaultValues: {
@@ -29,7 +30,7 @@ const PersonalDetails = ({ nextFormStep }) => {
 
     const saveData = (data) => {
         console.log(data);
-        setForm({ ...form, ...data });
+        setForm({ ...form, ...data, superinference:  superinference});
         nextFormStep();
     };
 
@@ -48,11 +49,23 @@ const PersonalDetails = ({ nextFormStep }) => {
                 inferFromGithub({ githubHandle: isLoggedIn.githubUser.user_metadata.user_name }).then((data) => {
                     console.log("githubdata", data);
 
+                    const { profile, skill, stats, activity, contribution, closest_user } = data;
+
+                    const {
+                        created_pr,
+                        created_issue,
+                        ...contrib
+                    } = contribution;
+
+                    const d = { profile, skill, stats, activity, contribution: contrib, closest_user };
+
                     // save githubInference in local storage
                     localStorage.setItem("githubInference", JSON.stringify({
-                        ...data,
+                        ...d,
                         updated_at: new Date()
                     }));
+
+                    setSuperinference(d);
 
                     // call reset to update form values
                     reset({
@@ -61,7 +74,9 @@ const PersonalDetails = ({ nextFormStep }) => {
                         "github_handle": data.profile.login,
                         "email": isLoggedIn.githubUser.email,
                         "short": data.profile.bio,
-                        "tags": data.skill.key_qualifications
+                        "tags": [
+                            ...data.skill.top_n_languages, ...data.skill.key_qualifications
+                        ]
                         // ...data.profile,
                     });
 
@@ -70,6 +85,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                     return data;
                 })
             } else {
+                setSuperinference(githubInference);
                 reset({
                     "fullname": githubInference.profile.name,
                     "s_preferred_handle": githubInference.profile.login,
@@ -85,7 +101,7 @@ const PersonalDetails = ({ nextFormStep }) => {
 
     }, [isLoggedIn, reset])
 
-    if (loading) return (<div>loading...</div>)
+    if (loading) return (<div className="min-h-screen">loading...</div>)
 
     return (
         <Form onSubmit={handleSubmit(saveData)}>
@@ -112,21 +128,32 @@ const PersonalDetails = ({ nextFormStep }) => {
                             error={errors?.github_handle}
                             hint="Used to automatically populate your Maker's Profile"
                         >
-                            {!isLoggedIn ? (
+                            {!isLoggedIn.githubUser ? (
                                 <div>
                                     <button onClick={() => signInWithGitHub()}
                                         className="text-white group hover:text-rose-200 px-3 py-2 my-auto rounded-md text-sm hover:bg-secondary border-2">
                                         <Image src="/techicons/github_inv.png" alt="GitHub Logo" width={20} height={20} className="inline mr-2" />
-                                        Sign In with GitHub
+                                        Authorize with GitHub
                                     </button>
                                 </div>
                             ) : (
-                                <Input
-                                    {...register("github_handle", { required: "Your GitHub username is a required field" })}
-                                    id="github_handle"
-                                    placeholder="pambeesly"
-                                    disabled={true}
-                                />
+                                <>
+                                    <Input
+                                        {...register("github_handle", { required: "Please sign in with your GitHub account" })}
+                                        id="github_handle"
+                                        placeholder="pambeesly"
+                                        disabled={true}
+                                        className="hidden"
+                                    />
+                                    <div className="flex items-center space-x-4">
+                                        <Image className="w-10 h-10 rounded-full" src={isLoggedIn.githubUser.user_metadata.avatar_url} width={100} height={100} alt={isLoggedIn.githubUser.user_metadata.full_name} />
+                                        {/* <img className="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-5.jpg" alt=""/> */}
+                                        <div className="font-medium dark:text-white">
+                                            <div>{isLoggedIn.githubUser.user_metadata.full_name}</div>
+                                            <div className="text-sm text-gray-500 dark:text-gray-400">({isLoggedIn.githubUser.user_metadata.preferred_username}): <small>Authenticated on {new Date(isLoggedIn.githubUser.confirmed_at).toDateString()}</small></div>
+                                        </div>
+                                    </div>
+                                </>
                             )}
                         </Field>
                     </div>

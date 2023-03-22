@@ -8,7 +8,7 @@ const ProfileCard = ({ person }) => {
             <Image src={person.imgUrl} alt={person.name} width={100} height={100} className="self-center flex-shrink-0 w-16 h-16 -mt-8 bg-center bg-cover rounded-full dark:bg-gray-500 grayscale-1 sepia-[.5] hover:filter-none drop-shadow-lg" />
             <div className="flex-1 my-2">
                 <p className=" font-semibold leading-snug">
-                    <Link href={person.profileLink} target="_blank" className="link-info hover:opacity-70">
+                    <Link href={person.profileLink} className="link-info hover:opacity-70">
                         {person.name}
                     </Link>
                 </p>

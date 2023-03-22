@@ -11,6 +11,8 @@
   "dependencies": {
     "@next/font": "13.1.6",
     "@supabase/supabase-js": "^2.10.0",
+    "@tanstack/react-query": "^4.28.0",
+    "@tanstack/react-query-devtools": "^4.28.0",
     "daisyui": "^2.50.2",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
@@ -21,7 +23,7 @@
     "react-hook-form": "^7.43.3",
     "react-select": "^5.7.0",
     "sharp": "^0.31.3",
-    "superinference": "^0.2.2",
+    "superinference": "^0.2.3",
     "use-local-storage": "^2.3.6",
     "vis-data": "^7.1.4",
     "vis-network": "^9.1.4",

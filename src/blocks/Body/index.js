@@ -3,7 +3,7 @@ import WpArticles from "../WpArticles"
 
 import { MeContext } from '@/contexts/MeContext';
 
-const Body = ({ stack, affiliations }) => {
+const Body = ({ stack, affiliations, children }) => {
 
     const data = useContext(MeContext);
 
@@ -24,6 +24,11 @@ const Body = ({ stack, affiliations }) => {
                         </div>
                     </div>
                 </div>
+                {/* full width div for children */}
+                <div className="col-span-12 text-white mt-8">
+                    {children}
+                </div>
+
             </>
         )
     } else {
@@ -37,6 +42,10 @@ const Body = ({ stack, affiliations }) => {
                     <div className="w-full md:w-1/2">
                         {affiliations}
                     </div>
+                </div>
+                {/* full width div for children */}
+                <div className="col-span-12 text-white mt-8">
+                    {children}
                 </div>
             </div>
 
