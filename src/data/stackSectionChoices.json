@@ -44,6 +44,8 @@
             "Keras",
             "PyTorch",
             "Pandas",
+            "Polars",
+            "Scipy",
             "Numpy",
             "Scikit-Learn",
             "ggPlot",
@@ -91,7 +93,9 @@
             "SQL Server",
             "Oracle",
             "SQLite",
-            "MariaDB"
+            "MariaDB",
+            "DuckDB",
+            "Apache Hive"
         ]
     },
     {
