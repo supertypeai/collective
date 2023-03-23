@@ -70,7 +70,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                     // call reset to update form values
                     reset({
                         "fullname": data.profile.name,
-                        "s_preferred_handle": data.profile.login,
+                        "s_preferred_handle": data.profile.login.toLowerCase(),
                         "github_handle": data.profile.login,
                         "email": isLoggedIn.githubUser.email,
                         "short": data.profile.bio,
@@ -88,7 +88,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                 setSuperinference(githubInference);
                 reset({
                     "fullname": githubInference.profile.name,
-                    "s_preferred_handle": githubInference.profile.login,
+                    "s_preferred_handle": githubInference.profile.login.toLowerCase(),
                     "github_handle": githubInference.profile.login,
                     "email": isLoggedIn.githubUser.email,
                     "short": githubInference.profile.bio,

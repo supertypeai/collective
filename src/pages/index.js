@@ -106,6 +106,16 @@ const FendyProfile = () => {
     }} />
 }
 
+const StevenProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://media.licdn.com/dms/image/C5603AQGhkBvqkMjz6g/profile-displayphoto-shrink_200_200/0/1593682236390?e=1684972800&v=beta&t=L7tMwyheXMS6onUyua3VmjNU6CnXHEIllbzgzEGg99w",
+        name: "Steven Christian",
+        profileLink: "/p/auberg",
+        short: "Head of Data Analytics @Danamas. Led teams in building machine learning solutions for companies in the last 3 years.",
+        tags: ['AI', 'Database']
+    }} />
+}
+
 const Page = () => {
 
     const { isLoggedIn } = useContext(AppContext);
@@ -157,6 +167,7 @@ const Page = () => {
                                 <WilsenProfile />
                                 <DivaProfile />
                                 <FendyProfile />
+                                <StevenProfile />
                             </div>
                             <div className={styles.description}>
                                 <div>

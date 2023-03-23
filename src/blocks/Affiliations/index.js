@@ -1,6 +1,13 @@
 import { useContext } from 'react';
 import { MeContext } from '@/contexts/MeContext';
 
+const formatDateToMonthYear = (date) => {
+    const dateObj = new Date(date);
+    const month = dateObj.toLocaleString('default', { month: 'short' });
+    const year = dateObj.getFullYear();
+    return `${month}' ${year}`;
+}
+
 const TimelineDate = ({ period }) => {
     return (
         <div className="hidden timeline-dates md:block w-80 -rotate-90 whitespace-nowrap">
@@ -19,10 +26,10 @@ const Affiliations = () => {
             {
                 Object.keys(affiliations).map((key, index) => {
                     const affiliation = affiliations[key];
-                    if(affiliation.title){
+                    if (affiliation.title) {
                         return (
                             <div className="w-full" key={index} id={`aff-${index}`}>
-                                <TimelineDate period={`${affiliation.period ? affiliation.period : `${affiliation.start} - ${affiliation.end ? affiliation.end : "Present"}`}`}/>
+                                <TimelineDate period={`${`${formatDateToMonthYear(affiliation.start)} - ${affiliation.end ? formatDateToMonthYear(affiliation.end) : "Present"}`}`} />
 
                                 <div className="border-r-2 border-white opacity-30 absolute h-full left-1 md:left-4 top-2 z-10">
                                 </div>
@@ -31,7 +38,7 @@ const Affiliations = () => {
                                     <div className="font-bold">{affiliation['title']}</div>
                                     <div className="italic md:mb-4 text-sm">{affiliation['position']}</div>
                                     <div className="mb-4 mt-2 md:hidden">
-                                        <div className="font-bold">{affiliation['period']}</div>
+                                        <div className="font-bold text-xs">{`${formatDateToMonthYear(affiliation.start)} - ${affiliation.end ? formatDateToMonthYear(affiliation.end) : "Present"}`}</div>
                                     </div>
                                     <div className="mb-10 text-xs w-full lg:w-60 lg:max-w-md xl:w-full">
                                         {
