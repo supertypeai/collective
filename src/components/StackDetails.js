@@ -23,13 +23,19 @@ const StackDetails = ({ nextFormStep }) => {
 
         // take only the name and selected attributes from each stack in stackExamples
         // and add them to the stack object
-        let stack = {}
+        let stack = {};
+
+        const getValuesByLabel = (category, labels) => {
+            const obj = stackSectionChoices.find(obj => obj.value === category);
+            return obj ? obj.examples.filter(ex => labels.includes(ex.label)).map(ex => ex.value) : [];
+        };          
 
         Object.keys(stackExamples).forEach(key => {
             stack[key] = {
-                [stackExamples[key].name]: stackExamples[key].selected
+                [stackExamples[key].name]: getValuesByLabel(stackExamples[key].name, stackExamples[key].selected)
             }
         });
+        
         // check that user has at least 3 stacks
         if (Object.keys(stack).length < 3) {
             alert("Please select at least one tag for each stack");
@@ -87,7 +93,7 @@ const StackDetails = ({ nextFormStep }) => {
                                     [id]: {
                                         "name": e.value,
                                         "label": e.label,
-                                        "child": e.examples,
+                                        "child": e.examples.map(e => e.label),
                                         "selected": []
                                     }
                                 }
