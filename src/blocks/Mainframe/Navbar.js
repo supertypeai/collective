@@ -5,7 +5,7 @@ import { supabase } from "@/lib/supabaseClient";
 import Home from '@/icons/Home'
 import Download from '@/icons/Download';
 import { AppContext } from "@/contexts/AppContext";
-
+import ThemeToggle from '@/components/ThemeToggle';
 
 const onCreatePDF = async () => {
     const html2pdf = (await import('html2pdf.js')).default;
@@ -36,7 +36,7 @@ export async function signInWithGitHub() {
 
 export const LinkToHome = () => {
     return (
-        <Link href="/" className='hover:text-rose-100 hover:background-white-100 text-rose-200'>
+        <Link href="/" className='hover:text-amber-200 hover:background-white-100 drop-shadow'>
             <Home className="h-8 w-8" /> &nbsp; <span className="font-bold">Collective</span>
         </Link>
     )
@@ -45,7 +45,7 @@ export const LinkToHome = () => {
 const DownloadPDFBtn = () => {
     return (
         <button onClick={onCreatePDF}
-            className="text-white group hover:border hover:text-rose-200 text-sm px-3 py-1 rounded-md text-sm">
+            className="group hover:border hover:text-amber-200 text-sm px-3 py-1 rounded-md text-sm font-semibold">
 
             <span className='hidden group-hover:inline group-hover:animate-spin'>
                 <Download />
@@ -62,7 +62,7 @@ export const Navbar = ({ pdfBtn }) => {
     console.log("isloggedin", isLoggedIn)
 
     return (
-        <nav className="bg-gradient-to-r backdrop-blur-lg from-amber-700 to-rose-900 shadow-lg opacity-80">
+        <nav className="bg-gradient-to-r to-rose-500 from-amber-500 dark:bg-none dark:bg-black dark:text-white text-black backdrop-blur-lg shadow-lg opacity-80">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-14">
                     <div className="flex items-center">
@@ -71,23 +71,29 @@ export const Navbar = ({ pdfBtn }) => {
                         </div>
                     </div>
                     <div className="flex items-center">
+                        {/* pdfBtn */}
                         <div className="hidden md:block ">
                             <div className="ml-10 flex items-baseline space-x-4">
                                 {pdfBtn && <DownloadPDFBtn />}
                                 {
                                     isLoggedIn ?
                                         <button
-                                            className="text-white group hover:border hover:text-rose-200 text-sm px-3 py-1 rounded-md text-sm">
+                                            className="group hover:border-2 hover:text-amber-200 hover:border-amber-200 text-sm px-3 py-1 rounded-md text-sm font-semibold">
                                             Profile
                                         </button>
                                         :
                                         <button onClick={() => signInWithGitHub()}
-                                            className="text-white group hover:border hover:text-rose-200 px-3 py-1 rounded-md text-sm hover:bg-secondary">
+                                            className="group hover:border hover:text-rose-200 px-3 py-1 rounded-md text-sm hover:bg-secondary">
                                             <Image src="/techicons/github_inv.png" alt="GitHub Logo" width={20} height={20} className="inline mr-2" />
                                             Login with GitHub
                                         </button>
                                 }
                             </div>
+                        </div>
+                        {/* end pdfBtn */}
+                        {/* theme switcher */}
+                        <div>
+                            <ThemeToggle />
                         </div>
                     </div>
                 </div>
