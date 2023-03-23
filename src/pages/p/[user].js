@@ -23,9 +23,20 @@ const fetchUser = async (user) => {
     }
 
     if (data && data['wp_blog_root_url'] && data['wp_blog_author_id']) {
-        const res_wp = await fetch(`${data['wp_blog_root_url']}/wp-json/wp/v2/posts?per_page=5&author=${data['wp_blog_author_id']}&categories=4&5`);
-        const wp_data = await res_wp.json();
-        data['wp'] = wp_data
+        let url = '';
+        // check if this root url is numeric or not
+
+        if (!data['wp_blog_root_url'].includes('.')) {
+            url = `https://public-api.wordpress.com/rest/v1.1/sites/${data['wp_blog_root_url']}/posts?author=${data['wp_blog_author_id']}&number=5`
+            const res_wp = await fetch(url)
+            const wp_data = await res_wp.json();
+            data['wp'] = wp_data['posts']
+        } else {
+            url = `${data['wp_blog_root_url']}/wp-json/wp/v2/posts?per_page=5&author=${data['wp_blog_author_id']}`
+            const res_wp = await fetch(url)
+            const wp_data = await res_wp.json();
+            data['wp'] = wp_data
+        }
     }
     return data
 }
@@ -70,7 +81,7 @@ export async function getStaticPaths() {
         const data = await queryClient.fetchQuery({
             queryKey: ['handles'],
             queryFn: () => fetchCollectiveHandles(),
-            staleTime: 1000 * 60 * 10, // 10 minutes
+            staleTime: 1000 * 60 * 60 * 24, // stale time of 1 day
         });
 
         return {

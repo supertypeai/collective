@@ -11,10 +11,10 @@ const WordPressBlogroll = ({ wp_data }) => {
                 const { id, title, link, date, excerpt } = post;
                 return {
                     id: id,
-                    title: decodeHtml(title.rendered),
-                    link: parseUrlString(link),
+                    title: title.rendered ? decodeHtml(title.rendered) : decodeHtml(title),
+                    link: link ? parseUrlString(link) : parseUrlString(post['URL']),
                     date: timeAgo(new Date(date).getTime()),
-                    excerpt: decodeHtml(excerpt.rendered),
+                    excerpt: excerpt.rendered ? decodeHtml(excerpt.rendered) : decodeHtml(excerpt),
                 };
             });
             setFeed(posts);

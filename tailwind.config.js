@@ -31,6 +31,7 @@ module.exports = {
       },
     },
   },
+  darkMode: 'class',
   daisyui: {
     themes: [
       {
