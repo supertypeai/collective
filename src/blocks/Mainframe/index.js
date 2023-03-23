@@ -9,7 +9,6 @@ import X from '@/icons/X';
 import { MeContext } from '@/contexts/MeContext';
 import { AppContext } from '@/contexts/AppContext';
 
-
 const PageHead = ({ data, title }) => {
 
   if (data) {
@@ -100,7 +99,8 @@ export const Mainframe = ({ data, title, children, dehydratedState }) => {
             <PageHead data={data} />
             <Navbar pdfBtn={true} />
             {/* <!-- Main content --> */}
-            <main className={`max-w-7xl mx-auto gap-4 backdrop-blur-lg drop-shadow-lg my-12 break-words bg-gradient-to-r from-amber-700 to-rose-900 mb-6 shadow-xl rounded-lg`} id="mainframe">
+            <main className={`max-w-7xl mx-auto gap-4 backdrop-blur-lg drop-shadow-lg my-12 break-words 
+              bg-gradient-to-r from-amber-700 to-rose-900 dark:bg-none dark:bg-black mb-6 shadow-xl rounded-lg`} id="mainframe">
               {
                 createProfileCTA && (
                   <h4 className='text-right text-xs mx-4 font-medium'>
@@ -128,7 +128,8 @@ export const Mainframe = ({ data, title, children, dehydratedState }) => {
           <PageHead title={title} />
           <Navbar />
           {/* <!-- Main content --> */}
-          <main className={`max-w-7xl mx-auto gap-4 backdrop-blur-lg drop-shadow-lg my-12 break-words bg-gradient-to-r from-amber-700 to-rose-900  mb-6 shadow-xl rounded-lg`} id="mainframe">
+          <main className={`max-w-7xl mx-auto gap-4 backdrop-blur-lg drop-shadow-lg my-12 break-words 
+              bg-gradient-to-r from-amber-700 to-rose-900 dark:bg-none dark:bg-black mb-6 shadow-xl rounded-lg`} id="mainframe">
             <div className="grid grid-cols-12 items-center grid-flow gap-4 bg-black bg-opacity-30 rounded-lg px-2 sm:px-4 lg:px-8 rounded-b-none">
               <div className="col-span-12 text-white mt-8">
                 {children}
