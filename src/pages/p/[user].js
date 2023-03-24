@@ -122,7 +122,10 @@ const Profile = (props) => {
         <Mainframe data={data}>
             <Toprow>
             </Toprow>
-            <Body stack={generateStack(data.stack)} affiliations={<Affiliations />}>
+            <Body
+                stack={generateStack(data.stack)}
+                affiliations={<Affiliations />}
+            >
                 {/* <p>{JSON.stringify(data)}</p> */}
             </Body>
         </Mainframe>
