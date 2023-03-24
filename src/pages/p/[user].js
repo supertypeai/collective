@@ -125,7 +125,6 @@ const Profile = (props) => {
             <Body
                 stack={generateStack(data.stack)}
                 affiliations={<Affiliations />}
-                superinference={data.superinference}
             >
                 {/* <p>{JSON.stringify(data)}</p> */}
             </Body>
