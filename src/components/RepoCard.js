@@ -1,9 +1,9 @@
 import Link from 'next/link';
 
-const RepoCard = ({ key, repo, owner }) => {
+const RepoCard = ({ repo, owner }) => {
 
     return (
-        <div key={key}>
+        <div>
             <Link
                 href={repo['html_url']}
                 className="relative block overflow-hidden rounded-lg border border-rose-100 p-4 sm:px-6 mb-2"

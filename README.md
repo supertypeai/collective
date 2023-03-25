@@ -1,8 +1,8 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/23b8f4ad-c3b9-4fe5-9412-f1679f68b6b2/deploy-status)](https://app.netlify.com/sites/thecollective/deploys) &nbsp; &nbsp; [![Supertype](https://img.shields.io/badge/supertype.ai-incubate-b1976b)](https://supertype.ai/incubate)
 
 # Supertype Collective 
-![Supertype Collective](./public/collective_promo.png)
-<!-- <img src="https://github.com/supertypeai/collective/raw/main/public/collective_promo.png" style="width:50%" /> -->
+<!-- ![Supertype Collective](./public/collective_promo.png) -->
+<img src="https://github.com/supertypeai/collective/raw/main/public/collective_promo.png" style="width:50%" />
 
 [Supertype Collective](https://collective.supertype.ai) is a community of analytics developers, data scientists and engineering leaders building products across the full stack. It a highly curated place, with close collaboration between members looking to join forces on building high-impact analytics products. 
 
