@@ -11,17 +11,17 @@ export default function ThemeToggle() {
         return null;
     }
     return (
-        <button
+        <label
             onClick={() => {
                 if (theme === "light") {
                     return setTheme("dark");
                 }
                 return setTheme("light");
             }}
-            type="button"
-            className="opacity-75 p-6 text-xl text-black dark:text-white"
+            // type="button"
+            className="opacity-75 p-6 text-xl swap swap-rotate"
         >
-            {/* Toggle to {theme === "light" ? "dark" : "light"} theme */}
+
             {theme === "light" ? (
                 <svg
                     onClick={() => setTheme("light")}
@@ -55,6 +55,6 @@ export default function ThemeToggle() {
                     />
                 </svg>
             )}
-        </button>
+        </label>
     );
 }
