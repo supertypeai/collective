@@ -52,16 +52,32 @@ export const LinkToHome = () => {
     )
 }
 
-const DownloadPDFBtn = () => {
-    return (
-        <button onClick={onCreatePDF}
-            className="group hover:border hover:text-amber-200 text-sm px-3 py-1 rounded-md text-sm font-semibold">
+const DownloadPDFBtn = ({ isLoggedIn }) => {
 
-            <span className='hidden group-hover:inline group-hover:animate-spin'>
-                <Download />
-            </span>
-            Download
-        </button>
+
+    // if user is logged in, show button with onCreatePDF
+    if (isLoggedIn) {
+        return (
+            <button onClick={onCreatePDF}
+                className="group hover:border hover:text-amber-200 text-sm px-3 py-1 rounded-md text-sm font-semibold">
+                <span className='hidden group-hover:inline group-hover:animate-spin'>
+                    <Download />
+                </span>
+                Download
+            </button>
+        )
+    }
+
+    // show modal to prompt user to login
+    return (
+        <>
+            <label htmlFor="enquire-modal" className="group hover:border hover:text-amber-200 text-sm px-3 py-1 rounded-md text-sm font-semibold hover:cursor-pointer">
+                <span className='hidden group-hover:inline'>
+                    <Download />
+                </span>
+                Download
+            </label>
+        </>
     )
 }
 
@@ -84,7 +100,7 @@ export const Navbar = ({ pdfBtn }) => {
                         {/* pdfBtn */}
                         <div className="hidden md:block ">
                             <div className="ml-10 flex items-baseline space-x-4">
-                                {pdfBtn && <DownloadPDFBtn />}
+                                {pdfBtn && <DownloadPDFBtn isLoggedIn={isLoggedIn} />}
                                 {
                                     isLoggedIn ?
                                         <button

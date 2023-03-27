@@ -20,8 +20,8 @@ const Body = ({ stack, affiliations, children }) => {
                     {data['show_repo'] > 0 &&
                         <GitHubProjects repos={data['superinference']['stats']['top_repo_stars_forks']} count={data['show_repo']} owner={data["github_handle"]} />
                     }
-                    {data['superinference']['closest_user']['collaboration_count'] &&
-                        <RepoTags collaborations={data['superinference']['closest_user']['collaboration_count']} />
+                    {data['superinference']['contribution']['self_contribution_to_external'] &&
+                        <RepoTags collaborations={data['superinference']['contribution']['self_contribution_to_external']} />
                     }
                     <ContactCard data={data} />
                 </>
@@ -48,7 +48,10 @@ const Body = ({ stack, affiliations, children }) => {
                 <StackAndAffiliations stack={stack} affiliations={affiliations} />
                 {/* when true, this moves each section to its own div */}
                 {autoColumnLayout(data, true)}
-                <EnquiryModal data={data} />
+                <EnquiryModal>
+                    <h3 className="font-bold text-lg">We&apos;re working on this functionality.</h3>
+                    <p className="py-4">The enquiry feature will be added soon.</p>
+                </EnquiryModal>
             </>
         )
     } else {
@@ -56,7 +59,10 @@ const Body = ({ stack, affiliations, children }) => {
             <>
                 <StackAndAffiliations stack={stack} affiliations={affiliations} />
                 {autoColumnLayout(data, false)}
-                <EnquiryModal data={data} />
+                <EnquiryModal>
+                    <h3 className="font-bold text-lg">We&apos;re working on this functionality.</h3>
+                    <p className="py-4">The enquiry feature will be added soon.</p>
+                </EnquiryModal>
             </>
         )
     }

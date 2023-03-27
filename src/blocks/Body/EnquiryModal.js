@@ -21,7 +21,7 @@ const ModalFrame = ({ children }) => {
     )
 }
 
-const EnquiryModal = ({ data }) => {
+const EnquiryModal = ({ children }) => {
     const { isLoggedIn } = useContext(AppContext);
     // isLoggedIn contains the token we can use in our fetch calls
     console.log("isloggedin", isLoggedIn)
@@ -51,8 +51,7 @@ const EnquiryModal = ({ data }) => {
 
     return (
         <ModalFrame>
-            <h3 className="font-bold text-lg">We&apos;re working on this functionality.</h3>
-            <p className="py-4">The enquiry feature will be added soon.</p>
+            {children}
         </ModalFrame>
     )
 }
