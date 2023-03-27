@@ -126,7 +126,6 @@ const Profile = (props) => {
                 stack={generateStack(data.stack)}
                 affiliations={<Affiliations />}
             >
-                {/* <p>{JSON.stringify(data)}</p> */}
             </Body>
         </Mainframe>
     )

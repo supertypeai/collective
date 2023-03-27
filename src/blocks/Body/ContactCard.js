@@ -41,7 +41,8 @@ const ContactCard = ({ data }) => {
                         </div>
                     </div>
                     <div className="flex flex-col basis-1/4">
-                        <label htmlFor="enquire-modal" className="btn btn-outline btn-xs rounded hover:bg-rose-700">Enquire</label>
+                        <label htmlFor="enquire-modal"
+                            className="btn btn-outline btn-xs rounded hover:bg-rose-700">Enquire</label>
                     </div>
                 </div>
                 <ul className="text-xs text-gray-400 mt-2">
