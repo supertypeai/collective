@@ -4,25 +4,9 @@ import StackAndAffiliations from './StackAndAffiliations';
 import GitHubProjects from './GitHubProjects';
 import ContactCard from './ContactCard';
 import RepoTags from './RepoTags';
+import EnquiryModal from './EnquiryModal';
 
 import { MeContext } from '@/contexts/MeContext';
-
-const EnquiryModal = ({ data }) => {
-    return (
-        <>
-            <input type="checkbox" id="enquire-modal" className="modal-toggle" />
-            <div className="modal modal-bottom sm:modal-middle">
-                <div className="modal-box dark:bg-black dark:text-white bg-white text-black">
-                    <h3 className="font-bold text-lg">We&apos;re working on this functionality.</h3>
-                    <p className="py-4">The enquiry feature will be added soon.</p>
-                    <div className="modal-action">
-                        <label htmlFor="enquire-modal" className="btn">Got it</label>
-                    </div>
-                </div>
-            </div>
-        </>
-    )
-}
 
 const Body = ({ stack, affiliations, children }) => {
 
@@ -43,9 +27,7 @@ const Body = ({ stack, affiliations, children }) => {
                 </>
             )
 
-            if (div) {
-                return innerContent
-            }
+            if (div) return innerContent
 
             return (
                 <div className="col-span-12 md:col-span-4 text-white my-8 mx-1 self-start">
