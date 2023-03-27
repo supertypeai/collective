@@ -96,6 +96,16 @@ const DivaProfile = () => {
     }} />
 }
 
+const FiqeyProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://avatars.githubusercontent.com/u/57583780?v=4",
+        name: "Fiqey Indriati Eka Sari",
+        profileLink: "/p/finesaaa",
+        short: "Data Science Instructor @Algoritma and Robotics Programmer at the acclaimed ICHIRO ITS Humanoid Robot Team",
+        tags: ['AI', 'Frontend', 'Mobile', 'Robotics']
+    }} />
+}
+
 const FendyProfile = () => {
     return <ProfileCard person={{
         imgUrl: "https://avatars.githubusercontent.com/u/50945163?v=4",
@@ -166,6 +176,7 @@ const Page = () => {
                                 <TimotiusProfile />
                                 <WilsenProfile />
                                 <DivaProfile />
+                                <FiqeyProfile />
                                 <FendyProfile />
                                 <StevenProfile />
                             </div>
