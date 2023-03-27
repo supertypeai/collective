@@ -6,6 +6,7 @@ import Home from '@/icons/Home'
 import Download from '@/icons/Download';
 import { AppContext } from "@/contexts/AppContext";
 import ThemeToggle from '@/components/ThemeToggle';
+import EnquiryModal from '../Body/EnquiryModal';
 
 const onCreatePDF = async () => {
     const html2pdf = (await import('html2pdf.js')).default;
@@ -19,6 +20,15 @@ const onCreatePDF = async () => {
 
     // const pdf = await html2pdf().from(document.body).toPdf().get('pdf');
     // pdf.save();
+}
+
+const onCreateScreenshot = async () => {
+    const html2canvas = (await import('html2canvas')).default;
+    // const element = document.getElementById('mainframe');
+    // const canvas = await html2canvas(element);
+    html2canvas(document.getElementById('mainframe')).then(canvas => {
+        document.body.appendChild(canvas)
+    });
 }
 
 export async function signInWithGitHub() {
