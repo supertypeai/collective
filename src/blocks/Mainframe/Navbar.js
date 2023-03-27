@@ -6,7 +6,6 @@ import Home from '@/icons/Home'
 import Download from '@/icons/Download';
 import { AppContext } from "@/contexts/AppContext";
 import ThemeToggle from '@/components/ThemeToggle';
-import EnquiryModal from '../Body/EnquiryModal';
 
 const onCreatePDF = async () => {
     const html2pdf = (await import('html2pdf.js')).default;
@@ -20,15 +19,6 @@ const onCreatePDF = async () => {
 
     // const pdf = await html2pdf().from(document.body).toPdf().get('pdf');
     // pdf.save();
-}
-
-const onCreateScreenshot = async () => {
-    const html2canvas = (await import('html2canvas')).default;
-    // const element = document.getElementById('mainframe');
-    // const canvas = await html2canvas(element);
-    html2canvas(document.getElementById('mainframe')).then(canvas => {
-        document.body.appendChild(canvas)
-    });
 }
 
 export async function signInWithGitHub() {
@@ -68,17 +58,22 @@ const DownloadPDFBtn = ({ isLoggedIn }) => {
         )
     }
 
-    // show modal to prompt user to login
-    return (
-        <>
-            <label htmlFor="enquire-modal" className="group hover:border hover:text-amber-200 text-sm px-3 py-1 rounded-md text-sm font-semibold hover:cursor-pointer">
-                <span className='hidden group-hover:inline'>
-                    <Download />
-                </span>
-                Download
-            </label>
-        </>
-    )
+    else {
+        // show modal to prompt user to login
+        return (
+            <>
+                {/* <label onClick={onCreateScreenshot} className="group hover:border hover:text-amber-200 text-sm px-3 py-1 rounded-md text-sm font-semibold hover:cursor-pointer"> */}
+                <label htmlFor="enquire-modal"
+                    className="group hover:border hover:text-amber-200 text-sm px-3 py-1 rounded-md text-sm font-semibold hover:cursor-pointer">
+                    <span className='hidden group-hover:inline'>
+                        <Download />
+                    </span>
+                    Download
+                </label>
+            </>
+        )
+    }
+
 }
 
 export const Navbar = ({ pdfBtn }) => {
@@ -109,7 +104,7 @@ export const Navbar = ({ pdfBtn }) => {
                                         </button>
                                         :
                                         <button onClick={() => signInWithGitHub()}
-                                            className="group hover:border hover:text-rose-200 px-3 py-1 rounded-md text-sm hover:bg-secondary">
+                                            className="group hover:border hover:text-rose-200 px-3 py-1 rounded-md text-sm hover:bg-secondary font-semibold">
                                             <Image src="/techicons/github_inv.png" alt="GitHub Logo" width={20} height={20} className="inline mr-2" />
                                             Login with GitHub
                                         </button>
