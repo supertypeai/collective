@@ -6,12 +6,12 @@ const RepoCard = ({ repo, owner }) => {
         <div>
             <Link
                 href={repo['html_url']}
-                className="relative block overflow-hidden rounded-lg border border-rose-100 p-4 sm:px-6 mb-2"
+                className="relative block overflow-hidden rounded-lg border border-info p-4 sm:px-6 mb-2"
                 target="_blank"
                 rel="noreferrer noopener"
             >
                 <span
-                    className="absolute inset-y-0 left-0 w-1 bg-rose-700"
+                    className="absolute inset-y-0 left-0 w-1 bg-info"
                 ></span>
 
                 <div className="sm:flex sm:justify-between sm:gap-4">

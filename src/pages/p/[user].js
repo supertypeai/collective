@@ -81,7 +81,8 @@ export async function getStaticPaths() {
         const data = await queryClient.fetchQuery({
             queryKey: ['handles'],
             queryFn: () => fetchCollectiveHandles(),
-            staleTime: 1000 * 60 * 60 * 24, // stale time of 1 day
+            // stale time of 1 day
+            staleTime: 1000 * 60 * 60 * 24,
         });
 
         return {
