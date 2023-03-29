@@ -3,7 +3,7 @@ import RepoCard from '@/components/RepoCard';
 const GitHubProjects = ({ repos, count, owner }) => {
 
     return (
-        <div className="col-span-12 md:col-span-4 text-white my-8 mx-1 self-start">
+        <div className="col-span-12 row-span-3 md:col-span-4 text-white my-8 mx-1 self-start">
             <h3 className="text-lg uppercase font-semibold leading-normal mb-2 my-4">GitHub Projects</h3>
             {
                 repos.map((repo, index) => {

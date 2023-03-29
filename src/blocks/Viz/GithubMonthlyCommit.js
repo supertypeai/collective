@@ -1,4 +1,4 @@
-import { VictoryChart, VictoryBar, VictoryTheme, VictoryPolarAxis } from "victory";
+import { VictoryChart, VictoryBar, VictoryTheme, VictoryPolarAxis, VictoryTooltip } from "victory";
 
 const GithubMonthlyCommit = ({ data }) => {
     return (
@@ -25,7 +25,7 @@ const GithubMonthlyCommit = ({ data }) => {
                     data: { fill: ({ datum }) => datum.y > 3 ? "#c39f61" : "#b1976b ", width: 30, fillOpacity: 0.75 },
                     labels: {
                         fontSize: 12,
-                        fill: "white",
+                        // fill: "white",
                     }
                 }}
                 data={data}
@@ -34,6 +34,7 @@ const GithubMonthlyCommit = ({ data }) => {
                     duration: 5000,
                     easing: "bounce"
                 }}
+                labelComponent={<VictoryTooltip />}
             // disable guides 
 
             />

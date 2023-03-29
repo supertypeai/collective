@@ -20,7 +20,7 @@ function Toprow({ children }) {
     const data = useContext(MeContext);
 
     return (
-        <>
+        <div className="grid grid-cols-12 items-center grid-flow gap-4 bg-black bg-opacity-30 rounded-lg px-2 sm:px-4 lg:px-8 rounded-b-none auto-rows-max">
             <div className="col-span-12 lg:col-span-4 justify-center justify-self-center mt-8">
                 {/* align avatar to center of div */}
                 <div className="flex justify-center mb-2">
@@ -60,7 +60,7 @@ function Toprow({ children }) {
                     />
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

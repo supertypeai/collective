@@ -5,6 +5,7 @@ import GitHubProjects from './GitHubProjects';
 import ContactCard from './ContactCard';
 import RepoTags from './RepoTags';
 import EnquiryModal from './EnquiryModal';
+import CommitPolar from './CommitPolar';
 
 import { MeContext } from '@/contexts/MeContext';
 
@@ -24,10 +25,17 @@ const Body = ({ stack, affiliations, children }) => {
                         <RepoTags collaborations={data['superinference']['contribution']['self_contribution_to_external']} />
                     }
                     <ContactCard data={data} />
+                    <CommitPolar data={data['superinference']['activity']['commit_count_per_month']} newCol={
+                        data['show_repo'] === 0
+                    } />
                 </>
             )
 
-            if (div) return innerContent
+            if (div) return (
+                <div className='grid grid-cols-12 grid-rows-3 md:grid-flow-col gap-x-4'>
+                    {innerContent}
+                </div>
+            )
 
             return (
                 <div className="col-span-12 md:col-span-4 text-white my-8 mx-1 self-start">
@@ -42,10 +50,13 @@ const Body = ({ stack, affiliations, children }) => {
 
         return (
             <>
-                <div className="col-span-12 text-white lg:col-span-4 justify-center justify-self-center lg:justify-self-start mt-8">
-                    <WpArticles wp_data={data['wp']} />
+                <div className="grid grid-cols-12 items-center grid-flow gap-4 bg-black bg-opacity-30 rounded-lg px-2 sm:px-4 lg:px-8 rounded-b-none auto-rows-max">
+                    <div className="col-span-12 text-white lg:col-span-4 justify-center justify-self-center lg:justify-self-start mt-8">
+                        <WpArticles wp_data={data['wp']} />
+                    </div>
+                    <StackAndAffiliations stack={stack} affiliations={affiliations} />
                 </div>
-                <StackAndAffiliations stack={stack} affiliations={affiliations} />
+
                 {/* when true, this moves each section to its own div */}
                 {autoColumnLayout(data, true)}
                 <EnquiryModal>
@@ -56,14 +67,14 @@ const Body = ({ stack, affiliations, children }) => {
         )
     } else {
         return (
-            <>
+            <div className="grid grid-cols-12 items-center grid-flow gap-4 bg-black bg-opacity-30 rounded-lg px-2 sm:px-4 lg:px-8 rounded-b-none auto-rows-max">
                 <StackAndAffiliations stack={stack} affiliations={affiliations} />
                 {autoColumnLayout(data, false)}
                 <EnquiryModal>
                     <h3 className="font-bold text-lg">We&apos;re working on this functionality.</h3>
                     <p className="py-4">The enquiry feature will be added soon.</p>
                 </EnquiryModal>
-            </>
+            </div>
         )
     }
 
