@@ -16,7 +16,7 @@ const RepoCard = ({ repo, owner }) => {
 
                 <div className="sm:flex sm:justify-between sm:gap-4">
                     <div className='leading-none'>
-                        <h3 className="font-bold">
+                        <h3 className="font-bold link-info hover:opacity-70">
                             {owner}/{repo['name']}
                         </h3>
                     </div>

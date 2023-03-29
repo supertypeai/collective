@@ -36,7 +36,7 @@ export async function signInWithGitHub() {
 
 export const LinkToHome = () => {
     return (
-        <Link href="/" className='hover:text-amber-200 hover:background-white-100 drop-shadow'>
+        <Link href="/" className='hover:opacity-60 hover:background-white-100 drop-shadow'>
             <Home className="h-8 w-8" /> &nbsp; <span className="font-bold">Collective</span>
         </Link>
     )
