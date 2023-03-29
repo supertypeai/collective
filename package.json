@@ -26,6 +26,7 @@
     "sharp": "^0.31.3",
     "superinference": "^0.2.3",
     "use-local-storage": "^2.3.6",
+    "victory": "^36.6.8",
     "vis-data": "^7.1.4",
     "vis-network": "^9.1.4",
     "wordpress-posts-react": "^1.4.0"

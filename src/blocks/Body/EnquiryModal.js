@@ -25,20 +25,24 @@ const onCreateScreenshot = async () => {
 
     // clear the screenshot div
     const elem = document.getElementById('screenshot');
+    if (elem) {
 
-    html2canvas(document.getElementById('mainframe'), {
-        scale: .8,
-        allowTaint: true,
-        useCORS: true
-    }).then(canvas => {
-        while (elem.firstChild) elem.removeChild(elem.firstChild);
-        // add style to canvas
-        canvas.style.width = '50%';
-        canvas.style.height = '50%';
-        canvas.style.border = '1px solid #b1976b';
+        html2canvas(document.getElementById('mainframe'), {
+            scale: .8,
+            allowTaint: true,
+            useCORS: true
+        }).then(canvas => {
+            // while (elem && elem.firstChild) elem.removeChild(elem.firstChild);
+            // add style to canvas
+            canvas.style.width = '50%';
+            canvas.style.height = '50%';
+            canvas.style.border = '1px solid #b1976b';
 
-        elem.appendChild(canvas);
-    })
+            elem.appendChild(canvas);
+        })
+
+    }
+
 }
 
 const EnquiryModal = ({ children }) => {

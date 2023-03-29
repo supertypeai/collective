@@ -1,7 +1,21 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { useCallback } from 'react';
+import sortByMonthName from '@/utils/sortByMonthName';
+import GithubMonthlyCommit from '../Viz/GithubMonthlyCommit';
 
 const ContactCard = ({ data }) => {
+
+    const getCommitCountByMonthLogged = useCallback(() => {
+        const sortedMonthName = sortByMonthName(Object.keys(data['superinference']['activity']['commit_count_per_month']), true)
+        const sortedMonthCountLast12 = sortedMonthName.map(monthName => data['superinference']['activity']['commit_count_per_month'][monthName][0])
+        // combine the two above into an object
+        const commit_count_by_month = sortedMonthName.map(
+            (monthName, index) => ({ x: monthName, y: Math.max(0, Math.log(sortedMonthCountLast12[index])) })
+        )
+        console.log(commit_count_by_month)
+        return commit_count_by_month
+    }, [data])
 
     return (
         <div className="col-span-12 md:col-span-4 text-white my-8 mx-1 self-start">
@@ -53,6 +67,8 @@ const ContactCard = ({ data }) => {
                             <li>Hiring Arrangements: Freelance / Fully Managed by Supertype</li> */}
                 </ul>
             </div>
+
+            <GithubMonthlyCommit data={getCommitCountByMonthLogged()} />
         </div>
     )
 }
