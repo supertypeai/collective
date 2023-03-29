@@ -13,7 +13,6 @@ const ContactCard = ({ data }) => {
         const commit_count_by_month = sortedMonthName.map(
             (monthName, index) => ({ x: monthName, y: Math.max(0, Math.log(sortedMonthCountLast12[index])) })
         )
-        console.log(commit_count_by_month)
         return commit_count_by_month
     }, [data])
 

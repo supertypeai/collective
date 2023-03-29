@@ -22,7 +22,7 @@ const GithubMonthlyCommit = ({ data }) => {
             />
             <VictoryBar
                 style={{
-                    data: { fill: ({ datum }) => datum.y > 3 ? "tomato" : "red", width: 30, fillOpacity: 0.4 },
+                    data: { fill: ({ datum }) => datum.y > 3 ? "#c39f61" : "#b1976b ", width: 30, fillOpacity: 0.75 },
                     labels: {
                         fontSize: 12,
                         fill: "white",
@@ -30,6 +30,10 @@ const GithubMonthlyCommit = ({ data }) => {
                 }}
                 data={data}
                 scale="log"
+                animate={{
+                    duration: 5000,
+                    easing: "bounce"
+                }}
             // disable guides 
 
             />
