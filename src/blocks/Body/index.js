@@ -32,7 +32,7 @@ const Body = ({ stack, affiliations, children }) => {
             )
 
             if (div) return (
-                <div className='grid grid-cols-12 grid-rows-3 md:grid-flow-col gap-x-4'>
+                <div className='grid grid-cols-12 bg-black bg-opacity-30 grid-rows-3 md:grid-flow-col gap-x-4'>
                     {innerContent}
                 </div>
             )
