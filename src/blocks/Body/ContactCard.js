@@ -4,7 +4,7 @@ import Image from 'next/image';
 const ContactCard = ({ data }) => {
 
     return (
-        <div className="col-span-12 md:col-span-4 text-white my-8 mx-1 self-start">
+        <div className="col-span-12 lg:col-span-8 text-white my-8 mx-1 self-start">
             <h3 className="text-lg uppercase font-semibold leading-normal mb-2 my-4">Personal Details</h3>
             <div className="border-white border rounded-lg shadow-lg p-4">
                 <div className="flex items-start flex-row flex-wrap">
@@ -19,7 +19,7 @@ const ContactCard = ({ data }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="basis-1/4 md:basis-1/3">
+                    <div className="basis-4/6 md:basis-1/3">
                         <span className='leading-none font-semibold'>{data['fullname']}</span>
                         {/* social links */}
                         <div className="flex flex-row gap-x-2 mt-1">
