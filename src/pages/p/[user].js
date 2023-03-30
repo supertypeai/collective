@@ -27,12 +27,12 @@ const fetchUser = async (user) => {
         // check if this root url is numeric or not
 
         if (!data['wp_blog_root_url'].includes('.')) {
-            url = `https://public-api.wordpress.com/rest/v1.1/sites/${data['wp_blog_root_url']}/posts?author=${data['wp_blog_author_id']}&number=5`
+            url = `https://public-api.wordpress.com/rest/v1.1/sites/${data['wp_blog_root_url']}/posts?author=${data['wp_blog_author_id']}&number=5&fields=id,link,title,date,excerpt`
             const res_wp = await fetch(url)
             const wp_data = await res_wp.json();
             data['wp'] = wp_data['posts']
         } else {
-            url = `${data['wp_blog_root_url']}/wp-json/wp/v2/posts?per_page=5&author=${data['wp_blog_author_id']}`
+            url = `${data['wp_blog_root_url']}/wp-json/wp/v2/posts?per_page=5&&author=${data['wp_blog_author_id']}&_fields=id,link,title,date,excerpt`
             const res_wp = await fetch(url)
             const wp_data = await res_wp.json();
             data['wp'] = wp_data
