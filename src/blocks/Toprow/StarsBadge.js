@@ -19,14 +19,13 @@ const StarBadge = ({ count }) => {
         }
     }
     const badgesToRender = [
-        <BadgeFrame count={count} type="stars" imgSrc={chooseImage(count)} color="fuchsia-600" />
+        <BadgeFrame count={count} type="stars" imgSrc={chooseImage(count)} color="fuchsia-600" key={count} />
     ]
 
 
-    if (count >= 300) badgesToRender.push(<MiniBadgeFrame count={100} type="stars" imgSrc={chooseImage(100)} color="fuchsia-600" />)
-    if (count >= 500) badgesToRender.push(<MiniBadgeFrame count={300} type="stars" imgSrc={chooseImage(300)} color="fuchsia-600" />)
-    if (count >= 1000) badgesToRender.push(<MiniBadgeFrame count={500} type="stars" imgSrc={chooseImage(500)} color="fuchsia-600" />)
-    if (count >= 5000) badgesToRender.push(<MiniBadgeFrame count={1000} type="stars" imgSrc={chooseImage(1000)} color="fuchsia-600" />)
+    if (count >= 300) badgesToRender.push(<MiniBadgeFrame count={100} type="stars" imgSrc={chooseImage(100)} color="fuchsia-600" key={100} />)
+    if (count >= 500) badgesToRender.push(<MiniBadgeFrame count={300} type="stars" imgSrc={chooseImage(300)} color="fuchsia-600" key={300} />)
+    if (count >= 1000) badgesToRender.push(<MiniBadgeFrame count={500} type="stars" imgSrc={chooseImage(500)} color="fuchsia-600" key={500} />)
 
     return badgesToRender
 }
