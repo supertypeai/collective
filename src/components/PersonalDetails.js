@@ -42,22 +42,16 @@ const PersonalDetails = ({ nextFormStep }) => {
             )
             : 0;
 
-        if (isLoggedIn.githubUser) {
+        if (isLoggedIn.providerToken) {
             if (!githubInference || lastUpdateInference > 30) {
                 setLoading(true);
 
-                inferFromGithub({ githubHandle: isLoggedIn.githubUser.user_metadata.user_name }).then((data) => {
+                inferFromGithub({ githubHandle: isLoggedIn.githubUser.user_metadata.user_name, token: isLoggedIn.providerToken }).then((data) => {
                     console.log("githubdata", data);
 
-                    const { profile, skill, stats, activity, contribution, closest_user } = data;
+                    const { profile, skill, stats, activity, contribution } = data;
 
-                    const {
-                        created_pr,
-                        created_issue,
-                        ...contrib
-                    } = contribution;
-
-                    const d = { profile, skill, stats, activity, contribution: contrib, closest_user };
+                    const d = { profile, skill, stats, activity, contribution };
 
                     // save githubInference in local storage
                     localStorage.setItem("githubInference", JSON.stringify({
@@ -77,7 +71,6 @@ const PersonalDetails = ({ nextFormStep }) => {
                         "tags": [
                             ...data.skill.top_n_languages, ...data.skill.key_qualifications
                         ]
-                        // ...data.profile,
                     });
 
                     setLoading(false);
@@ -93,7 +86,6 @@ const PersonalDetails = ({ nextFormStep }) => {
                     "email": isLoggedIn.githubUser.email,
                     "short": githubInference.profile.bio,
                     "tags": githubInference.skill.key_qualifications
-                    // ...data.profile,
                 })
             }
         }
@@ -128,7 +120,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                             error={errors?.github_handle}
                             hint="Used to automatically populate your Maker's Profile"
                         >
-                            {!isLoggedIn.githubUser ? (
+                            {!isLoggedIn.providerToken ? (
                                 <div>
                                     <button onClick={() => signInWithGitHub()}
                                         className="text-white group hover:text-rose-200 px-3 py-2 my-auto rounded-md text-sm hover:bg-secondary border-2">
@@ -247,7 +239,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                 </Field>
                 <div className="my-4">
                     {
-                        isLoggedIn.githubUser ? (
+                        isLoggedIn.providerToken ? (
                             <button type="submit" className="btn btn-primary text-white">Next {">"}</button>
                         ) : (
                             <button onClick={() => signInWithGitHub()}
