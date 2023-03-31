@@ -20,12 +20,12 @@ const CommitBadge = ({ count }) => {
     }
 
     const badgesToRender = [
-        <BadgeFrame count={count} type="commits" imgSrc={chooseImage(count)} color="rose-500" />
+        <BadgeFrame count={count} type="commits" imgSrc={chooseImage(count)} color="rose-500" key={count} />
     ]
 
-    if (count >= 300) badgesToRender.push(<MiniBadgeFrame count={100} type="commits" imgSrc={chooseImage(100)} color="rose-500" />)
-    if (count >= 1000) badgesToRender.push(<MiniBadgeFrame count={300} type="commits" imgSrc={chooseImage(300)} color="rose-500" />)
-    if (count >= 5000) badgesToRender.push(<MiniBadgeFrame count={1000} type="commits" imgSrc={chooseImage(1000)} color="rose-500" />)
+    if (count >= 300) badgesToRender.push(<MiniBadgeFrame count={100} type="commits" imgSrc={chooseImage(100)} color="rose-500" key={100} />)
+    if (count >= 1000) badgesToRender.push(<MiniBadgeFrame count={300} type="commits" imgSrc={chooseImage(300)} color="rose-500" key={300} />)
+    if (count >= 5000) badgesToRender.push(<MiniBadgeFrame count={1000} type="commits" imgSrc={chooseImage(1000)} color="rose-500" key={500} />)
 
     return badgesToRender
 

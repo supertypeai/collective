@@ -126,6 +126,16 @@ const StevenProfile = () => {
     }} />
 }
 
+const OwennProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://avatars.githubusercontent.com/u/75826315?v=4",
+        name: "Owenn Gimli",
+        profileLink: "/p/owenn2106",
+        short: "ReactJS Developer Lead @Stockifi.io and former full-stack software developer @Supertype.ai",
+        tags: ['AI', 'Frontend', 'Server']
+    }} />
+}
+
 const Page = () => {
 
     const { isLoggedIn } = useContext(AppContext);
@@ -177,8 +187,9 @@ const Page = () => {
                                 <WilsenProfile />
                                 <DivaProfile />
                                 <FiqeyProfile />
-                                <FendyProfile />
+                                <OwennProfile />
                                 <StevenProfile />
+                                <FendyProfile />
                             </div>
                             <div className={styles.description}>
                                 <div>

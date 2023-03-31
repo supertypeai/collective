@@ -19,12 +19,12 @@ const FollowersBadge = ({ count }) => {
         }
     }
     const badgesToRender = [
-        <BadgeFrame count={count} type="followers" imgSrc={chooseImage(count)} color="violet-500" />
+        <BadgeFrame count={count} type="followers" imgSrc={chooseImage(count)} color="violet-500" key={count} />
     ]
 
-    if (count >= 300) badgesToRender.push(<MiniBadgeFrame count={100} type="followers" imgSrc={chooseImage(100)} color="violet-500" />)
-    if (count >= 500) badgesToRender.push(<MiniBadgeFrame count={300} type="followers" imgSrc={chooseImage(300)} color="violet-500" />)
-    if (count >= 1000) badgesToRender.push(<MiniBadgeFrame count={500} type="followers" imgSrc={chooseImage(500)} color="violet-500" />)
+    if (count >= 300) badgesToRender.push(<MiniBadgeFrame count={100} type="followers" imgSrc={chooseImage(100)} color="violet-500" key={100} />)
+    if (count >= 500) badgesToRender.push(<MiniBadgeFrame count={300} type="followers" imgSrc={chooseImage(300)} color="violet-500" key={300} />)
+    if (count >= 1000) badgesToRender.push(<MiniBadgeFrame count={500} type="followers" imgSrc={chooseImage(500)} color="violet-500" key={500} />)
 
     return badgesToRender
 }
