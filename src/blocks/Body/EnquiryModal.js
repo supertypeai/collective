@@ -81,13 +81,13 @@ const EnquiryModal = ({ children }) => {
 
                         <div className="divider">One-click Sign Up</div>
                         <button onClick={() => signInWithGitHub()}
-                            className="group border border-info hover:border hover:text-rose-200 py-2 rounded-md text-xs hover:bg-info btn-sm">
+                            className="group border dark:border-info hover:border hover:text-rose-200 py-2 rounded-md text-xs hover:bg-info btn-sm bg-black text-white">
                             <Image src="/techicons/github_inv.png" alt="GitHub Logo" width={20} height={20} className="inline mr-2 -mt-1" />
                             GitHub
                         </button>
 
                         <button onClick={() => signInWithLinkedIn()}
-                            className="group border border-info hover:border hover:text-rose-200 py-2 rounded-md text-xs hover:bg-info btn-sm">
+                            className="group border dark:border-info hover:border hover:text-rose-200 py-2 rounded-md text-xs hover:bg-info btn-sm bg-black text-white">
                             <Image src="/techicons/linkedin_inv.png" alt="LinkedIn Logo" width={20} height={20} className="inline mr-2 -mt-1" />
                             LinkedIn
                         </button>

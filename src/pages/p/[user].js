@@ -43,7 +43,7 @@ const fetchUser = async (user) => {
 
 const useUser = (user) => {
     return useQuery(['user'], () => fetchUser(user), {
-        // staleTime: 1000 * 60 * 60 * 24, // 24 hours
+        staleTime: 1000 * 60 * 60 * 24, // 24 hours
     })
 }
 
@@ -54,7 +54,6 @@ const fetchCollectiveHandles = async () => {
         .eq('accepted', true)
 
     if (error) {
-        console.log(error)
         throw new Error(error, "Error fetching collective handles")
     }
 

@@ -186,9 +186,9 @@ const Page = () => {
                                 <TimotiusProfile />
                                 <WilsenProfile />
                                 <DivaProfile />
+                                <StevenProfile />
                                 <FiqeyProfile />
                                 <OwennProfile />
-                                <StevenProfile />
                                 <FendyProfile />
                             </div>
                             <div className={styles.description}>
