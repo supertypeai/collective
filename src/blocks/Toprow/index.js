@@ -1,19 +1,19 @@
-import { useContext } from 'react';
-
+import { useContext, useRef } from 'react';
 import Image from 'next/image'
+import { useQuery } from "@tanstack/react-query";
 
+import scrollToSection from '@/utils/scrollToSection';
 import Pills from '@/blocks/Pills'
-
-import { MeContext } from '@/contexts/MeContext';
 import CommitBadge from './CommitBadge';
 import FollowersBadge from './FollowersBadge';
 import StarBadge from './StarsBadge';
 import ForkBadge from './ForkBadge';
+import { MeContext } from '@/contexts/MeContext';
 
-export const scrollToSection = (sectionName) => {
-    const section = document.querySelector(`#${sectionName}`);
-    section.scrollIntoView({ behavior: "smooth", block: "start" });
-};
+import countryEmoji from '@/data/countryEmoji.json'
+import countryCity from '@/data/countryCity.json'
+import PercentileBadge from './PercentileBadge';
+
 
 
 function Toprow({ children }) {
@@ -32,15 +32,12 @@ function Toprow({ children }) {
                         </div>
                     </div>
                 </div>
-                {/* <Badge emoji={data.isExecutive ? "👔" : "⛑"} show={true}>
-                    {data.isExecutive ? "executive" : "maker"}
-                </Badge> */}
 
                 <CommitBadge count={data.superinference.activity.commit_count} />
                 <FollowersBadge count={data.superinference.profile.followers} />
                 <StarBadge count={data.superinference.stats.stargazers_count} />
                 <ForkBadge count={data.superinference.stats.forks_count} />
-
+                <PercentileBadge s_location={data.superinference.profile.location} s_followers={data.superinference.profile.followers} />
             </div>
             <div className="mx-auto grid col-span-12 lg:col-span-8 justify-center justify-self-center lg:justify-self-start mt-8 adapt-xs max-w-sm sm:max-w-none">
                 <div className="mx-auto sm:max-w-screen w-full lg:max-w-xl text-sm text-slate-200 ">

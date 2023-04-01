@@ -75,7 +75,7 @@ const Body = ({ stack, affiliations, children }) => {
         )
     } else {
         return (
-            <div className="grid grid-cols-12 items-center grid-flow gap-4 bg-black bg-opacity-30 rounded-lg px-2 sm:px-4 lg:px-8 rounded-b-none auto-rows-max">
+            <div className="grid grid-cols-12 items-center grid-flow gap-4 bg-black bg-opacity-30 px-2 sm:px-4 lg:px-8 rounded-b-none auto-rows-max">
                 <StackAndAffiliations stack={stack} affiliations={affiliations} />
                 {autoColumnLayout(data, false)}
                 <EnquiryModal>
