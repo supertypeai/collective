@@ -9,10 +9,7 @@
 ### Joining the Collective
 We welcome members from all backgrounds, anywhere in the world, who wish to contribute to the Collective's vision of building an inclusive, collaborative, and healthy community of full stack analytics developers. 
 
-Read [the Wiki page](https://github.com/supertypeai/collective/wiki) for more details on:
-- [Building your Developer Profile](https://github.com/supertypeai/collective/wiki/Getting-Started-(for-Collective-members))
-- [Special instructions for Supertype Fellowship members](https://github.com/supertypeai/collective/wiki/Supertype-Fellowship-Development-Challenge)
-- [Improving Collective platform as a code contributor](https://github.com/supertypeai/collective/wiki/Development-(for-Maintainers))
+Go to [collective.supertype.ai](https://collective.supertype.ai) to sign up for a free account and create your Developer Profile in less than 5 minutes.
 
 ### Help Supertype Community grow 
 - ⭐ Star this repo to show your support! 
@@ -21,7 +18,6 @@ Read [the Wiki page](https://github.com/supertypeai/collective/wiki) for more de
 - 📧 [Email us](mailto:s@supertype.ai) with questions or feedback if you have other means of helping us grow the Collective
 
 ## Getting Started (for Collective members)
-Supertype Collective is built with Next.js and Tailwind CSS. You should be able to get started by cloning the repo and running `yarn install` (preferred) or `npm install`. This installs all the dependencies and you should be able to run the development server with `yarn dev` (preferred) or `npm run dev`. Proceed to the [Wiki page](https://github.com/supertypeai/collective/wiki) for instructions on creating your Developer Profile.
 
 Once a profile has been created, it will be accessible at `https://collective.supertype.ai/p/<your-name>`. Supertype Collective is tested on the latest version of Chrome, Firefox and Brave browsers.
 
@@ -31,11 +27,25 @@ Out of the box, your Developer Profile will:
 - ⚡ Blazing fast, with a 100 score on Performance, Accessibility, Best Practices and SEO on Google Lighthouse (now Google PageSpeed Insights) for both mobile and desktop
 - 🔗 API-driven, connect to your GitHub and WordPress accounts to automatically populate your profile with relevant information (more integrations to be supported soon)
 - 📄 Export Developer Profile to PDF directly 
-- 📦 Infinitely customizable! Using React's famous composition pattern, you can easily author your Developer Profile using the pre-made blocks provided in the `blocks` directory, but still have the flexibility to build your own blocks
-- 💻 More than 100 icons to choose from, including the most popular programming languages, frameworks, databases and tools in the data science and software engineering domains
+- 📦 Stacks-based approach to showcase your tech stack, with support for:
+    - More than 200 techs and tools to choose from, including the most popular programming languages, frameworks, databases and tools in the data science and software engineering domains
+    - A beautiful layout system that works great on mobile and desktop
+- 💻 More than 200 icons to choose from, including the most popular programming languages, frameworks, databases and tools in the data science and software engineering domains
+- 🥇 More than 20+ badges automatically generated from your GitHub profile to make it fun and rewarding to contribute to open source projects
+- More to come!
+
+
+<!-- ![](assets/sitespeed.png) -->
+<img src="https://github.com/supertypeai/collective/raw/main/assets/sitespeed.png" style="width:50%" />
+
+Perfect score on Performance, Accessibility, Best Practices and SEO on Google Lighthouse (now Google PageSpeed Insights) for both mobile and desktop
+
+## Contributing
+Read [the Wiki page](https://github.com/supertypeai/collective/wiki) for more details on:
+- [Improving Collective platform as a code contributor](https://github.com/supertypeai/collective/wiki/Development-(for-Maintainers))
 
 ### Building Blocks 
-Supertype Collective comes with a set of React components that can be used to build your profile. We call them "blocks". They are built with Tailwind CSS and are available in the `blocks` directory.
+At its core, Supertype Collective comes with a set of React components that can be used to build your profile. We call them "blocks". They are built with Tailwind CSS and are available in the `blocks` directory.
 
 Below is a semi-complete example. You can see the output of these blocks on Supertype's co-founder [Samuel Chan](https://collective.supertype.ai/p/samuel)'s Developer Profile using these pre-made blocks:
 
@@ -74,11 +84,6 @@ const Profile = ({ data }) => {
 ```
 
 Once you're done editing your Developer Profile (`data/profiles/<your-name>.json` and `pages/p/<your-name>.json)`, run `yarn build` to generate a production build and confirm that there are no warnings. You can now push it to GitHub and open a pull request to merge your changes into the `main` branch, where it will be deployed onto the Collective platform, waiting for you to share with the world!
-
-<!-- ![](assets/sitespeed.png) -->
-<img src="https://github.com/supertypeai/collective/raw/main/assets/sitespeed.png" style="width:50%" />
-
-Perfect score on Performance, Accessibility, Best Practices and SEO on Google Lighthouse (now Google PageSpeed Insights) for both mobile and desktop
 
 ## About Supertype Incubator
 Supertype Incubator is the in-house product factory of [Supertype](https://supertype.ai/incubate), a full cycle data science consultancy. It is the birthplace for several of Supertype products, including Supertype Collective, and is a place where our members can experiment on new ideas with total freedom, world class engineering support, absolute creativity and autonomy.
