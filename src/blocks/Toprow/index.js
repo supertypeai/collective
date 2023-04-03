@@ -33,7 +33,7 @@ function Toprow({ children }) {
                     </div>
                 </div>
 
-                <CommitBadge count={data.superinference.activity.commit_count} />
+                <CommitBadge count={data.superinference.contribution.contribution_count} />
                 <FollowersBadge count={data.superinference.profile.followers} />
                 <StarBadge count={data.superinference.stats.stargazers_count} />
                 <ForkBadge count={data.superinference.stats.forks_count} />

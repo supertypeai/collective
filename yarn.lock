@@ -3166,10 +3166,10 @@ stylis@4.1.3:
   resolved "https://registry.yarnpkg.com/stylis/-/stylis-4.1.3.tgz#fd2fbe79f5fed17c55269e16ed8da14c84d069f7"
   integrity sha512-GP6WDNWf+o403jrEp9c5jibKavrtLW+/qYGhFxFrG8maXhwTBI7gLLhiBb0o7uFccWN+EOS9aMO6cGHWAO07OA==
 
-superinference@^0.2.8:
-  version "0.2.8"
-  resolved "https://registry.yarnpkg.com/superinference/-/superinference-0.2.8.tgz#c1550067e22816eff4585748eaf55de9d08ad49e"
-  integrity sha512-da0zD4/BrIReVX6bHjEVBdkHp1HGaI8FxNcNTdiY8KZSfHQMO4/H90A2lv6CPxHj/QLtLKYwXkA8KbNEJaaGZQ==
+superinference@^0.2.9:
+  version "0.2.9"
+  resolved "https://registry.yarnpkg.com/superinference/-/superinference-0.2.9.tgz#3bfe6cd004fbb4463bb067f6a8ad6ce2a9ef1448"
+  integrity sha512-athqY5i8WwvzImvFBwIJOeLoydTabX2NGVxHkF6S59X1uFjI6SlzIYUw+xBwpjGbTEjlJK4WjnxQ1FqsWheySg==
   dependencies:
     "@rollup/plugin-json" "^6.0.0"
 
