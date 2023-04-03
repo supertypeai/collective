@@ -12,6 +12,13 @@ import { MeContext } from '@/contexts/MeContext';
 const Body = ({ stack, affiliations, children }) => {
 
     const data = useContext(MeContext);
+    const contribution = {
+        ...data['superinference']['contribution']['contribution_count_per_repo_org_owner'],
+        ...data['superinference']['contribution']['contribution_count_per_repo_user_owner']
+    };
+    if(contribution.hasOwnProperty(data['github_handle'])){
+        delete contribution[data['github_handle']]
+    }
 
     const autoColumnLayout = useCallback(
         (data, div) => {
@@ -22,15 +29,15 @@ const Body = ({ stack, affiliations, children }) => {
                         <GitHubProjects repos={data['superinference']['stats']['top_repo_stars_forks']} count={data['show_repo']} owner={data["github_handle"]} />
                     }
                     {
-                        (data['superinference']['contribution']['self_contribution_to_external'] &&
-                            Object.entries(data['superinference']['contribution']['self_contribution_to_external']).length > 0) &&
-                        <RepoTags collaborations={data['superinference']['contribution']['self_contribution_to_external']} />
+                        (contribution &&
+                            Object.entries(contribution).length > 0) &&
+                        <RepoTags collaborations={contribution} />
                     }
                     <ContactCard data={data} />
                     {
-                        Object.values(data['superinference']['activity']['commit_count_per_month'])
+                        Object.values(data['superinference']['contribution']['contribution_count_per_month'])
                             .reduce((acc, x) => acc + x[0], 0) > 0 &&
-                        <CommitPolar data={data['superinference']['activity']['commit_count_per_month']} newCol={
+                        <CommitPolar data={data['superinference']['contribution']['contribution_count_per_month']} newCol={
                             data['show_repo'] === 0
                         } />
                     }
