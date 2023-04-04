@@ -1,8 +1,8 @@
-import { useRef } from 'react';
 import { useQuery } from "@tanstack/react-query";
 
 import countryEmoji from '@/data/countryEmoji.json'
 import countryCity from '@/data/countryCity.json'
+import { BadgeFrame } from "./BadgeFrame";
 
 const capitalize = s => s && s[0].toUpperCase() + s.slice(1)
 
@@ -42,24 +42,11 @@ const PercentileBadge = ({ s_location, s_followers }) => {
         }
     );
 
-    return (
-        <div className='hidden'>
-            <div className="flex justify-center mt-2">
-                <div className="flex items-center text-xs">
-                    <span>
-                        {countryEmoji[location]}
-                    </span>
-                    <span>
-                        {s_location} ({location})
-                    </span>
-                </div>
-            </div>
-            {
-                !rankLoading && !rankError &&
-                JSON.stringify(rankData)
-            }
-        </div>
-    )
+    if (!rankLoading && !rankError && rankData.percentile > 90) {
+        return <BadgeFrame count={rankData.percentile.toFixed(2)} type="percentile" emojiImg={countryEmoji[location]} />
+    } else {
+        return null
+    }
 }
 
 export default PercentileBadge

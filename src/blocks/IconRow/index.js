@@ -10,7 +10,7 @@ const TechIcon = ({ tag, dark }) => {
         <div className="tooltip flex" data-tip={tag}>
             <Image
                 src={imgSrc || "/techicons/badge_inv.png"}
-                width={50} height={50} alt={tag} className="max-w-fit"
+                width={50} height={50} alt={tag} className="md:max-w-fit"
                 onError={() => {
                     setImgSrc(dark ? `/techicons/badge.png` : `/techicons/badge_inv.png`)
                 }}
