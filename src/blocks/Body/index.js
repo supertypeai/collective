@@ -16,7 +16,7 @@ const Body = ({ stack, affiliations, children }) => {
         ...data['superinference']['contribution']['contribution_count_per_repo_org_owner'],
         ...data['superinference']['contribution']['contribution_count_per_repo_user_owner']
     };
-    if(contribution.hasOwnProperty(data['github_handle'])){
+    if (contribution.hasOwnProperty(data['github_handle'])) {
         delete contribution[data['github_handle']]
     }
 
@@ -82,7 +82,7 @@ const Body = ({ stack, affiliations, children }) => {
         )
     } else {
         return (
-            <div className="grid grid-cols-12 items-center grid-flow gap-4 bg-black bg-opacity-30 px-2 sm:px-4 lg:px-8 rounded-b-none auto-rows-max">
+            <div className="grid grid-cols-12 items-center grid-flow gap-4 bg-black bg-opacity-30 px-1 sm:px-4 lg:px-8 rounded-b-none auto-rows-max">
                 <StackAndAffiliations stack={stack} affiliations={affiliations} />
                 {autoColumnLayout(data, false)}
                 <EnquiryModal>

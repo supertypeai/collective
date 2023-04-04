@@ -34,7 +34,7 @@ const Affiliations = () => {
                                 <div className="border-r-2 border-white opacity-30 absolute h-full left-1 md:left-4 top-2 z-10">
                                 </div>
 
-                                <div className="ml-10 max-w-[18rem] sm:max-w-sm xl:max-w-md xl:pr-4 w-auto">
+                                <div className="ml-4 sm:ml-10 max-w-[18rem] sm:max-w-sm xl:max-w-md xl:pr-4 w-auto">
                                     <div className="font-bold">{affiliation['title']}</div>
                                     <div className="italic md:mb-4 text-sm">{affiliation['position']}</div>
                                     <div className="mb-4 mt-2 md:hidden">

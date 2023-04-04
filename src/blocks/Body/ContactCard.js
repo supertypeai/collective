@@ -19,7 +19,7 @@ const ContactCard = ({ data }) => {
                             </div>
                         </div>
                     </div>
-                    <div className="basis-4/6 2xl:basis-1/3">
+                    <div className="basis-4/6 2xl:basis-3/5 leading-none">
                         <span className='leading-none font-semibold'>{data['fullname']}</span>
                         {/* social links */}
                         <div className="flex flex-row gap-x-2 mt-1">
@@ -40,7 +40,7 @@ const ContactCard = ({ data }) => {
                             </Link>
                         </div>
                     </div>
-                    <div className="basis-full 2xl:basis-1/2 2xl:text-right">
+                    <div className="basis-full 2xl:basis-1/5 2xl:text-right">
                         <label htmlFor="enquire-modal"
                             className="btn btn-outline btn-xs rounded hover:bg-rose-700">Enquire</label>
                     </div>
