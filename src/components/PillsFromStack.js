@@ -1,6 +1,6 @@
 import Pills from '@/blocks/Pills'
 
-export const PillsFromStack = ({ id, stackExamples, setStackExamples }) => {
+export const PillsFromStack = ({ id, stackExamples, setStackExamples, isEditting=true }) => {
     return <Pills
         tags={
             stackExamples[id].child.filter(
@@ -26,10 +26,11 @@ export const PillsFromStack = ({ id, stackExamples, setStackExamples }) => {
             )
         }}
         maxWidth="40"
+        isEditting={isEditting}
     />
 }
 
-export const PillsFromSelected = ({ id, stackExamples, setStackExamples }) => {
+export const PillsFromSelected = ({ id, stackExamples, setStackExamples, isEditting=true }) => {
     return <Pills
         tags={stackExamples[id].selected}
         onClick={e => {
@@ -46,5 +47,6 @@ export const PillsFromSelected = ({ id, stackExamples, setStackExamples }) => {
                 })
             )
         }}
+        isEditting={isEditting}
     />
 }

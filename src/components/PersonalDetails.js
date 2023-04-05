@@ -62,7 +62,8 @@ const PersonalDetails = ({ nextFormStep }) => {
 
                     setSuperinference({
                         ...d,
-                        v: "0.2.9"
+                        v: "0.2.9",
+                        updated_at: new Date()
                     });
 
                     // call reset to update form values

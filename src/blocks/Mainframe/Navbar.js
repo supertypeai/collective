@@ -98,10 +98,12 @@ export const Navbar = ({ pdfBtn }) => {
                                 {pdfBtn && <DownloadPDFBtn isLoggedIn={isLoggedIn} />}
                                 {
                                     isLoggedIn ?
-                                        <button
-                                            className="group hover:border-2 hover:text-amber-200 hover:border-amber-200 text-sm px-3 py-1 rounded-md text-sm font-semibold">
-                                            Profile
-                                        </button>
+                                        <Link href="/profile">
+                                            <button
+                                                className="group hover:border-2 hover:text-amber-200 hover:border-amber-200 text-sm px-3 py-1 rounded-md font-semibold">
+                                                Profile
+                                            </button>
+                                        </Link>
                                         :
                                         <button onClick={() => signInWithGitHub()}
                                             className="group hover:border hover:text-rose-200 px-3 py-1 rounded-md text-sm hover:bg-secondary font-semibold">
