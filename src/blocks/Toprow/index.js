@@ -33,11 +33,17 @@ function Toprow({ children }) {
                     </div>
                 </div>
 
-                <CommitBadge count={data.superinference.contribution.contribution_count} />
-                <FollowersBadge count={data.superinference.profile.followers} />
-                <StarBadge count={data.superinference.stats.stargazers_count} />
-                <ForkBadge count={data.superinference.stats.forks_count} />
-                <PercentileBadge s_location={data.superinference.profile.location} s_followers={data.superinference.profile.followers} />
+                { 
+                    data.superinference.stats && (
+                        <>
+                            <CommitBadge count={data.superinference.contribution.contribution_count} />
+                            <FollowersBadge count={data.superinference.profile.followers} />
+                            <StarBadge count={data.superinference.stats.stargazers_count} />
+                            <ForkBadge count={data.superinference.stats.forks_count} />
+                            <PercentileBadge s_location={data.superinference.profile.location} s_followers={data.superinference.profile.followers} />
+                        </>
+                    )
+                }
             </div>
             <div className="mx-auto grid col-span-12 lg:col-span-8 justify-center justify-self-center lg:justify-self-start mt-8 adapt-xs max-w-sm sm:max-w-none">
                 <div className="mx-auto sm:max-w-screen w-full lg:max-w-xl text-sm text-slate-200 ">

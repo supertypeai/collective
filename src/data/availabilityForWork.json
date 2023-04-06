@@ -1,0 +1,18 @@
+[  
+    {    
+        "value": "Full-time",    
+        "label": "Full-time"  
+    },  
+    {    
+        "value": "Part-time",    
+        "label": "Part-time"  
+    },  
+    {    
+        "value": "Flexible",    
+        "label": "Flexible"  
+    },  
+    {    
+        "value": "Unavailable",    
+        "label": "Unavailable"  
+    }
+]

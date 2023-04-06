@@ -38,7 +38,7 @@ const RegistrationCompleted = () => {
         if (error?.message === `duplicate key value violates unique constraint "profile_s_preferred_handle_key"`) {
             alert("Your preferred collective handle already exists, please use another one.");
             setIsSubmitting(false);
-        } else if (error?.message === `"duplicate key value violates unique constraint "Profile_email_key"`) {
+        } else if (error?.message === `duplicate key value violates unique constraint "Profile_email_key"`) {
             alert("Your email already exists, please use another email.");
             setIsSubmitting(false);
         } else if (error) {

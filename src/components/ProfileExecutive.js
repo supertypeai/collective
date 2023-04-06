@@ -1,14 +1,14 @@
-import { useId, useState, useContext, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useId, useState, useContext } from "react";
 import Image from "next/image";
 import { useForm, Controller } from "react-hook-form"
 import { supabase } from "@/lib/supabaseClient";
 import CreatableSelect from 'react-select/creatable';
+import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { Field, Form, Input } from "@/blocks/Form"
 import Tooltip from "@/icons/Tooltip";
 import profileTagsChoices from "@/data/profileTagsChoices.json"
-import { AppContext } from "@/contexts/AppContext";
+import { ProfileContext } from "@/contexts/ProfileContext";
 
 const placeholder = {
     1: {
@@ -29,115 +29,75 @@ function StableSelect({ ...props }) {
     return <CreatableSelect {...props} instanceId={useId()} />;
 }
 
-export async function signInWithLinkedIn() {
-    const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'linkedin',
-        options: {
-            // redirect to their last page
-            redirectTo: window.location.href
-        }
-    });
-    if (error) {
-        console.log(error);
-    }
-}
+const ProfileExecutive = () => {
 
-const RegistrationBtn = ({ isLoggedIn, isSubmitting }) => {
-
-
-    if (isLoggedIn.linkedinUser) {
-        return (
-            <div className="my-6">
-                {
-                    isSubmitting ?
-                        <button type="submit" className="btn btn-primary text-white" disabled>Submitting...</button>
-                        :
-                        <button type="submit" className="btn btn-primary text-white">Complete Registration</button>
-                }
-            </div>
-        )
-    } else {
-        return (
-            <div className="my-6">
-                <button type="button" className="btn btn-primary text-white" onClick={signInWithLinkedIn}>
-                    Sign in with LinkedIn to register
-                </button>
-            </div>
-        )
-    }
-}
-
-const ExecutiveForm = () => {
-
-    const { isLoggedIn } = useContext(AppContext);
-    const router = useRouter()
-
-    const [isSubmitting, setIsSubmitting] = useState(false)
-    const [haveWebsiteBlog, setHaveWebsiteBlog] = useState(false)
-    const [addThirdAff, setAddThirdAff] = useState(false)
-    const [tagOptions, setTagOptions] = useState([])
+    const context = useContext(ProfileContext);
+    const [form, setForm] = context.f;
+    const [isEditting, setIsEditting] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [haveWebsiteBlog, setHaveWebsiteBlog] = useState(!!form.website)
+    const [addThirdAff, setAddThirdAff] = useState(form.affiliations.org3.optionally_selected)
 
     const { register, control, handleSubmit, watch, formState: { errors }, reset } = useForm({
+        defaultValues: {
+            ...form
+        },
         mode: "onSubmit"
     });
 
-    const postToSupabase = async (data) => {
-        setIsSubmitting(true)
-
-        const { website_or_blog, ...d } = data;
-
-        const { data: { user } } = await supabase.auth.getUser();
-
-        const { error } = await supabase
-            .from('profile')
-            .insert([
-                {
-                    ...d,
-                    isExecutive: true,
-                    created_at: new Date(),
-                    auth_uuid: user.id,
-                    superinference: { 
-                        profile: {
-                            avatar_url: isLoggedIn.linkedinUser.identities[0].identity_data.avatar_url
-                        }
-                    }
-                }
-            ])
-
-        if (error?.message === `duplicate key value violates unique constraint "profile_s_preferred_handle_key"`) {
-            alert("Your preferred collective handle already exists, please use another one.");
-            setIsSubmitting(false);
-        } else if (error?.message === `duplicate key value violates unique constraint "Profile_email_key"`) {
-            alert("Your email already exists, please use another email.");
-            setIsSubmitting(false);
-        } else if (error) {
-            alert("Sorry, something went wrong. Please try again.");
-            setIsSubmitting(false);
-            console.log(error)
-        } else {
-            // if successful, alert() for 2 seconds and redirect to home page
-            alert("Thank you for completing the nomination process. We will be in touch.")
-            setTimeout(() => {
-                router.push("/")
-            }, 2000);
+    const queryClient = useQueryClient();
+    const { mutate: updateForm } = useMutation(
+        async (formData) => {
+            const { data, error } = await supabase.from('profile').update(formData).eq('id', formData.id);
+            if (error?.message === `duplicate key value violates unique constraint "profile_s_preferred_handle_key"`) {
+                alert("Your new preferred collective handle already exists, please use another one.");
+            } else if (error?.message === `duplicate key value violates unique constraint "Profile_email_key"`) {
+                alert("Your new email already exists, please use another email.");
+            } else if (error) {
+                alert("Sorry, something went wrong. Please try again.");
+                console.log(error);
+            } else {
+                setForm(formData);
+                setIsEditting(false);
+            }
+        },
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries('profileData');
+            }
         }
-    }
+    );
 
     const saveData = (data) => {
-        console.log(data, "save data")
-        setIsSubmitting(true)
-        postToSupabase(data);
-    };
-
-    useEffect(() => {
-        if (isLoggedIn.linkedinUser) {
-            reset({
-                "fullname": isLoggedIn.linkedinUser.user_metadata.full_name,
-                "email": isLoggedIn.linkedinUser.user_metadata.email,
-            })
+        setIsSubmitting(true);
+        if(!data.affiliations.org3.optionally_selected){
+            data.affiliations.org3 = {
+                "end": "",
+                "tags": "",
+                "start": "",
+                "title": "",
+                "position": "",
+                "description": "",
+                "currentWorkHere": false,
+                "optionally_selected": false
+            }
         }
-
-    }, [isLoggedIn, reset])
+        if(!haveWebsiteBlog){
+            data = {
+                ...data,
+                website: null,
+                wp_blog_author_id: null,
+                wp_blog_root_url: null
+            }
+        }
+        const newData = { ...form, ...data };
+        if (JSON.stringify(newData) !== JSON.stringify(form)) {
+            updateForm(newData);
+        } else {
+            setIsEditting(false);
+        }
+        setIsSubmitting(false);
+    };
 
     const renderWebsiteOrBlog = () => {
         return (
@@ -149,6 +109,7 @@ const ExecutiveForm = () => {
                         id="website"
                         placeholder="yourpersonalwebsite.com"
                         pattern="https://.*"
+                        disabled={!isEditting}
                     />
                 </Field>
 
@@ -163,6 +124,7 @@ const ExecutiveForm = () => {
                                 {...register("wp_blog_root_url")}
                                 id="wp_blog_root_url"
                                 placeholder="self-hosted-site.com OR 2384101920 (WordPress.com Site ID)"
+                                disabled={!isEditting}
                             />
                         </Field>
                     </div>
@@ -174,6 +136,7 @@ const ExecutiveForm = () => {
                                 {...register("wp_blog_author_id", { valueAsNumber: true })}
                                 id="wp_blog_author_id"
                                 placeholder="14"
+                                disabled={!isEditting}
                             />
                         </Field>
                     </div>
@@ -181,6 +144,8 @@ const ExecutiveForm = () => {
             </>
         )
     }
+
+    const tagOptions = profileTagsChoices.filter(tag => form.tags.includes(tag.value));
 
     const QualificationTagger = ({ id }) => {
         return <Controller
@@ -227,6 +192,7 @@ const ExecutiveForm = () => {
                             color: 'white',
                         }),
                     }}
+                    isDisabled={!isEditting}
                 />
             )}
         />
@@ -242,6 +208,7 @@ const ExecutiveForm = () => {
                     value={true}
                     id={`affiliations.org${id}.currentWorkHere`}
                     name={`affiliations.org${id}.currentWorkHere`}
+                    disabled={!isEditting}
                     {...register(`affiliations.org${id}.currentWorkHere`)}
                 // checked
                 />
@@ -257,12 +224,12 @@ const ExecutiveForm = () => {
                 rows="5" required minLength="40" maxLength="250"
                 placeholder="Being a Technical Mentor at Supertype Fellowship, I am tasked to look after the technical coaching of fellows in the program as they attempt to make their first open source contributions. I provide timely feedback, review pull requests, and help 13 fellows on the API engineering elective complete their elective challenge."
                 className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                disabled={!isEditting}
                 {...register(`affiliations.org${id}.description`,
                     {
                         required: (id === "3" && addThirdAff && !watch(`affiliations.org${id}.title`)) ||
                             id !== "3" ? "Describe what you do in the organization and " : false
                     }
-
 
                 )}
             />
@@ -274,6 +241,7 @@ const ExecutiveForm = () => {
             <Input
                 id={`affiliations.org${id}.title`}
                 placeholder={placeholder[id].organization}
+                disabled={!isEditting}
                 {...register(`affiliations.org${id}.title`, { required: is_required ? "Please specify your organization" : false })}
             />
         )
@@ -285,6 +253,7 @@ const ExecutiveForm = () => {
                 id={`affiliations.org${id}.position`}
                 type="text"
                 placeholder={placeholder[1].position}
+                disabled={!isEditting}
                 {...register(`affiliations.org${id}.position`, { required: is_required ? "Please specify your role in this organization" : false })}
             />
         )
@@ -297,6 +266,7 @@ const ExecutiveForm = () => {
                 type="date"
                 max={new Date().toISOString().split("T")[0]}
                 className="mt-2 p-2 block w-full rounded text-sm border-gray-600 text-white bg-black bg-opacity-25"
+                disabled={!isEditting}
                 {...register(`affiliations.org${id}.start`, {
                     required: (id === "3" && addThirdAff) || id !== "3"
                         ? "Please specify a start date" : false
@@ -310,7 +280,7 @@ const ExecutiveForm = () => {
             <Input
                 id={`affiliations.org${id}.end`}
                 // conditionally disable if currentWorkHere is checked
-                disabled={watch(`affiliations.org${id}.currentWorkHere`) === "true"}
+                disabled={isEditting ? (false || watch(`affiliations.org${id}.currentWorkHere`) === "true") : true}
                 className="mt-2 p-2 block w-full rounded text-sm border-gray-600 text-white bg-black bg-opacity-25"
                 type="date"
                 min={watch(`affiliations.org${id}.start`)}
@@ -329,7 +299,7 @@ const ExecutiveForm = () => {
 
     const renderFirstAffiliation = () => {
         return (
-            <div className="mb-4 mt-0">
+            <div className="my-4">
                 <div className="divider">{`First Affiliation (Required)`}</div>
                 <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -453,93 +423,76 @@ const ExecutiveForm = () => {
     return (
         <Form onSubmit={handleSubmit(saveData)} className="mt-4 max-w-7xl xl:px-8">
             <fieldset>
-                <h3 className="text-2xl font-bold">👔 Executive&apos;s Profile</h3>
-                <p className="text-sm">The following details will be used to create your Executive&apos;s Profile.</p>
-            </fieldset>
-            <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                    <Field label="Preferred Collective Handle"
-                        error={errors?.s_preferred_handle}
-                        hint="This will be in the link to your Executive Profile, if available"
+                <span className="text-2xl font-bold">
+                    👔 Personal Details
+                    <button 
+                        type="button" 
+                        onClick={() => setIsEditting(true)}
+                        hidden={isEditting}
                     >
-                        <Input
-                            {...register("s_preferred_handle")}
-                            id="s_preferred_handle"
-                            placeholder={
-                                isLoggedIn.linkedinUser ?
-                                    isLoggedIn.linkedinUser.user_metadata.full_name.substring(0, isLoggedIn.linkedinUser.user_metadata.full_name.indexOf(' ')) : ''
-                            }
-                        />
-                    </Field>
-                </div>
-                <div className="w-full md:w-1/2 px-3">
-                    <Field label="LinkedIn Profile"
-                        error={errors?.linkedin_handle}>
-                        <div>
-                            {!isLoggedIn.linkedinUser ? (
-                                <div>
-                                    <button onClick={() => signInWithLinkedIn()}
-                                        className="text-white group hover:text-rose-200 px-3 py-2 my-auto rounded-md text-sm hover:bg-secondary border-2">
-                                        <Image src="/techicons/linkedin_inv.png" alt="LinkedIn Logo" width={20} height={20} className="inline mr-2" />
-                                        Authorize with LinkedIn
-                                    </button>
-                                </div>
-                            ) : (
-                                <div className="flex items-center space-x-4">
-                                    <Image className="w-10 h-10 rounded-full" src={isLoggedIn.linkedinUser.user_metadata.avatar_url} width={100} height={100} alt={isLoggedIn.linkedinUser.user_metadata.full_name} />
-                                    {/* <img className="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-5.jpg" alt=""/> */}
-                                    <div className="font-medium dark:text-white">
-                                        <div>{isLoggedIn.linkedinUser.user_metadata.full_name}</div>
-                                        <div className="text-sm text-gray-500 dark:text-gray-400">Authenticated on {new Date(isLoggedIn.linkedinUser.confirmed_at).toDateString()}</div>
-                                    </div>
-                                </div>
-                            )}
-
-                        </div>
-
-                    </Field>
-                </div>
-            </div>
+                        <svg 
+                            fill="none" 
+                            stroke="currentColor" 
+                            strokeWidth="1.5" 
+                            viewBox="0 0 24 24" 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            aria-hidden="true"
+                            className="ml-2 mb-1 w-5 inline-block"
+                        >
+                            <path 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round" 
+                                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                            />
+                        </svg>
+                    </button>
+                </span>
+            </fieldset>
+            <Field label="Preferred Collective Handle"
+                error={errors?.s_preferred_handle}
+                hint="This will be in the link to your Maker's Profile"
+            >
+                <Input
+                    {...register("s_preferred_handle")}
+                    id="s_preferred_handle"
+                    placeholder="pambeesly"
+                    disabled={!isEditting}
+                    required
+                />
+            </Field>
             <Field label="Full name" error={errors?.fullname}>
                 <Input
                     {...register("fullname", { required: "Full name is a required field" })}
                     id="fullname"
-                    placeholder={
-                        isLoggedIn.linkedinUser ?
-                            isLoggedIn.linkedinUser.user_metadata.full_name : 'Michael Gary Scott'
-                    }
+                    placeholder="Pamela Morgan Beesly"
+                    disabled={!isEditting}
                 />
             </Field>
-
-            <Field label="Email" error={errors?.email} hint='We will send an acknowledgment of your nomination to this email.'>
+            <Field label="Email" error={errors?.email}>
                 <Input
                     {...register("email", { required: "Email is required" })}
                     type="email"
                     id="email"
-                    placeholder={
-                        isLoggedIn.linkedinUser ?
-                            isLoggedIn.linkedinUser.user_metadata.email : 'michael@dundermifflin.com'
-                    }
+                    placeholder="pamela@dundermifflin.com"
+                    disabled={!isEditting}
                 />
             </Field>
-
             <Field label="LinkedIn URL" error={errors?.linkedin}>
                 <Input
                     {...register("linkedin")}
                     id="linkedin"
-                    placeholder={
-                        isLoggedIn.linkedinUser ?
-                            `https://www.linkedin.com/in/${isLoggedIn.linkedinUser.user_metadata.full_name.toLowerCase().split(" ").join("-")}` :
-                            'https://www.linkedin.com/in/chansamuel'
-                    }
+                    placeholder="https://www.linkedin.com/in/chansamuel"
+                    disabled={!isEditting}
                 />
             </Field>
+
 
             <Field label="🖊️ Introduction" error={errors?.long}>
                 <textarea {...register("long")} id="long" name="long"
                     rows="4" required minLength="40" maxLength="250"
-                    placeholder="I am en engineering leader at Dunder Mifflin with 8 years of expereince in cloud-related technologies. I am passionate about helping companies build great products and services for their customers."
+                    placeholder="I am a data scientist with 3 years of experience in the industry and a Fellow at Supertype Fellowship. I am passionate about open source and have contributed to several projects under this program."
                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    disabled={!isEditting}
                 />
             </Field>
 
@@ -549,7 +502,8 @@ const ExecutiveForm = () => {
                 <Input
                     {...register("short", { required: "Please provide a short Headline" })}
                     id="short"
-                    placeholder="Director of Engineering @SupertypeAI"
+                    placeholder="Full Stack Data Scientist @SupertypeAI"
+                    disabled={!isEditting}
                 />
             </Field>
 
@@ -577,7 +531,7 @@ const ExecutiveForm = () => {
                                 })
                             }
                             onChange={val => {
-                                val.length <= 10 && onChange(val.map(c => c.value)) && setTagOptions(val)
+                                val.length <= 10 && onChange(val.map(c => c.value));
                             }}
                             theme={theme => ({
                                 ...theme,
@@ -603,11 +557,13 @@ const ExecutiveForm = () => {
                                     color: 'white',
                                 }),
                             }}
+                            isSearchable={true}
+                            isCreatable={true}
+                            isDisabled={!isEditting}
                         />
                     )}
                 />
             </Field>
-
             <Field label="💼 Affiliation &#38; Work" error={errors?.tags}>
                 <>
                     <p className="text-gray-400 mt-1 text-xs italic text-muted">A list of past and present affiliations to be featured on your Developer Profile</p>
@@ -621,12 +577,12 @@ const ExecutiveForm = () => {
                             onChange={(e) => {
                                 setAddThirdAff(prev => !prev)
                             }}
+                            disabled={!isEditting}
                         />
                         <div className="collapse-title font-medium underline">
                             {
-                                addThirdAff ? "Remove third Affiliation" : "Optionally Add a Third Affiliation"
+                                isEditting ? (addThirdAff ? "Remove third Affiliation" : "Optionally Add a Third Affiliation") : ""
                             }
-
                         </div>
                         <div className="collapse-content">
                             {renderThirdAffiliation()}
@@ -637,23 +593,48 @@ const ExecutiveForm = () => {
 
             <div className="collapse">
                 <input type="checkbox"
-                    {...register("website_or_blog")}
+                    // {...register("website_or_blog")}
                     className="collapse-checkbox"
+                    checked={haveWebsiteBlog}
                     onChange={(e) => {
                         setHaveWebsiteBlog(prev => !prev);
-                    }} />
+                    }}
+                    disabled={!isEditting} />
                 <div className="collapse-title font-medium underline">
                     {
-                        haveWebsiteBlog ? "Remove the website / blog section" : "(Optional) I have a website or blog"
+                        isEditting ? (haveWebsiteBlog ? "Remove the website / blog section" : "(Optional) I have a website or blog") : ""
                     }
-
                 </div>
                 <div className="collapse-content">
                     {renderWebsiteOrBlog()}
                 </div>
             </div>
 
-            <RegistrationBtn isLoggedIn={isLoggedIn} isSubmitting={isSubmitting} />
+            <div className="my-4">
+                { 
+                    isEditting ? (
+                        <>
+                            <button 
+                                type="button" 
+                                className="btn btn-secondary text-white mr-3"
+                                onClick={() => {
+                                    setIsEditting(false)
+                                    reset(form)
+                                    setAddThirdAff(form.affiliations.org3.optionally_selected)
+                                    setHaveWebsiteBlog(!!form.website)
+                                }}
+                            >
+                                Cancel
+                            </button>
+                            <button type="submit" className="btn btn-warning text-black">Save Changes</button>
+                        </>
+                    ) : isSubmitting ? (
+                        <button type="submit" className="btn btn-warning text-black" disabled>Saving Changes...</button>
+                    ) : (
+                        <></>
+                    )
+                }
+            </div>
 
             {/* helper modal for wordpress blog */}
             <input type="checkbox" id="wp-helper" className="modal-toggle" />
@@ -689,4 +670,4 @@ const ExecutiveForm = () => {
     )
 }
 
-export default ExecutiveForm
+export default ProfileExecutive
