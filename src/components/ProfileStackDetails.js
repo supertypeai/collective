@@ -43,7 +43,7 @@ const ProfileStackDetails = ({ nextFormStep }) => {
     const queryClient = useQueryClient();
     const { mutate: updateForm } = useMutation(
         async (formData) => {
-            const { data, error } = await supabase.from('profile').update(formData).eq('github_handle', formData.github_handle);
+            const { data, error } = await supabase.from('profile').update(formData).eq('id', formData.id);
             if (error?.message === `duplicate key value violates unique constraint "profile_s_preferred_handle_key"`) {
                 alert("Your new preferred collective handle already exists, please use another one.");
             } else if (error?.message === `"duplicate key value violates unique constraint "Profile_email_key"`) {
