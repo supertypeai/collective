@@ -12,19 +12,20 @@ import { MeContext } from '@/contexts/MeContext';
 const Body = ({ stack, affiliations, children }) => {
 
     const data = useContext(MeContext);
-    let contribution;
-    if(data.superinference.contribution){
-        contribution = {
-            ...data['superinference']['contribution']['contribution_count_per_repo_org_owner'],
-            ...data['superinference']['contribution']['contribution_count_per_repo_user_owner']
-        };
-        if (contribution.hasOwnProperty(data['github_handle'])) {
-            delete contribution[data['github_handle']]
-        }
-    }
 
     const autoColumnLayout = useCallback(
         (data, div) => {
+
+            let contribution;
+            if(data.superinference.contribution){
+                contribution = {
+                    ...data['superinference']['contribution']['contribution_count_per_repo_org_owner'],
+                    ...data['superinference']['contribution']['contribution_count_per_repo_user_owner']
+                };
+                if (contribution.hasOwnProperty(data['github_handle'])) {
+                    delete contribution[data['github_handle']]
+                }
+            }
 
             const innerContent = (
                 <>

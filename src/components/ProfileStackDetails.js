@@ -46,7 +46,7 @@ const ProfileStackDetails = ({ nextFormStep }) => {
             const { data, error } = await supabase.from('profile').update(formData).eq('id', formData.id);
             if (error?.message === `duplicate key value violates unique constraint "profile_s_preferred_handle_key"`) {
                 alert("Your new preferred collective handle already exists, please use another one.");
-            } else if (error?.message === `"duplicate key value violates unique constraint "Profile_email_key"`) {
+            } else if (error?.message === `duplicate key value violates unique constraint "Profile_email_key"`) {
                 alert("Your new email already exists, please use another email.");
             } else if (error) {
                 alert("Sorry, something went wrong. Please try again.");

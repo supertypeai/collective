@@ -36,7 +36,7 @@ const ProfileMiscellaneousDetails = ({ edit, setEdit }) => {
             const { data, error } = await supabase.from('profile').update(formData).eq('id', formData.id);
             if (error?.message === `duplicate key value violates unique constraint "profile_s_preferred_handle_key"`) {
                 alert("Your new preferred collective handle already exists, please use another one.");
-            } else if (error?.message === `"duplicate key value violates unique constraint "Profile_email_key"`) {
+            } else if (error?.message === `duplicate key value violates unique constraint "Profile_email_key"`) {
                 alert("Your new email already exists, please use another email.");
             } else if (error) {
                 alert("Sorry, something went wrong. Please try again.");
@@ -115,16 +115,17 @@ const ProfileMiscellaneousDetails = ({ edit, setEdit }) => {
     }
 
     const SuperInference = ({ superinference }) => {
-        const contribution = {
-            ...superinference['superinference']['contribution']['contribution_count_per_repo_org_owner'],
-            ...superinference['superinference']['contribution']['contribution_count_per_repo_user_owner']
-        };
-        if (contribution.hasOwnProperty(superinference["superinference"]["profile"]['login'])) {
-            delete contribution[superinference["superinference"]["profile"]['login']]
-        }
     
         const autoColumnLayout = useCallback(
             (data, div) => {
+
+                const contribution = {
+                    ...data['superinference']['contribution']['contribution_count_per_repo_org_owner'],
+                    ...data['superinference']['contribution']['contribution_count_per_repo_user_owner']
+                };
+                if (contribution.hasOwnProperty(data["superinference"]["profile"]['login'])) {
+                    delete contribution[data["superinference"]["profile"]['login']]
+                }
     
                 const innerContent = (
                     <>
@@ -272,7 +273,7 @@ const ProfileMiscellaneousDetails = ({ edit, setEdit }) => {
             updateInference();
             setEdit(false);
         }
-    }, [edit]);
+    }, [edit, setEdit, updateInference]);
 
     return (
         <Form onSubmit={handleSubmit(saveData)} className="min-h-6xl">

@@ -117,7 +117,7 @@ const ProfileForm = () => {
     if(isLoading) { 
         return (<div className="min-h-screen mt-2">Loading...</div>)
     } else if (!state) {
-        return (<div className="min-h-screen mt-2">You haven't created your profile page.</div>)
+        return (<div className="min-h-screen mt-2">You haven&apos;t created your profile page.</div>)
     } else if (!state.accepted) {
         return (<div className="min-h-screen mt-2">Your profile is currently under review.</div>)
     } 
