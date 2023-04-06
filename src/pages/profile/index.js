@@ -12,6 +12,7 @@ import ProfilePersonalDetails from "@/components/ProfilePersonalDetails";
 import ProfileStackDetails from "@/components/ProfileStackDetails";
 import ProfileAffiliationDetails from "@/components/ProfileAffiliationDetails";
 import ProfileMiscellaneousDetails from "@/components/ProfileMiscellaneousDetails";
+import ProfileExecutive from "@/components/ProfileExecutive";
 
 const ProfileForm = () => {
 
@@ -29,8 +30,10 @@ const ProfileForm = () => {
 
     const { isLoggedIn } = useContext(AppContext);
 
-    const [state, setState] = useState({});
+    const [state, setState] = useState();
     const [edit, setEdit] = useState(providerToken ? true : false);
+    const [isLoading, setIsLoading] = useState(true);
+    const [profileType, setProfileType] = useState("github");
 
     const fetchData = async (userID) => {
         const queryClient = new QueryClient();
@@ -40,16 +43,16 @@ const ProfileForm = () => {
                 .select()
                 .eq('auth_uuid', userID)
                 .single();
+
+            if (!data) {
+                throw new Error('No such user in the database');
+            }
         
             if (error) {
                 console.log(error);
                 throw new Error(error, 'Error fetching this user');
             }
         
-            if (!data) {
-                throw new Error('No such user in the database');
-            }
-
             if (data && data['wp_blog_root_url'] && data['wp_blog_author_id']) {
                 let url = '';
                 // check if this root url is numeric or not
@@ -78,42 +81,76 @@ const ProfileForm = () => {
     };
 
     useEffect(() => {
-        const fetchDataAsync = async () => {
+        const fetchGithubAsync = async () => {
           try {
             const data = await fetchData(isLoggedIn?.githubUser?.id);
             setState(data)
+            setIsLoading(false);
           } catch (error) {
             console.log(error);
           }
         };
+
+        const fetchLinkedinAsync = async () => {
+            try {
+              const data = await fetchData(isLoggedIn?.linkedinUser?.id);
+              setState(data)
+              setIsLoading(false);
+            } catch (error) {
+              console.log(error);
+            }
+        };
       
-        if(isLoggedIn){
-            fetchDataAsync();
+        if(isLoggedIn?.githubUser?.id){
+            setIsLoading(true);
+            setProfileType("github");
+            fetchGithubAsync();
+        } else if (isLoggedIn?.linkedinUser?.id) {
+            setIsLoading(true);
+            setProfileType("linkedin");
+            fetchLinkedinAsync();
+        } else {
+            setIsLoading(false);
         }
     }, [isLoggedIn]);
 
-    if (Object.keys(state).length === 0) return (<div className="min-h-screen">loading...</div>)
-    return (
-        <ProfileContext.Provider value={{ f: [state, setState] }}>
-            <FormBlock
-                currentStep={formStep}
-                prevFormStep={prevFormStep}
-                profile={true}
-            >
-                {formStep === 0 && (
-                    <ProfilePersonalDetails nextFormStep={nextFormStep} profile={true}/>
-                )}
-                {formStep === 1 && (
-                    <ProfileStackDetails formStep={formStep} nextFormStep={nextFormStep} />
-                )}
-                {formStep === 2 && (
-                    <ProfileAffiliationDetails formStep={formStep} nextFormStep={nextFormStep} />
-                )}
+    if(isLoading) { 
+        return (<div className="min-h-screen mt-2">Loading...</div>)
+    } else if (!state) {
+        return (<div className="min-h-screen mt-2">You haven't created your profile page.</div>)
+    } else if (!state.accepted) {
+        return (<div className="min-h-screen mt-2">Your profile is currently under review.</div>)
+    } 
 
-                {formStep === 3 && <ProfileMiscellaneousDetails edit={edit} setEdit={setEdit}/>}
-            </FormBlock>
-        </ProfileContext.Provider>
-    )
+    if(profileType === "github"){
+        return (
+            <ProfileContext.Provider value={{ f: [state, setState] }}>
+                <FormBlock
+                    currentStep={formStep}
+                    prevFormStep={prevFormStep}
+                    profile={true}
+                >
+                    {formStep === 0 && (
+                        <ProfilePersonalDetails nextFormStep={nextFormStep} />
+                    )}
+                    {formStep === 1 && (
+                        <ProfileStackDetails formStep={formStep} nextFormStep={nextFormStep} />
+                    )}
+                    {formStep === 2 && (
+                        <ProfileAffiliationDetails formStep={formStep} nextFormStep={nextFormStep} />
+                    )}
+
+                    {formStep === 3 && <ProfileMiscellaneousDetails edit={edit} setEdit={setEdit}/>}
+                </FormBlock>
+            </ProfileContext.Provider>
+        )
+    } else {
+        return (
+            <ProfileContext.Provider value={{ f: [state, setState] }}>
+                <ProfileExecutive />
+            </ProfileContext.Provider>
+        )
+    }
 }
 
 
