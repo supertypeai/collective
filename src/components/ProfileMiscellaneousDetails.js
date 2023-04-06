@@ -130,10 +130,10 @@ const ProfileMiscellaneousDetails = ({ edit, setEdit }) => {
                     <>
                         <div className="col-span-12 row-span-3 md:col-span-4 text-white my-8 mx-1 self-start">
                             <h3 className="text-lg uppercase font-semibold leading-normal mb-2 my-4">GitHub Projects</h3>
-                            <p className="text-xs text-gray-400">Top repositories based on stars & forks count</p>
+                            <p className="text-xs text-gray-400 mb-3">Top repositories based on stars & forks count</p>
                             {
                                 !isEditting && data.show_repo === 0 && (
-                                    <p className="text-gray-300 text-md mt-2 italic">No projects selected yet.</p>
+                                    <p className="text-gray-300 text-md italic">No projects selected yet.</p>
                                 )
                             }
                             {

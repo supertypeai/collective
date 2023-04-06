@@ -271,7 +271,7 @@ const ProfilePersonalDetails = ({ nextFormStep }) => {
                                 className="text-black max-w-3xl"
                                 value={
                                     [
-                                        {"geoName": "Remote"},
+                                        {"geoName": "Remote / Anywhere in the world"},
                                         ...countryCity
                                     ].map(c => {
                                         return {
