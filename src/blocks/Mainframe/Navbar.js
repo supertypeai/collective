@@ -6,6 +6,7 @@ import Home from '@/icons/Home'
 import Download from '@/icons/Download';
 import { AppContext } from "@/contexts/AppContext";
 import ThemeToggle from '@/components/ThemeToggle';
+import { signInWithLinkedIn } from '@/components/ExecutiveForm';
 
 const onCreatePDF = async () => {
     const html2pdf = (await import('html2pdf.js')).default;
@@ -105,11 +106,18 @@ export const Navbar = ({ pdfBtn }) => {
                                             </button>
                                         </Link>
                                         :
-                                        <button onClick={() => signInWithGitHub()}
-                                            className="group hover:border hover:text-rose-200 px-3 py-1 rounded-md text-sm hover:bg-secondary font-semibold">
-                                            <Image src="/techicons/github_inv.png" alt="GitHub Logo" width={20} height={20} className="inline mr-2" />
-                                            Login with GitHub
-                                        </button>
+                                        <>
+                                            <button onClick={() => signInWithGitHub()}
+                                                className="group hover:border hover:text-rose-200 px-3 py-1 rounded-md text-sm hover:bg-secondary font-semibold">
+                                                <Image src="/techicons/github_inv.png" alt="GitHub Logo" width={20} height={20} className="inline mr-2" />
+                                                Login with GitHub
+                                            </button>
+                                            <button onClick={() => signInWithLinkedIn()}
+                                                className="group hover:border hover:text-rose-200 px-3 py-1 rounded-md text-sm hover:bg-secondary font-semibold">
+                                                <Image src="/techicons/linkedin_inv.png" alt="LinkedIn Logo" width={20} height={20} className="inline mr-2" />
+                                                Login with LinkedIn
+                                            </button>
+                                        </>
                                 }
                             </div>
                         </div>

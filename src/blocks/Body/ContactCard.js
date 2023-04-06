@@ -35,9 +35,12 @@ const ContactCard = ({ data }) => {
                                     LinkedIn
                                 </Link>
                             }
-                            <Link href={`https:github.com/${data['github_handle']}`} target="_blank" rel="noopener noreferrer" className='text-sm link-info hover:opacity-70'>
-                                GitHub
-                            </Link>
+                            {
+                                data['github_handle'] &&
+                                <Link href={`https:github.com/${data['github_handle']}`} target="_blank" rel="noopener noreferrer" className='text-sm link-info hover:opacity-70'>
+                                    GitHub
+                                </Link>
+                            }
                         </div>
                     </div>
                     { 
