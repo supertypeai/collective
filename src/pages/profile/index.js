@@ -45,10 +45,12 @@ const ProfileForm = () => {
                 .single();
 
             if (!data) {
+                setIsLoading(false);
                 throw new Error('No such user in the database');
             }
         
             if (error) {
+                setIsLoading(false);
                 console.log(error);
                 throw new Error(error, 'Error fetching this user');
             }

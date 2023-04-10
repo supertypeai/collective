@@ -115,6 +115,20 @@ const ExecutiveForm = () => {
             setIsSubmitting(false);
             console.log(error)
         } else {
+            // send notification to slack
+            fetch("/api/slackNotification", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: `A user just created an Executive profile! Email: ${data.email}`
+                })
+            })
+                .then((res) => {
+                  return res.json()
+                })
+
             // if successful, alert() for 2 seconds and redirect to home page
             alert("Thank you for completing the nomination process. We will be in touch.")
             setTimeout(() => {

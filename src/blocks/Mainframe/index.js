@@ -73,6 +73,26 @@ const AppContextWrapper = ({ children }) => {
           [tokenUser]: data.session.user,
           providerToken: data.session.provider_token
         } : false)
+
+        // check if the slack notification has already been sent
+        const notificationSent = localStorage.getItem('slackNotificationSent');
+
+        if (new Date() - new Date(data.session.user.created_at) <= 10000 && !notificationSent){
+          fetch("/api/slackNotification", {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              message: `A new user has signed up! Email: ${data.session.user.email}`
+            })
+          })
+            .then((res) => {
+              return res.json()
+            })
+          
+          localStorage.setItem('slackNotificationSent', 'true');
+        }
       }
     }
     checkUser()
