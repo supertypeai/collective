@@ -71,13 +71,14 @@ const AppContextWrapper = ({ children }) => {
           ...isLoggedIn,
           [tokenProvider]: data.session.access_token,
           [tokenUser]: data.session.user,
-          providerToken: data.session.provider_token
+          providerToken: data.session.provider_token,
+          avatarUrl: data.session.user.user_metadata.avatar_url,
         } : false)
 
         // check if the slack notification has already been sent
         const notificationSent = localStorage.getItem('slackNotificationSent');
 
-        if (new Date() - new Date(data.session.user.created_at) <= 10000 && !notificationSent){
+        if (new Date() - new Date(data.session.user.created_at) <= 10000 && !notificationSent) {
           fetch("/api/slackNotification", {
             method: "POST",
             headers: {
@@ -90,7 +91,7 @@ const AppContextWrapper = ({ children }) => {
             .then((res) => {
               return res.json()
             })
-          
+
           localStorage.setItem('slackNotificationSent', 'true');
         }
       }
