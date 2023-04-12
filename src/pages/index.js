@@ -1,4 +1,5 @@
 import { useEffect, useContext } from "react";
+import Link from "next/link";
 import { Mainframe } from "@/blocks/Mainframe";
 import YouInputCTA from "@/components/YouInputCTA";
 import ProfileCard from "@/components/ProfileCard";
@@ -136,6 +137,34 @@ const OwennProfile = () => {
     }} />
 }
 
+const PopularTags = () => {
+    return (
+        <div className="mt-4">
+            <h3 className="text-lg font-semibold">🔥 Popular Tags</h3>
+
+            <div className="flex justify-center w-full text-center mt-2">
+                <div className="bg-gray-100 text-white bg-opacity-10 mx-1 py-1 px-[4px] rounded">
+                    <Link href="/tags/ai" className="text-[0.7rem] flex">
+                        Artificial Intelligence <div className="badge badge-info badge-sm px-1 self-center ml-1">8</div>
+                    </Link>
+                </div>
+                <div className="bg-gray-100 text-white bg-opacity-10 mx-1 py-1 px-[4px] rounded">
+                    <Link href="/tags/data-science" className="text-[0.7rem] flex">
+                        Data Science <div className="badge badge-info badge-sm px-1 self-center ml-1">10+</div>
+                    </Link>
+                </div>
+                <div className="bg-gray-100 text-white bg-opacity-10 mx-1 py-1 px-[4px] rounded">
+                    <Link href="/tags/machine-learning" className="text-[0.7rem] flex">
+                        Machine Learning <div className="badge badge-info badge-sm px-1 self-center ml-1">10+</div>
+                    </Link>
+                </div>
+
+            </div>
+        </div>
+    )
+}
+
+
 const Page = () => {
 
     const { isLoggedIn } = useContext(AppContext);
@@ -202,6 +231,7 @@ const Page = () => {
                 <div className="col-span-3 md:col-span-1 order-first lg:order-last">
                     <YouInputCTA />
                     <AddDevProfileCTA />
+                    <PopularTags />
                 </div>
             </main>
         </Mainframe >
