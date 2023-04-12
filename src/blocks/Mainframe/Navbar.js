@@ -43,6 +43,15 @@ export const LinkToHome = () => {
     )
 }
 
+export const signOutFromSupabase = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+        console.log(error);
+    }
+    // refresh page
+    window.location.reload();
+}
+
 const DownloadPDFBtn = ({ isLoggedIn }) => {
 
 
@@ -108,15 +117,21 @@ export const Navbar = ({ pdfBtn }) => {
                         </label>
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-amber-900 dark:bg-info bg-opacity-90 dark:bg-opacity-80 rounded-box w-52">
                             <li>
-                                <a>Profile</a>
+                                <Link href={`/p/${isLoggedIn.user.s_preferred_handle}`}>
+                                    Developer Profile
+                                </Link>
                             </li>
                             <li>
-                                <a className="justify-between">
-                                    Settings
-                                    <span className="badge">Soon</span>
-                                </a>
+                                <Link href="/edit" className="justify-between">
+                                    Profile Editor
+                                    <span className="badge">New</span>
+                                </Link>
                             </li>
-                            <li><a>Logout</a></li>
+                            <li>
+                                <span onClick={signOutFromSupabase} className="justify-between">
+                                    Logout
+                                </span>
+                            </li>
                         </ul>
                     </div>
                     : <div className="dropdown dropdown-end">
