@@ -1,192 +1,1022 @@
 [
-    { "value": "ab-testing", "label": "A/B Testing" },
-    { "value": "analytics", "label": "Analytics" },
-    { "value": "analytics-engineer", "label": "Analytics Engineer" },
-    { "value": "angular", "label": "Angular" },
-    { "value": "api-engineering", "label": "API Engineering" },
-    { "value": "ai", "label": "Artificial Intelligence" },
-    { "value": "ar", "label": "Augmented Reality" },
-    { "value": "aws", "label": "AWS" },
-    { "value": "azure", "label": "Azure" },
-    { "value": "backend-developer", "label": "Backend Developer" },
-    { "value": "backend-development", "label": "Backend Development" },
-    { "value": "bash", "label": "Bash" },
-    { "value": "big-data", "label": "Big Data" },
-    { "value": "big-data-analyst", "label": "Big Data Analyst" },
-    { "value": "bigquery", "label": "BigQuery" },
-    { "value": "bitbucket", "label": "Bitbucket" },
-    { "value": "blockchain", "label": "Blockchain" },
-    { "value": "bi", "label": "Business Intelligence" },
-    {
+  {
+      "value": "ab-testing",
+      "label": "A/B Testing",
+      "desc": "The process of comparing two versions of a web page or app to determine which one performs better."
+  },
+  {
+      "value": "ai",
+      "label": "Artificial Intelligence",
+      "desc": "Artificial Intelligence (AI) is a branch of computer science that focuses on creating intelligent machines that can work and think like humans."
+  },
+  {
+      "value": "albert",
+      "label": "ALBERT",
+      "desc": "ALBERT (A Lite BERT) is a smaller and faster version of the BERT language model developed by Google that achieves similar performance with fewer parameters."
+  },
+  {
+      "value": "allennlp",
+      "label": "AllenNLP",
+      "desc": "AllenNLP is an open source library for natural language processing research that provides a wide range of functionality such as reading comprehension, text classification, and semantic role labeling."
+  },
+  {
+      "value": "analytics",
+      "label": "Analytics",
+      "desc": "The collection, processing, and analysis of data to provide insights into business operations."
+  },
+  {
+      "value": "analytics-engineer",
+      "label": "Analytics Engineer",
+      "desc": "A professional responsible for designing, building, and maintaining analytics infrastructure."
+  },
+  {
+      "value": "angular",
+      "label": "Angular",
+      "desc": "Angular is a TypeScript-based open-source web application framework led by the Angular Team at Google and by a community of individuals and corporations."
+  },
+  {
+      "value": "apache-spark",
+      "label": "Apache Spark",
+      "desc": "Apache Spark is an open source distributed computing system designed for large-scale data processing and machine learning applications."
+  },
+  {
+      "value": "api-engineering",
+      "label": "API Engineering",
+      "desc": "API Engineering involves designing, developing, testing, and maintaining APIs (Application Programming Interfaces) for software applications."
+  },
+  {
+      "value": "ar",
+      "label": "Augmented Reality",
+      "desc": "Augmented Reality (AR) is an interactive experience of a real-world environment where the objects that reside in the real world are enhanced by computer-generated perceptual information."
+  },
+  {
+      "value": "automl",
+      "label": "AutoML",
+      "desc": "AutoML (Automated Machine Learning) is a set of techniques and tools that automate the process of building machine learning models."
+  },
+  {
+      "value": "aws",
+      "label": "AWS",
+      "desc": "Amazon Web Services (AWS) is a cloud-based platform that provides a wide range of services, including computing, storage, databases, analytics, machine learning, and more."
+  },
+  {
+      "value": "azure",
+      "label": "Azure",
+      "desc": "Microsoft Azure is a cloud computing platform and service offered by Microsoft that provides a wide range of services, including computing, storage, databases, analytics, machine learning, and more."
+  },
+  {
+      "value": "backend-developer",
+      "label": "Backend Developer",
+      "desc": "A Backend Developer is responsible for creating and maintaining the server-side of web applications, which involves building APIs, managing databases, and integrating with front-end technologies."
+  },
+  {
+      "value": "backend-development",
+      "label": "Backend Development",
+      "desc": "Backend Development involves creating and maintaining the server-side of web applications, which involves building APIs, managing databases, and integrating with front-end technologies."
+  },
+  {
+      "value": "bart",
+      "label": "BART",
+      "desc": "BART (Bidirectional and Auto-Regressive Transformers) is a language model developed by Facebook AI Research that is particularly good at text generation tasks such as summarization and translation."
+  },
+  {
+      "value": "bash",
+      "label": "Bash",
+      "desc": "Bash is a Unix shell and command language that is widely used for scripting and automation."
+  },
+  {
+      "value": "bert",
+      "label": "BERT",
+      "desc": "BERT (Bidirectional Encoder Representations from Transformers) is a language model developed by Google that is particularly good at natural language understanding tasks such as question answering and sentiment analysis."
+  },
+  {
+      "value": "bi",
+      "label": "Business Intelligence",
+      "desc": "Business Intelligence (BI) is a technology-driven process for analyzing data and presenting actionable information to help business leaders make more informed decisions."
+  },
+  {
+      "value": "big-data",
+      "label": "Big Data",
+      "desc": "Big Data refers to large and complex data sets that are too difficult to process and analyze using traditional data processing tools and techniques."
+  },
+  {
+      "value": "big-data-analyst",
+      "label": "Big Data Analyst",
+      "desc": "A Big Data Analyst is responsible for analyzing and interpreting large and complex data sets using various data analysis tools and techniques."
+  },
+  {
+      "value": "bigquery",
+      "label": "BigQuery",
+      "desc": "BigQuery is a cloud-based enterprise data warehouse that is used for storing and analyzing large and complex data sets."
+  },
+  {
+      "value": "bitbucket",
+      "label": "Bitbucket",
+      "desc": "Bitbucket is a web-based version control repository hosting service that is used for managing source code and collaborating with team members."
+  },
+  {
+      "value": "blip",
+      "label": "BLIP",
+      "desc": "BLIP (Bloom Language Interpretive Platform) is a platform for developing and deploying chatbots that can be integrated with a wide range of messaging channels such as Facebook Messenger, WhatsApp, and Telegram."
+  },
+  {
+      "value": "blockchain",
+      "label": "Blockchain",
+      "desc": "Blockchain is a decentralized, distributed ledger technology that is used for recording transactions and tracking assets in a secure and transparent manner."
+  },
+  {
+      "value": "bloom",
+      "label": "BLOOM",
+      "desc": "BLOOM is a probabilistic programming language developed by the Uber AI team that can be used for a wide range of applications such as Bayesian inference, reinforcement learning, and decision making under uncertainty."
+  },
+  {
       "value": "business-process-automation",
-      "label": "Business Process Automation"
-    },
-    { "value": "csharp", "label": "C#" },
-    { "value": "clojure", "label": "Clojure" },
-    { "value": "cloud-computing", "label": "Cloud Computing" },
-    { "value": "cloud-engineering", "label": "Cloud Engineering" },
-    { "value": "cloud-infrastructure", "label": "Cloud Infrastructure" },
-    { "value": "cloud-security", "label": "Cloud Security" },
-    { "value": "cloud-storage", "label": "Cloud Storage" },
-    { "value": "computer-graphics", "label": "Computer Graphics" },
-    { "value": "computer-vision", "label": "Computer Vision" },
-    { "value": "consultancy", "label": "Consultancy" },
-    { "value": "consultant", "label": "Consultant" },
-    { "value": "css", "label": "CSS" },
-    { "value": "cybersecurity", "label": "Cybersecurity" },
-    { "value": "d3", "label": "D3" },
-    { "value": "dash", "label": "Dash" },
-    { "value": "data", "label": "Data" },
-    { "value": "data-analysis", "label": "Data Analysis" },
-    { "value": "data-analysis-software", "label": "Data Analysis Software" },
-    { "value": "data-analyst", "label": "Data Analyst" },
-    { "value": "data-analytics", "label": "Data Analytics" },
-    { "value": "data-architecture", "label": "Data Architecture" },
-    { "value": "data-center", "label": "Data Center" },
-    { "value": "data-cleansing", "label": "Data Cleansing" },
-    { "value": "data-discovery", "label": "Data Discovery" },
-    { "value": "data-engineering", "label": "Data Engineering" },
-    { "value": "data-enrichment", "label": "Data Enrichment" },
-    { "value": "data-erasure", "label": "Data Erasure" },
-    { "value": "data-extraction", "label": "Data Extraction" },
-    { "value": "data-governance", "label": "Data Governance" },
-    { "value": "data-integration", "label": "Data Integration" },
-    { "value": "data-management", "label": "Data Management" },
-    { "value": "data-migration", "label": "Data Migration" },
-    { "value": "data-mining", "label": "Data Mining" },
-    { "value": "data-modeling", "label": "Data Modeling" },
-    { "value": "data-privacy", "label": "Data Privacy" },
-    { "value": "data-protection", "label": "Data Protection" },
-    { "value": "data-quality", "label": "Data Quality" },
-    { "value": "data-replication", "label": "Data Replication" },
-    { "value": "data-science", "label": "Data Science" },
-    { "value": "data-scientist", "label": "Data Scientist" },
-    { "value": "data-security", "label": "Data Security" },
-    { "value": "data-storage", "label": "Data Storage" },
-    { "value": "data-transformation", "label": "Data Transformation" },
-    { "value": "data-visualization", "label": "Data Visualization" },
-    {
+      "label": "Business Process Automation",
+      "desc": "Business process automation (BPA) is the use of technology to automate complex business processes. BPA can improve efficiency, reduce costs, and minimize errors."
+  },
+  {
+      "value": "chatgpt",
+      "label": "ChatGPT",
+      "desc": "ChatGPT is a large language model trained by OpenAI, based on the GPT-3.5 architecture."
+  },
+  {
+      "value": "chroma",
+      "label": "Chroma",
+      "desc": "Chroma is a Python library for analyzing and manipulating colors that provides a wide range of functionality such as color space conversions, contrast ratio calculation, and color harmonization."
+  },
+  {
+      "value": "clip",
+      "label": "CLIP",
+      "desc": "CLIP (Contrastive Language-Image Pretraining) is a neural network developed by OpenAI that can classify images based on natural language descriptions."
+  },
+  {
+      "value": "clojure",
+      "label": "Clojure",
+      "desc": "Clojure is a modern, dynamic, functional programming language that runs on the Java Virtual Machine (JVM) or on the CLR. Clojure emphasizes immutability and concurrency."
+  },
+  {
+      "value": "cloud-computing",
+      "label": "Cloud Computing",
+      "desc": "Cloud computing is the delivery of computing services over the internet, including servers, storage, databases, and software. Cloud computing can provide cost savings, scalability, and flexibility."
+  },
+  {
+      "value": "cloud-engineering",
+      "label": "Cloud Engineering",
+      "desc": "Cloud engineering is the design, development, and management of cloud computing systems and applications. Cloud engineers work to optimize performance, security, and reliability."
+  },
+  {
+      "value": "cloud-infrastructure",
+      "label": "Cloud Infrastructure",
+      "desc": "Cloud infrastructure refers to the hardware and software components that are necessary to support cloud computing services. Cloud infrastructure includes servers, storage, networking, and virtualization technology."
+  },
+  {
+      "value": "cloud-security",
+      "label": "Cloud Security",
+      "desc": "Cloud security is the practice of protecting cloud-based systems, data, and applications from unauthorized access, theft, and cyber attacks. Cloud security requires a multi-layered approach to ensure protection at every level."
+  },
+  {
+      "value": "cloud-storage",
+      "label": "Cloud Storage",
+      "desc": "Cloud storage is a service that allows users to store, manage, and access data over the internet. Cloud storage can be accessed from anywhere and is often more cost-effective than traditional on-premise storage solutions."
+  },
+  {
+      "value": "computer-graphics",
+      "label": "Computer Graphics",
+      "desc": "Computer graphics is the creation, manipulation, and rendering of images using computers. Computer graphics can be used in a variety of applications, including video games, movies, and virtual reality."
+  },
+  {
+      "value": "computer-vision",
+      "label": "Computer Vision",
+      "desc": "Computer vision is a field of artificial intelligence that focuses on enabling computers to interpret and understand visual data from the world around us. Computer vision is used in a variety of applications, including autonomous vehicles and facial recognition technology."
+  },
+  {
+      "value": "consultancy",
+      "label": "Consultancy",
+      "desc": "Consultancy refers to the practice of providing expert advice to organizations and individuals. Consultants may work in a variety of industries and areas, including management, finance, and technology."
+  },
+  {
+      "value": "consultant",
+      "label": "Consultant",
+      "desc": "A consultant is an expert in a particular field who provides advice to organizations and individuals. Consultants may work independently or as part of a consultancy firm."
+  },
+  {
+      "value": "csharp",
+      "label": "C#",
+      "desc": "C# is a general-purpose programming language developed by Microsoft. C# is commonly used to develop Windows desktop applications, games, mobile apps, and web services."
+  },
+  {
+      "value": "css",
+      "label": "CSS",
+      "desc": "Cascading Style Sheets (CSS) is a stylesheet language used for describing the presentation of a document written in HTML or XML."
+  },
+  {
+      "value": "cybersecurity",
+      "label": "Cybersecurity",
+      "desc": "Cybersecurity refers to the practice of protecting computers, servers, mobile devices, electronic systems, networks, and data from malicious attacks, theft, damage, or unauthorized access."
+  },
+  {
+      "value": "d3",
+      "label": "D3",
+      "desc": "D3.js is a JavaScript library for producing dynamic, interactive data visualizations in web browsers. It makes use of the widely implemented SVG, HTML5, and CSS standards."
+  },
+  {
+      "value": "dall-e",
+      "label": "DALL-E",
+      "desc": "DALL-E is a neural network developed by OpenAI that can generate images from textual descriptions."
+  },
+  {
+      "value": "dash",
+      "label": "Dash",
+      "desc": "Dash is a productive Python framework for building web applications. It provides a set of high-level components like graphs, number formatting, and data tables that can be used to build interactive dashboards."
+  },
+  {
+      "value": "data",
+      "label": "Data",
+      "desc": "Data refers to a collection of facts, statistics, or information that can be processed or analyzed to reveal insights or patterns."
+  },
+  {
+      "value": "data-analysis",
+      "label": "Data Analysis",
+      "desc": "Data analysis is the process of inspecting, cleaning, transforming, and modeling data with the goal of discovering useful information, drawing conclusions, and supporting decision-making."
+  },
+  {
+      "value": "data-analysis-software",
+      "label": "Data Analysis Software",
+      "desc": "Data analysis software refers to tools and applications used to manage, process, and analyze large amounts of data with the aim of deriving insights and making decisions based on the results."
+  },
+  {
+      "value": "data-analyst",
+      "label": "Data Analyst",
+      "desc": "A data analyst is a professional who collects, processes, and performs statistical analyses on large datasets, and then interprets the results to identify patterns, trends, and insights that can inform business decisions."
+  },
+  {
+      "value": "data-analytics",
+      "label": "Data Analytics",
+      "desc": "Data analytics is the process of examining and interpreting large datasets to uncover useful information, patterns, and insights that can help businesses make informed decisions."
+  },
+  {
+      "value": "data-architecture",
+      "label": "Data Architecture",
+      "desc": "Data architecture refers to the design, structure, and organization of data assets, including databases, data warehouses, data lakes, and other data management systems."
+  },
+  {
+      "value": "data-center",
+      "label": "Data Center",
+      "desc": "A data center is a facility used to house computer systems, servers, and other related equipment, and to manage large amounts of data and applications."
+  },
+  {
+      "value": "data-cleansing",
+      "label": "Data Cleansing",
+      "desc": "Data cleansing is the process of identifying and correcting or removing errors, inconsistencies, and inaccuracies in datasets in order to improve their quality and reliability."
+  },
+  {
+      "value": "data-discovery",
+      "label": "Data Discovery",
+      "desc": "Data discovery is the process of exploring and analyzing large datasets to identify hidden patterns, insights, and relationships that can be used to inform business decisions."
+  },
+  {
+      "value": "data-engineering",
+      "label": "Data Engineering",
+      "desc": "The process of designing, building, and maintaining the systems that collect, store, and process data. Data engineers are responsible for creating and managing the infrastructure that enables organizations to analyze large and complex data sets."
+  },
+  {
+      "value": "data-enrichment",
+      "label": "Data Enrichment",
+      "desc": "The process of enhancing raw data with additional information to make it more valuable and meaningful. Data enrichment techniques include data validation, standardization, and augmentation, and are used to improve data quality and accuracy."
+  },
+  {
+      "value": "data-erasure",
+      "label": "Data Erasure",
+      "desc": "The process of permanently removing sensitive or confidential data from storage devices such as hard drives, solid-state drives, and flash drives. Data erasure techniques ensure that data cannot be recovered or accessed by unauthorized individuals."
+  },
+  {
+      "value": "data-extraction",
+      "label": "Data Extraction",
+      "desc": "The process of retrieving data from various sources and converting it into a format that can be used for analysis. Data extraction can involve structured or unstructured data, and can be done manually or through automated processes."
+  },
+  {
+      "value": "data-governance",
+      "label": "Data Governance",
+      "desc": "The set of processes, policies, and standards that organizations use to ensure the effective and secure management of their data assets. Data governance involves defining data ownership, access controls, and data quality standards, among other things."
+  },
+  {
+      "value": "data-integration",
+      "label": "Data Integration",
+      "desc": "The process of combining data from different sources and systems to provide a unified view of the data. Data integration can involve a variety of techniques and technologies, including data warehousing, ETL (extract, transform, load), and API integration."
+  },
+  {
+      "value": "data-management",
+      "label": "Data Management",
+      "desc": "The process of collecting, storing, and maintaining data in a way that ensures its accuracy, consistency, and usability. Effective data management involves establishing data governance policies and procedures, implementing data quality controls, and ensuring data security and privacy."
+  },
+  {
+      "value": "data-migration",
+      "label": "Data Migration",
+      "desc": "The process of moving data from one system or storage location to another. Data migration can involve transferring data between different formats or platforms, and can be a complex and time-consuming process that requires careful planning and execution."
+  },
+  {
+      "value": "data-mining",
+      "label": "Data Mining",
+      "desc": "The process of analyzing large data sets to discover patterns, relationships, and insights. Data mining techniques include statistical analysis, machine learning, and data visualization, and are used in a variety of applications, such as marketing, fraud detection, and scientific research."
+  },
+  {
+      "value": "data-modeling",
+      "label": "Data Modeling",
+      "desc": "The process of creating a conceptual representation of data structures and relationships. Data modeling involves designing and defining the data schema and database architecture, and is used to ensure data integrity and consistency across systems and applications."
+  },
+  {
+      "value": "data-ops",
+      "label": "DataOps",
+      "desc": "An approach to data management that combines DevOps practices with data engineering and analytics to improve the speed and efficiency of data delivery and analysis."
+  },
+  {
+      "value": "data-privacy",
+      "label": "Data Privacy",
+      "desc": "The set of policies, procedures, and practices that organizations use to protect the privacy and confidentiality of their data. Data privacy involves establishing data access controls, implementing data encryption and masking, and ensuring compliance with data protection laws and regulations."
+  },
+  {
+      "value": "data-protection",
+      "label": "Data Protection",
+      "desc": "Data protection refers to the set of measures and practices used to ensure the confidentiality, integrity, and availability of data. This includes protecting data from unauthorized access, modification, or destruction."
+  },
+  {
+      "value": "data-quality",
+      "label": "Data Quality",
+      "desc": "Data quality refers to the accuracy, completeness, consistency, and timeliness of data. Data that is of high quality is reliable, relevant, and fit for its intended purpose."
+  },
+  {
+      "value": "data-replication",
+      "label": "Data Replication",
+      "desc": "Data replication is the process of copying data from one database or storage location to another. This is often done for redundancy or backup purposes, or to improve data availability and access."
+  },
+  {
+      "value": "data-science",
+      "label": "Data Science",
+      "desc": "Data science is an interdisciplinary field that involves the use of statistical, mathematical, and computational methods to extract insights and knowledge from data. Data scientists use a range of tools and techniques to analyze data, build models, and make predictions."
+  },
+  {
+      "value": "data-scientist",
+      "label": "Data Scientist",
+      "desc": "A data scientist is a professional who specializes in the analysis and interpretation of complex data sets using statistical and computational techniques. Data scientists use their expertise to extract insights and knowledge from data, and to develop models and algorithms to solve real-world problems."
+  },
+  {
+      "value": "data-security",
+      "label": "Data Security",
+      "desc": "Data security refers to the set of measures and practices used to protect data from unauthorized access, use, disclosure, or destruction. This includes implementing access controls, encryption, and other security measures to ensure data confidentiality, integrity, and availability."
+  },
+  {
+      "value": "data-storage",
+      "label": "Data Storage",
+      "desc": "Data storage refers to the physical or virtual locations where data is stored and retrieved. This includes databases, file systems, cloud storage, and other storage solutions used to manage and store data."
+  },
+  {
+      "value": "data-transformation",
+      "label": "Data Transformation",
+      "desc": "Data transformation refers to the process of converting data from one format or structure to another. This may involve cleaning and filtering data, aggregating data from multiple sources, or transforming data to support specific analytical or operational use cases."
+  },
+  {
+      "value": "data-visualization",
+      "label": "Data Visualization",
+      "desc": "Data visualization refers to the use of visual representations, such as charts, graphs, and maps, to communicate insights and patterns in data. Data visualization is an important tool for data exploration, analysis, and communication."
+  },
+  {
       "value": "data-visualization-software",
-      "label": "Data Visualization Software"
-    },
-    {
+      "label": "Data Visualization Software",
+      "desc": "Data visualization software is a type of application that enables users to create, edit, and view visual representations of data. Data visualization software may include features such as charting libraries, dashboard builders, and interactive data exploration tools."
+  },
+  {
       "value": "data-visualization-tools",
-      "label": "Data Visualization Tools"
-    },
-    { "value": "data-warehousing", "label": "Data Warehousing" },
-    { "value": "data-ops", "label": "DataOps" },
-    { "value": "database-administrator", "label": "Database Administrator" },
-    { "value": "database-management", "label": "Database Management" },
-    { "value": "database-security", "label": "Database Security" },
-    { "value": "deep-learning", "label": "Deep Learning" },
-    { "value": "dev-ops", "label": "DevOps" },
-    { "value": "distributed-systems", "label": "Distributed Systems" },
-    { "value": "django", "label": "Django" },
-    { "value": "docker", "label": "Docker" },
-    { "value": "edge-analytics", "label": "Edge Analytics" },
-    { "value": "edge-computing", "label": "Edge Computing" },
-    { "value": "elasticsearch", "label": "Elasticsearch" },
-    { "value": "elixir", "label": "Elixir" },
-    { "value": "engineer", "label": "Engineer" },
-    { "value": "engineering", "label": "Engineering" },
-    { "value": "etl", "label": "ETL (Extract, Transform, Load)" },
-    { "value": "express", "label": "Express" },
-    { "value": "fastapi", "label": "FastAPI" },
-    { "value": "flask", "label": "Flask" },
-    { "value": "fog-computing", "label": "Fog Computing" },
-    { "value": "front-end-developer", "label": "Front-end Developer" },
-    { "value": "full-stack-developer", "label": "Full Stack Developer" },
-    { "value": "gcp", "label": "GCP" },
-    { "value": "ggplot", "label": "GGPlot" },
-    { "value": "git", "label": "Git" },
-    { "value": "github", "label": "GitHub" },
-    { "value": "gitlab", "label": "GitLab" },
-    { "value": "go", "label": "Go" },
-    { "value": "graphql", "label": "GraphQL" },
-    { "value": "html", "label": "HTML" },
-    { "value": "ios-developer", "label": "IOS Developer" },
-    { "value": "internet-security", "label": "Internet Security" },
-    { "value": "iot", "label": "Internet of Things" },
-    { "value": "java", "label": "Java" },
-    { "value": "javascript", "label": "JavaScript" },
-    { "value": "jenkins", "label": "Jenkins" },
-    { "value": "jupyter", "label": "Jupyter" },
-    { "value": "kafka", "label": "Kafka" },
-    { "value": "keras", "label": "Keras" },
-    { "value": "kotlin", "label": "Kotlin" },
-    { "value": "kubernetes", "label": "Kubernetes" },
-    { "value": "linux", "label": "Linux" },
-    { "value": "looker", "label": "Looker (formerly Google Data Studio)" },
-    { "value": "machine-learning", "label": "Machine Learning" },
-    { "value": "macos", "label": "macOS" },
-    { "value": "matplotlib", "label": "Matplotlib" },
-    { "value": "microservices", "label": "Microservices" },
-    { "value": "ml-ops", "label": "MLOps" },
-    { "value": "mobile-app-development", "label": "Mobile App Development" },
-    { "value": "mobile-developer", "label": "Mobile Developer" },
-    { "value": "mongodb", "label": "MongoDB" },
-    { "value": "mysql", "label": "MySQL" },
-    {
-        "value": "natural-language-generation",
-        "label": "Natural Language Generation"
-    },
-    { "value": "nlp", "label": "Natural Language Processing" },
-    {
-        "value": "natural-language-understanding",
-        "label": "Natural Language Understanding"
-    },
-    { "value": "neural-networks", "label": "Neural Networks" },
-    { "value": "nextjs", "label": "NextJS" },
-    { "value": "nosql-databases", "label": "NoSQL Databases" },
-    { "value": "node", "label": "NodeJS" },
-    { "value": "php", "label": "PHP" },
-    { "value": "pandas", "label": "Pandas" },
-    { "value": "plotly", "label": "Plotly" },
-    { "value": "postgres", "label": "Postgres" },
-    { "value": "power-bi", "label": "Power BI" },
-    { "value": "powershell", "label": "PowerShell" },
-    { "value": "predictive-analytics", "label": "Predictive Analytics" },
-    { "value": "predictive-modeling", "label": "Predictive Modeling" },
-    { "value": "project-management", "label": "Project Management" },
-    { "value": "puppet", "label": "Puppet" },
-    { "value": "pytorch", "label": "PyTorch" },
-    { "value": "python", "label": "Python" },
-    { "value": "qlik", "label": "Qlik" },
-    { "value": "quality-assurance", "label": "Quality Assurance" },
-    { "value": "r", "label": "R (programming language)" },
-    { "value": "rstudio", "label": "RStudio" },
-    { "value": "rabbitmq", "label": "RabbitMQ" },
-    { "value": "react", "label": "React" },
-    { "value": "redis", "label": "Redis" },
-    { "value": "redshift", "label": "Redshift" },
-    { "value": "rest-framework", "label": "REST Framework" },
-    { "value": "robotics", "label": "Robotics" },
-    { "value": "ruby", "label": "Ruby" },
-    { "value": "rust", "label": "Rust" },
-    { "value": "sql-databases", "label": "SQL Databases" },
-    { "value": "scala", "label": "Scala" },
-    { "value": "scikit", "label": "Scikit Learn" },
-    { "value": "seaborn", "label": "Seaborn" },
-    { "value": "serverless", "label": "Serverless" },
-    { "value": "serverless-computing", "label": "Serverless Computing" },
-    { "value": "shiny", "label": "Shiny (R framework)" },
-    { "value": "snowflake", "label": "Snowflake" },
-    { "value": "software-developer", "label": "Software Developer" },
-    { "value": "software-development", "label": "Software Development" },
-    { "value": "software-engineering", "label": "Software Engineering" },
-    { "value": "software-testing", "label": "Software Testing" },
-    { "value": "statistics", "label": "Statistics" },
-    { "value": "streamlit", "label": "Streamlit" },
-    { "value": "superset", "label": "Superset" },
-    { "value": "swift", "label": "Swift" },
-    { "value": "tableau", "label": "Tableau" },
-    { "value": "tensorflow", "label": "TensorFlow" },
-    { "value": "terraform", "label": "Terraform" },
-    { "value": "typescript", "label": "TypeScript" },
-    { "value": "ui-ux-designer", "label": "UI/UX Designer" },
-    { "value": "ux-design", "label": "User Experience Design" },
-    { "value": "vr", "label": "Virtual Reality" },
-    { "value": "vue", "label": "Vue" },
-    { "value": "web-development", "label": "Web Development" },
-    { "value": "windows", "label": "Windows" }
-  ]
+      "label": "Data Visualization Tools",
+      "desc": "Tools and software used for creating visual representations of data, such as charts, graphs, and maps, to help communicate insights and findings to stakeholders."
+  },
+  {
+      "value": "data-warehousing",
+      "label": "Data Warehousing",
+      "desc": "The process of collecting, storing, and managing data from various sources in a centralized repository, typically used for business intelligence and reporting purposes."
+  },
+  {
+      "value": "database-administrator",
+      "label": "Database Administrator",
+      "desc": "A professional responsible for the installation, configuration, maintenance, and performance tuning of database management systems (DBMSs)."
+  },
+  {
+      "value": "database-management",
+      "label": "Database Management",
+      "desc": "The process of organizing, storing, and retrieving data from a database, as well as ensuring the security, performance, and availability of the data."
+  },
+  {
+      "value": "database-security",
+      "label": "Database Security",
+      "desc": "The practice of protecting databases from unauthorized access, data theft, and other security threats by implementing security controls, such as encryption, access controls, and auditing."
+  },
+  {
+      "value": "databricks",
+      "label": "Databricks",
+      "desc": "Databricks is a unified data analytics platform that provides a wide range of functionality such as data engineering, machine learning, and business intelligence."
+  },
+  {
+      "value": "deep-learning",
+      "label": "Deep Learning",
+      "desc": "A subset of machine learning that involves training artificial neural networks to learn from large amounts of data, typically used for complex tasks such as image and speech recognition."
+  },
+  {
+      "value": "dev-ops",
+      "label": "DevOps",
+      "desc": "A set of practices that combines software development (Dev) and IT operations (Ops) to improve collaboration, communication, and automation across the software development lifecycle."
+  },
+  {
+      "value": "diffuser",
+      "label": "Diffuser",
+      "desc": "Diffuser is a machine learning library developed by OpenAI that is particularly good at generating high-quality images."
+  },
+  {
+      "value": "distributed-systems",
+      "label": "Distributed Systems",
+      "desc": "A system that consists of multiple independent computers that communicate with each other over a network, typically used to improve scalability and reliability of software applications."
+  },
+  {
+      "value": "django",
+      "label": "Django",
+      "desc": "A high-level Python web framework that allows developers to build web applications quickly and efficiently, using the Model-View-Controller (MVC) architectural pattern."
+  },
+  {
+      "value": "docker",
+      "label": "Docker",
+      "desc": "An open-source platform for developing, shipping, and running applications in containers, which provides a lightweight, portable, and self-sufficient environment for running software."
+  },
+  {
+      "value": "edge-analytics",
+      "label": "Edge Analytics",
+      "desc": "The process of analyzing data at the edge of the network, close to where the data is generated, in order to reduce latency, improve security, and save bandwidth."
+  },
+  {
+      "value": "edge-computing",
+      "label": "Edge Computing",
+      "desc": "A distributed computing paradigm that brings computation and data storage closer to the location where it is needed, typically used for Internet of Things (IoT) applications and real-time data processing."
+  },
+  {
+      "value": "elasticsearch",
+      "label": "Elasticsearch",
+      "desc": "Elasticsearch is a search engine based on the Lucene library. It provides a distributed, multitenant-capable full-text search engine with an HTTP web interface and schema-free JSON documents. It is used for various purposes such as log aggregation, real-time application monitoring, and search."
+  },
+  {
+      "value": "elixir",
+      "label": "Elixir",
+      "desc": "Elixir is a functional, dynamic, and concurrent programming language designed for building scalable and maintainable applications. It runs on the Erlang Virtual Machine and is known for its ease of use, fault-tolerance, and ability to handle a large number of connections."
+  },
+  {
+      "value": "engineer",
+      "label": "Engineer",
+      "desc": "Engineer is a general term used to describe a person who designs, builds, or maintains machines, structures, or systems. In the context of software development, an engineer may be responsible for designing, building, testing, or maintaining software systems."
+  },
+  {
+      "value": "engineering",
+      "label": "Engineering",
+      "desc": "Engineering is the application of scientific and mathematical principles to design, build, and maintain machines, structures, and systems. In the context of software development, engineering may involve designing, building, testing, or maintaining software systems."
+  },
+  {
+      "value": "etl",
+      "label": "ETL (Extract, Transform, Load)",
+      "desc": "ETL is a process used to extract data from various sources, transform it into a format that can be used for analysis, and load it into a target database or data warehouse. ETL is commonly used in business intelligence, data warehousing, and data integration."
+  },
+  {
+      "value": "express",
+      "label": "Express",
+      "desc": "Express is a fast, unopinionated, minimalist web framework for Node.js. It provides a set of features for building web applications and APIs, such as routing, middleware, and templating. It is known for its simplicity and flexibility."
+  },
+  {
+      "value": "fastapi",
+      "label": "FastAPI",
+      "desc": "FastAPI is a modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints. It is designed to be easy to use and learn, while also providing advanced features like automatic validation and documentation."
+  },
+  {
+      "value": "flask",
+      "label": "Flask",
+      "desc": "Flask is a micro web framework written in Python. It is classified as a microframework because it does not require particular tools or libraries. It has no database abstraction layer, form validation, or any other components where pre-existing third-party libraries provide common functions. However, Flask supports extensions that can add application features as if they were implemented in Flask itself."
+  },
+  {
+      "value": "fog-computing",
+      "label": "Fog Computing",
+      "desc": "Fog computing is a distributed computing infrastructure in which computing resources and application services are distributed in a way that is closer to the end-users. It is designed to support applications that require low latency, high bandwidth, and real-time data processing, such as IoT applications, smart cities, and autonomous vehicles."
+  },
+  {
+      "value": "front-end-developer",
+      "label": "Front-end Developer",
+      "desc": "A front-end developer is a software engineer who focuses on building and implementing user interfaces using HTML, CSS, and JavaScript. They work closely with back-end developers to ensure a seamless user experience."
+  },
+  {
+      "value": "full-stack-developer",
+      "label": "Full Stack Developer",
+      "desc": "A full-stack developer is an engineer who has expertise in both front-end and back-end web development. They are proficient in multiple programming languages and frameworks and can work on all aspects of web application development."
+  },
+  {
+      "value": "gcp",
+      "label": "GCP",
+      "desc": "Google Cloud Platform (GCP) is a suite of cloud computing services offered by Google. It provides infrastructure as a service, platform as a service, and serverless computing environments for building, deploying, and scaling applications on Google's infrastructure."
+  },
+  {
+      "value": "ggplot",
+      "label": "GGPlot",
+      "desc": "ggplot is a data visualization package in the R programming language. It is a grammar of graphics-based system that allows users to create complex and customizable data visualizations with relatively simple code."
+  },
+  {
+      "value": "git",
+      "label": "Git",
+      "desc": "Git is a version control system used for tracking changes in computer files and coordinating work on those files among multiple people. It is commonly used for software development, but can be used for any type of text-based files."
+  },
+  {
+      "value": "github",
+      "label": "GitHub",
+      "desc": "GitHub is a web-based platform used for version control and collaborative software development. It provides hosting for Git repositories, bug tracking, and other project management tools."
+  },
+  {
+      "value": "gitlab",
+      "label": "GitLab",
+      "desc": "GitLab is a web-based platform used for version control and collaborative software development, similar to GitHub. It provides hosting for Git repositories, continuous integration/continuous deployment (CI/CD) pipelines, and other project management tools."
+  },
+  {
+      "value": "glide",
+      "label": "GLIDE",
+      "desc": "GLIDE (Global and Local Inference in Data Embeddings) is a framework for unsupervised learning that can be used for a wide range of applications such as recommendation systems and anomaly detection."
+  },
+  {
+      "value": "go",
+      "label": "Go",
+      "desc": "Go, also known as Golang, is a statically-typed programming language developed by Google. It is designed for building scalable and efficient networked software and has gained popularity in recent years due to its simplicity and performance."
+  },
+  {
+      "value": "gpt",
+      "label": "GPT",
+      "desc": "GPT (Generative Pre-trained Transformer) is a family of transformer-based language models developed by OpenAI."
+  },
+  {
+      "value": "gpt-neo",
+      "label": "GPT-NEO",
+      "desc": "GPT-NEO is a transformer-based language model developed by EleutherAI, an open source community of machine learning researchers."
+  },
+  {
+      "value": "graphql",
+      "label": "GraphQL",
+      "desc": "GraphQL is a query language and runtime for APIs that was developed by Facebook. It allows clients to specify the exact data they need and eliminates over-fetching and under-fetching of data, resulting in more efficient and faster API calls."
+  },
+  {
+      "value": "hadoop",
+      "label": "Hadoop",
+      "desc": "Hadoop is an open source distributed computing system designed for processing large datasets across clusters of computers."
+  },
+  {
+      "value": "html",
+      "label": "HTML",
+      "desc": "HTML (Hypertext Markup Language) is the standard markup language used for creating web pages and other types of online content. It provides a structured way to organize and display content on the web and is used in conjunction with other technologies such as CSS and JavaScript."
+  },
+  {
+      "value": "hugging-face",
+      "label": "Hugging Face",
+      "desc": "Hugging Face is an open source software company that develops and maintains a wide range of natural language processing tools and models."
+  },
+  {
+      "value": "internet-security",
+      "label": "Internet Security",
+      "desc": "Internet security involves protecting computer systems and networks from various types of threats, such as viruses, malware, and hacking attempts."
+  },
+  {
+      "value": "ios-developer",
+      "label": "iOS Developer",
+      "desc": "An iOS developer is a software engineer who specializes in developing applications for Apple's mobile operating system, iOS. They use tools such as Swift and Xcode to create native iOS applications for iPhones and iPads."
+  },
+  {
+      "value": "iot",
+      "label": "Internet of Things",
+      "desc": "The Internet of Things (IoT) refers to the growing network of physical objects that are connected to the internet, such as smart home devices, wearables, and industrial equipment."
+  },
+  {
+      "value": "java",
+      "label": "Java",
+      "desc": "Java is a popular programming language that is widely used for developing applications, especially in enterprise environments."
+  },
+  {
+      "value": "javascript",
+      "label": "JavaScript",
+      "desc": "JavaScript is a programming language that is used to create dynamic, interactive web pages and web applications."
+  },
+  {
+      "value": "jenkins",
+      "label": "Jenkins",
+      "desc": "Jenkins is a popular open-source automation server that is used to build, test, and deploy software projects."
+  },
+  {
+      "value": "jupyter",
+      "label": "Jupyter",
+      "desc": "Jupyter is a web-based interactive development environment (IDE) that is used to write, run, and share code in various programming languages."
+  },
+  {
+      "value": "kafka",
+      "label": "Kafka",
+      "desc": "Kafka is a distributed streaming platform that is used to build real-time data pipelines and streaming applications."
+  },
+  {
+      "value": "keras",
+      "label": "Keras",
+      "desc": "Keras is a popular open-source deep learning framework that is used to build and train neural networks."
+  },
+  {
+      "value": "kotlin",
+      "label": "Kotlin",
+      "desc": "Kotlin is a programming language that is used to develop various types of applications, especially those that run on the Android platform."
+  },
+  {
+      "value": "kubernetes",
+      "label": "Kubernetes",
+      "desc": "Kubernetes is a popular open-source container orchestration platform that is used to automate the deployment, scaling, and management of containerized applications."
+  },
+  {
+      "value": "langchain",
+      "label": "Langchain",
+      "desc": "Langchain is an open source project that provides natural language processing tools and services for developers."
+  },
+  {
+      "value": "linux",
+      "label": "Linux",
+      "desc": "Linux is an open-source operating system that is widely used for various types of applications, including web servers, desktop computers, and mobile devices."
+  },
+  {
+      "value": "llamaindex",
+      "label": "LlamaIndex",
+      "desc": "LlamaIndex is an open source search engine designed for developers and powered by Elasticsearch."
+  },
+  {
+      "value": "looker",
+      "label": "Looker (formerly Google Data Studio)",
+      "desc": "Looker is a business intelligence and data analytics platform that is used to explore, analyze, and visualize large datasets."
+  },
+  {
+      "value": "machine-learning",
+      "label": "Machine Learning",
+      "desc": "Machine learning is a type of artificial intelligence that allows computer systems to automatically learn and improve from experience without being explicitly programmed."
+  },
+  {
+      "value": "macos",
+      "label": "macOS",
+      "desc": "macOS is an operating system developed by Apple Inc. that is used to power various Apple devices, including Macintosh computers and laptops."
+  },
+  {
+      "value": "matplotlib",
+      "label": "Matplotlib",
+      "desc": "Matplotlib is a data visualization library for creating static, animated, and interactive visualizations in Python."
+  },
+  {
+      "value": "megatron",
+      "label": "Megatron",
+      "desc": "Megatron is a transformer-based language model developed by NVIDIA that is particularly good at natural language processing tasks and can scale to billions of parameters."
+  },
+  {
+      "value": "microservices",
+      "label": "Microservices",
+      "desc": "Microservices are an architectural approach to building software systems that focuses on decomposing monolithic applications into smaller, independent services that can be developed, deployed, and scaled independently."
+  },
+  {
+      "value": "ml-ops",
+      "label": "MLOps",
+      "desc": "MLOps (Machine Learning Operations) is a set of practices that combines machine learning with DevOps (development and operations) to manage the entire lifecycle of machine learning models, from development to production deployment and maintenance."
+  },
+  {
+      "value": "mobile-app-development",
+      "label": "Mobile App Development",
+      "desc": "Mobile app development is the process of creating software applications that run on mobile devices, such as smartphones and tablets. It involves designing and building the user interface, implementing business logic, and integrating with backend services."
+  },
+  {
+      "value": "mobile-developer",
+      "label": "Mobile Developer",
+      "desc": "A mobile developer is a software developer who specializes in creating mobile applications for iOS or Android devices. They use programming languages such as Swift, Kotlin, or Java to build native mobile apps or use cross-platform frameworks like React Native or Flutter."
+  },
+  {
+      "value": "mongodb",
+      "label": "MongoDB",
+      "desc": "MongoDB is a NoSQL document-oriented database that provides high performance, high availability, and automatic scaling. It uses a flexible JSON-like data model instead of traditional table-based relational databases."
+  },
+  {
+      "value": "mysql",
+      "label": "MySQL",
+      "desc": "MySQL is a popular open-source relational database management system (RDBMS) that uses SQL (Structured Query Language) to manage data. It is widely used for web applications and is known for its performance, reliability, and ease of use."
+  },
+  {
+      "value": "natural-language-generation",
+      "label": "Natural Language Generation",
+      "desc": "Natural Language Generation (NLG) is the process of using artificial intelligence (AI) and machine learning (ML) algorithms to automatically generate human-like language, such as written text or spoken language."
+  },
+  {
+      "value": "natural-language-understanding",
+      "label": "Natural Language Understanding",
+      "desc": "Natural Language Understanding (NLU) is the ability of machines to understand the meaning of human language, including context, intent, and sentiment. It involves analyzing and interpreting human language to extract relevant information and insights."
+  },
+  {
+      "value": "neural-networks",
+      "label": "Neural Networks",
+      "desc": "Neural networks are a type of machine learning algorithm inspired by the structure and function of the human brain. They are used to recognize patterns and make predictions based on input data, and are used in a wide range of applications such as image recognition, speech recognition, and natural language processing."
+  },
+  {
+      "value": "nextjs",
+      "label": "NextJS",
+      "desc": "NextJS is a popular open-source React framework for building server-side rendered and statically generated web applications."
+  },
+  {
+      "value": "nlp",
+      "label": "Natural Language Processing",
+      "desc": "Natural Language Processing (NLP) is a field of artificial intelligence (AI) that focuses on enabling machines to understand and interpret human language. It involves developing algorithms and models that can analyze, understand, and generate human language."
+  },
+  {
+      "value": "nltk",
+      "label": "NLTK",
+      "desc": "NLTK (Natural Language Toolkit) is an open source library for natural language processing in Python that provides a wide range of functionality such as tokenization, stemming, and part-of-speech tagging."
+  },
+  {
+      "value": "node",
+      "label": "NodeJS",
+      "desc": "NodeJS is an open-source, cross-platform JavaScript runtime environment that executes JavaScript code outside of a web browser, such as for building server-side applications and APIs."
+  },
+  {
+      "value": "nosql-databases",
+      "label": "NoSQL Databases",
+      "desc": "NoSQL Databases are non-relational databases that provide a flexible and scalable way to store and manage data, such as MongoDB, Couchbase, and Cassandra."
+  },
+  {
+      "value": "pandas",
+      "label": "Pandas",
+      "desc": "Pandas is a popular open-source Python library used for data manipulation and analysis, especially for working with structured and time-series data."
+  },
+  {
+      "value": "php",
+      "label": "PHP",
+      "desc": "PHP is a popular open-source server-side scripting language used to build dynamic websites and web applications."
+  },
+  {
+      "value": "plotly",
+      "label": "Plotly",
+      "desc": "Plotly is a popular open-source data visualization library for creating interactive charts, graphs, and dashboards in Python, R, and JavaScript."
+  },
+  {
+      "value": "postgres",
+      "label": "Postgres",
+      "desc": "Postgres, or PostgreSQL, is a popular open-source relational database management system that emphasizes extensibility, SQL compliance, and strong data integrity."
+  },
+  {
+      "value": "power-bi",
+      "label": "Power BI",
+      "desc": "Power BI is a suite of business analytics tools from Microsoft that provides interactive visualizations and business intelligence capabilities with an interface that is simple enough for end users to create their own reports and dashboards."
+  },
+  {
+      "value": "powershell",
+      "label": "PowerShell",
+      "desc": "PowerShell is a task automation and configuration management framework from Microsoft, consisting of a command-line shell, a scripting language, and a configuration management framework."
+  },
+  {
+      "value": "predictive-analytics",
+      "label": "Predictive Analytics",
+      "desc": "Predictive Analytics is the use of data, statistical algorithms, and machine learning techniques to identify the likelihood of future outcomes based on historical data, such as in financial analysis, fraud detection, and marketing."
+  },
+  {
+      "value": "predictive-modeling",
+      "label": "Predictive Modeling",
+      "desc": "Predictive Modeling is the process of using statistical algorithms and machine learning techniques to create a model that predicts future outcomes based on historical data, such as in healthcare, finance, and marketing."
+  },
+  {
+      "value": "project-management",
+      "label": "Project Management",
+      "desc": "Project Management is the practice of initiating, planning, executing, controlling, and closing the work of a team to achieve specific goals and meet specific success criteria, such as in construction, engineering, and software development."
+  },
+  {
+      "value": "puppet",
+      "label": "Puppet",
+      "desc": "Puppet is a popular open-source configuration management tool that provides a way to automate the deployment, configuration, and management of software and infrastructure across a network of computers."
+  },
+  {
+      "value": "pytesseract",
+      "label": "PyTesseract",
+      "desc": "PyTesseract is a Python wrapper for Google's Tesseract OCR engine, which can be used to recognize text within images."
+  },
+  {
+      "value": "python",
+      "label": "Python",
+      "desc": "Python is a high-level, general-purpose programming language that is easy to learn and widely used in web development, data analysis, machine learning, and many other areas."
+  },
+  {
+      "value": "pytorch",
+      "label": "PyTorch",
+      "desc": "PyTorch is an open source machine learning library that is primarily used for developing deep neural networks. It is developed by Facebook's artificial intelligence research group."
+  },
+  {
+      "value": "qlik",
+      "label": "Qlik",
+      "desc": "Qlik is a business intelligence and data visualization tool that helps organizations make data-driven decisions by providing interactive dashboards and visualizations."
+  },
+  {
+      "value": "quality-assurance",
+      "label": "Quality Assurance",
+      "desc": "Quality assurance is the process of ensuring that a product or service meets certain quality standards. It involves testing and monitoring the product or service throughout its development and implementation."
+  },
+  {
+      "value": "r",
+      "label": "R (programming language)",
+      "desc": "R is a programming language and environment that is primarily used for statistical computing and graphics. It is widely used in data analysis, machine learning, and scientific research."
+  },
+  {
+      "value": "rabbitmq",
+      "label": "RabbitMQ",
+      "desc": "RabbitMQ is an open source message broker software that provides a framework for sending and receiving messages between distributed systems. It is widely used in microservices architectures and other distributed systems."
+  },
+  {
+      "value": "react",
+      "label": "React",
+      "desc": "React is a JavaScript library for building user interfaces. It is widely used in web development and is known for its fast rendering, reusable components, and efficient updates."
+  },
+  {
+      "value": "redis",
+      "label": "Redis",
+      "desc": "Redis is an open source in-memory data structure store that is often used as a database, cache, and message broker. It is known for its high performance and scalability."
+  },
+  {
+      "value": "redshift",
+      "label": "Redshift",
+      "desc": "Amazon Redshift is a cloud-based data warehousing service that is used for storing and analyzing large amounts of data. It is known for its scalability, high performance, and cost-effectiveness."
+  },
+  {
+      "value": "rest-framework",
+      "label": "REST Framework",
+      "desc": "A REST (Representational State Transfer) framework is a set of tools and protocols for building web APIs that adhere to the REST architectural style. It allows developers to create flexible and scalable web services that can be easily consumed by clients."
+  },
+  {
+      "value": "roberta",
+      "label": "RoBERTa",
+      "desc": "RoBERTa (Robustly Optimized BERT approach) is a transformer-based language model developed by Facebook AI Research that improves upon the BERT model by using more training data and longer training times."
+  },
+  {
+      "value": "robotics",
+      "label": "Robotics",
+      "desc": "Robotics is a field of engineering and science that involves the design, construction, and operation of robots. It combines aspects of computer science, mechanical engineering, and electrical engineering."
+  },
+  {
+      "value": "rstudio",
+      "label": "RStudio",
+      "desc": "RStudio is an integrated development environment (IDE) for the R programming language. It provides a user-friendly interface for working with R, including tools for data analysis, visualization, and debugging."
+  },
+  {
+      "value": "ruby",
+      "label": "Ruby",
+      "desc": "Ruby is a dynamic, open-source programming language that emphasizes simplicity and productivity. It's known for its concise syntax, elegant design, and expressive power."
+  },
+  {
+      "value": "rust",
+      "label": "Rust",
+      "desc": "Rust is a systems programming language that emphasizes safety, speed, and concurrency. It's designed to prevent memory-related bugs and other common programming errors, making it a popular choice for developing high-performance software."
+  },
+  {
+      "value": "scala",
+      "label": "Scala",
+      "desc": "Scala is a general-purpose programming language that combines object-oriented and functional programming concepts. It runs on the Java Virtual Machine and is designed to be concise, expressive, and type-safe."
+  },
+  {
+      "value": "scikit",
+      "label": "Scikit Learn",
+      "desc": "Scikit-learn is a Python library for machine learning that provides simple and efficient tools for data mining and data analysis. It includes a wide range of algorithms for classification, regression, clustering, and dimensionality reduction."
+  },
+  {
+      "value": "seaborn",
+      "label": "Seaborn",
+      "desc": "Seaborn is a Python data visualization library that provides a high-level interface for creating informative and attractive statistical graphics. It's built on top of the matplotlib library and provides additional functionality for exploring complex datasets."
+  },
+  {
+      "value": "serverless",
+      "label": "Serverless",
+      "desc": "Serverless computing is a cloud computing model where the cloud provider manages the infrastructure and automatically allocates resources as needed, allowing developers to focus on writing code. It's often used for building event-driven applications, data processing pipelines, and other scalable, stateless services."
+  },
+  {
+      "value": "serverless-computing",
+      "label": "Serverless Computing",
+      "desc": "Serverless computing is a cloud computing model where the cloud provider manages the infrastructure and automatically allocates resources as needed, allowing developers to focus on writing code. It's often used for building event-driven applications, data processing pipelines, and other scalable, stateless services."
+  },
+  {
+      "value": "shiny",
+      "label": "Shiny (R framework)",
+      "desc": "Shiny is a web framework for building interactive data visualizations and dashboards in R. It allows developers to create custom web applications without needing to know HTML, CSS, or JavaScript."
+  },
+  {
+      "value": "snowflake",
+      "label": "Snowflake",
+      "desc": "Snowflake is a cloud-based data warehousing platform that provides a fast, flexible, and scalable solution for storing and analyzing large datasets. It's designed to work with a variety of data sources and supports a range of analytical workloads."
+  },
+  {
+      "value": "software-developer",
+      "label": "Software Developer",
+      "desc": "A software developer is a professional who designs, develops, and maintains software applications. They are responsible for writing code, debugging programs, and collaborating with other members of the development team to deliver high-quality software solutions."
+  },
+  {
+      "value": "software-development",
+      "label": "Software Development",
+      "desc": "Software development is the process of designing, programming, testing, and maintaining software. It involves writing code and creating software applications that can be used on a variety of platforms and devices."
+  },
+  {
+      "value": "software-engineering",
+      "label": "Software Engineering",
+      "desc": "Software engineering is the process of designing, building, testing, and maintaining software. It involves using engineering principles and techniques to create software applications that are reliable, efficient, and easy to use."
+  },
+  {
+      "value": "software-testing",
+      "label": "Software Testing",
+      "desc": "Software testing is the process of evaluating a software application or system to find and fix bugs and errors. It involves testing the software under various conditions and scenarios to ensure it meets the requirements and specifications."
+  },
+  {
+      "value": "spacy",
+      "label": "spaCy",
+      "desc": "spaCy is an open source library for natural language processing in Python that provides a wide range of functionality such as tokenization, named entity recognition, and dependency parsing."
+  },
+  {
+      "value": "sql-databases",
+      "label": "SQL Databases",
+      "desc": "SQL (Structured Query Language) is a standard language for managing relational databases. SQL databases are widely used in industry and support a variety of applications, from online transaction processing systems to business intelligence tools."
+  },
+  {
+      "value": "stanfordnlp",
+      "label": "StanfordNLP",
+      "desc": "StanfordNLP is an open source library for natural language processing research that provides a wide range of functionality such as part-of-speech tagging, named entity recognition, and dependency parsing."
+  },
+  {
+      "value": "statistics",
+      "label": "Statistics",
+      "desc": "Statistics is the study of the collection, analysis, interpretation, presentation, and organization of data. It involves using mathematical methods and techniques to summarize and analyze data."
+  },
+  {
+      "value": "streamlit",
+      "label": "Streamlit",
+      "desc": "Streamlit is an open-source Python library that allows you to create interactive web applications with simple Python scripts. It enables you to build and deploy data-driven applications quickly and easily."
+  },
+  {
+      "value": "superset",
+      "label": "Superset",
+      "desc": "Superset is an open-source data exploration and visualization platform that allows you to create interactive dashboards and visualizations. It supports a variety of data sources and provides powerful analytics capabilities."
+  },
+  {
+      "value": "swift",
+      "label": "Swift",
+      "desc": "Swift is a powerful and intuitive programming language developed by Apple for macOS, iOS, watchOS, and tvOS. It is designed to be fast, safe, and easy to use, and it is particularly well-suited for developing mobile and desktop applications."
+  },
+  {
+      "value": "t5",
+      "label": "T5",
+      "desc": "T5 (Text-to-Text Transfer Transformer) is a language model developed by Google that is particularly good at performing a wide range of natural language processing tasks such as text summarization, translation, and question answering."
+  },
+  {
+      "value": "tableau",
+      "label": "Tableau",
+      "desc": "Tableau is a powerful and easy-to-use data visualization and business intelligence software. It allows you to connect, visualize, and share data in real-time, making it easy to explore and understand complex data sets."
+  },
+  {
+      "value": "tensorflow",
+      "label": "TensorFlow",
+      "desc": "TensorFlow is an open-source machine learning framework developed by Google. It allows you to build and train machine learning models using a variety of algorithms and techniques, and it provides powerful tools for data processing and analysis."
+  },
+  {
+      "value": "terraform",
+      "label": "Terraform",
+      "desc": "Terraform is an open-source tool for building, changing, and versioning infrastructure. It allows you to define infrastructure as code and automate the deployment of resources across multiple providers and platforms."
+  },
+  {
+      "value": "typescript",
+      "label": "TypeScript",
+      "desc": "TypeScript is a typed superset of JavaScript that provides additional features and capabilities for building large-scale JavaScript applications. It allows you to catch errors and bugs at compile-time and provides powerful tooling and editor support."
+  },
+  {
+      "value": "ui-ux-designer",
+      "label": "UI/UX Designer",
+      "desc": "UI/UX (User Interface/User Experience) Designers are responsible for designing the visual and interactive aspects of a website or application, ensuring that it is both aesthetically pleasing and user-friendly."
+  },
+  {
+      "value": "ux-design",
+      "label": "User Experience Design",
+      "desc": "User Experience Design (UX Design) is the process of creating products that provide meaningful and relevant experiences to users. This involves designing the entire process of acquiring and integrating the product, including aspects of branding, design, usability, and function."
+  },
+  {
+      "value": "vr",
+      "label": "Virtual Reality",
+      "desc": "Virtual Reality (VR) is a technology that simulates a user's physical presence in a virtual or imaginary environment. This can be achieved through the use of VR headsets, which immerse the user in a fully 3D environment that they can interact with and explore."
+  },
+  {
+      "value": "vue",
+      "label": "Vue",
+      "desc": "Vue.js is an open-source JavaScript framework used for building user interfaces and single-page applications. It is known for its simplicity, flexibility, and ease of integration with other libraries or existing projects."
+  },
+  {
+      "value": "web-development",
+      "label": "Web Development",
+      "desc": "Web Development is the process of designing and building websites and web applications. This involves coding, programming, and implementing features such as interactive elements, e-commerce functionality, and database connectivity."
+  },
+  {
+      "value": "windows",
+      "label": "Windows",
+      "desc": "Windows is a series of operating systems developed by Microsoft. It is the most widely used operating system for personal computers and is known for its user-friendly interface and compatibility with a wide range of software and hardware."
+  },
+  {
+      "value": "xlnet",
+      "label": "XLNET",
+      "desc": "XLNET (eXtreme Language understanding NETwork) is a transformer-based language model developed by Google that is particularly good at natural language understanding tasks."
+  }
+]

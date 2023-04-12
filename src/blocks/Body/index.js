@@ -12,16 +12,20 @@ import { MeContext } from '@/contexts/MeContext';
 const Body = ({ stack, affiliations, children }) => {
 
     const data = useContext(MeContext);
-    const contribution = {
-        ...data['superinference']['contribution']['contribution_count_per_repo_org_owner'],
-        ...data['superinference']['contribution']['contribution_count_per_repo_user_owner']
-    };
-    if (contribution.hasOwnProperty(data['github_handle'])) {
-        delete contribution[data['github_handle']]
-    }
 
     const autoColumnLayout = useCallback(
         (data, div) => {
+
+            let contribution;
+            if(data.superinference.contribution){
+                contribution = {
+                    ...data['superinference']['contribution']['contribution_count_per_repo_org_owner'],
+                    ...data['superinference']['contribution']['contribution_count_per_repo_user_owner']
+                };
+                if (contribution.hasOwnProperty(data['github_handle'])) {
+                    delete contribution[data['github_handle']]
+                }
+            }
 
             const innerContent = (
                 <>
@@ -35,6 +39,7 @@ const Body = ({ stack, affiliations, children }) => {
                     }
                     <ContactCard data={data} />
                     {
+                        data.superinference.contribution && 
                         Object.values(data['superinference']['contribution']['contribution_count_per_month'])
                             .reduce((acc, x) => acc + x[0], 0) > 0 &&
                         <CommitPolar data={data['superinference']['contribution']['contribution_count_per_month']} newCol={

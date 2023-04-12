@@ -115,7 +115,6 @@ const Profile = (props) => {
 
     const { isLoading, isError, data, error } = useUser(props.user)
 
-    console.log("data", data)
     // return <p>{JSON.stringify(data)}</p>
 
     return (

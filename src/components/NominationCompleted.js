@@ -38,7 +38,7 @@ const RegistrationCompleted = () => {
         if (error?.message === `duplicate key value violates unique constraint "profile_s_preferred_handle_key"`) {
             alert("Your preferred collective handle already exists, please use another one.");
             setIsSubmitting(false);
-        } else if (error?.message === `"duplicate key value violates unique constraint "Profile_email_key"`) {
+        } else if (error?.message === `duplicate key value violates unique constraint "Profile_email_key"`) {
             alert("Your email already exists, please use another email.");
             setIsSubmitting(false);
         } else if (error) {
@@ -46,6 +46,20 @@ const RegistrationCompleted = () => {
             setIsSubmitting(false);
             console.log(error)
         } else {
+            // send notification to slack
+            fetch("/api/slackNotification", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: `A user just created a Developer profile! Email: ${data.email}`
+                })
+            })
+                .then((res) => {
+                  return res.json()
+                })
+
             // if successful, alert() for 2 seconds and redirect to home page
             alert("Thank you for completing the nomination process. We will be in touch.")
             setTimeout(() => {
@@ -60,6 +74,8 @@ const RegistrationCompleted = () => {
         // setForm({ ...form, ...data });
 
         postToSupabase(payload);
+
+
     };
 
     return (
