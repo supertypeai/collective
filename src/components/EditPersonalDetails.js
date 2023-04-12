@@ -8,16 +8,16 @@ import { Field, Form, Input } from "@/blocks/Form"
 import profileTagsChoices from '@/data/profileTagsChoices.json';
 import availabilityForWork from '@/data/availabilityForWork.json';
 import countryCity from '@/data/countryCity.json';
-import { ProfileContext } from "@/contexts/ProfileContext";
+import { EditContext } from "@/contexts/EditContext";
 import { AppContext } from "@/contexts/AppContext";
 
 function StableSelect({ ...props }) {
     return <CreatableSelect {...props} instanceId={useId()} />;
 }
 
-const ProfilePersonalDetails = ({ nextFormStep }) => {
+const EditPersonalDetails = ({ nextFormStep }) => {
 
-    const context = useContext(ProfileContext);
+    const context = useContext(EditContext);
     const [form, setForm] = context.f
     const [isEditting, setIsEditting] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -344,4 +344,4 @@ const ProfilePersonalDetails = ({ nextFormStep }) => {
 }
 
 
-export default ProfilePersonalDetails
+export default EditPersonalDetails

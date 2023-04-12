@@ -6,7 +6,7 @@ import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { inferFromGithub } from "superinference";
 
 import { AppContext } from "@/contexts/AppContext";
-import { ProfileContext } from "@/contexts/ProfileContext";
+import { EditContext } from "@/contexts/EditContext";
 import { Field, Form, Input } from "@/blocks/Form"
 import Tooltip from "@/icons/Tooltip";
 import { signInWithGitHub } from "@/blocks/Mainframe/Navbar";
@@ -14,13 +14,13 @@ import RepoCard from "./RepoCard";
 import RepoTags from "@/blocks/Body/RepoTags";
 import CommitPolar from "@/blocks/Body/CommitPolar";
 
-const ProfileMiscellaneousDetails = ({ edit, setEdit }) => {
+const EditMiscellaneousDetails = ({ edit, setEdit }) => {
 
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isEditting, setIsEditting] = useState(edit ? true : false)
     const [isSyncing, setIsSyncing] = useState(false)
 
-    const context = useContext(ProfileContext);
+    const context = useContext(EditContext);
     const { isLoggedIn } = useContext(AppContext);
     const [form, setForm] = context.f
     const [superinference, setSuperinference] = useState({
@@ -418,4 +418,4 @@ const ProfileMiscellaneousDetails = ({ edit, setEdit }) => {
 // })
 
 
-export default ProfileMiscellaneousDetails
+export default EditMiscellaneousDetails

@@ -8,7 +8,7 @@ import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { Field, Form, Input } from "@/blocks/Form"
 import Tooltip from "@/icons/Tooltip";
 import profileTagsChoices from "@/data/profileTagsChoices.json"
-import { ProfileContext } from "@/contexts/ProfileContext";
+import { EditContext } from "@/contexts/EditContext";
 
 const placeholder = {
     1: {
@@ -29,9 +29,9 @@ function StableSelect({ ...props }) {
     return <CreatableSelect {...props} instanceId={useId()} />;
 }
 
-const ProfileExecutive = () => {
+const EditExecutive = () => {
 
-    const context = useContext(ProfileContext);
+    const context = useContext(EditContext);
     const [form, setForm] = context.f;
     const [isEditting, setIsEditting] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -670,4 +670,4 @@ const ProfileExecutive = () => {
     )
 }
 
-export default ProfileExecutive
+export default EditExecutive

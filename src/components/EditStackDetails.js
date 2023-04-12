@@ -4,15 +4,15 @@ import Select from "react-select";
 import { supabase } from "@/lib/supabaseClient";
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
-import { ProfileContext } from "@/contexts/ProfileContext";
+import { EditContext } from "@/contexts/EditContext";
 import { Field, Form } from "@/blocks/Form"
 import stackSectionChoices from "@/data/stackSectionChoices.json"
 import { PillsFromStack } from "@/components/PillsFromStack";
 import AddedToStack from "@/components/AddedToStack";
 
-const ProfileStackDetails = ({ nextFormStep }) => {
+const EditStackDetails = ({ nextFormStep }) => {
 
-    const context = useContext(ProfileContext);
+    const context = useContext(EditContext);
     const [form, setForm] = context.f
     const { register, handleSubmit, watch, formState: { errors }, reset } = useForm({ defaultValues: form, mode: "onSubmit" });
     const [isEditting, setIsEditting] = useState(false);
@@ -235,4 +235,4 @@ const ProfileStackDetails = ({ nextFormStep }) => {
 }
 
 
-export default ProfileStackDetails
+export default EditStackDetails
