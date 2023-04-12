@@ -33,7 +33,7 @@ const updateInference = (setIsSyncing, isLoggedIn, superinference, setSuperinfer
                 // save githubInference in local storage
                 localStorage.setItem("githubInference", JSON.stringify({
                     ...d,
-                    v: "0.2.9",
+                    v: "0.2.11",
                     updated_at: new Date()
                 }));
 
@@ -42,7 +42,7 @@ const updateInference = (setIsSyncing, isLoggedIn, superinference, setSuperinfer
                     ...superinference,
                     "superinference": {
                         ...d,
-                        v: "0.2.9",
+                        v: "0.2.11",
                         updated_at: new Date()
                     }
                 });
