@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { supabase } from "@/lib/supabaseClient";
+import { QueryClient } from '@tanstack/react-query';
 
 import { Navbar } from './Navbar';
 import Footer from './Footer';
@@ -55,6 +56,51 @@ const MeContextWrapper = ({ children, data }) => {
   )
 }
 
+const fetchData = async (userID) => {
+  const queryClient = new QueryClient();
+  const data = await queryClient.fetchQuery(['profileData', userID], async () => {
+    const { data, error } = await supabase
+      .from('profile')
+      .select()
+      .eq('auth_uuid', userID)
+      .single();
+
+    if (!data) {
+      throw new Error('No such user in the database');
+    }
+
+    if (error) {
+      console.log(error);
+      throw new Error(error, 'Error fetching this user');
+    }
+
+    if (data && data['wp_blog_root_url'] && data['wp_blog_author_id']) {
+      let url = '';
+      // check if this root url is numeric or not
+
+      if (!data['wp_blog_root_url'].includes('.')) {
+        url = `https://public-api.wordpress.com/rest/v1.1/sites/${data['wp_blog_root_url']}/posts?author=${data['wp_blog_author_id']}&number=5&fields=id,link,title,date,excerpt`
+        const res_wp = await fetch(url)
+        const wp_data = await res_wp.json();
+        data['wp'] = wp_data['posts']
+      } else {
+        url = `${data['wp_blog_root_url']}/wp-json/wp/v2/posts?per_page=5&&author=${data['wp_blog_author_id']}&_fields=id,link,title,date,excerpt`
+        const res_wp = await fetch(url)
+        const wp_data = await res_wp.json();
+        data['wp'] = wp_data
+      }
+    }
+    return data;
+  },
+    {
+      staleTime: 1000 * 60 * 60 * 24, // 24 hours
+      retry: false, // Disable retries on error
+    }
+  );
+
+  return data;
+};
+
 const AppContextWrapper = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   useEffect(() => {
@@ -66,13 +112,18 @@ const AppContextWrapper = ({ children }) => {
       if (data.session) {
         const tokenProvider = `${data.session.user.app_metadata.provider}Token`
         const tokenUser = `${data.session.user.app_metadata.provider}User`
+        let user;
+        try {
+          user = await fetchData(data.session.user.id);
+        } catch (error) {
+          console.log(error);
+        }
 
         setIsLoggedIn(data ? {
           ...isLoggedIn,
           [tokenProvider]: data.session.access_token,
           [tokenUser]: data.session.user,
-          providerToken: data.session.provider_token,
-          avatarUrl: data.session.user.user_metadata.avatar_url,
+          providerToken: data.session.provider_token
         } : false)
 
         // check if the slack notification has already been sent

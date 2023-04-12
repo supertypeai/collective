@@ -4,7 +4,7 @@ import Select from "react-select";
 import { supabase } from "@/lib/supabaseClient";
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
-import { ProfileContext } from "@/contexts/ProfileContext";
+import { EditContext } from "@/contexts/EditContext";
 import { Field, Form, Input } from "@/blocks/Form"
 import profileTagsChoices from '@/data/profileTagsChoices.json';
 
@@ -27,9 +27,9 @@ function StableSelect({ ...props }) {
     return <Select {...props} instanceId={useId()} />;
 }
 
-const ProfileAffiliationDetails = ({ nextFormStep }) => {
+const EditAffiliationDetails = ({ nextFormStep }) => {
 
-    const context = useContext(ProfileContext);
+    const context = useContext(EditContext);
     const [form, setForm] = context.f
     const [addThirdAff, setAddThirdAff] = useState(form.affiliations.org3.optionally_selected)
     const [isEditting, setIsEditting] = useState(false)
@@ -448,4 +448,4 @@ const ProfileAffiliationDetails = ({ nextFormStep }) => {
     )
 }
 
-export default ProfileAffiliationDetails
+export default EditAffiliationDetails
