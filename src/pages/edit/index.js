@@ -44,6 +44,8 @@ const EditForm = () => {
             setProfileType("linkedin");
             setState(isLoggedIn.user);
             setIsLoading(false);
+        } else {
+            setIsLoading(false);
         }
     }, [isLoggedIn]);
 

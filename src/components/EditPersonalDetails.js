@@ -98,7 +98,7 @@ const EditPersonalDetails = ({ nextFormStep }) => {
                     hint="This will be in the link to your Maker's Profile"
                 >
                     <Input
-                        {...register("s_preferred_handle")}
+                        {...register("s_preferred_handle", { required: "Please provide a handle to be used in the link to your Maker's Profile" })}
                         id="s_preferred_handle"
                         placeholder="pambeesly"
                         disabled={!isEditting}

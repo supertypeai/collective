@@ -14,6 +14,51 @@ import RepoCard from "./RepoCard";
 import RepoTags from "@/blocks/Body/RepoTags";
 import CommitPolar from "@/blocks/Body/CommitPolar";
 
+const updateInference = (setIsSyncing, isLoggedIn, superinference, setSuperinference) => {
+    setIsSyncing(true);
+    const githubInference = localStorage.getItem("githubInference") && JSON.parse(localStorage.getItem("githubInference"));
+    const lastUpdateInference = githubInference
+        ? Math.ceil(
+            (new Date() - new Date(githubInference.updated_at)) / (1000 * 60 * 60 * 24)
+        )
+        : 0;
+
+    if (isLoggedIn.providerToken) {
+        if (!githubInference || lastUpdateInference > 1) {
+            inferFromGithub({ githubHandle: isLoggedIn.githubUser.user_metadata.user_name, token: isLoggedIn.providerToken }).then((data) => {
+                const { profile, skill, stats, contribution } = data;
+
+                const d = { profile, skill, stats, contribution };
+
+                // save githubInference in local storage
+                localStorage.setItem("githubInference", JSON.stringify({
+                    ...d,
+                    v: "0.2.9",
+                    updated_at: new Date()
+                }));
+
+                // update superinference values
+                setSuperinference({
+                    ...superinference,
+                    "superinference": {
+                        ...d,
+                        v: "0.2.9",
+                        updated_at: new Date()
+                    }
+                });
+
+                setIsSyncing("updated");
+            })
+        } else {
+            setSuperinference({
+                ...superinference,
+                "superinference": githubInference
+            });
+            setIsSyncing("updated");
+        }
+    }
+}
+
 const EditMiscellaneousDetails = ({ edit, setEdit }) => {
 
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -68,51 +113,6 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
         }
         setIsSubmitting(false);
     };
-
-    const updateInference = () => {
-        setIsSyncing(true);
-        const githubInference = localStorage.getItem("githubInference") && JSON.parse(localStorage.getItem("githubInference"));
-        const lastUpdateInference = githubInference
-            ? Math.ceil(
-                (new Date() - new Date(githubInference.updated_at)) / (1000 * 60 * 60 * 24)
-            )
-            : 0;
-
-        if (isLoggedIn.providerToken) {
-            if (!githubInference || lastUpdateInference > 1) {
-                inferFromGithub({ githubHandle: isLoggedIn.githubUser.user_metadata.user_name, token: isLoggedIn.providerToken }).then((data) => {
-                    const { profile, skill, stats, contribution } = data;
-
-                    const d = { profile, skill, stats, contribution };
-
-                    // save githubInference in local storage
-                    localStorage.setItem("githubInference", JSON.stringify({
-                        ...d,
-                        v: "0.2.9",
-                        updated_at: new Date()
-                    }));
-
-                    // update superinference values
-                    setSuperinference({
-                        ...superinference,
-                        "superinference": {
-                            ...d,
-                            v: "0.2.9",
-                            updated_at: new Date()
-                        }
-                    });
-
-                    setIsSyncing("updated");
-                })
-            } else {
-                setSuperinference({
-                    ...superinference,
-                    "superinference": githubInference
-                });
-                setIsSyncing("updated");
-            }
-        }
-    }
 
     const SuperInference = ({ superinference }) => {
 
@@ -247,7 +247,7 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
                                                 <button
                                                     onClick={() => {
                                                         isLoggedIn.providerToken
-                                                            ? updateInference()
+                                                            ? updateInference(setIsSyncing, isLoggedIn, superinference, setSuperinference)
                                                             : signInWithGitHub()
                                                     }}
                                                     className="text-white group hover:text-rose-200 px-3 py-2 my-auto rounded-md text-sm hover:bg-secondary border-2">
@@ -270,11 +270,11 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
 
     useEffect(() => {
         if (edit) {
-            updateInference();
+            updateInference(setIsSyncing, isLoggedIn, superinference, setSuperinference);
             setEdit(false);
         }
         console.log('effect is running')
-    }, [edit, setEdit, updateInference]);
+    }, [edit, setEdit]);
 
     return (
         <Form onSubmit={handleSubmit(saveData)} className="min-h-6xl">
