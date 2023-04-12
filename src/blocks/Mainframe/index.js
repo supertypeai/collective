@@ -123,7 +123,9 @@ const AppContextWrapper = ({ children }) => {
           ...isLoggedIn,
           [tokenProvider]: data.session.access_token,
           [tokenUser]: data.session.user,
-          providerToken: data.session.provider_token
+          providerToken: data.session.provider_token,
+          avatarUrl: data.session.user.user_metadata.avatar_url,
+          user: user
         } : false)
 
         // check if the slack notification has already been sent
@@ -211,4 +213,3 @@ export const Mainframe = ({ data, title, children, dehydratedState }) => {
     )
   }
 };
-
