@@ -137,6 +137,18 @@ const OwennProfile = () => {
     }} />
 }
 
+const YevonnaelProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://media.licdn.com/dms/image/C5603AQGs3KGCH0sosg/profile-displayphoto-shrink_800_800/0/1650428580016?e=2147483647&v=beta&t=YHbcliPKaxkyS1LSyItgl42pRiMAPJI-1v-nE2lIcE4",
+        name: "Yevonnael Andrew",
+        profileLink: "/p/yevonnael",
+        short: "Cybersecurity and Software Engineer @AAG, Cybersecurity Researcher @Swiss German University. Works in Web3.",
+        tags: ['AI', 'Cybersecurity', 'Blockchain', 'Database']
+    }} />
+}
+
+
+
 const PopularTags = () => {
     return (
         <div className="mt-4">
@@ -218,6 +230,7 @@ const Page = () => {
                                 <StevenProfile />
                                 <FiqeyProfile />
                                 <OwennProfile />
+                                <YevonnaelProfile />
                                 <FendyProfile />
                             </div>
                             <div className={styles.description}>
