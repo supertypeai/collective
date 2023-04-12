@@ -116,11 +116,14 @@ export const Navbar = ({ pdfBtn }) => {
                             </div>
                         </label>
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-amber-900 dark:bg-info bg-opacity-90 dark:bg-opacity-80 rounded-box w-52">
-                            <li>
-                                <Link href={`/p/${isLoggedIn.user.s_preferred_handle}`}>
-                                    Developer Profile
-                                </Link>
-                            </li>
+                            {
+                                isLoggedIn.user?.s_preferred_handle &&
+                                <li>
+                                    <Link href={`/p/${isLoggedIn.user.s_preferred_handle}`}>
+                                        Developer Profile
+                                    </Link>
+                                </li>
+                            }
                             <li>
                                 <Link href="/edit" className="justify-between">
                                     Profile Editor

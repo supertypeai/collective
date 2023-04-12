@@ -47,11 +47,11 @@ const useProfilesMatchingTag = (tag) => {
     })
 }
 
-const betterTagTitle = (tag) => {
+const getTagInfo = (tag, key) => {
     // match it against profileTagsChoices
     const match = profileTagsChoices.find(item => item.value === tag)
     if (match) {
-        return match.label
+        return match[key]
     }
     return tag
 }
@@ -123,15 +123,15 @@ const Page = ({ tag }) => {
     console.log("data in body", data)
     return (
         <Mainframe>
-            <div className='place-self-center inline-flex items-center'>
-                <div className="justify-center col-span-12 block">
-                    <h1 className="text-2xl uppercase font-semibold bg-rose-700 dark:bg-info rounded p-2">
-                        {betterTagTitle(tag)}
+            <div className='md:flex items-center'>
+                <div className="md:basis-1/2 w-full mb-4">
+                    <h1 className="text-4xl uppercase font-semibold bg-rose-800 dark:bg-info rounded p-2">
+                        {getTagInfo(tag, 'label')}
                     </h1>
                 </div>
-                <div className='ml-4 md:ml-8 col-span-12'>
+                <div className='ml-4 md:ml-8 md:basis-1/2 w-full mb-4'>
                     <p className='font-light'>
-                        Lorem ipsum description of this tag goes here.
+                        {getTagInfo(tag, 'desc')}
                     </p>
                 </div>
             </div>
