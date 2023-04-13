@@ -5,6 +5,8 @@ import YouInputCTA from "@/components/YouInputCTA";
 import ProfileCard from "@/components/ProfileCard";
 import { AppContext } from "@/contexts/AppContext";
 import AddDevProfileCTA from "@/components/AddDevProfileCTA";
+import PopularTagBadge from "@/components/PopularTagBadge";
+
 import styles from '@/styles/Home.module.css'
 
 const AurelliaProfile = () => {
@@ -147,7 +149,15 @@ const YevonnaelProfile = () => {
     }} />
 }
 
-
+const NoelProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://avatars.githubusercontent.com/u/8803461?v=4",
+        name: "Noel Chew",
+        profileLink: "/p/noelchew",
+        short: "Mobile Application Developer and software entrepreneur @Yuno Solutions",
+        tags: ['Mobile', 'Server', 'Frontend']
+    }} />
+}
 
 const PopularTags = () => {
     return (
@@ -155,22 +165,9 @@ const PopularTags = () => {
             <h3 className="text-lg font-semibold">🔥 Popular Tags</h3>
 
             <div className="flex justify-center w-full text-center mt-2">
-                <div className="bg-gray-100 text-white bg-opacity-10 mx-1 py-1 px-[4px] rounded">
-                    <Link href="/tags/ai" className="text-[0.7rem] flex">
-                        Artificial Intelligence <div className="badge badge-info badge-sm px-1 self-center ml-1">8</div>
-                    </Link>
-                </div>
-                <div className="bg-gray-100 text-white bg-opacity-10 mx-1 py-1 px-[4px] rounded">
-                    <Link href="/tags/data-science" className="text-[0.7rem] flex">
-                        Data Science <div className="badge badge-info badge-sm px-1 self-center ml-1">10+</div>
-                    </Link>
-                </div>
-                <div className="bg-gray-100 text-white bg-opacity-10 mx-1 py-1 px-[4px] rounded">
-                    <Link href="/tags/machine-learning" className="text-[0.7rem] flex">
-                        Machine Learning <div className="badge badge-info badge-sm px-1 self-center ml-1">10+</div>
-                    </Link>
-                </div>
-
+                <PopularTagBadge slug="ai" count="8" />
+                <PopularTagBadge slug="data-science" />
+                <PopularTagBadge slug="machine-learning" />
             </div>
         </div>
     )
@@ -231,6 +228,7 @@ const Page = () => {
                                 <FiqeyProfile />
                                 <OwennProfile />
                                 <YevonnaelProfile />
+                                <NoelProfile />
                                 <FendyProfile />
                             </div>
                             <div className={styles.description}>
@@ -243,8 +241,8 @@ const Page = () => {
                 </div>
                 <div className="col-span-3 md:col-span-1 order-first lg:order-last">
                     <YouInputCTA />
-                    <AddDevProfileCTA />
                     <PopularTags />
+                    <AddDevProfileCTA />
                 </div>
             </main>
         </Mainframe >
