@@ -15,7 +15,7 @@ function StableSelect({ ...props }) {
     return <CreatableSelect {...props} instanceId={useId()} />;
 }
 
-const EditPersonalDetails = ({ nextFormStep }) => {
+const EditPersonalDetails = () => {
 
     const context = useContext(EditContext);
     const [form, setForm] = context.f
@@ -69,7 +69,7 @@ const EditPersonalDetails = ({ nextFormStep }) => {
             <fieldset>
                 <legend>
                     <span className="text-2xl font-bold">
-                        🧑‍💼 Personal Details
+                        Personal Details
                         <button 
                             type="button" 
                             onClick={() => setIsEditting(true)}
@@ -130,7 +130,7 @@ const EditPersonalDetails = ({ nextFormStep }) => {
                         placeholder="I am a data scientist with 3 years of experience in the industry and a Fellow at Supertype Fellowship. I am passionate about open source and have contributed to several projects under this program."
                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         disabled={!isEditting}
-                   />
+                />
                 </Field>
 
                 <Field label="✨ Headline" error={errors?.short}
@@ -327,18 +327,11 @@ const EditPersonalDetails = ({ nextFormStep }) => {
                         ) : isSubmitting ? (
                             <button type="submit" className="btn btn-warning text-black" disabled>Saving Changes...</button>
                         ) : (
-                            <button 
-                                type="button" 
-                                className="btn btn-primary text-white"
-                                onClick={() => nextFormStep()}
-                            >
-                                Next {">"}
-                            </button>
+                            <></>
                         )
                     }
                 </div>
             </fieldset>
-
         </Form>
     )
 }

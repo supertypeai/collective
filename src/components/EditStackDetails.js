@@ -10,7 +10,7 @@ import stackSectionChoices from "@/data/stackSectionChoices.json"
 import { PillsFromStack } from "@/components/PillsFromStack";
 import AddedToStack from "@/components/AddedToStack";
 
-const EditStackDetails = ({ nextFormStep }) => {
+const EditStackDetails = () => {
 
     const context = useContext(EditContext);
     const [form, setForm] = context.f
@@ -164,10 +164,10 @@ const EditStackDetails = ({ nextFormStep }) => {
         <div className="max-w-6xl grid grid-cols-5">
             <div className="w-full col-span-12 lg:col-span-3">
                 <Form onSubmit={handleSubmit(saveData)}>
-                    <fieldset>
+                    <fieldset className="mr-8">
                         <legend>
                             <span className="text-2xl font-bold">
-                                🛠️ Configure Tech Stack
+                                Configure Tech Stack
                                 <button 
                                     type="button" 
                                     onClick={() => setIsEditting(true)}
@@ -214,13 +214,7 @@ const EditStackDetails = ({ nextFormStep }) => {
                             ) : isSubmitting ? (
                                 <button type="submit" className="btn btn-warning text-black" disabled>Saving Changes...</button>
                             ) : (
-                                <button 
-                                    type="button" 
-                                    className="btn btn-primary text-white"
-                                    onClick={() => nextFormStep()}
-                                >
-                                    Next {">"}
-                                </button>
+                                <></>
                             )
                         }
                     </fieldset>
@@ -228,7 +222,7 @@ const EditStackDetails = ({ nextFormStep }) => {
             </div>
             {
                 (stackExamples && Object.values(stackExamples).some((el) => el.selected.length > 0)) &&
-                <AddedToStack stackExamples={stackExamples} setStackExamples={setStackExamples} isEditting={isEditting} />
+                <AddedToStack stackExamples={stackExamples} setStackExamples={setStackExamples} isEditting={isEditting} profile={true}/>
             }
         </div>
     )

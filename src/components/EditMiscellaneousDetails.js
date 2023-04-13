@@ -202,12 +202,12 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
         )
 
         return (
-            <div className="">
+            <div>
                 <span className="text-2xl font-bold">
-                    🪄 Inference from GitHub
+                    Inference from GitHub
                 </span>
-                <div className="flex flex-wrap -mx-3">
-                    <div className="w-full md:w-5/12 px-3 mb-0">
+                <div className="flex flex-wrap">
+                    <div className="w-full md:w-5/12 mb-0">
                         <Field label="Your GitHub Account" hint={`${isEditting ? "Please make sure to click the 'Save Changes' button after syncing your GitHub account." : ""}`}
                             error={errors?.github_handle}
                         >
@@ -273,7 +273,6 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
             updateInference(setIsSyncing, isLoggedIn, superinference, setSuperinference);
             setEdit(false);
         }
-        console.log('effect is running')
     }, [edit, setEdit]);
 
     return (
@@ -281,7 +280,7 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
             <fieldset>
                 <legend>
                     <span className="text-2xl font-bold">
-                        💡 Miscellaneous Details
+                        Miscellaneous Details
                         <button
                             type="button"
                             onClick={() => setIsEditting(true)}
@@ -323,8 +322,8 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
                         disabled={!isEditting}
                     />
                 </Field>
-                <div className="flex flex-wrap -mx-3 mb-3">
-                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <div className="flex flex-wrap mb-3">
+                    <div className="w-full md:w-1/2 pr-3 mb-6 md:mb-0">
 
                         <Field label="WordPress Site ID (Optional)"
                             hint={<>
@@ -339,7 +338,7 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
                             />
                         </Field>
                     </div>
-                    <div className="w-full md:w-1/2 px-3">
+                    <div className="w-full md:w-1/2 pl-3">
                         <Field label="WordPress Author ID (Optional)"
                             hint="This is your Author ID on WordPress. You can find it in your WordPress profile or in the URL of your author page."
                         >
