@@ -47,7 +47,7 @@ const useProfilesMatchingTag = (tag) => {
     })
 }
 
-const getTagInfo = (tag, key) => {
+export const getTagInfo = (tag, key) => {
     // match it against profileTagsChoices
     const match = profileTagsChoices.find(item => item.value === tag)
     if (match) {
