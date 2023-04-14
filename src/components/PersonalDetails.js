@@ -112,7 +112,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                 </svg>
                 <span className="sr-only"></span>
                 <p className="text-xl inline">
-                    Hold on tight! We&apos;re auto-populating 🛠️ the Maker Profile using publicly available data from your GitHub!
+                    Hold on tight! Auto-populating 🛠️ the Maker Profile using publicly available data from your GitHub!
                 </p>
             </div>
         </div>
