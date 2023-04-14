@@ -1,9 +1,9 @@
 import { Hint } from "@/blocks/Form"
 import { PillsFromSelected } from "@/components/PillsFromStack"
 
-const AddedToStack = ({ stackExamples, setStackExamples, isEditting=true }) => {
+const AddedToStack = ({ stackExamples, setStackExamples, isEditting=true, profile=false }) => {
     return (
-        <div className="w-full col-span-12 lg:col-span-2 lg:ml-8 order-first lg:order-last">
+        <div className={`w-full col-span-12 lg:col-span-2 ${profile ? "" : "lg:ml-8"} order-first lg:order-last`}>
             <div className="m-2 rounded border p-2">
                 <div className="mb-4">
                     <Hint>Maximum of 9 in each Stack. Click to drop from Stack</Hint>

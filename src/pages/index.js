@@ -159,6 +159,17 @@ const NoelProfile = () => {
     }} />
 }
 
+const MatheusProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://avatars.githubusercontent.com/u/21157504?v=4",
+        name: "Matheus Aaron",
+        profileLink: "/p/pwaaron",
+        short: "Marketing Analytics @Shopee and former teaching assistant (python) @National University of Singapore",
+        tags: ['AI', 'Database', 'Backend']
+    }} />
+}
+
+
 const PopularTags = () => {
     return (
         <div className="mt-4">
@@ -230,6 +241,7 @@ const Page = () => {
                                 <YevonnaelProfile />
                                 <NoelProfile />
                                 <FendyProfile />
+                                <MatheusProfile />
                             </div>
                             <div className={styles.description}>
                                 <div>
