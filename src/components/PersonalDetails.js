@@ -139,10 +139,10 @@ const PersonalDetails = ({ nextFormStep }) => {
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <Field label="Preferred Collective Handle"
                             error={errors?.s_preferred_handle}
-                            hint="This will be in the link to your Maker's Profile"
+                            hint="This will be in the link to your Developer Profile"
                         >
                             <Input
-                                {...register("s_preferred_handle", { required: "Please provide a handle to be used in the link to your Maker's Profile" })}
+                                {...register("s_preferred_handle", { required: "Please provide a handle to be used in the link to your Developer Profile" })}
                                 id="s_preferred_handle"
                                 placeholder="pambeesly"
                             />

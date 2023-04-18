@@ -95,14 +95,13 @@ const EditPersonalDetails = () => {
                 </legend>  
                 <Field label="Preferred Collective Handle"
                     error={errors?.s_preferred_handle}
-                    hint="This will be in the link to your Maker's Profile"
+                    hint="This will be in the link to your Developer Profile"
                 >
                     <Input
-                        {...register("s_preferred_handle", { required: "Please provide a handle to be used in the link to your Maker's Profile" })}
+                        {...register("s_preferred_handle", { required: "Please provide a handle to be used in the link to your Developer Profile" })}
                         id="s_preferred_handle"
                         placeholder="pambeesly"
                         disabled={!isEditting}
-                        required
                     />
                 </Field>
                 <Field label="Full name" error={errors?.fullname}>
