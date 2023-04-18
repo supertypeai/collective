@@ -1,7 +1,7 @@
 import { supabase } from "@/lib/supabaseClient";
 import { useQuery, QueryClient, dehydrate } from '@tanstack/react-query'
 import { Mainframe } from '@/blocks/Mainframe'
-import ProfileCard from "@/components/ProfileCard";
+import ProfileCardWide from "@/components/ProfileCardWide";
 import YouInputCTA from "@/components/YouInputCTA";
 import AddDevProfileCTA from "@/components/AddDevProfileCTA";
 import profileTagsChoices from '@/data/profileTagsChoices.json';
@@ -102,7 +102,7 @@ export async function getStaticProps({ params }) {
 const featuredProfiles = (profiles) => {
     return profiles.map((profile) => {
         return (
-            <ProfileCard person={{
+            <ProfileCardWide person={{
                 name: profile.fullname,
                 profileLink: `/p/${profile.s_preferred_handle}`,
                 short: profile.short,
@@ -125,7 +125,7 @@ const Page = ({ tag }) => {
         <Mainframe>
             <div className='md:flex items-center'>
                 <div className="md:basis-1/2 w-full mb-4">
-                    <h1 className="text-4xl uppercase font-semibold bg-rose-800 dark:bg-info rounded p-2">
+                    <h1 className="text-4xl uppercase font-semibold bg-rose-800 dark:bg-transparent dark:text-info rounded p-2">
                         {getTagInfo(tag, 'label')}
                     </h1>
                 </div>
@@ -143,7 +143,7 @@ const Page = ({ tag }) => {
                         <h3 className="font-display text-lg font-semibold text-gray-300">Featured Profiles</h3>
                         <section className="pb-6">
                             <div className="container flex flex-col items-center justify-center mx-auto sm:py-2">
-                                <div className="flex flex-row flex-wrap justify-center mt-4">
+                                <div className="flex flex-row flex-wrap mt-4">
                                     {featuredProfiles(data)}
                                 </div>
                             </div>
