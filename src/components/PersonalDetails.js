@@ -77,7 +77,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                             "fullname": data.profile.name,
                             "s_preferred_handle": data.profile.login.toLowerCase(),
                             "github_handle": data.profile.login,
-                            "email": isLoggedIn.githubUser.email,
+                            "email": isLoggedIn.githubUser ? isLoggedIn.githubUser.email : "",
                             "short": data.profile.bio,
                             "tags": [
                                 ...data.skill.top_n_languages, ...data.skill.key_qualifications
@@ -94,7 +94,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                         "fullname": githubInference.profile.name,
                         "s_preferred_handle": githubInference.profile.login.toLowerCase(),
                         "github_handle": githubInference.profile.login,
-                        "email": isLoggedIn.githubUser.email,
+                        "email": isLoggedIn.githubUser ? isLoggedIn.githubUser.email : "",
                         "short": githubInference.profile.bio,
                         "tags": githubInference.skill.key_qualifications
                     })
@@ -153,7 +153,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                             error={errors?.github_handle}
                             hint="Used to automatically populate your Maker's Profile"
                         >
-                            {!isLoggedIn.providerToken ? (
+                            {!isLoggedIn.providerToken || !isLoggedIn.githubUser ? (
                                 <div>
                                     <button onClick={() => signInWithGitHub()}
                                         className="text-white group hover:text-rose-200 px-3 py-2 my-auto rounded-md text-sm hover:bg-secondary border-2">
@@ -272,7 +272,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                 </Field>
                 <div className="my-4">
                     {
-                        isLoggedIn.providerToken ? (
+                        isLoggedIn.providerToken && isLoggedIn.githubUser ? (
                             <button type="submit" className="btn btn-primary text-white">Next {">"}</button>
                         ) : (
                             <button onClick={() => signInWithGitHub()}

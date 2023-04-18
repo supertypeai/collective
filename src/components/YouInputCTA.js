@@ -1,8 +1,10 @@
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Link from "next/link";
+import { AppContext } from "@/contexts/AppContext";
 
 const YouInputCTA = () => {
+    const { isLoggedIn } = useContext(AppContext);
     const [youInput, setYouInput] = useState('<you>')
     return (
         <>
@@ -14,7 +16,7 @@ const YouInputCTA = () => {
                     onChange={(e) => setYouInput(e.target.value)}
                 />
                 <div className="absolute top-[0.6rem] right-2">
-                    <Link href="/enroll">
+                    <Link href={isLoggedIn?.linkedinUser ? "/executive" : "/enroll"}>
                         <button className="inline btn btn-xs btn-info drop-shadow-lg">Join</button>
                     </Link>
                 </div>
@@ -25,7 +27,7 @@ const YouInputCTA = () => {
             </div>
             <p className="text-xs text-gray-400 text-justify">
                 Collective is a community for anyone looking to collaborate on building exciting projects and empowering the local developer community through open source. By completing a 3-min
-                <Link href="/enroll" className="text-info hover:text-rose-300"> enrollment form</Link>, your developer profile will be created with a unique link to share with your network.
+                <Link href={isLoggedIn?.linkedinUser ? "/executive" : "/enroll"} className="text-info hover:text-rose-300 hover:cursor-pointer"> enrollment form</Link>, your developer profile will be created with a unique link to share with your network.
             </p>
         </>
     )

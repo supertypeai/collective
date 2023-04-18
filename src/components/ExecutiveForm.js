@@ -1,5 +1,6 @@
 import { useId, useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
+import Link from 'next/link';
 import Image from "next/image";
 import { useForm, Controller } from "react-hook-form"
 import { supabase } from "@/lib/supabaseClient";
@@ -72,6 +73,7 @@ const ExecutiveForm = () => {
     const { isLoggedIn } = useContext(AppContext);
     const router = useRouter()
 
+    const [hasProfileInDB, setHasProfileInDB] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [haveWebsiteBlog, setHaveWebsiteBlog] = useState(false)
     const [addThirdAff, setAddThirdAff] = useState(false)
@@ -144,7 +146,9 @@ const ExecutiveForm = () => {
     };
 
     useEffect(() => {
-        if (isLoggedIn.linkedinUser) {
+        if (isLoggedIn.user && isLoggedIn.user.id) {
+            setHasProfileInDB(true);
+        } else if (isLoggedIn.linkedinUser) {
             reset({
                 "fullname": isLoggedIn.linkedinUser.user_metadata.full_name,
                 "email": isLoggedIn.linkedinUser.user_metadata.email,
@@ -463,6 +467,17 @@ const ExecutiveForm = () => {
             </div>
         )
     }
+
+    if (hasProfileInDB) return (
+        <div className="min-h-screen mt-2">
+            You already have a profile in the database
+            <br />
+            {/* back to home button */}
+            <Link href="/" className="btn btn-secondary mt-4 px-3 py-2 my-auto rounded-md text-sm border-2">
+                &lt; Back to Home
+            </Link>
+        </div>
+    )
 
     return (
         <Form onSubmit={handleSubmit(saveData)} className="mt-4 max-w-7xl xl:px-8">
