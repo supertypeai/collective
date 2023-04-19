@@ -213,7 +213,6 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
                         >
                             <div className="flex items-center space-x-4">
                                 <Image className="w-10 h-10 rounded-full" src={isLoggedIn.githubUser.user_metadata.avatar_url} width={100} height={100} alt={isLoggedIn.githubUser.user_metadata.full_name} />
-                                {/* <img className="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-5.jpg" alt=""/> */}
                                 <div className="font-medium dark:text-white">
                                     <div>{isLoggedIn.githubUser.user_metadata.full_name}</div>
                                     <div className="text-sm text-gray-400">({isLoggedIn.githubUser.user_metadata.preferred_username}): <small>Updated on: {new Date(superinference.superinference.updated_at).toDateString()}</small></div>
@@ -412,10 +411,5 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
         </Form>
     )
 }
-
-// const RegistrationCompletedNonSSR = dynamic(() => Promise.resolve(RegistrationCompleted), {
-//     ssr: false,
-// })
-
 
 export default EditMiscellaneousDetails

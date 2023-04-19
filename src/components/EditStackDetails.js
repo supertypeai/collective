@@ -5,7 +5,7 @@ import { supabase } from "@/lib/supabaseClient";
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { EditContext } from "@/contexts/EditContext";
-import { Field, Form } from "@/blocks/Form"
+import { Form } from "@/blocks/Form"
 import stackSectionChoices from "@/data/stackSectionChoices.json"
 import { PillsFromStack } from "@/components/PillsFromStack";
 import AddedToStack from "@/components/AddedToStack";
@@ -14,7 +14,7 @@ const EditStackDetails = () => {
 
     const context = useContext(EditContext);
     const [form, setForm] = context.f
-    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm({ defaultValues: form, mode: "onSubmit" });
+    const { handleSubmit, reset } = useForm({ defaultValues: form, mode: "onSubmit" });
     const [isEditting, setIsEditting] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
 

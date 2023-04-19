@@ -210,7 +210,6 @@ const EditExecutive = () => {
                     name={`affiliations.org${id}.currentWorkHere`}
                     disabled={!isEditting}
                     {...register(`affiliations.org${id}.currentWorkHere`)}
-                // checked
                 />
                 <span className="label-text">Currently work here</span>
             </>
@@ -592,7 +591,6 @@ const EditExecutive = () => {
 
             <div className="collapse">
                 <input type="checkbox"
-                    // {...register("website_or_blog")}
                     className="collapse-checkbox"
                     checked={haveWebsiteBlog}
                     onChange={(e) => {

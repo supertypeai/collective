@@ -73,7 +73,6 @@ const ExecutiveForm = () => {
     const { isLoggedIn } = useContext(AppContext);
     const router = useRouter()
 
-    const [hasProfileInDB, setHasProfileInDB] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [haveWebsiteBlog, setHaveWebsiteBlog] = useState(false)
     const [addThirdAff, setAddThirdAff] = useState(false)
@@ -146,9 +145,7 @@ const ExecutiveForm = () => {
     };
 
     useEffect(() => {
-        if (isLoggedIn.user && isLoggedIn.user.id) {
-            setHasProfileInDB(true);
-        } else if (isLoggedIn.linkedinUser) {
+        if (isLoggedIn.linkedinUser) {
             reset({
                 "fullname": isLoggedIn.linkedinUser.user_metadata.full_name,
                 "email": isLoggedIn.linkedinUser.user_metadata.email,
@@ -261,7 +258,6 @@ const ExecutiveForm = () => {
                     id={`affiliations.org${id}.currentWorkHere`}
                     name={`affiliations.org${id}.currentWorkHere`}
                     {...register(`affiliations.org${id}.currentWorkHere`)}
-                // checked
                 />
                 <span className="label-text">Currently work here</span>
             </>
@@ -468,7 +464,7 @@ const ExecutiveForm = () => {
         )
     }
 
-    if (hasProfileInDB) return (
+    if (isLoggedIn.user && isLoggedIn.user.id) return (
         <div className="min-h-screen mt-2">
             You already have a profile in the database
             <br />

@@ -34,7 +34,6 @@ export default function Home() {
               <Image
                 src="/supertype.svg"
                 alt="Supertype Logo"
-                // className={styles.SupertypeLogo}
                 width={100}
                 height={100}
                 priority
@@ -98,7 +97,6 @@ export default function Home() {
           </a>
 
           <Link
-            // href="/templates"
             href="/p/samuel"
             className={styles.card}
           >

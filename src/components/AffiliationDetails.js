@@ -100,7 +100,6 @@ const AffiliationDetails = ({ nextFormStep }) => {
                     id={`affiliations.org${id}.currentWorkHere`}
                     name={`affiliations.org${id}.currentWorkHere`}
                     {...register(`affiliations.org${id}.currentWorkHere`)}
-                // checked
                 />
                 <span className="label-text">Currently work here</span>
             </>

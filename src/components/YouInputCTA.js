@@ -12,7 +12,7 @@ const YouInputCTA = () => {
             <>
                 <div className="relative mb-3 xl:w-96 mt-4">
                     <input
-                        className="peer m-0 h-[58px] w-full focus:text-info rounded bg-info focus:bg-secondary bg-opacity-25 bg-clip-padding py-4 px-3 font-normal leading-tight ease-in-out placeholder:text-transparent focus:border-primary focus:bg-black focus:bg-opacity-10 focus:pt-[1.625rem] focus:pb-[0.625rem] focus:text-grey-100 focus:shadow-te-primary focus:outline-none [&:not(:placeholder-shown)]:pt-[1.625rem] [&:not(:placeholder-shown)]:pb-[0.625rem]"
+                        className="peer m-0 h-[58px] w-full focus:text-info rounded bg-info bg-opacity-25 bg-clip-padding py-4 px-3 font-normal leading-tight ease-in-out placeholder:text-transparent focus:border-primary focus:bg-black focus:bg-opacity-10 focus:pt-[1.625rem] focus:pb-[0.625rem] focus:text-grey-100 focus:shadow-te-primary focus:outline-none [&:not(:placeholder-shown)]:pt-[1.625rem] [&:not(:placeholder-shown)]:pb-[0.625rem]"
                         id="youInput"
                         placeholder="your_username"
                         onChange={(e) => setYouInput(e.target.value)}

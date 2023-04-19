@@ -59,9 +59,6 @@ const ContactCard = ({ data }) => {
                             data['location'] &&
                             <li>Location: {data['location']}</li>
                         }  
-                        {/* <li>Location: Jakarta, Indonesia</li> */}
-                        {/* <li>Valued Perks: Remote Working, Flexible Hours, Health Insurance, Growth Opportunities</li>
-                                <li>Hiring Arrangements: Freelance / Fully Managed by Supertype</li> */}
                     </ul> 
                 }
             </div>

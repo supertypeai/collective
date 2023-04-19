@@ -107,7 +107,6 @@ const AppContextWrapper = ({ children }) => {
 
     async function checkUser() {
       const { data } = await supabase.auth.getSession()
-      console.log("supabase data", data)
 
       if (data.session) {
         const tokenProvider = `${data.session.user.app_metadata.provider}Token`
@@ -160,7 +159,7 @@ const AppContextWrapper = ({ children }) => {
 }
 
 
-export const Mainframe = ({ data, title, children, dehydratedState }) => {
+export const Mainframe = ({ data, title, children }) => {
 
   const [createProfileCTA, setCreateProfileCTA] = useState(true)
 

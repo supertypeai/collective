@@ -1,4 +1,4 @@
-import { useContext, useId, useEffect, useState } from "react"
+import { useContext, useId, useState } from "react"
 import { useForm, Controller } from "react-hook-form"
 import { supabase } from "@/lib/supabaseClient";
 import CreatableSelect from 'react-select/creatable';
@@ -9,7 +9,6 @@ import profileTagsChoices from '@/data/profileTagsChoices.json';
 import availabilityForWork from '@/data/availabilityForWork.json';
 import countryCity from '@/data/countryCity.json';
 import { EditContext } from "@/contexts/EditContext";
-import { AppContext } from "@/contexts/AppContext";
 
 function StableSelect({ ...props }) {
     return <CreatableSelect {...props} instanceId={useId()} />;

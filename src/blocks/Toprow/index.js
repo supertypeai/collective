@@ -1,6 +1,5 @@
-import { useContext, useRef } from 'react';
+import { useContext } from 'react';
 import Image from 'next/image'
-import { useQuery } from "@tanstack/react-query";
 
 import scrollToSection from '@/utils/scrollToSection';
 import Pills from '@/blocks/Pills'
@@ -10,8 +9,6 @@ import StarBadge from './StarsBadge';
 import ForkBadge from './ForkBadge';
 import { MeContext } from '@/contexts/MeContext';
 
-import countryEmoji from '@/data/countryEmoji.json'
-import countryCity from '@/data/countryCity.json'
 import PercentileBadge from './PercentileBadge';
 
 
@@ -57,7 +54,6 @@ function Toprow({ children }) {
                 <div className="mt-4">
                     <Pills tags={data.tags} maxWidth="800px"
                         onClick={
-                            // () => scrollToSection(`aff-0`)
                             () => scrollToSection("affiliations")
                         }
                     />

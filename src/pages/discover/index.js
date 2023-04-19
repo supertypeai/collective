@@ -126,7 +126,6 @@ const Discover = () => {
             new Network(visJsRef.current, { nodes, edges }, options);
         // Use `network` here to configure events, etc
         network.on("click", (params) => {
-            console.log(params)
             if (params.nodes[0] + 1) {
                 const _selectedId = nodes.filter(node => node.id === params.nodes[0])[0].id
                 let tempIds = [_selectedId];

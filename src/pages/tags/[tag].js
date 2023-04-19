@@ -37,7 +37,6 @@ const fetchProfileMatchingTag = async (tag) => {
     if (!data) {
         throw new Error("No profiles with this tag")
     }
-    console.log("data", data)
     return data
 }
 
@@ -120,7 +119,6 @@ const Page = ({ tag }) => {
 
     const { data, error, isLoading } = useProfilesMatchingTag(tag)
 
-    console.log("data in body", data)
     return (
         <Mainframe>
             <div className='md:flex items-center'>
