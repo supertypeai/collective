@@ -210,7 +210,6 @@ const EditExecutive = () => {
                     name={`affiliations.org${id}.currentWorkHere`}
                     disabled={!isEditting}
                     {...register(`affiliations.org${id}.currentWorkHere`)}
-                // checked
                 />
                 <span className="label-text">Currently work here</span>
             </>
@@ -450,14 +449,13 @@ const EditExecutive = () => {
             </fieldset>
             <Field label="Preferred Collective Handle"
                 error={errors?.s_preferred_handle}
-                hint="This will be in the link to your Maker's Profile"
+                hint="This will be in the link to your Executive Profile"
             >
                 <Input
-                    {...register("s_preferred_handle")}
+                    {...register("s_preferred_handle", { required: "Please provide a handle to be used in the link to your Executive Profile" })}
                     id="s_preferred_handle"
                     placeholder="pambeesly"
                     disabled={!isEditting}
-                    required
                 />
             </Field>
             <Field label="Full name" error={errors?.fullname}>
@@ -593,7 +591,6 @@ const EditExecutive = () => {
 
             <div className="collapse">
                 <input type="checkbox"
-                    // {...register("website_or_blog")}
                     className="collapse-checkbox"
                     checked={haveWebsiteBlog}
                     onChange={(e) => {

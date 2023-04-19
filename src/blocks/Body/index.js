@@ -9,7 +9,7 @@ import CommitPolar from './CommitPolar';
 
 import { MeContext } from '@/contexts/MeContext';
 
-const Body = ({ stack, affiliations, children }) => {
+const Body = ({ stack, affiliations }) => {
 
     const data = useContext(MeContext);
 

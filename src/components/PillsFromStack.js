@@ -8,7 +8,6 @@ export const PillsFromStack = ({ id, stackExamples, setStackExamples, isEditting
             )
         }
         onClick={e => {
-            console.log(e)
             // max 9 choices
             if (stackExamples[id].selected.length >= 9) return
 
@@ -34,8 +33,6 @@ export const PillsFromSelected = ({ id, stackExamples, setStackExamples, isEditt
     return <Pills
         tags={stackExamples[id].selected}
         onClick={e => {
-            console.log("stackExamples[id]", stackExamples[id])
-            console.log(e)
             // remove this from stack[id]
             setStackExamples(
                 prev => ({

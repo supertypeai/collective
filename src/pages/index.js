@@ -1,9 +1,7 @@
-import { useEffect, useContext } from "react";
-import Link from "next/link";
+import { useEffect } from "react";
 import { Mainframe } from "@/blocks/Mainframe";
 import YouInputCTA from "@/components/YouInputCTA";
 import ProfileCard from "@/components/ProfileCard";
-import { AppContext } from "@/contexts/AppContext";
 import AddDevProfileCTA from "@/components/AddDevProfileCTA";
 import PopularTagBadge from "@/components/PopularTagBadge";
 
@@ -186,8 +184,6 @@ const PopularTags = () => {
 
 
 const Page = () => {
-
-    const { isLoggedIn } = useContext(AppContext);
 
     // remove typewriter effect after 5 seconds
     useEffect(() => {

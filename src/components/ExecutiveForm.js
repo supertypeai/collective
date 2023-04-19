@@ -1,5 +1,6 @@
 import { useId, useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
+import Link from 'next/link';
 import Image from "next/image";
 import { useForm, Controller } from "react-hook-form"
 import { supabase } from "@/lib/supabaseClient";
@@ -257,7 +258,6 @@ const ExecutiveForm = () => {
                     id={`affiliations.org${id}.currentWorkHere`}
                     name={`affiliations.org${id}.currentWorkHere`}
                     {...register(`affiliations.org${id}.currentWorkHere`)}
-                // checked
                 />
                 <span className="label-text">Currently work here</span>
             </>
@@ -464,6 +464,17 @@ const ExecutiveForm = () => {
         )
     }
 
+    if (isLoggedIn.user && isLoggedIn.user.id) return (
+        <div className="min-h-screen mt-2">
+            You already have a profile in the database
+            <br />
+            {/* back to home button */}
+            <Link href="/" className="btn btn-secondary mt-4 px-3 py-2 my-auto rounded-md text-sm border-2">
+                &lt; Back to Home
+            </Link>
+        </div>
+    )
+
     return (
         <Form onSubmit={handleSubmit(saveData)} className="mt-4 max-w-7xl xl:px-8">
             <fieldset>
@@ -474,10 +485,10 @@ const ExecutiveForm = () => {
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                     <Field label="Preferred Collective Handle"
                         error={errors?.s_preferred_handle}
-                        hint="This will be in the link to your Executive Profile, if available"
+                        hint="This will be in the link to your Executive Profile"
                     >
                         <Input
-                            {...register("s_preferred_handle")}
+                            {...register("s_preferred_handle", { required: "Please provide a handle to be used in the link to your Executive Profile" })}
                             id="s_preferred_handle"
                             placeholder={
                                 isLoggedIn.linkedinUser ?

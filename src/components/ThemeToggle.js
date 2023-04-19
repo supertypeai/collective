@@ -18,7 +18,6 @@ export default function ThemeToggle() {
                 }
                 return setTheme("light");
             }}
-            // type="button"
             className="opacity-75 p-6 text-xl swap swap-rotate"
         >
 

@@ -70,12 +70,7 @@ const RegistrationCompleted = () => {
 
     const saveData = (data) => {
         const payload = { ...form, ...data };
-        console.log(payload);
-        // setForm({ ...form, ...data });
-
         postToSupabase(payload);
-
-
     };
 
     return (
@@ -167,10 +162,5 @@ const RegistrationCompleted = () => {
         </Form>
     )
 }
-
-// const RegistrationCompletedNonSSR = dynamic(() => Promise.resolve(RegistrationCompleted), {
-//     ssr: false,
-// })
-
 
 export default RegistrationCompleted

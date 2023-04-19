@@ -95,7 +95,6 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
     // Access the client
-    // const queryClient = useQueryClient()
     const queryClient = new QueryClient()
 
     await queryClient.prefetchQuery({
@@ -113,9 +112,7 @@ export async function getStaticProps({ params }) {
 
 const Profile = (props) => {
 
-    const { isLoading, isError, data, error } = useUser(props.user)
-
-    // return <p>{JSON.stringify(data)}</p>
+    const { data } = useUser(props.user)
 
     return (
         <Mainframe data={data}>

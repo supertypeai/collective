@@ -6,7 +6,7 @@ import { inferFromGithub } from "superinference";
 
 import { Field, Form, Input } from "@/blocks/Form"
 import profileTagsChoices from '@/data/profileTagsChoices.json';
-import { LinkToHome, signInWithGitHub } from "@/blocks/Mainframe/Navbar";
+import { signInWithGitHub } from "@/blocks/Mainframe/Navbar";
 import { NominateContext } from "@/contexts/NominateContext"
 import { AppContext } from "@/contexts/AppContext";
 import Link from "next/link";
@@ -21,7 +21,6 @@ const PersonalDetails = ({ nextFormStep }) => {
     const { isLoggedIn } = useContext(AppContext);
     const [form, setForm] = context.f
     const [loading, setLoading] = useState(false);
-    const [hasProfileInDB, setHasProfileInDB] = useState(false);
     const [superinference, setSuperinference] = useState({});
 
     const { register, control, handleSubmit, formState: { errors }, reset } = useForm({
@@ -31,74 +30,66 @@ const PersonalDetails = ({ nextFormStep }) => {
     });
 
     const saveData = (data) => {
-        console.log(data);
         setForm({ ...form, ...data, superinference: superinference });
         nextFormStep();
     };
 
     useEffect(() => {
+        const githubInference = localStorage.getItem("githubInference") && JSON.parse(localStorage.getItem("githubInference"));
+        const lastUpdateInference = githubInference
+            ? Math.ceil(
+                (new Date() - new Date(githubInference.updated_at)) / (1000 * 60 * 60 * 24)
+            )
+            : 0;
 
-        if (isLoggedIn.user && isLoggedIn.user.id) {
-            setHasProfileInDB(true);
-        } else {
-            const githubInference = localStorage.getItem("githubInference") && JSON.parse(localStorage.getItem("githubInference"));
-            const lastUpdateInference = githubInference
-                ? Math.ceil(
-                    (new Date() - new Date(githubInference.updated_at)) / (1000 * 60 * 60 * 24)
-                )
-                : 0;
+        if (isLoggedIn.providerToken) {
+            if (!githubInference || lastUpdateInference > 30) {
+                setLoading(true);
 
-            if (isLoggedIn.providerToken) {
-                if (!githubInference || lastUpdateInference > 30) {
-                    setLoading(true);
+                inferFromGithub({ githubHandle: isLoggedIn.githubUser.user_metadata.user_name, token: isLoggedIn.providerToken }).then((data) => {
+                    const { profile, skill, stats, contribution } = data;
 
-                    inferFromGithub({ githubHandle: isLoggedIn.githubUser.user_metadata.user_name, token: isLoggedIn.providerToken }).then((data) => {
-                        console.log("githubdata", data);
+                    const d = { profile, skill, stats, contribution };
 
-                        const { profile, skill, stats, contribution } = data;
+                    // save githubInference in local storage
+                    localStorage.setItem("githubInference", JSON.stringify({
+                        ...d,
+                        v: "0.2.11",
+                        updated_at: new Date()
+                    }));
 
-                        const d = { profile, skill, stats, contribution };
+                    setSuperinference({
+                        ...d,
+                        v: "0.2.11",
+                        updated_at: new Date()
+                    });
 
-                        // save githubInference in local storage
-                        localStorage.setItem("githubInference", JSON.stringify({
-                            ...d,
-                            v: "0.2.11",
-                            updated_at: new Date()
-                        }));
-
-                        setSuperinference({
-                            ...d,
-                            v: "0.2.11",
-                            updated_at: new Date()
-                        });
-
-                        // call reset to update form values
-                        reset({
-                            "fullname": data.profile.name,
-                            "s_preferred_handle": data.profile.login.toLowerCase(),
-                            "github_handle": data.profile.login,
-                            "email": isLoggedIn.githubUser.email,
-                            "short": data.profile.bio,
-                            "tags": [
-                                ...data.skill.top_n_languages, ...data.skill.key_qualifications
-                            ]
-                        });
-
-                        setLoading(false);
-
-                        return data;
-                    })
-                } else {
-                    setSuperinference(githubInference);
+                    // call reset to update form values
                     reset({
-                        "fullname": githubInference.profile.name,
-                        "s_preferred_handle": githubInference.profile.login.toLowerCase(),
-                        "github_handle": githubInference.profile.login,
-                        "email": isLoggedIn.githubUser.email,
-                        "short": githubInference.profile.bio,
-                        "tags": githubInference.skill.key_qualifications
-                    })
-                }
+                        "fullname": data.profile.name,
+                        "s_preferred_handle": data.profile.login.toLowerCase(),
+                        "github_handle": data.profile.login,
+                        "email": isLoggedIn.githubUser ? isLoggedIn.githubUser.email : "",
+                        "short": data.profile.bio,
+                        "tags": [
+                            ...data.skill.top_n_languages, ...data.skill.key_qualifications
+                        ]
+                    });
+
+                    setLoading(false);
+
+                    return data;
+                })
+            } else {
+                setSuperinference(githubInference);
+                reset({
+                    "fullname": githubInference.profile.name,
+                    "s_preferred_handle": githubInference.profile.login.toLowerCase(),
+                    "github_handle": githubInference.profile.login,
+                    "email": isLoggedIn.githubUser ? isLoggedIn.githubUser.email : "",
+                    "short": githubInference.profile.bio,
+                    "tags": githubInference.skill.key_qualifications
+                })
             }
         }
     }, [isLoggedIn, reset])
@@ -117,7 +108,7 @@ const PersonalDetails = ({ nextFormStep }) => {
             </div>
         </div>
     )
-    if (hasProfileInDB) return (
+    if (isLoggedIn.user && isLoggedIn.user.id) return (
         <div className="min-h-screen">
             You already have a profile in the database
             <br />
@@ -139,10 +130,10 @@ const PersonalDetails = ({ nextFormStep }) => {
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <Field label="Preferred Collective Handle"
                             error={errors?.s_preferred_handle}
-                            hint="This will be in the link to your Maker's Profile"
+                            hint="This will be in the link to your Developer Profile"
                         >
                             <Input
-                                {...register("s_preferred_handle", { required: "Please provide a handle to be used in the link to your Maker's Profile" })}
+                                {...register("s_preferred_handle", { required: "Please provide a handle to be used in the link to your Developer Profile" })}
                                 id="s_preferred_handle"
                                 placeholder="pambeesly"
                             />
@@ -153,7 +144,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                             error={errors?.github_handle}
                             hint="Used to automatically populate your Maker's Profile"
                         >
-                            {!isLoggedIn.providerToken ? (
+                            {!isLoggedIn.providerToken || !isLoggedIn.githubUser ? (
                                 <div>
                                     <button onClick={() => signInWithGitHub()}
                                         className="text-white group hover:text-rose-200 px-3 py-2 my-auto rounded-md text-sm hover:bg-secondary border-2">
@@ -172,7 +163,6 @@ const PersonalDetails = ({ nextFormStep }) => {
                                     />
                                     <div className="flex items-center space-x-4">
                                         <Image className="w-10 h-10 rounded-full" src={isLoggedIn.githubUser.user_metadata.avatar_url} width={100} height={100} alt={isLoggedIn.githubUser.user_metadata.full_name} />
-                                        {/* <img className="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-5.jpg" alt=""/> */}
                                         <div className="font-medium dark:text-white">
                                             <div>{isLoggedIn.githubUser.user_metadata.full_name}</div>
                                             <div className="text-sm text-gray-500 dark:text-gray-400">({isLoggedIn.githubUser.user_metadata.preferred_username}): <small>Authenticated on {new Date(isLoggedIn.githubUser.confirmed_at).toDateString()}</small></div>
@@ -272,7 +262,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                 </Field>
                 <div className="my-4">
                     {
-                        isLoggedIn.providerToken ? (
+                        isLoggedIn.providerToken && isLoggedIn.githubUser ? (
                             <button type="submit" className="btn btn-primary text-white">Next {">"}</button>
                         ) : (
                             <button onClick={() => signInWithGitHub()}

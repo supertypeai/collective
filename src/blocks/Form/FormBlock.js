@@ -16,7 +16,6 @@ export default function FormBlock({ children, currentStep, prevFormStep }) {
                         // if currentStep is 4, we're on the last step
                         currentStep === 3 ? <span className="italic">Almost done!</span> : <span>Step {currentStep + 1} of 3</span>
                     }
-                    {/* <span>Step {currentStep + 1} of 3</span> */}
                 </div>
             )}
             {children}
