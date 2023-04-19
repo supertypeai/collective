@@ -1,19 +1,12 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import Link from "next/link";
 import Image from 'next/image';
 import { AppContext } from "@/contexts/AppContext";
 
 const AddDevProfileCTA = () => {
     const { isLoggedIn } = useContext(AppContext);
-    const [hasProfileInDB, setHasProfileInDB] = useState(false);
 
-    useEffect(() => {
-        if (isLoggedIn.user && isLoggedIn.user.id) {
-            setHasProfileInDB(true);
-        }
-    }, [isLoggedIn])
-
-    if (!hasProfileInDB) {
+    if (isLoggedIn.user && !isLoggedIn.user.id) {
         return (
             <div className="flex items-center mt-8">
                 <div className="relative mx-auto w-96 overflow-hidden rounded-[16px] bg-gray-300 p-[1px] transition-all duration-300 ease-in-out bg-opacity-10">
