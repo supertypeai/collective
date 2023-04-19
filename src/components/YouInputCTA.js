@@ -1,5 +1,5 @@
 
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import Link from "next/link";
 import { AppContext } from "@/contexts/AppContext";
 
@@ -7,7 +7,7 @@ const YouInputCTA = () => {
     const { isLoggedIn } = useContext(AppContext);
     const [youInput, setYouInput] = useState('<you>')
 
-    if (isLoggedIn.user && !isLoggedIn.user.id) {
+    if (!isLoggedIn?.user?.id) {
         return (
             <>
                 <div className="relative mb-3 xl:w-96 mt-4">

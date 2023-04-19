@@ -6,7 +6,7 @@ import { AppContext } from "@/contexts/AppContext";
 const AddDevProfileCTA = () => {
     const { isLoggedIn } = useContext(AppContext);
 
-    if (isLoggedIn.user && !isLoggedIn.user.id) {
+    if (!isLoggedIn?.user?.id) {
         return (
             <div className="flex items-center mt-8">
                 <div className="relative mx-auto w-96 overflow-hidden rounded-[16px] bg-gray-300 p-[1px] transition-all duration-300 ease-in-out bg-opacity-10">

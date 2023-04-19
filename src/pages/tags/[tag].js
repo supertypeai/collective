@@ -28,7 +28,7 @@ const fetchProfileMatchingTag = async (tag) => {
         .select()
         .eq('accepted', true)
         // profile.tags (jsonb array) contains tag
-        .contains('tags', ['ai'])
+        .contains('tags', [tag])
 
     if (error) {
         throw new Error(error, "Error fetching collective handles")
@@ -140,7 +140,7 @@ const Page = ({ tag }) => {
             {!isLoading && !error && data && (
                 <main className='min-h-screen grid grid-cols-3 gap-4 mt-8'>
                     <div className="col-span-3 md:col-span-2">
-                        <h3 className="font-display text-lg font-semibold text-gray-300">Featured Profiles</h3>
+                        <h3 className="font-display text-xl font-semibold text-gray-300">Featured Profiles</h3>
                         <section className="pb-6">
                             <div className="container flex flex-col items-center justify-center mx-auto sm:py-2">
                                 <div className="flex flex-row flex-wrap mt-4">
@@ -154,13 +154,7 @@ const Page = ({ tag }) => {
                         <AddDevProfileCTA />
                     </div>
                 </main>
-            )
-            }
-
-
-
-
-
+            )}
         </Mainframe>
     )
 }
