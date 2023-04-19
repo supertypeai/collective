@@ -92,8 +92,7 @@ export async function getStaticProps({ params }) {
     return {
         props: {
             dehydratedState: dehydrate(queryClient),
-            tag: params.tag,
-            // get tag description too
+            tag: params.tag
         },
     }
 }
