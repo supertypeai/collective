@@ -6,15 +6,8 @@ import { AppContext } from "@/contexts/AppContext";
 const YouInputCTA = () => {
     const { isLoggedIn } = useContext(AppContext);
     const [youInput, setYouInput] = useState('<you>')
-    const [hasProfileInDB, setHasProfileInDB] = useState(false);
 
-    useEffect(() => {
-        if (isLoggedIn.user && isLoggedIn.user.id) {
-            setHasProfileInDB(true);
-        } 
-    }, [isLoggedIn])
-
-    if (!hasProfileInDB) {
+    if (isLoggedIn.user && !isLoggedIn.user.id) {
         return (
             <>
                 <div className="relative mb-3 xl:w-96 mt-4">

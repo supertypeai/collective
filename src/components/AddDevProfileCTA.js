@@ -10,7 +10,7 @@ const AddDevProfileCTA = () => {
     useEffect(() => {
         if (isLoggedIn.user && isLoggedIn.user.id) {
             setHasProfileInDB(true);
-        } 
+        }
     }, [isLoggedIn])
 
     if (!hasProfileInDB) {
