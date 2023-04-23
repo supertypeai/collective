@@ -33,7 +33,6 @@ const fetchProject = async (handle) => {
     if (!data) {
         throw new Error("No project with this handle")
     }
-    console.log("data", data)
     return data
 }
 
@@ -72,7 +71,6 @@ export async function getStaticPaths() {
             queryFn: () => fetchProjectHandles(),
             staleTime: 1000 * 60 * 60 * 24, // 24 hours
         });
-        console.log("data1", data)
         const paths = data.map((project) => ({
             params: { repo: project.handle },
         }))
@@ -95,9 +93,23 @@ const Page = () => {
             {isLoading && <div className='place-self-center'>Loading...</div>}
             {error && <div className='place-self-center'>Error: {error.message}</div>}
             {!isLoading && !error && data && (
-                <main className='min-h-screen grid grid-cols-3 gap-4 mt-8'>
-                    {JSON.stringify(data)}
-                </main>
+                <>
+                    <div className='md:flex items-center'>
+                        <div className="md:basis-1/2 w-full mb-4">
+                            <h1 className="text-4xl uppercase font-semibold bg-rose-800 dark:bg-transparent dark:text-info rounded p-2">
+                                {data["name"]}
+                            </h1>
+                        </div>
+                        <div className='ml-4 md:ml-8 md:basis-1/2 w-full mb-4'>
+                            <p className='font-light'>
+                                {data["description"]}
+                            </p>
+                        </div>
+                    </div>
+                    <main className='min-h-screen grid grid-cols-3 gap-4 mt-8'>
+                        {JSON.stringify(data)}
+                    </main>
+                </>
             )}
         </Mainframe>
     )
