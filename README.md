@@ -4,7 +4,7 @@
 <!-- ![Supertype Collective](./public/collective_promo.png) -->
 <img src="https://github.com/supertypeai/collective/raw/main/public/collective_promo.png" style="width:50%" />
 
-[Supertype Collective](https://collective.supertype.ai) is a community of analytics developers, data scientists and engineering leaders building products across the full stack. It a highly curated place, with close collaboration between members looking to join forces on building high-impact analytics products. 
+[Supertype Collective](https://collective.supertype.ai) is a community of analytics developers, data scientists and engineering leaders building products across the full stack. It a highly curated place, with close collaboration between members looking to join forces on building high-impact analytics products. The web platform has a drag and drop builder to build out your Developer Profile, which you can then share to the world.
 
 ### Joining the Collective
 We welcome members from all backgrounds, anywhere in the world, who wish to contribute to the Collective's vision of building an inclusive, collaborative, and healthy community of full stack analytics developers. 
@@ -17,7 +17,7 @@ Go to [collective.supertype.ai](https://collective.supertype.ai) to sign up for 
 - 📝 Contribute to the Wiki page to help others get started
 - 📧 [Email us](mailto:s@supertype.ai) with questions or feedback if you have other means of helping us grow the Collective
 
-## Getting Started (for Collective members)
+## Getting Started
 
 Once a profile has been created, it will be accessible at `https://collective.supertype.ai/p/<your-name>`. Supertype Collective is tested on the latest version of Chrome, Firefox and Brave browsers.
 
@@ -32,13 +32,16 @@ Out of the box, your Developer Profile will:
     - A beautiful layout system that works great on mobile and desktop
 - 💻 More than 200 icons to choose from, including the most popular programming languages, frameworks, databases and tools in the data science and software engineering domains
 - 🥇 More than 20+ badges automatically generated from your GitHub profile to make it fun and rewarding to contribute to open source projects
+- 💡Dark mode Support!
 - More to come!
 
+![](assets/lightdark.webp)
 
 <!-- ![](assets/sitespeed.png) -->
-<img src="https://github.com/supertypeai/collective/raw/main/assets/sitespeed.png" style="width:50%" />
 
 Perfect score on Performance, Accessibility, Best Practices and SEO on Google Lighthouse (now Google PageSpeed Insights) for both mobile and desktop
+
+<img src="https://github.com/supertypeai/collective/raw/main/assets/sitespeed.png" style="width:50%" />
 
 ## Contributing
 Read [the Wiki page](https://github.com/supertypeai/collective/wiki) for more details on:
