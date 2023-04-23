@@ -4,10 +4,11 @@ const nextConfig = {
   images: {
     domains: [
       'supertype.ai',
+      'raw.githubusercontent.com',
       'avatars.githubusercontent.com',
       // linkedin
       'media-exp1.licdn.com',
-      'media.licdn.com'
+      'media.licdn.com',
     ],
   }
 }
