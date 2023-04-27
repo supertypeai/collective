@@ -12,13 +12,12 @@ const Technologies = ({ tags }) => {
         <div className="flex w-full text-center mt-2">
             {
                 tags.map((tag) => (
-                    <PopularTagBadge slug={tag} link={false} />
+                    <PopularTagBadge slug={tag} link={false} key={tag} />
                 ))
             }
         </div>
     </div>
 }
-
 
 const fetchProjectHandles = async () => {
     const { data, error } = await supabase
@@ -39,7 +38,10 @@ const fetchProjectHandles = async () => {
 const fetchProject = async (handle) => {
     const { data, error } = await supabase
         .from('project')
-        .select()
+        .select(
+            // all columns, and foreign table called `projectmembers` with `userid` column
+            `*, members:projectmembers(*)`
+        )
         .eq('handle', handle)
         .single()
 
@@ -132,6 +134,7 @@ const Page = () => {
                                     alt={data["name"]}
                                     width={900} height={450}
                                     className="rounded-xl shadow-lg dark:border-info border-2"
+                                    priority={true}
                                 />
                             </section>
 
