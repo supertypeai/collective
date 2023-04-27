@@ -66,7 +66,7 @@ const Body = ({ stack, affiliations }) => {
     )
 
 
-    if (data['wp']) {
+    if (data['wp']?.length > 0) {
 
         return (
             <>

@@ -122,7 +122,7 @@ const Page = ({ tag }) => {
         <Mainframe>
             <div className='md:flex items-center'>
                 <div className="md:basis-1/2 w-full mb-4">
-                    <h1 className="text-4xl uppercase font-semibold bg-rose-800 dark:bg-transparent dark:text-info rounded p-2">
+                    <h1 className="text-4xl uppercase font-semibold dark:text-info rounded p-2">
                         {getTagInfo(tag, 'label')}
                     </h1>
                 </div>
