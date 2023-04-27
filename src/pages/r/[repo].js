@@ -37,13 +37,10 @@ const fetchProjectHandles = async () => {
 
 const fetchProject = async (handle) => {
     const { data, error } = await supabase
-        .from('project')
-        .select(
-            // all columns, and foreign table called `projectmembers` with `userid` column
-            `*, members:projectmembers(*)`
-        )
+        .from('members')
+        .select(`*`)
         .eq('handle', handle)
-        .single()
+        .single();
 
     if (error) {
         console.log(error)
