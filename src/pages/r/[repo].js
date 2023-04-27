@@ -6,6 +6,20 @@ import { Mainframe } from '@/blocks/Mainframe'
 import AddDevProfileCTA from "@/components/AddDevProfileCTA";
 import PopularTagBadge from "@/components/PopularTagBadge";
 
+const Technologies = ({ tags }) => {
+    return <div className='mt-4'>
+        <h5 className='font-semibold'>Technologies</h5>
+        <div className="flex w-full text-center mt-2">
+            {
+                tags.map((tag) => (
+                    <PopularTagBadge slug={tag} link={false} />
+                ))
+            }
+        </div>
+    </div>
+}
+
+
 const fetchProjectHandles = async () => {
     const { data, error } = await supabase
         .from('project')
@@ -100,7 +114,7 @@ const Page = () => {
                 <>
                     <div className='md:flex items-center'>
                         <div className="md:basis-1/2 w-full mb-4">
-                            <h1 className="text-4xl uppercase font-semibold bg-rose-800 dark:bg-transparent dark:text-info rounded p-2">
+                            <h1 className="text-4xl uppercase font-semibold dark:text-info rounded p-2">
                                 {data["name"]}
                             </h1>
                         </div>
@@ -128,11 +142,21 @@ const Page = () => {
                         <div className="col-span-3 md:col-span-1 order-first lg:order-last">
                             <h3 className="font-display text-xl font-semibold text-gray-300">{data["name"]}</h3>
                             <Link
-                                className="mt-4 btn bg-primary btn-wide hover:bg-black border-none dark:bg-info dark:text-black hover:opacity-70"
+                                className="mt-4 btn btn-primary btn-wide text-white hover:btn-ghost border-none dark:btn-info dark:text-black hover:opacity-70"
                                 href={data["url"]}
                             >
-                                🔗 Visit Project Page
+                                🔗 Visit Project Site
                             </Link>
+                            {
+                                data.github &&
+                                <Link
+                                    className="mt-4 btn btn-outline btn-accent btn-wide dark:border-info dark:text-info"
+                                    href={data["github"]}
+                                >
+                                    🔗 Visit Project Site
+                                </Link>
+                            }
+                            {data.tags && data.tags.length > 0 && <Technologies tags={data.tags} />}
                             <AddDevProfileCTA />
                         </div>
 

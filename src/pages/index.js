@@ -175,8 +175,8 @@ const PopularTags = () => {
 
             <div className="flex justify-center w-full text-center mt-2">
                 <PopularTagBadge slug="ai" count="8" />
-                <PopularTagBadge slug="data-science" />
-                <PopularTagBadge slug="machine-learning" />
+                <PopularTagBadge slug="data-science" count="10+" />
+                <PopularTagBadge slug="machine-learning" count="10+" />
             </div>
         </div>
     )
