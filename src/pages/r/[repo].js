@@ -103,7 +103,6 @@ export async function getStaticPaths() {
 const Page = () => {
 
     const { data, isLoading, error } = useProject()
-    console.log("data", data)
 
     return (
         <Mainframe>
@@ -134,10 +133,9 @@ const Page = () => {
                                     priority={true}
                                 />
                             </section>
-
-                            <section className="pb-6">
+                            {/* <section className="pb-6">
                                 {JSON.stringify(data)}
-                            </section>
+                            </section> */}
                         </div>
                         <div className="col-span-3 md:col-span-1 order-first lg:order-last">
                             <h3 className="font-display text-xl font-semibold text-gray-300">{data["name"]}</h3>
@@ -153,8 +151,34 @@ const Page = () => {
                                     className="mt-4 btn btn-outline btn-accent btn-wide dark:border-info dark:text-info"
                                     href={data["github"]}
                                 >
-                                    🔗 Visit Project Site
+                                    📦  GitHub Repository
                                 </Link>
+                            }
+                            {
+                                data.members && data.members.length > 0 &&
+                                <div className="mt-4">
+                                    <h5 className='font-semibold'>Makers</h5>
+                                    <ul className="avatar-group -space-x-3">
+                                        {
+                                            data.members.map((member) => (
+                                                <li key={member.fullname} className='avatar border-secondary dark:border-info'>
+                                                    <div className="tooltip tooltip-bottom" data-tip={member.fullname}>
+                                                        <div className='w-12'>
+                                                            <Link href={`/r/${member.s_preferred_handle}`}>
+                                                                <Image
+                                                                    src={member.avatar_url}
+                                                                    alt={member.fullname}
+                                                                    width={50} height={50}
+                                                                />
+                                                            </Link>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            ))
+
+                                        }
+                                    </ul>
+                                </div>
                             }
                             {data.tags && data.tags.length > 0 && <Technologies tags={data.tags} />}
                             <AddDevProfileCTA />
