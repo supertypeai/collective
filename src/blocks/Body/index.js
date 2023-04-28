@@ -9,7 +9,7 @@ import CommitPolar from './CommitPolar';
 
 import { MeContext } from '@/contexts/MeContext';
 
-const Body = ({ stack, affiliations, children }) => {
+const Body = ({ stack, affiliations }) => {
 
     const data = useContext(MeContext);
 
@@ -17,7 +17,7 @@ const Body = ({ stack, affiliations, children }) => {
         (data, div) => {
 
             let contribution;
-            if(data.superinference.contribution){
+            if (data.superinference.contribution) {
                 contribution = {
                     ...data['superinference']['contribution']['contribution_count_per_repo_org_owner'],
                     ...data['superinference']['contribution']['contribution_count_per_repo_user_owner']
@@ -39,7 +39,7 @@ const Body = ({ stack, affiliations, children }) => {
                     }
                     <ContactCard data={data} />
                     {
-                        data.superinference.contribution && 
+                        data.superinference.contribution &&
                         Object.values(data['superinference']['contribution']['contribution_count_per_month'])
                             .reduce((acc, x) => acc + x[0], 0) > 0 &&
                         <CommitPolar data={data['superinference']['contribution']['contribution_count_per_month']} newCol={
@@ -66,7 +66,7 @@ const Body = ({ stack, affiliations, children }) => {
     )
 
 
-    if (data['wp']) {
+    if (data['wp']?.length > 0) {
 
         return (
             <>
@@ -87,7 +87,7 @@ const Body = ({ stack, affiliations, children }) => {
         )
     } else {
         return (
-            <div className="grid grid-cols-12 items-center grid-flow gap-4 bg-black bg-opacity-30 px-1 sm:px-4 lg:px-8 rounded-b-none auto-rows-max">
+            <div className="grid grid-cols-12 grid-flow gap-4 bg-black bg-opacity-30 px-1 sm:px-4 lg:px-8 rounded-b-none auto-rows-max">
                 <StackAndAffiliations stack={stack} affiliations={affiliations} />
                 {autoColumnLayout(data, false)}
                 <EnquiryModal>

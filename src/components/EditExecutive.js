@@ -114,21 +114,21 @@ const EditExecutive = () => {
                 </Field>
 
                 <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <Field label="WordPress Site ID (Optional)"
+                    <div className="w-full px-3 mb-6 md:mb-0">
+                        <Field label="Medium Link or WordPress Site ID (Optional)"
                             hint={<>
-                                <label htmlFor="wp-helper" className="link link-info hover:text-gray-400"><Tooltip />Optional article blogroll if you write on WordPress</label>. Use the root domain for self-hosted WordPress sites.</>
+                                <label htmlFor="wp-helper" className="link link-info hover:text-gray-400"><Tooltip />Optional article blogroll if you write on WordPress</label> or Medium. Use the Medium link or root domain for self-hosted WordPress sites.</>
                             }
                         >
                             <Input
                                 {...register("wp_blog_root_url")}
                                 id="wp_blog_root_url"
-                                placeholder="self-hosted-site.com OR 2384101920 (WordPress.com Site ID)"
+                                placeholder="https://medium.com/@username OR self-hosted-site.com OR 2384101920 (WordPress.com Site ID)"
                                 disabled={!isEditting}
                             />
                         </Field>
                     </div>
-                    <div className="w-full md:w-1/2 px-3">
+                    <div className="w-full px-3">
                         <Field label="WordPress Author ID (Optional)"
                             hint="This is your Author ID on WordPress. You can find it in your WordPress profile or in the URL of your author page."
                         >
@@ -210,7 +210,6 @@ const EditExecutive = () => {
                     name={`affiliations.org${id}.currentWorkHere`}
                     disabled={!isEditting}
                     {...register(`affiliations.org${id}.currentWorkHere`)}
-                // checked
                 />
                 <span className="label-text">Currently work here</span>
             </>
@@ -450,14 +449,13 @@ const EditExecutive = () => {
             </fieldset>
             <Field label="Preferred Collective Handle"
                 error={errors?.s_preferred_handle}
-                hint="This will be in the link to your Maker's Profile"
+                hint="This will be in the link to your Executive Profile"
             >
                 <Input
-                    {...register("s_preferred_handle")}
+                    {...register("s_preferred_handle", { required: "Please provide a handle to be used in the link to your Executive Profile" })}
                     id="s_preferred_handle"
                     placeholder="pambeesly"
                     disabled={!isEditting}
-                    required
                 />
             </Field>
             <Field label="Full name" error={errors?.fullname}>
@@ -593,7 +591,6 @@ const EditExecutive = () => {
 
             <div className="collapse">
                 <input type="checkbox"
-                    // {...register("website_or_blog")}
                     className="collapse-checkbox"
                     checked={haveWebsiteBlog}
                     onChange={(e) => {

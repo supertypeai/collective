@@ -37,7 +37,6 @@ const WordPressBlogroll = ({ wp_data }) => {
                     className="link"
                 >
                     <h4 style={{ fontSize: "0.875rem", lineHeight: "1rem" }}>
-                        {/* {JSON.stringify(post.title)} */}
                         {post.title}
                     </h4>
                 </a>

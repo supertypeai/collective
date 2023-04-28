@@ -33,7 +33,7 @@ const updateInference = (setIsSyncing, isLoggedIn, superinference, setSuperinfer
                 // save githubInference in local storage
                 localStorage.setItem("githubInference", JSON.stringify({
                     ...d,
-                    v: "0.2.9",
+                    v: "0.2.11",
                     updated_at: new Date()
                 }));
 
@@ -42,7 +42,7 @@ const updateInference = (setIsSyncing, isLoggedIn, superinference, setSuperinfer
                     ...superinference,
                     "superinference": {
                         ...d,
-                        v: "0.2.9",
+                        v: "0.2.11",
                         updated_at: new Date()
                     }
                 });
@@ -202,18 +202,17 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
         )
 
         return (
-            <div className="">
+            <div>
                 <span className="text-2xl font-bold">
-                    🪄 Inference from GitHub
+                    Inference from GitHub
                 </span>
-                <div className="flex flex-wrap -mx-3">
-                    <div className="w-full md:w-5/12 px-3 mb-0">
+                <div className="flex flex-wrap">
+                    <div className="w-full md:w-5/12 mb-0">
                         <Field label="Your GitHub Account" hint={`${isEditting ? "Please make sure to click the 'Save Changes' button after syncing your GitHub account." : ""}`}
                             error={errors?.github_handle}
                         >
                             <div className="flex items-center space-x-4">
                                 <Image className="w-10 h-10 rounded-full" src={isLoggedIn.githubUser.user_metadata.avatar_url} width={100} height={100} alt={isLoggedIn.githubUser.user_metadata.full_name} />
-                                {/* <img className="w-10 h-10 rounded-full" src="/docs/images/people/profile-picture-5.jpg" alt=""/> */}
                                 <div className="font-medium dark:text-white">
                                     <div>{isLoggedIn.githubUser.user_metadata.full_name}</div>
                                     <div className="text-sm text-gray-400">({isLoggedIn.githubUser.user_metadata.preferred_username}): <small>Updated on: {new Date(superinference.superinference.updated_at).toDateString()}</small></div>
@@ -273,7 +272,6 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
             updateInference(setIsSyncing, isLoggedIn, superinference, setSuperinference);
             setEdit(false);
         }
-        console.log('effect is running')
     }, [edit, setEdit]);
 
     return (
@@ -281,7 +279,7 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
             <fieldset>
                 <legend>
                     <span className="text-2xl font-bold">
-                        💡 Miscellaneous Details
+                        Miscellaneous Details
                         <button
                             type="button"
                             onClick={() => setIsEditting(true)}
@@ -323,12 +321,12 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
                         disabled={!isEditting}
                     />
                 </Field>
-                <div className="flex flex-wrap -mx-3 mb-3">
-                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <div className="flex flex-wrap mb-3">
+                    <div className="w-full pr-3 mb-6 md:mb-0">
 
-                        <Field label="WordPress Site ID (Optional)"
+                        <Field label="Medium Link or WordPress Site ID (Optional)"
                             hint={<>
-                                <label htmlFor="wp-helper" className="link link-info hover:text-gray-400"><Tooltip />Optional article blogroll if you write on WordPress</label>. Use the root domain for self-hosted WordPress sites.</>
+                                <label htmlFor="wp-helper" className="link link-info hover:text-gray-400"><Tooltip />Optional article blogroll if you write on WordPress</label> or Medium. Use the Medium link or root domain for self-hosted WordPress sites.</>
                             }
                         >
                             <Input
@@ -339,8 +337,8 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
                             />
                         </Field>
                     </div>
-                    <div className="w-full md:w-1/2 px-3">
-                        <Field label="WordPress Author ID (Optional)"
+                    <div className="w-full pl-3">
+                        <Field label="https://medium.com/@username OR WordPress Author ID (Optional)"
                             hint="This is your Author ID on WordPress. You can find it in your WordPress profile or in the URL of your author page."
                         >
                             <Input
@@ -413,10 +411,5 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
         </Form>
     )
 }
-
-// const RegistrationCompletedNonSSR = dynamic(() => Promise.resolve(RegistrationCompleted), {
-//     ssr: false,
-// })
-
 
 export default EditMiscellaneousDetails

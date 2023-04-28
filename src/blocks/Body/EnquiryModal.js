@@ -46,9 +46,8 @@ const onCreateScreenshot = async () => {
 }
 
 const EnquiryModal = ({ children }) => {
-    const { isLoggedIn } = useContext(AppContext);
     // isLoggedIn contains the token we can use in our fetch calls
-    console.log("isloggedin", isLoggedIn)
+    const { isLoggedIn } = useContext(AppContext);
 
     useEffect(() => {
         onCreateScreenshot();

@@ -25,7 +25,6 @@ const GithubMonthlyCommit = ({ data }) => {
                     data: { fill: ({ datum }) => datum.y > 3 ? "#c39f61" : "#b1976b ", width: 30, fillOpacity: 0.75 },
                     labels: {
                         fontSize: 12,
-                        // fill: "white",
                     }
                 }}
                 data={data}
@@ -36,7 +35,6 @@ const GithubMonthlyCommit = ({ data }) => {
                 }}
                 labelComponent={<VictoryTooltip />}
             // disable guides 
-
             />
         </VictoryChart>
     );

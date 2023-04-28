@@ -5,16 +5,16 @@ import { supabase } from "@/lib/supabaseClient";
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { EditContext } from "@/contexts/EditContext";
-import { Field, Form } from "@/blocks/Form"
+import { Form } from "@/blocks/Form"
 import stackSectionChoices from "@/data/stackSectionChoices.json"
 import { PillsFromStack } from "@/components/PillsFromStack";
 import AddedToStack from "@/components/AddedToStack";
 
-const EditStackDetails = ({ nextFormStep }) => {
+const EditStackDetails = () => {
 
     const context = useContext(EditContext);
     const [form, setForm] = context.f
-    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm({ defaultValues: form, mode: "onSubmit" });
+    const { handleSubmit, reset } = useForm({ defaultValues: form, mode: "onSubmit" });
     const [isEditting, setIsEditting] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -164,10 +164,10 @@ const EditStackDetails = ({ nextFormStep }) => {
         <div className="max-w-6xl grid grid-cols-5">
             <div className="w-full col-span-12 lg:col-span-3">
                 <Form onSubmit={handleSubmit(saveData)}>
-                    <fieldset>
+                    <fieldset className="mr-8">
                         <legend>
                             <span className="text-2xl font-bold">
-                                🛠️ Configure Tech Stack
+                                Configure Tech Stack
                                 <button 
                                     type="button" 
                                     onClick={() => setIsEditting(true)}
@@ -214,13 +214,7 @@ const EditStackDetails = ({ nextFormStep }) => {
                             ) : isSubmitting ? (
                                 <button type="submit" className="btn btn-warning text-black" disabled>Saving Changes...</button>
                             ) : (
-                                <button 
-                                    type="button" 
-                                    className="btn btn-primary text-white"
-                                    onClick={() => nextFormStep()}
-                                >
-                                    Next {">"}
-                                </button>
+                                <></>
                             )
                         }
                     </fieldset>
@@ -228,7 +222,7 @@ const EditStackDetails = ({ nextFormStep }) => {
             </div>
             {
                 (stackExamples && Object.values(stackExamples).some((el) => el.selected.length > 0)) &&
-                <AddedToStack stackExamples={stackExamples} setStackExamples={setStackExamples} isEditting={isEditting} />
+                <AddedToStack stackExamples={stackExamples} setStackExamples={setStackExamples} isEditting={isEditting} profile={true}/>
             }
         </div>
     )

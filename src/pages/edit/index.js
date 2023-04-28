@@ -5,7 +5,6 @@ import { AppContext } from "@/contexts/AppContext";
 import { EditContext } from "@/contexts/EditContext";
 
 import { Mainframe } from "@/blocks/Mainframe";
-import FormBlock from "@/blocks/Form/FormBlock";
 import EditPersonalDetails from "@/components/EditPersonalDetails";
 import EditStackDetails from "@/components/EditStackDetails";
 import EditAffiliationDetails from "@/components/EditAffiliationDetails";
@@ -21,10 +20,7 @@ const EditForm = () => {
     const params = new URLSearchParams(asPath);
     const providerToken = params.get('provider_token');
 
-    const [formStep, setFormStep] = useState(providerToken ? 3 : 0);
-
-    const nextFormStep = () => setFormStep((currentStep) => currentStep + 1);
-    const prevFormStep = () => setFormStep((currentStep) => currentStep - 1);
+    const [activePage, setActivePage] = useState(providerToken ? "other" : "personal");
 
     const { isLoggedIn } = useContext(AppContext);
 
@@ -32,7 +28,7 @@ const EditForm = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [edit, setEdit] = useState(providerToken ? true : false);
     const [profileType, setProfileType] = useState("github");
-
+    
     useEffect(() => {
         if (isLoggedIn?.githubUser?.id) {
             setIsLoading(true);
@@ -60,23 +56,61 @@ const EditForm = () => {
     if (profileType === "github") {
         return (
             <EditContext.Provider value={{ f: [state, setState] }}>
-                <FormBlock
-                    currentStep={formStep}
-                    prevFormStep={prevFormStep}
-                    profile={true}
-                >
-                    {formStep === 0 && (
-                        <EditPersonalDetails nextFormStep={nextFormStep} />
-                    )}
-                    {formStep === 1 && (
-                        <EditStackDetails formStep={formStep} nextFormStep={nextFormStep} />
-                    )}
-                    {formStep === 2 && (
-                        <EditAffiliationDetails formStep={formStep} nextFormStep={nextFormStep} />
-                    )}
-
-                    {formStep === 3 && <EditMiscellaneousDetails edit={edit} setEdit={setEdit} />}
-                </FormBlock>
+                <div className="drawer drawer-mobile h-full my-6">
+                    <input id="side-drawer" type="checkbox" className="drawer-toggle"/>
+                    <div className="lg:drawer-side mr-3">
+                        <label htmlFor="side-drawer" className="drawer-overlay"></label>
+                        <ul className="menu w-50 text-base-content">
+                            <li className={activePage === "personal" ? "bordered" : ""}> 
+                                <a onClick={() => setActivePage("personal")}>🧑‍💼 Personal Details</a>
+                            </li>
+                            <li className={activePage === "stack" ? "bordered" : ""}>
+                                <a onClick={() => setActivePage("stack")}>🛠️ Tech Stacks</a>
+                            </li>
+                            <li className={activePage === "work" ? "bordered" : ""}> 
+                                <a onClick={() => setActivePage("work")}>💼 Affiliations &#38; Work</a>
+                            </li>
+                            <li className={activePage === "other" ? "bordered" : ""}>
+                                <a onClick={() => setActivePage("other")}>🪄 Miscellaneous Details</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="lg:drawer-content">
+                        <div>
+                            <label
+                                htmlFor="side-drawer"
+                                className="btn btn-primary drawer-button hidden"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-6 w-6"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    strokeWidth={2}
+                                >
+                                    <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M4 6h16M4 12h16M4 18h16"
+                                    />
+                                </svg>
+                            </label>
+                            <div className="flex flex-col mt-6 lg:mt-0">
+                                {activePage === "personal" && (
+                                    <EditPersonalDetails />
+                                )}
+                                {activePage === "stack" && (
+                                    <EditStackDetails />
+                                )}
+                                {activePage === "work" && (
+                                    <EditAffiliationDetails />
+                                )}
+                                {activePage === "other" && <EditMiscellaneousDetails edit={edit} setEdit={setEdit} />}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </EditContext.Provider>
         )
     } else {
@@ -92,7 +126,7 @@ const EditForm = () => {
 const Page = () => {
     return (
         <Mainframe title="Edit Profile | Supertype Collective">
-            <h1 className="text-4xl font-bold">Edit Profile</h1>
+            <h1 className="text-4xl font-bold">Profile Editor</h1>
             <EditForm />
         </Mainframe>
     );

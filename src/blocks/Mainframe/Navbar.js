@@ -17,9 +17,6 @@ const onCreatePDF = async () => {
     };
     // Promise-based usage:
     await html2pdf().set(opt).from(element).save();
-
-    // const pdf = await html2pdf().from(document.body).toPdf().get('pdf');
-    // pdf.save();
 }
 
 export async function signInWithGitHub() {
@@ -37,7 +34,7 @@ export async function signInWithGitHub() {
 
 export const LinkToHome = () => {
     return (
-        <Link href="/" className='hover:opacity-60 hover:text-amber-900 hover:opacity-100 dark:hover:text-amber-200'>
+        <Link href="/" className='hover:opacity-100 hover:text-amber-900 dark:hover:text-amber-200'>
             <Home className="h-8 w-8" /> &nbsp; <span className="font-bold">Collective</span>
         </Link>
     )
@@ -59,7 +56,7 @@ const DownloadPDFBtn = ({ isLoggedIn }) => {
     if (isLoggedIn) {
         return (
             <button onClick={onCreatePDF}
-                className="group hover:border hover:text-amber-200 text-sm px-3 py-1 rounded-md text-sm font-semibold">
+                className="group hover:border hover:text-amber-200 text-sm px-3 py-1 rounded-md font-semibold">
                 <span className='hidden group-hover:inline group-hover:animate-spin'>
                     <Download />
                 </span>
@@ -72,9 +69,8 @@ const DownloadPDFBtn = ({ isLoggedIn }) => {
         // show modal to prompt user to login
         return (
             <>
-                {/* <label onClick={onCreateScreenshot} className="group hover:border hover:text-amber-200 text-sm px-3 py-1 rounded-md text-sm font-semibold hover:cursor-pointer"> */}
                 <label htmlFor="enquire-modal"
-                    className="group hover:border hover:text-amber-200 text-sm px-3 py-1 rounded-md text-sm font-semibold hover:cursor-pointer">
+                    className="group hover:border hover:text-amber-200 text-sm px-3 py-1 rounded-md font-semibold hover:cursor-pointer">
                     <span className='hidden group-hover:inline'>
                         <Download />
                     </span>
@@ -88,9 +84,8 @@ const DownloadPDFBtn = ({ isLoggedIn }) => {
 
 export const Navbar = ({ pdfBtn }) => {
 
-    const { isLoggedIn } = useContext(AppContext);
     // isLoggedIn contains the token we can use in our fetch calls
-    console.log("isloggedin", isLoggedIn)
+    const { isLoggedIn } = useContext(AppContext);
 
     return (
         <div className="navbar ">
@@ -158,11 +153,6 @@ export const Navbar = ({ pdfBtn }) => {
                                 </span>
                             </li>
                         </ul>
-
-                        {/* <button onClick={() => signInWithLinkedIn()}
-                                className="btn btn-ghost btn-circle">
-                                <Image src="/techicons/linkedin_inv.png" alt="LinkedIn Logo" width={25} height={25} />
-                            </button> */}
                     </div>
                 }
             </div>

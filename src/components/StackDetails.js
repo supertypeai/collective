@@ -14,7 +14,6 @@ const StackDetails = ({ nextFormStep }) => {
     const context = useContext(NominateContext);
     const [form, setForm] = context.f
 
-    // const [stackExamples, setStackExamples] = useState({})
     const [stackExamples, setStackExamples] = useLocalStorage("stackExamples", {});
 
     const { register, handleSubmit, watch, formState: { errors } } = useForm({ defaultValues: form, mode: "onSubmit" });
@@ -45,8 +44,6 @@ const StackDetails = ({ nextFormStep }) => {
             alert("Please select at least three tags for each stack");
             return;
         }
-
-        console.log({ ...data, stack: stack });
 
         setForm({ ...data, stack: stack });
         nextFormStep();
@@ -131,10 +128,5 @@ const StackDetails = ({ nextFormStep }) => {
         </div>
     )
 }
-
-// const StackDetailsNonSSR = dynamic(() => Promise.resolve(StackDetails), {
-//     ssr: false,
-// })
-
 
 export default StackDetails

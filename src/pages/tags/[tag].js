@@ -1,7 +1,7 @@
 import { supabase } from "@/lib/supabaseClient";
 import { useQuery, QueryClient, dehydrate } from '@tanstack/react-query'
 import { Mainframe } from '@/blocks/Mainframe'
-import ProfileCard from "@/components/ProfileCard";
+import ProfileCardWide from "@/components/ProfileCardWide";
 import YouInputCTA from "@/components/YouInputCTA";
 import AddDevProfileCTA from "@/components/AddDevProfileCTA";
 import profileTagsChoices from '@/data/profileTagsChoices.json';
@@ -28,7 +28,7 @@ const fetchProfileMatchingTag = async (tag) => {
         .select()
         .eq('accepted', true)
         // profile.tags (jsonb array) contains tag
-        .contains('tags', ['ai'])
+        .contains('tags', [tag])
 
     if (error) {
         throw new Error(error, "Error fetching collective handles")
@@ -37,7 +37,6 @@ const fetchProfileMatchingTag = async (tag) => {
     if (!data) {
         throw new Error("No profiles with this tag")
     }
-    console.log("data", data)
     return data
 }
 
@@ -47,7 +46,7 @@ const useProfilesMatchingTag = (tag) => {
     })
 }
 
-const getTagInfo = (tag, key) => {
+export const getTagInfo = (tag, key) => {
     // match it against profileTagsChoices
     const match = profileTagsChoices.find(item => item.value === tag)
     if (match) {
@@ -93,8 +92,7 @@ export async function getStaticProps({ params }) {
     return {
         props: {
             dehydratedState: dehydrate(queryClient),
-            tag: params.tag,
-            // get tag description too
+            tag: params.tag
         },
     }
 }
@@ -102,7 +100,7 @@ export async function getStaticProps({ params }) {
 const featuredProfiles = (profiles) => {
     return profiles.map((profile) => {
         return (
-            <ProfileCard person={{
+            <ProfileCardWide person={{
                 name: profile.fullname,
                 profileLink: `/p/${profile.s_preferred_handle}`,
                 short: profile.short,
@@ -120,12 +118,11 @@ const Page = ({ tag }) => {
 
     const { data, error, isLoading } = useProfilesMatchingTag(tag)
 
-    console.log("data in body", data)
     return (
         <Mainframe>
             <div className='md:flex items-center'>
                 <div className="md:basis-1/2 w-full mb-4">
-                    <h1 className="text-4xl uppercase font-semibold bg-rose-800 dark:bg-info rounded p-2">
+                    <h1 className="text-4xl uppercase font-semibold dark:text-info rounded p-2">
                         {getTagInfo(tag, 'label')}
                     </h1>
                 </div>
@@ -140,10 +137,10 @@ const Page = ({ tag }) => {
             {!isLoading && !error && data && (
                 <main className='min-h-screen grid grid-cols-3 gap-4 mt-8'>
                     <div className="col-span-3 md:col-span-2">
-                        <h3 className="font-display text-lg font-semibold text-gray-300">Featured Profiles</h3>
+                        <h3 className="font-display text-xl font-semibold text-gray-300">Featured Profiles</h3>
                         <section className="pb-6">
                             <div className="container flex flex-col items-center justify-center mx-auto sm:py-2">
-                                <div className="flex flex-row flex-wrap justify-center mt-4">
+                                <div className="flex flex-row flex-wrap mt-4">
                                     {featuredProfiles(data)}
                                 </div>
                             </div>
@@ -154,13 +151,7 @@ const Page = ({ tag }) => {
                         <AddDevProfileCTA />
                     </div>
                 </main>
-            )
-            }
-
-
-
-
-
+            )}
         </Mainframe>
     )
 }

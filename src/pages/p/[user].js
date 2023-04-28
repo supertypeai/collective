@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabaseClient";
 import { useQuery, QueryClient, dehydrate } from '@tanstack/react-query'
+import { parse } from 'rss-to-json'
 import { Mainframe } from '@/blocks/Mainframe'
 import Toprow from '@/blocks/Toprow'
 import Body from '@/blocks/Body'
@@ -22,11 +23,27 @@ const fetchUser = async (user) => {
         throw new Error("No such user in the database")
     }
 
-    if (data && data['wp_blog_root_url'] && data['wp_blog_author_id']) {
+    if (data && data['wp_blog_root_url'] && (data['wp_blog_author_id'] || data['wp_blog_root_url'].startsWith("https://medium.com"))) {
         let url = '';
-        // check if this root url is numeric or not
+        // check if this root url is from medium and is numeric or not
 
-        if (!data['wp_blog_root_url'].includes('.')) {
+        if (data['wp_blog_root_url'].startsWith("https://medium.com")) {
+            const username = data['wp_blog_root_url'].split("@")[1]
+            url = `https://medium.com/feed/@${username}`;
+            const res_wp = await parse(url);
+            const wp_data = res_wp['items'].slice(0, 5).map(post => {
+                return {
+                    id: post.id.split("/p/")[1],
+                    title: post.title,
+                    link: post.link,
+                    date: post.published,
+                    excerpt: {
+                        rendered: post.description ? post.description.split("Continue reading on")[0] : "<p></p>"
+                    }
+                }
+            });
+            data['wp'] = wp_data;
+        } else if (!data['wp_blog_root_url'].includes('.')) {
             url = `https://public-api.wordpress.com/rest/v1.1/sites/${data['wp_blog_root_url']}/posts?author=${data['wp_blog_author_id']}&number=5&fields=id,URL,title,date,excerpt`
             const res_wp = await fetch(url)
             const wp_data = await res_wp.json();
@@ -95,7 +112,6 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
     // Access the client
-    // const queryClient = useQueryClient()
     const queryClient = new QueryClient()
 
     await queryClient.prefetchQuery({
@@ -113,9 +129,7 @@ export async function getStaticProps({ params }) {
 
 const Profile = (props) => {
 
-    const { isLoading, isError, data, error } = useUser(props.user)
-
-    // return <p>{JSON.stringify(data)}</p>
+    const { data } = useUser(props.user)
 
     return (
         <Mainframe data={data}>

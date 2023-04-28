@@ -70,12 +70,7 @@ const RegistrationCompleted = () => {
 
     const saveData = (data) => {
         const payload = { ...form, ...data };
-        console.log(payload);
-        // setForm({ ...form, ...data });
-
         postToSupabase(payload);
-
-
     };
 
     return (
@@ -101,21 +96,21 @@ const RegistrationCompleted = () => {
                     />
                 </Field>
                 <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <div className="w-full px-3 mb-6 md:mb-0">
 
-                        <Field label="WordPress Site ID (Optional)"
+                        <Field label="Medium Link or WordPress Site ID (Optional)"
                             hint={<>
-                                <label htmlFor="wp-helper" className="link link-info hover:text-gray-400"><Tooltip />Optional article blogroll if you write on WordPress</label>. Use the root domain for self-hosted WordPress sites.</>
+                                <label htmlFor="wp-helper" className="link link-info hover:text-gray-400"><Tooltip />Optional article blogroll if you write on WordPress</label> or Medium. Use the Medium link or the root domain for self-hosted WordPress sites.</>
                             }
                         >
                             <Input
                                 {...register("wp_blog_root_url")}
                                 id="wp_blog_root_url"
-                                placeholder="self-hosted-site.com OR 2384101920 (WordPress.com Site ID)"
+                                placeholder="https://medium.com/@username OR self-hosted-site.com OR 2384101920 (WordPress.com Site ID)"
                             />
                         </Field>
                     </div>
-                    <div className="w-full md:w-1/2 px-3">
+                    <div className="w-full px-3">
                         <Field label="WordPress Author ID (Optional)"
                             hint="This is your Author ID on WordPress. You can find it in your WordPress profile or in the URL of your author page."
                         >
@@ -167,10 +162,5 @@ const RegistrationCompleted = () => {
         </Form>
     )
 }
-
-// const RegistrationCompletedNonSSR = dynamic(() => Promise.resolve(RegistrationCompleted), {
-//     ssr: false,
-// })
-
 
 export default RegistrationCompleted

@@ -1,11 +1,13 @@
-import { useEffect, useContext } from "react";
-import Link from "next/link";
+import { useEffect } from "react";
+import Image from "next/image";
 import { Mainframe } from "@/blocks/Mainframe";
 import YouInputCTA from "@/components/YouInputCTA";
 import ProfileCard from "@/components/ProfileCard";
-import { AppContext } from "@/contexts/AppContext";
 import AddDevProfileCTA from "@/components/AddDevProfileCTA";
+import PopularTagBadge from "@/components/PopularTagBadge";
+
 import styles from '@/styles/Home.module.css'
+import Link from "next/link";
 
 const AurelliaProfile = () => {
     return <ProfileCard person={{
@@ -147,6 +149,25 @@ const YevonnaelProfile = () => {
     }} />
 }
 
+const NoelProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://avatars.githubusercontent.com/u/8803461?v=4",
+        name: "Noel Chew",
+        profileLink: "/p/noelchew",
+        short: "Mobile Application Developer and software entrepreneur @Yuno Solutions",
+        tags: ['Mobile', 'Server', 'Frontend']
+    }} />
+}
+
+const MatheusProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://avatars.githubusercontent.com/u/21157504?v=4",
+        name: "Matheus Aaron",
+        profileLink: "/p/pwaaron",
+        short: "Marketing Analytics @Shopee and former teaching assistant (python) @National University of Singapore",
+        tags: ['AI', 'Database', 'Backend']
+    }} />
+}
 
 
 const PopularTags = () => {
@@ -155,22 +176,9 @@ const PopularTags = () => {
             <h3 className="text-lg font-semibold">🔥 Popular Tags</h3>
 
             <div className="flex justify-center w-full text-center mt-2">
-                <div className="bg-gray-100 text-white bg-opacity-10 mx-1 py-1 px-[4px] rounded">
-                    <Link href="/tags/ai" className="text-[0.7rem] flex">
-                        Artificial Intelligence <div className="badge badge-info badge-sm px-1 self-center ml-1">8</div>
-                    </Link>
-                </div>
-                <div className="bg-gray-100 text-white bg-opacity-10 mx-1 py-1 px-[4px] rounded">
-                    <Link href="/tags/data-science" className="text-[0.7rem] flex">
-                        Data Science <div className="badge badge-info badge-sm px-1 self-center ml-1">10+</div>
-                    </Link>
-                </div>
-                <div className="bg-gray-100 text-white bg-opacity-10 mx-1 py-1 px-[4px] rounded">
-                    <Link href="/tags/machine-learning" className="text-[0.7rem] flex">
-                        Machine Learning <div className="badge badge-info badge-sm px-1 self-center ml-1">10+</div>
-                    </Link>
-                </div>
-
+                <PopularTagBadge slug="ai" count="8" />
+                <PopularTagBadge slug="data-science" count="10+" />
+                <PopularTagBadge slug="machine-learning" count="10+" />
             </div>
         </div>
     )
@@ -178,8 +186,6 @@ const PopularTags = () => {
 
 
 const Page = () => {
-
-    const { isLoggedIn } = useContext(AppContext);
 
     // remove typewriter effect after 5 seconds
     useEffect(() => {
@@ -231,7 +237,9 @@ const Page = () => {
                                 <FiqeyProfile />
                                 <OwennProfile />
                                 <YevonnaelProfile />
+                                <NoelProfile />
                                 <FendyProfile />
+                                <MatheusProfile />
                             </div>
                             <div className={styles.description}>
                                 <div>
@@ -243,8 +251,53 @@ const Page = () => {
                 </div>
                 <div className="col-span-3 md:col-span-1 order-first lg:order-last">
                     <YouInputCTA />
-                    <AddDevProfileCTA />
                     <PopularTags />
+                    <div className="mt-4">
+                        <h3 className="text-lg font-semibold my-4">🚧 Collective is building...</h3>
+                        {/* flex to fit 2 in a row on large screens*/}
+                        <div className="flex flex-col md:flex-row md:space-x-4">
+
+                            <div className="card w-44 bg-base-100 shadow-xl image-full">
+                                <figure>
+                                    <Image src="https://raw.githubusercontent.com/supertypeai/collective/main/assets/lightdark.webp"
+                                        alt="Supertype Collective"
+                                        width={400}
+                                        height={200}
+                                    />
+                                </figure>
+                                <div className="card-body p-4">
+                                    <h2 className="card-title">Supertype Collective</h2>
+                                    <p className="text-xs">Supertype Collective is a community of analytics developers, data scientists and engineering leaders building products across the full stack.</p>
+                                    <div className="card-actions justify-end">
+                                        <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
+                                            href="/r/collective"
+                                        >Explore</Link>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card w-44 bg-base-100 shadow-xl image-full">
+                                <figure>
+                                    <Image src="https://raw.githubusercontent.com/onlyphantom/generations-frontend/main/public/supertype_fellowship_p.png"
+                                        alt="Supertype Fellowship"
+                                        width={400}
+                                        height={200}
+                                    />
+                                </figure>
+                                <div className="card-body p-4">
+                                    <h2 className="card-title">Supertype Fellowship</h2>
+                                    <p className="text-xs">A self-paced Development program where participants learn analytics and software engineering by building real-world projects with a community of peers and mentors.</p>
+                                    <div className="card-actions justify-end">
+                                        <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
+                                            href="https://fellowship.supertype.ai"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >Explore</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <AddDevProfileCTA />
                 </div>
             </main>
         </Mainframe >

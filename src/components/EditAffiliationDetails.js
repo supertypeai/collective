@@ -27,7 +27,7 @@ function StableSelect({ ...props }) {
     return <Select {...props} instanceId={useId()} />;
 }
 
-const EditAffiliationDetails = ({ nextFormStep }) => {
+const EditAffiliationDetails = () => {
 
     const context = useContext(EditContext);
     const [form, setForm] = context.f
@@ -148,7 +148,6 @@ const EditAffiliationDetails = ({ nextFormStep }) => {
                     name={`affiliations.org${id}.currentWorkHere`}
                     disabled={!isEditting}
                     {...register(`affiliations.org${id}.currentWorkHere`)}
-                // checked
                 />
                 <span className="label-text">Currently work here</span>
             </>
@@ -239,7 +238,7 @@ const EditAffiliationDetails = ({ nextFormStep }) => {
         return (
             <div className="my-4">
                 <div className="divider">{`First Affiliation (Required)`}</div>
-                <div className="flex flex-wrap -mx-3 mb-6">
+                <div className="flex flex-wrap mb-6">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <Field label="Organization / Company" error={errors?.affiliations?.org1?.title}>
                             <OrganizationNameInput id="1" />
@@ -251,7 +250,7 @@ const EditAffiliationDetails = ({ nextFormStep }) => {
                         </Field>
                     </div>
                 </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
+                <div className="flex flex-wrap mb-6">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <Field label="Start Date" error={errors?.affiliations?.org1?.start} hint="Used to create the timeline on your Developer Profile">
                             <StartDate id="1" />
@@ -280,7 +279,7 @@ const EditAffiliationDetails = ({ nextFormStep }) => {
         return (
             <div className="my-4">
                 <div className="divider">{`Second Affiliation (Required)`}</div>
-                <div className="flex flex-wrap -mx-3 mb-6">
+                <div className="flex flex-wrap mb-6">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <Field label="Organization / Company" error={errors?.affiliations?.org2?.title}>
                             <OrganizationNameInput id="2" />
@@ -292,7 +291,7 @@ const EditAffiliationDetails = ({ nextFormStep }) => {
                         </Field>
                     </div>
                 </div>
-                <div className="flex flex-wrap -mx-3 mb-6">
+                <div className="flex flex-wrap mb-6">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <Field label="Start Date" error={errors?.affiliations?.org2?.start} hint="Used to create the timeline on your Developer Profile">
                             <StartDate id="2" />
@@ -321,7 +320,7 @@ const EditAffiliationDetails = ({ nextFormStep }) => {
         return (
             <div className="my-4">
                 <div className="divider">{`Third Affiliation (Optional)`}</div>
-                <div className="flex flex-wrap -mx-3 mb-6">
+                <div className="flex flex-wrap mb-6">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <Field label="Organization / Company" error={errors?.affiliations?.org3?.title}>
                             <OrganizationNameInput id="3" is_required={addThirdAff} />
@@ -359,92 +358,82 @@ const EditAffiliationDetails = ({ nextFormStep }) => {
     }
 
     return (
-        <div className="max-w-6xl grid grid-cols-5">
-            <div className="w-full col-span-12 lg:col-span-12">
-                <Form onSubmit={handleSubmit(saveData)}>
-                    <fieldset>
-                        <legend>
-                            <span className="text-2xl font-bold">
-                                💼 Affiliations &#38; Work
+        <Form onSubmit={handleSubmit(saveData)}>
+            <fieldset>
+                <legend>
+                    <span className="text-2xl font-bold">
+                        Affiliations &#38; Work
+                        <button 
+                            type="button" 
+                            onClick={() => setIsEditting(true)}
+                            hidden={isEditting}
+                        >
+                            <svg 
+                                fill="none" 
+                                stroke="currentColor" 
+                                strokeWidth="1.5" 
+                                viewBox="0 0 24 24" 
+                                xmlns="http://www.w3.org/2000/svg" 
+                                aria-hidden="true"
+                                className="ml-2 mb-1 w-5 inline-block"
+                            >
+                                <path 
+                                    strokeLinecap="round" 
+                                    strokeLinejoin="round" 
+                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                                />
+                            </svg>
+                        </button>
+                    </span>
+                </legend>
+                {renderFirstAffiliation()}
+                {renderSecondAffiliation()}
+
+                <div className="collapse">
+                    <input type="checkbox"
+                        {...register("affiliations.org3.optionally_selected")}
+                        className="collapse-checkbox"
+                        onChange={(e) => {
+                            setAddThirdAff(prev => !prev)
+                        }}
+                        disabled={!isEditting}
+                    />
+                    <div className="collapse-title font-medium underline">
+                        {
+                            isEditting ? (addThirdAff ? "Remove third Affiliation" : "Optionally Add a Third Affiliation") : ""
+                        }
+                    </div>
+                    <div className="collapse-content">
+                        {renderThirdAffiliation()}
+                    </div>
+                </div>
+
+                <div className="my-4">
+                    { 
+                        isEditting ? (
+                            <>
                                 <button 
                                     type="button" 
-                                    onClick={() => setIsEditting(true)}
-                                    hidden={isEditting}
+                                    className="btn btn-secondary text-white mr-3"
+                                    onClick={() => {
+                                        setIsEditting(false)
+                                        reset(form)
+                                        setAddThirdAff(form.affiliations.org3.optionally_selected)
+                                    }}
                                 >
-                                    <svg 
-                                        fill="none" 
-                                        stroke="currentColor" 
-                                        strokeWidth="1.5" 
-                                        viewBox="0 0 24 24" 
-                                        xmlns="http://www.w3.org/2000/svg" 
-                                        aria-hidden="true"
-                                        className="ml-2 mb-1 w-5 inline-block"
-                                    >
-                                        <path 
-                                            strokeLinecap="round" 
-                                            strokeLinejoin="round" 
-                                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                                        />
-                                    </svg>
+                                    Cancel
                                 </button>
-                            </span>
-                        </legend>
-                        {renderFirstAffiliation()}
-                        {renderSecondAffiliation()}
-
-                        <div className="collapse">
-                            <input type="checkbox"
-                                {...register("affiliations.org3.optionally_selected")}
-                                className="collapse-checkbox"
-                                onChange={(e) => {
-                                    setAddThirdAff(prev => !prev)
-                                }}
-                                disabled={!isEditting}
-                            />
-                            <div className="collapse-title font-medium underline">
-                                {
-                                    isEditting ? (addThirdAff ? "Remove third Affiliation" : "Optionally Add a Third Affiliation") : ""
-                                }
-                            </div>
-                            <div className="collapse-content">
-                                {renderThirdAffiliation()}
-                            </div>
-                        </div>
-
-                        <div className="my-4">
-                            { 
-                                isEditting ? (
-                                    <>
-                                        <button 
-                                            type="button" 
-                                            className="btn btn-secondary text-white mr-3"
-                                            onClick={() => {
-                                                setIsEditting(false)
-                                                reset(form)
-                                                setAddThirdAff(form.affiliations.org3.optionally_selected)
-                                            }}
-                                        >
-                                            Cancel
-                                        </button>
-                                        <button type="submit" className="btn btn-warning text-black">Save Changes</button>
-                                    </>
-                                ) : isSubmitting ? (
-                                    <button type="submit" className="btn btn-warning text-black" disabled>Saving Changes...</button>
-                                ) : (
-                                    <button 
-                                        type="button" 
-                                        className="btn btn-primary text-white"
-                                        onClick={() => nextFormStep()}
-                                    >
-                                        Next {">"}
-                                    </button>
-                                )
-                            }
-                        </div>
-                    </fieldset>
-                </Form>
-            </div>
-        </div>
+                                <button type="submit" className="btn btn-warning text-black">Save Changes</button>
+                            </>
+                        ) : isSubmitting ? (
+                            <button type="submit" className="btn btn-warning text-black" disabled>Saving Changes...</button>
+                        ) : (
+                            <></>
+                        )
+                    }
+                </div>
+            </fieldset>
+        </Form>
     )
 }
 
