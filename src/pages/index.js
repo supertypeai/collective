@@ -289,9 +289,7 @@ const Page = () => {
                                     <p className="text-xs">A self-paced Development program where participants learn analytics and software engineering by building real-world projects with a community of peers and mentors.</p>
                                     <div className="card-actions justify-end">
                                         <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
-                                            href="https://fellowship.supertype.ai"
-                                            target="_blank"
-                                            rel="noopener"
+                                            href="/r/fellowship"
                                         >Explore</Link>
                                     </div>
                                 </div>
