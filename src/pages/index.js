@@ -255,14 +255,14 @@ const Page = () => {
                     <div className="mt-4">
                         <h3 className="text-lg font-semibold my-4">🚧 Collective is building...</h3>
                         {/* flex to fit 2 in a row on large screens*/}
-                        <div className="flex flex-col md:flex-row md:space-x-4">
-
-                            <div className="card w-44 bg-base-100 shadow-xl image-full">
+                        <div className="flex flex-col md:flex-row md:space-x-4 space-y-2">
+                            <div className="card w-54 md:w-44 shadow-xl image-full">
                                 <figure>
                                     <Image src="https://raw.githubusercontent.com/supertypeai/collective/main/assets/lightdark.webp"
                                         alt="Supertype Collective"
-                                        width={400}
+                                        width={480}
                                         height={200}
+                                        className="opacity-30"
                                     />
                                 </figure>
                                 <div className="card-body p-4">
@@ -275,12 +275,13 @@ const Page = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="card w-44 bg-base-100 shadow-xl image-full">
+                            <div className="card w-54 md:w-44 shadow-xl image-full">
                                 <figure>
                                     <Image src="https://raw.githubusercontent.com/onlyphantom/generations-frontend/main/public/supertype_fellowship_p.png"
                                         alt="Supertype Fellowship"
-                                        width={400}
-                                        height={200}
+                                        width={480}
+                                        height={180}
+                                        className="opacity-30"
                                     />
                                 </figure>
                                 <div className="card-body p-4">
@@ -288,9 +289,7 @@ const Page = () => {
                                     <p className="text-xs">A self-paced Development program where participants learn analytics and software engineering by building real-world projects with a community of peers and mentors.</p>
                                     <div className="card-actions justify-end">
                                         <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
-                                            href="https://fellowship.supertype.ai"
-                                            target="_blank"
-                                            rel="noopener"
+                                            href="/r/fellowship"
                                         >Explore</Link>
                                     </div>
                                 </div>

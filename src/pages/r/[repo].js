@@ -37,8 +37,10 @@ const fetchProjectHandles = async () => {
 
 const fetchProject = async (handle) => {
     const { data, error } = await supabase
-        .from('members')
-        .select(`*`)
+        .from('project')
+        .select(
+            `*, members:profile(*)`
+        )
         .eq('handle', handle)
         .single();
 
@@ -164,9 +166,9 @@ const Page = () => {
                                                 <li key={member.fullname} className='avatar border-secondary dark:border-info'>
                                                     <div className="tooltip tooltip-bottom" data-tip={member.fullname}>
                                                         <div className='w-12'>
-                                                            <Link href={`/r/${member.s_preferred_handle}`}>
+                                                            <Link href={`/p/${member.s_preferred_handle}`}>
                                                                 <Image
-                                                                    src={member.avatar_url}
+                                                                    src={member.superinference.profile.avatar_url}
                                                                     alt={member.fullname}
                                                                     width={50} height={50}
                                                                 />
