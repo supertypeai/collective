@@ -124,7 +124,7 @@ const StevenProfile = () => {
         imgUrl: "https://media.licdn.com/dms/image/C5603AQGhkBvqkMjz6g/profile-displayphoto-shrink_200_200/0/1593682236390?e=1684972800&v=beta&t=L7tMwyheXMS6onUyua3VmjNU6CnXHEIllbzgzEGg99w",
         name: "Steven Christian",
         profileLink: "/p/auberg",
-        short: "Head of Data Analytics @Danamas. Led teams in building machine learning solutions for companies in the last 3 years.",
+        short: "Head of Data Analytics @Danamas and former mentor @Supertype.ai. Led teams in building machine learning solutions for companies in the last 3 years.",
         tags: ['AI', 'Database']
     }} />
 }
@@ -146,6 +146,16 @@ const YevonnaelProfile = () => {
         profileLink: "/p/yevonnael",
         short: "Cybersecurity and Software Engineer @AAG, Cybersecurity Researcher @Swiss German University. Works in Web3.",
         tags: ['AI', 'Cybersecurity', 'Blockchain', 'Database']
+    }} />
+}
+
+const VitoProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://media.licdn.com/dms/image/C5603AQEJIY10asFC2A/profile-displayphoto-shrink_200_200/0/1599668304059?e=1688601600&v=beta&t=sclBjHd2_jp3oAGki83MJ76Tm1a7-6Mh3pX03JVtY3k",
+        name: "Vito Ghifari",
+        profileLink: "/p/vito",
+        short: "Data Scientist @Supertype.ai. Develops machine learning applications for portfolio companies.",
+        tags: ['AI', 'DataOps', 'API', 'Server', 'Database']
     }} />
 }
 
@@ -237,6 +247,7 @@ const Page = () => {
                                 <FiqeyProfile />
                                 <OwennProfile />
                                 <YevonnaelProfile />
+                                <VitoProfile />
                                 <NoelProfile />
                                 <FendyProfile />
                                 <MatheusProfile />
