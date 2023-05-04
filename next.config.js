@@ -6,6 +6,7 @@ const nextConfig = {
       'supertype.ai',
       'raw.githubusercontent.com',
       'avatars.githubusercontent.com',
+      'user-images.githubusercontent.com',
       // linkedin
       'media-exp1.licdn.com',
       'media.licdn.com',

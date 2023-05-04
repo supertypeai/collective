@@ -308,18 +308,42 @@ const Page = () => {
                         </div>
                         {/* second row on large screens */}
                         <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 mt-2">
-                            <div className="card card-side w-54 shadow-xl bg-gray-100 bg-opacity-10">
+                            <div className="card w-54 shadow-xl image-full bg-gray-100 bg-opacity-10">
                                 <figure>
-                                    <Image src="https://supertype.ai/wp-content/uploads/2023/03/tsa_positive_tweets.png"
-                                        alt="Twitter Sentiment Analyzer"
+                                    <Image src="https://user-images.githubusercontent.com/69706675/236219588-6e970684-b78e-42c4-982b-68f415f1818c.png"
+                                        alt="Superinference"
                                         width={300}
                                         height={240}
                                         className="opacity-30"
                                     />
                                 </figure>
                                 <div className="card-body p-4">
+                                    <h2 className="card-title">Superinference</h2>
+                                    <p className="text-xs">Superinference is a library that infers analysis-ready attributes from a person's social media username or unique identifier and returns them as JSON objects.
+
+                                        It supports both token-based (OAuth) authorization for authenticated requests and unauthenticated requests for public data.</p>
+                                    <div className="card-actions justify-end">
+                                        <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
+                                            href="/r/superinference"
+                                        >Explore</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* third row on large screens */}
+                        <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 mt-2">
+                            <div className="card w-54 md:w-46 shadow-xl image-full">
+                                <figure>
+                                    <Image src="https://supertype.ai/wp-content/uploads/2023/03/tsa_positive_tweets.png"
+                                        alt="Twitter Sentiment Analyzer"
+                                        width={480}
+                                        height={180}
+                                        className="opacity-30"
+                                    />
+                                </figure>
+                                <div className="card-body p-4">
                                     <h2 className="card-title">Twitter Sentiment Analyzer</h2>
-                                    <p className="text-xs">Performs sentiment analysis on the latest tweets based on the entered search term</p>
+                                    <p className="text-xs">A web app that performs sentiment analysis on the latest tweets based on the entered search term</p>
                                     <div className="card-actions justify-end">
                                         <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
                                             href="/r/twitter-sentiment"
@@ -327,8 +351,49 @@ const Page = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className="card w-54 md:w-46 shadow-xl image-full">
+                                <figure>
+                                    <Image src="https://raw.githubusercontent.com/supertypeai/wordpress-posts-react/main/assets/wordpress-blog-feed.png"
+                                        alt="Wordpress-posts-react"
+                                        width={300}
+                                        height={240}
+                                        className="opacity-30"
+                                    />
+                                </figure>
+                                <div className="card-body p-4">
+                                    <h2 className="card-title">wordpress-posts-react</h2>
+                                    <p className="text-xs">A lightweight (&lt;3 kb minified!) set of React hooks &amp; components to asynchronously fetch and display WordPress posts.</p>
+                                    <div className="card-actions justify-end">
+                                        <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
+                                            href="/r/wordpress-posts-react"
+                                        >Explore</Link>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        {/* third row on large screens */}
+                        {/* fourth row on large screens */}
+                        <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 mt-2">
+                            <div className="card card-side w-54 md:w-46 shadow-xl">
+                                <figure>
+                                    <Image src="https://raw.githubusercontent.com/divakartika/nomiden/main/images/nomiden2.png"
+                                        alt="nomiden"
+                                        width={300}
+                                        height={240}
+                                        className="opacity-30"
+                                    />
+                                </figure>
+                                <div className="card-body p-4">
+                                    <h2 className="card-title">Nomiden</h2>
+                                    <p className="text-xs">enriches your data from Indonesian ID Numbers, i.e. personal ID number (Nomor Induk Kependudukan, "NIK") and family ID number (Kartu Keluarga, "KK").</p>
+                                    <div className="card-actions justify-end">
+                                        <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
+                                            href="/r/nomiden"
+                                        >Explore</Link>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                     <AddDevProfileCTA />
                 </div>
