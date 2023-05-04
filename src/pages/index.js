@@ -319,7 +319,7 @@ const Page = () => {
                                 </figure>
                                 <div className="card-body p-4">
                                     <h2 className="card-title">Superinference</h2>
-                                    <p className="text-xs">Superinference is a library that infers analysis-ready attributes from a person's social media username or unique identifier and returns them as JSON objects.
+                                    <p className="text-xs">Superinference is a library that infers analysis-ready attributes from a person&apos;s social media username or unique identifier and returns them as JSON objects.
 
                                         It supports both token-based (OAuth) authorization for authenticated requests and unauthenticated requests for public data.</p>
                                     <div className="card-actions justify-end">
@@ -384,7 +384,7 @@ const Page = () => {
                                 </figure>
                                 <div className="card-body p-4">
                                     <h2 className="card-title">Nomiden</h2>
-                                    <p className="text-xs">enriches your data from Indonesian ID Numbers, i.e. personal ID number (Nomor Induk Kependudukan, "NIK") and family ID number (Kartu Keluarga, "KK").</p>
+                                    <p className="text-xs">enriches your data from Indonesian ID Numbers, i.e. personal ID number (Nomor Induk Kependudukan, &quot;NIK&quot;) and family ID number (Kartu Keluarga).</p>
                                     <div className="card-actions justify-end">
                                         <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
                                             href="/r/nomiden"
