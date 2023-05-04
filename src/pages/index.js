@@ -267,7 +267,7 @@ const Page = () => {
                         <h3 className="text-lg font-semibold my-4">🚧 Collective is building...</h3>
                         {/* flex to fit 2 in a row on large screens*/}
                         <div className="flex flex-col md:flex-row md:space-x-4 space-y-2">
-                            <div className="card w-54 md:w-44 shadow-xl image-full">
+                            <div className="card w-54 md:w-46 shadow-xl image-full">
                                 <figure>
                                     <Image src="https://raw.githubusercontent.com/supertypeai/collective/main/assets/lightdark.webp"
                                         alt="Supertype Collective"
@@ -286,7 +286,7 @@ const Page = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="card w-54 md:w-44 shadow-xl image-full">
+                            <div className="card w-54 md:w-46 shadow-xl image-full">
                                 <figure>
                                     <Image src="https://raw.githubusercontent.com/onlyphantom/generations-frontend/main/public/supertype_fellowship_p.png"
                                         alt="Supertype Fellowship"
@@ -306,6 +306,29 @@ const Page = () => {
                                 </div>
                             </div>
                         </div>
+                        {/* second row on large screens */}
+                        <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 mt-2">
+                            <div className="card card-side w-54 shadow-xl bg-gray-100 bg-opacity-10">
+                                <figure>
+                                    <Image src="https://supertype.ai/wp-content/uploads/2023/03/tsa_positive_tweets.png"
+                                        alt="Twitter Sentiment Analyzer"
+                                        width={300}
+                                        height={240}
+                                        className="opacity-30"
+                                    />
+                                </figure>
+                                <div className="card-body p-4">
+                                    <h2 className="card-title">Twitter Sentiment Analyzer</h2>
+                                    <p className="text-xs">Performs sentiment analysis on the latest tweets based on the entered search term</p>
+                                    <div className="card-actions justify-end">
+                                        <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
+                                            href="/r/twitter-sentiment"
+                                        >Explore</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* third row on large screens */}
                     </div>
                     <AddDevProfileCTA />
                 </div>
