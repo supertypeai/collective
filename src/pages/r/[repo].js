@@ -9,7 +9,7 @@ import PopularTagBadge from "@/components/PopularTagBadge";
 const Technologies = ({ tags }) => {
     return <div className='mt-4'>
         <h5 className='font-semibold'>Technologies</h5>
-        <div className="flex w-full text-center mt-2">
+        <div className="flex flex-wrap w-full text-center mt-2">
             {
                 tags.map((tag) => (
                     <PopularTagBadge slug={tag} link={false} key={tag} />
