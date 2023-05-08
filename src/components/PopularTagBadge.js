@@ -16,7 +16,7 @@ const PopularTagBadge = ({ slug, count, link = true }) => {
                             </div>
                         }
                     </Link>
-                    : <span className="text-[0.7rem] flex">
+                    : <span className="text-[0.7rem] flex whitespace-nowrap">
                         {getTagInfo(slug, 'label')}
                     </span>
 

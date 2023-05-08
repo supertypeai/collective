@@ -306,7 +306,29 @@ const Page = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* second row on large screens */}
+                        {/* second banner row on large screens */}
+                        <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 mt-2">
+                            <div className="card w-54 shadow-xl image-full bg-black-900 bg-opacity-90">
+                                <figure>
+                                    <Image src="https://supertype.ai/wp-content/uploads/2022/09/S-Lanscape-02-1024x576.jpg"
+                                        alt="Supertype Summary"
+                                        width={420}
+                                        height={240}
+                                        className="opacity-30"
+                                    />
+                                </figure>
+                                <div className="card-body p-4">
+                                    <h2 className="card-title">Supertype Summary</h2>
+                                    <p className="text-xs">Supertype Summary generates highly polished, analysis-driven PDF reports of any Google Play apps in minutes with <i>no human input</i> by unleashing state-of-the-art NLP on user-generated app reviews. It summarizes key findings, and help identify key factors in your app experience in a way that is fully automatic and reliable.</p>
+                                    <div className="card-actions justify-end">
+                                        <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
+                                            href="/r/summary"
+                                        >Explore</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* third banner row on large screens */}
                         <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 mt-2">
                             <div className="card w-54 shadow-xl image-full bg-gray-100 bg-opacity-10">
                                 <figure>
@@ -330,7 +352,7 @@ const Page = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* third row on large screens */}
+                        {/* fourth grid row on large screens */}
                         <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 mt-2">
                             <div className="card w-54 md:w-46 shadow-xl image-full">
                                 <figure>
@@ -371,7 +393,7 @@ const Page = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* fourth row on large screens */}
+                        {/* fifth grid row on large screens */}
                         <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 mt-2">
                             <div className="card card-side w-54 md:w-46 shadow-xl">
                                 <figure>
