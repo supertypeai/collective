@@ -420,7 +420,7 @@ const EditExecutive = () => {
     }
 
     return (
-        <Form onSubmit={handleSubmit(saveData)} className="mt-4 max-w-7xl xl:px-8">
+        <Form onSubmit={handleSubmit(saveData)} className="mt-4 max-w-7xl">
             <fieldset>
                 <span className="text-2xl font-bold">
                     👔 Personal Details
