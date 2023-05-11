@@ -1,0 +1,14 @@
+[  
+    {    
+        "value": "active",    
+        "label": "Active"  
+    },  
+    {    
+        "value": "building",    
+        "label": "Building"  
+    },  
+    {    
+        "value": "inactive",    
+        "label": "Inactive"  
+    }
+]
