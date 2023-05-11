@@ -73,7 +73,7 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
         show_repo: form.show_repo
     });
 
-    const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: form, mode: "onSubmit" });
+    const { register, handleSubmit, formState: { errors }, reset } = useForm({ defaultValues: form, mode: "onSubmit" });
 
     const queryClient = useQueryClient();
     const { mutate: updateForm } = useMutation(
@@ -322,7 +322,7 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
                     />
                 </Field>
                 <div className="flex flex-wrap mb-3">
-                    <div className="w-full pr-3 mb-6 md:mb-0">
+                    <div className="w-full mb-6 md:mb-0">
 
                         <Field label="Medium Link or WordPress Site ID (Optional)"
                             hint={<>
@@ -332,13 +332,13 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
                             <Input
                                 {...register("wp_blog_root_url")}
                                 id="wp_blog_root_url"
-                                placeholder="self-hosted-site.com OR 2384101920 (WordPress.com Site ID)"
+                                placeholder="https://medium.com/@username OR self-hosted-site.com OR 2384101920 (WordPress.com Site ID)"
                                 disabled={!isEditting}
                             />
                         </Field>
                     </div>
-                    <div className="w-full pl-3">
-                        <Field label="https://medium.com/@username OR WordPress Author ID (Optional)"
+                    <div className="w-full">
+                        <Field label="WordPress Author ID (Optional)"
                             hint="This is your Author ID on WordPress. You can find it in your WordPress profile or in the URL of your author page."
                         >
                             <Input
@@ -359,6 +359,7 @@ const EditMiscellaneousDetails = ({ edit, setEdit }) => {
                                 className="btn btn-secondary text-white mr-3"
                                 onClick={() => {
                                     setIsEditting(false)
+                                    reset(form)
                                     setSuperinference({
                                         superinference: form.superinference,
                                         show_repo: form.show_repo
