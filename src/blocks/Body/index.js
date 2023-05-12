@@ -2,6 +2,7 @@ import { useContext, useCallback } from 'react';
 import WpArticles from "../WpArticles"
 import StackAndAffiliations from './StackAndAffiliations';
 import GitHubProjects from './GitHubProjects';
+import UserProjects from './UserProjects';
 import ContactCard from './ContactCard';
 import RepoTags from './RepoTags';
 import EnquiryModal from './EnquiryModal';
@@ -74,7 +75,7 @@ const Body = ({ stack, affiliations }) => {
                     <div className="col-span-12 text-white lg:col-span-4 justify-center justify-self-center lg:justify-self-start mt-8">
                         <WpArticles wp_data={data['wp']} />
                     </div>
-                    <StackAndAffiliations stack={stack} affiliations={affiliations} />
+                    <StackAndAffiliations stack={stack} affiliations={affiliations} projects={data['projects']} />
                 </div>
 
                 {/* when true, this moves each section to its own div */}
@@ -88,7 +89,7 @@ const Body = ({ stack, affiliations }) => {
     } else {
         return (
             <div className="grid grid-cols-12 grid-flow gap-4 bg-black bg-opacity-30 px-1 sm:px-4 lg:px-8 rounded-b-none auto-rows-max">
-                <StackAndAffiliations stack={stack} affiliations={affiliations} />
+                <StackAndAffiliations stack={stack} affiliations={affiliations} projects={data['projects']} />
                 {autoColumnLayout(data, false)}
                 <EnquiryModal>
                     <h3 className="font-bold text-lg">We&apos;re working on this functionality.</h3>
