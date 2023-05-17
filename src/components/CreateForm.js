@@ -35,7 +35,7 @@ const fetchProfiles = async () => {
   return data;
 };
 
-const CreateForm = () => {
+const CreateForm = ({ setProjectState }) => {
   const { isLoggedIn } = useContext(AppContext);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -96,12 +96,15 @@ const CreateForm = () => {
       d.imgUrl = `https://osfehplavmahboowlueu.supabase.co/storage/v1/object/public/images/project_images/${d.handle}_${imgUpload[0].name}`;
     }
 
-    const { error } = await supabase.from("project").insert([
-      {
-        ...d,
-        created_at: new Date(),
-      },
-    ]);
+    const { data: project, error } = await supabase
+      .from("project")
+      .insert([
+        {
+          ...d,
+          created_at: new Date(),
+        },
+      ])
+      .select("id");
 
     if (
       error?.message ===
@@ -167,6 +170,8 @@ const CreateForm = () => {
             // if successful, alert() for 2 seconds and redirect to home page
             alert("Thank you for submitting! We will review your project.");
             setIsSubmitting(false);
+            reset();
+            setProjectState(false);
           }
         } catch (error) {
           console.error("Error uploading image:", error.message);
@@ -174,6 +179,8 @@ const CreateForm = () => {
       } else {
         alert("Thank you for submitting! We will review your project.");
         setIsSubmitting(false);
+        reset();
+        setProjectState(false);
       }
     }
   };
@@ -197,7 +204,14 @@ const CreateForm = () => {
   return (
     <Form onSubmit={handleSubmit(saveData)}>
       <fieldset>
-        <h3 className="text-2xl font-bold">💻 Project&apos;s Detail</h3>
+        <button
+          onClick={() => setProjectState(false)}
+          type="button"
+          className="text-left"
+        >
+          {"< Back"}
+        </button>
+        <h3 className="text-2xl font-bold">Project&apos;s Detail</h3>
         <p className="text-sm">
           The following details will be used to create your Project Page.
         </p>

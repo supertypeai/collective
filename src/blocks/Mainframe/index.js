@@ -61,7 +61,7 @@ const fetchData = async (userID) => {
   const data = await queryClient.fetchQuery(['profileData', userID], async () => {
     const { data, error } = await supabase
       .from('profile')
-      .select()
+      .select(`*, projects:project(*)`)
       .eq('auth_uuid', userID)
       .single();
 

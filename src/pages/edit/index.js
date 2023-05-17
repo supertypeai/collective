@@ -11,6 +11,7 @@ import EditAffiliationDetails from "@/components/EditAffiliationDetails";
 import EditMiscellaneousDetails from "@/components/EditMiscellaneousDetails";
 import EditExecutive from "@/components/EditExecutive";
 import CreateForm from "@/components/CreateForm";
+import ProjectOverview from "@/components/ProjectOverview";
 
 const EditForm = () => {
 
@@ -29,6 +30,7 @@ const EditForm = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [edit, setEdit] = useState(providerToken ? true : false);
     const [profileType, setProfileType] = useState("github");
+    const [projectState, setProjectState] = useState(false);
     
     useEffect(() => {
         if (isLoggedIn?.githubUser?.id) {
@@ -111,8 +113,10 @@ const EditForm = () => {
                                     <EditAffiliationDetails />
                                 )}
                                 {activePage === "other" && <EditMiscellaneousDetails edit={edit} setEdit={setEdit} />}
-                                {activePage === "project" && (
-                                    <CreateForm />
+                                {activePage === "project" && project==="add" ? (
+                                    <CreateForm setProjectState={setProjectState} />
+                                ) : (
+                                    <ProjectOverview setProjectState={setProjectState} />
                                 )}
                             </div>
                         </div>
