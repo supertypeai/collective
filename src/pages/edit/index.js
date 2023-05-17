@@ -10,6 +10,7 @@ import EditStackDetails from "@/components/EditStackDetails";
 import EditAffiliationDetails from "@/components/EditAffiliationDetails";
 import EditMiscellaneousDetails from "@/components/EditMiscellaneousDetails";
 import EditExecutive from "@/components/EditExecutive";
+import CreateForm from "@/components/CreateForm";
 
 const EditForm = () => {
 
@@ -73,6 +74,9 @@ const EditForm = () => {
                             <li className={activePage === "other" ? "bordered" : ""}>
                                 <a onClick={() => setActivePage("other")}>🪄 Miscellaneous Details</a>
                             </li>
+                            <li className={activePage === "project" ? "bordered" : ""}>
+                                <a onClick={() => setActivePage("project")}>💻 Projects</a>
+                            </li>
                         </ul>
                     </div>
                     <div className="lg:drawer-content">
@@ -107,6 +111,9 @@ const EditForm = () => {
                                     <EditAffiliationDetails />
                                 )}
                                 {activePage === "other" && <EditMiscellaneousDetails edit={edit} setEdit={setEdit} />}
+                                {activePage === "project" && (
+                                    <CreateForm />
+                                )}
                             </div>
                         </div>
                     </div>
