@@ -1,44 +1,26 @@
-import { useId, useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { supabase } from "@/lib/supabaseClient";
-import CreatableSelect from "react-select/creatable";
-import Select from "react-select";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { Field, Form, Input } from "@/blocks/Form";
 import stackSectionChoices from "@/data/stackSectionChoices.json";
 import projectStatus from "@/data/projectStatus.json";
 import projectTypes from "@/data/projectTypes.json";
 import { AppContext } from "@/contexts/AppContext";
+import {
+  StableSelect,
+  StableCreatableSelect,
+  fetchProfiles,
+} from "./CreateForm";
 
-export function StableCreatableSelect({ ...props }) {
-  return <CreatableSelect {...props} instanceId={useId()} />;
-}
-
-export function StableSelect({ ...props }) {
-  return <Select {...props} instanceId={useId()} />;
-}
-
-export const fetchProfiles = async () => {
-  const { data, error } = await supabase
-    .from("profile")
-    .select(`id, fullname`)
-    .eq("accepted", true);
-
-  if (error) {
-    throw new Error(error, "Error fetching collective profile");
-  }
-
-  if (!data) {
-    throw new Error("Unavailable collective handle in the database");
-  }
-  return data;
-};
-
-const CreateForm = ({ setProjectState }) => {
-  const { isLoggedIn } = useContext(AppContext);
-
+const EditCreateForm = ({ setProjectState, project }) => {
+  const { isLoggedIn, setIsLoggedIn } = useContext(AppContext);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [form, setForm] = useState({
+    ...project,
+    makers: project.makers?.map((maker) => maker.id),
+  });
   const [errorImage, setErrorImage] = useState();
   const [tagOptions, setTagOptions] = useState([]);
   const [typeOptions, setTypeOptions] = useState([]);
@@ -53,6 +35,7 @@ const CreateForm = ({ setProjectState }) => {
     formState: { errors },
     reset,
   } = useForm({
+    defaultValues: form,
     mode: "onSubmit",
   });
 
@@ -81,117 +64,157 @@ const CreateForm = ({ setProjectState }) => {
           .sort((a, b) => a.label.localeCompare(b.label))
       );
     }
-
-    reset({
-      makers: [isLoggedIn.user.id],
-    });
   }, [setMembersChoices, handleData]);
 
-  const postToSupabase = async (data) => {
-    const { makers, imgUpload, ...d } = data;
+  const queryClient = useQueryClient();
+  const { mutate: updateForm } = useMutation(
+    async (formData) => {
+      const { makers, imgUpload, ...d } = formData;
 
-    const { data: project, error } = await supabase
-      .from("project")
-      .insert([
-        {
-          ...d,
-          created_at: new Date(),
-        },
-      ])
-      .select("id");
+      if (imgUpload) {
+        if (
+          form.imgUrl.startsWith(
+            "https://osfehplavmahboowlueu.supabase.co/storage/v1/object/public/images/project_images/"
+          )
+        ) {
+          const { error } = await supabase.storage.remove(form.imgUrl);
 
-    if (
-      error?.message ===
-      `duplicate key value violates unique constraint "project_handle_key"`
-    ) {
-      alert(
-        "Your preferred collective handle already exists, please use another one."
-      );
-      setIsSubmitting(false);
-    } else if (error) {
-      alert("Sorry, something went wrong. Please try again.");
-      setIsSubmitting(false);
-      console.log(`Error uploading project:`, error);
-    } else {
-      const { error: memberError } = await supabase
-        .from("projectmembers")
-        .insert(
-          makers.map((makerid) => {
-            return {
-              userid: makerid,
-              projectid: project[0].id,
-            };
-          })
-        );
+          if (error) {
+            alert("Sorry, something went wrong. Please try again.");
+            setIsSubmitting(false);
+            console.log(`Error deleting image:`, error);
+          }
+        }
 
-      if (memberError) {
-        alert("Sorry, something went wrong. Please try again.");
-        setIsSubmitting(false);
-        console.log(`Error uploading projectmembers:`, memberError);
-      }
-
-      if (uploadImage) {
         const file = imgUpload[0];
         const fileName = file.name;
         const filePath = `project_images/${d.handle}_${fileName}`;
+        const { error: imageError } = await supabase.storage
+          .from("images")
+          .upload(filePath, file, {
+            cacheControl: "3600",
+            upsert: false,
+          });
 
-        try {
-          const { error: imageError } = await supabase.storage
-            .from("images")
-            .upload(filePath, file, {
-              cacheControl: "3600",
-              upsert: false,
-            });
-          if (imageError) {
-            setErrorImage(imageError);
-            setIsSubmitting(false);
-          } else {
-            setIsSubmitting(false);
-            // send notification to slack
-            // fetch("/api/slackNotification", {
-            //     method: "POST",
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify({
-            //         message: `A user just created an Executive profile! Email: ${data.email}`
-            //     })
-            // })
-            //     .then((res) => {
-            //       return res.json()
-            //     })
-
-            // if successful, alert() for 2 seconds and redirect to home page
-            alert("Thank you for submitting! We will review your project.");
-            reset();
-            setProjectState(false);
-          }
-        } catch (error) {
-          console.error("Error uploading image:", error.message);
+        if (imageError) {
+          setErrorImage(imageError);
+          setIsSubmitting(false);
         }
-      } else {
-        alert("Thank you for submitting! We will review your project.");
+      }
+
+      if (JSON.stringify(makers) !== JSON.stringify(form.makers)) {
+        const newMakers = makers.filter(
+          (maker) => !form.makers.includes(maker)
+        );
+        const deletedMakers = form.makers.filter(
+          (maker) => !makers.includes(maker)
+        );
+
+        if (newMakers.length > 0) {
+          const { error: memberError } = await supabase
+            .from("projectmembers")
+            .insert(
+              newMakers.map((makerid) => {
+                return {
+                  userid: makerid,
+                  projectid: d.id,
+                };
+              })
+            );
+
+          if (memberError) {
+            alert("Sorry, something went wrong. Please try again.");
+            setIsSubmitting(false);
+            console.log(`Error uploading projectmembers:`, memberError);
+          }
+        }
+
+        if (deletedMakers.length > 0) {
+          const { error: deleteMemberError } = await supabase
+            .from("projectmembers")
+            .delete()
+            .in(
+              "userid,projectid",
+              deletedMakers.map((maker) => [maker, d.id])
+            );
+
+          if (deleteMemberError) {
+            alert("Sorry, something went wrong. Please try again.");
+            setIsSubmitting(false);
+            console.log(`Error uploading projectmembers:`, deleteMemberError);
+          }
+        }
+      }
+
+      const { data, error } = await supabase
+        .from("project")
+        .update(d)
+        .eq("id", d.id);
+      if (
+        error?.message ===
+        `duplicate key value violates unique constraint "project_handle_key"`
+      ) {
+        alert(
+          "Your preferred collective handle already exists, please use another one."
+        );
         setIsSubmitting(false);
-        reset();
+      } else if (error) {
+        alert("Sorry, something went wrong. Please try again.");
+        setIsSubmitting(false);
+        console.log(`Error uploading project:`, error);
+      } else {
+        const otherProjects = isLoggedIn.user.projects.filter(
+          (project) => project.id !== d.id
+        );
+        const updatedProjects = [
+          ...otherProjects,
+          {
+            ...d,
+            makers: makers.map((maker) => {
+              return { id: maker };
+            }),
+          },
+        ];
+        setIsLoggedIn({
+          ...isLoggedIn,
+          projects: updatedProjects,
+        });
+        setForm(formData);
+        setIsSubmitting(false);
         setProjectState(false);
       }
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("profileData");
+      },
     }
-  };
+  );
 
   const saveData = (data) => {
     setIsSubmitting(true);
     if (uploadImage) {
-      const { imgUpload } = data;
-      if (imgUpload[0] && imgUpload[0].size > 1048576) {
+      if (data.imgUpload[0] && data.imgUpload[0].size > 1048576) {
         // Maximum size of 1 MB (in bytes)
         setErrorImage({ message: "Image's size is larger than 1 MB." });
         setIsSubmitting(false);
       } else {
-        data.imgUrl = `https://osfehplavmahboowlueu.supabase.co/storage/v1/object/public/images/project_images/${data.handle}_${imgUpload[0].name}`;
-        postToSupabase(data);
+        data.imgUrl = `https://osfehplavmahboowlueu.supabase.co/storage/v1/object/public/images/project_images/${data.handle}_${data.imgUpload[0].name}`;
+        const { imgUpload, ...d } = data;
+        if (JSON.stringify(d) !== JSON.stringify(form)) {
+          updateForm(data);
+        } else {
+          setIsSubmitting(false);
+          setProjectState(false);
+        }
       }
     } else {
-      postToSupabase(data);
+      if (JSON.stringify(data) !== JSON.stringify(form)) {
+        updateForm(data);
+      } else {
+        setIsSubmitting(false);
+        setProjectState(false);
+      }
     }
   };
 
@@ -199,7 +222,10 @@ const CreateForm = ({ setProjectState }) => {
     <Form onSubmit={handleSubmit(saveData)}>
       <fieldset>
         <button
-          onClick={() => setProjectState(false)}
+          onClick={() => {
+            reset(form);
+            setProjectState(false);
+          }}
           type="button"
           className="text-left"
         >
@@ -557,7 +583,7 @@ const CreateForm = ({ setProjectState }) => {
           </button>
         ) : (
           <button type="submit" className="btn btn-primary text-white">
-            Complete Registration
+            Save Changes
           </button>
         )}
       </div>
@@ -565,4 +591,4 @@ const CreateForm = ({ setProjectState }) => {
   );
 };
 
-export default CreateForm;
+export default EditCreateForm;

@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import Link from "next/link";
 import Image from "next/image";
 
 import { AppContext } from "@/contexts/AppContext";
@@ -30,12 +29,12 @@ const ProjectOverview = ({ setProjectState }) => {
                 <h2 className="card-title">{project.name}</h2>
                 <p className="text-xs">{project.description}</p>
                 <div className="card-actions justify-end">
-                  <Link
+                  <div
                     className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
-                    href={`/r/${project.handle}`}
+                    onClick={() => setProjectState({ data: project })}
                   >
-                    Explore
-                  </Link>
+                    Edit
+                  </div>
                 </div>
               </div>
             </div>
