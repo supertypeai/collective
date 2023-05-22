@@ -74,21 +74,46 @@ const fetchData = async (userID) => {
       throw new Error(error, 'Error fetching this user');
     }
 
-    if (data && data['wp_blog_root_url'] && data['wp_blog_author_id']) {
-      let url = '';
-      // check if this root url is numeric or not
+    if (data && data['wp_blog_root_url'] && (data['wp_blog_author_id'] || data['wp_blog_root_url'].startsWith("https://medium.com"))) {
+        let url = '';
+        // check if this root url is from medium and is numeric or not
 
-      if (!data['wp_blog_root_url'].includes('.')) {
-        url = `https://public-api.wordpress.com/rest/v1.1/sites/${data['wp_blog_root_url']}/posts?author=${data['wp_blog_author_id']}&number=5&fields=id,link,title,date,excerpt`
-        const res_wp = await fetch(url)
-        const wp_data = await res_wp.json();
-        data['wp'] = wp_data['posts']
-      } else {
-        url = `${data['wp_blog_root_url']}/wp-json/wp/v2/posts?per_page=5&&author=${data['wp_blog_author_id']}&_fields=id,link,title,date,excerpt`
-        const res_wp = await fetch(url)
-        const wp_data = await res_wp.json();
-        data['wp'] = wp_data
-      }
+        if (data['wp_blog_root_url'].startsWith("https://medium.com")) {
+            const username = data['wp_blog_root_url'].split("@")[1]
+            url = `https://medium.com/feed/@${username}`;
+            const res_wp = await fetch("/api/medium", {
+              method: "POST",
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                url: url
+              })
+            })
+            const wp_json = await res_wp.json();
+            const wp_data = wp_json['items'].slice(0, 5).map(post => {
+                return {
+                    id: post.id.split("/p/")[1],
+                    title: post.title,
+                    link: post.link,
+                    date: post.published,
+                    excerpt: {
+                        rendered: post.description ? post.description.split("Continue reading on")[0] : "<p></p>"
+                    }
+                }
+            });
+            data['wp'] = wp_data;
+        } else if (!data['wp_blog_root_url'].includes('.')) {
+            url = `https://public-api.wordpress.com/rest/v1.1/sites/${data['wp_blog_root_url']}/posts?author=${data['wp_blog_author_id']}&number=5&fields=id,URL,title,date,excerpt`
+            const res_wp = await fetch(url)
+            const wp_data = await res_wp.json();
+            data['wp'] = wp_data['posts']
+        } else {
+            url = `${data['wp_blog_root_url']}/wp-json/wp/v2/posts?per_page=5&&author=${data['wp_blog_author_id']}&_fields=id,link,title,date,excerpt`
+            const res_wp = await fetch(url)
+            const wp_data = await res_wp.json();
+            data['wp'] = wp_data
+        }
     }
     return data;
   },
