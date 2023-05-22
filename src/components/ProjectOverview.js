@@ -31,7 +31,7 @@ const ProjectOverview = ({ setProjectState }) => {
                 <div className="card-actions justify-end">
                   <div
                     className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
-                    onClick={() => setProjectState({ data: project })}
+                    onClick={() => setProjectState({ projectid: project.id })}
                   >
                     Edit
                   </div>

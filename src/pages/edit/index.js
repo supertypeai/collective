@@ -35,16 +35,14 @@ const EditForm = () => {
     
     useEffect(() => {
         if (isLoggedIn?.githubUser?.id) {
-            const { projects, ...userDetail } = isLoggedIn.user 
             setIsLoading(true);
             setProfileType("github");
-            setState(userDetail);
+            setState(isLoggedIn.user);
             setIsLoading(false);
         } else if (isLoggedIn?.linkedinUser?.id) {
-            const { projects, ...userDetail } = isLoggedIn.user 
             setIsLoading(true);
             setProfileType("linkedin");
-            setState(userDetail);
+            setState(isLoggedIn.user);
             setIsLoading(false);
         } else {
             setIsLoading(false);
@@ -118,8 +116,8 @@ const EditForm = () => {
                                 {activePage === "other" && <EditMiscellaneousDetails edit={edit} setEdit={setEdit} />}
                                 {activePage === "project" && projectState==="add" ? (
                                     <CreateForm setProjectState={setProjectState} />
-                                ) : activePage === "project" && projectState.data ? (
-                                    <EditCreateForm setProjectState={setProjectState} project={projectState.data} />
+                                ) : activePage === "project" && projectState.projectid ? (
+                                    <EditCreateForm setProjectState={setProjectState} projectid={projectState.projectid} />
                                 ) : activePage === "project" && projectState === false ? (
                                     <ProjectOverview setProjectState={setProjectState} />
                                 ) : (<></>)}
