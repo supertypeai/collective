@@ -72,6 +72,7 @@ export async function getStaticProps({ params }) {
         return {
             props: {
                 dehydratedState: dehydrate(queryClient),
+                repo: params.repo
             },
         }
     }
@@ -102,9 +103,9 @@ export async function getStaticPaths() {
 }
 
 
-const Page = () => {
+const Page = ( props ) => {
 
-    const { data, isLoading, error } = useProject()
+    const { data, isLoading, error } = useProject(props.repo)
 
     return (
         <Mainframe>
