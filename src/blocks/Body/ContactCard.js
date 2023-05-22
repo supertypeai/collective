@@ -43,8 +43,8 @@ const ContactCard = ({ data }) => {
                             }
                         </div>
                     </div>
-                    { 
-                        data['availability'] !== "Unavailable"  && 
+                    {
+                        data['availability'] !== "Unavailable" &&
                         <div className="basis-full 2xl:basis-1/5 2xl:text-right">
                             <label htmlFor="enquire-modal"
                                 className="btn btn-outline btn-xs rounded hover:bg-rose-700">Enquire</label>
@@ -52,14 +52,14 @@ const ContactCard = ({ data }) => {
                     }
                 </div>
                 {
-                    data['availability'] !== "Unavailable"  &&
+                    data['availability'] !== "Unavailable" &&
                     <ul className="text-xs text-gray-400 mt-2">
                         <li>Availability: {data['availability']}</li>
-                        { 
+                        {
                             data['location'] &&
                             <li>Location: {data['location']}</li>
-                        }  
-                    </ul> 
+                        }
+                    </ul>
                 }
             </div>
 

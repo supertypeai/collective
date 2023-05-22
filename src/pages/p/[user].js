@@ -10,7 +10,9 @@ import { generateStack } from '@/blocks/Stack'
 const fetchUser = async (user) => {
     const { data, error } = await supabase
         .from('profile')
-        .select()
+        .select(
+            `*, projects:project(*)`
+        )
         .eq('s_preferred_handle', user)
         .single()
 

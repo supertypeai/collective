@@ -10,6 +10,9 @@ import EditStackDetails from "@/components/EditStackDetails";
 import EditAffiliationDetails from "@/components/EditAffiliationDetails";
 import EditMiscellaneousDetails from "@/components/EditMiscellaneousDetails";
 import EditExecutive from "@/components/EditExecutive";
+import CreateForm from "@/components/CreateForm";
+import ProjectOverview from "@/components/ProjectOverview";
+import EditCreateForm from "@/components/EditCreateForm";
 
 const EditForm = () => {
 
@@ -28,17 +31,20 @@ const EditForm = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [edit, setEdit] = useState(providerToken ? true : false);
     const [profileType, setProfileType] = useState("github");
+    const [projectState, setProjectState] = useState(false);
     
     useEffect(() => {
         if (isLoggedIn?.githubUser?.id) {
+            const { projects, ...userDetail } = isLoggedIn.user 
             setIsLoading(true);
             setProfileType("github");
-            setState(isLoggedIn.user);
+            setState(userDetail);
             setIsLoading(false);
         } else if (isLoggedIn?.linkedinUser?.id) {
+            const { projects, ...userDetail } = isLoggedIn.user 
             setIsLoading(true);
             setProfileType("linkedin");
-            setState(isLoggedIn.user);
+            setState(userDetail);
             setIsLoading(false);
         } else {
             setIsLoading(false);
@@ -72,6 +78,9 @@ const EditForm = () => {
                             </li>
                             <li className={activePage === "other" ? "bordered" : ""}>
                                 <a onClick={() => setActivePage("other")}>🪄 Miscellaneous Details</a>
+                            </li>
+                            <li className={activePage === "project" ? "bordered" : ""}>
+                                <a onClick={() => setActivePage("project")}>💻 Projects</a>
                             </li>
                         </ul>
                     </div>
@@ -107,6 +116,13 @@ const EditForm = () => {
                                     <EditAffiliationDetails />
                                 )}
                                 {activePage === "other" && <EditMiscellaneousDetails edit={edit} setEdit={setEdit} />}
+                                {activePage === "project" && projectState==="add" ? (
+                                    <CreateForm setProjectState={setProjectState} />
+                                ) : activePage === "project" && projectState.data ? (
+                                    <EditCreateForm setProjectState={setProjectState} project={projectState.data} />
+                                ) : activePage === "project" && projectState === false ? (
+                                    <ProjectOverview setProjectState={setProjectState} />
+                                ) : (<></>)}
                             </div>
                         </div>
                     </div>

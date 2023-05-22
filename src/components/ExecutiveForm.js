@@ -476,7 +476,7 @@ const ExecutiveForm = () => {
     )
 
     return (
-        <Form onSubmit={handleSubmit(saveData)} className="mt-4 max-w-7xl xl:px-8">
+        <Form onSubmit={handleSubmit(saveData)} className="mt-4 max-w-7xl">
             <fieldset>
                 <h3 className="text-2xl font-bold">👔 Executive&apos;s Profile</h3>
                 <p className="text-sm">The following details will be used to create your Executive&apos;s Profile.</p>
