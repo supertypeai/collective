@@ -148,18 +148,18 @@ const CreateForm = ({ setProjectState }) => {
           } else {
             setIsSubmitting(false);
             // send notification to slack
-            // fetch("/api/slackNotification", {
-            //     method: "POST",
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     },
-            //     body: JSON.stringify({
-            //         message: `A user just created an Executive profile! Email: ${data.email}`
-            //     })
-            // })
-            //     .then((res) => {
-            //       return res.json()
-            //     })
+            fetch("/api/slackNotification", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: `A user just created a Project called ${d.name}! Email: ${isLoggedIn.user.email}`
+                })
+            })
+                .then((res) => {
+                  return res.json()
+                })
 
             // if successful, alert() for 2 seconds and redirect to home page
             alert("Thank you for submitting! We will review your project.");
@@ -170,6 +170,19 @@ const CreateForm = ({ setProjectState }) => {
           console.error("Error uploading image:", error.message);
         }
       } else {
+        // send notification to slack
+        fetch("/api/slackNotification", {
+          method: "POST",
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+              message: `A user just created a Project called ${d.name}! Email: ${isLoggedIn.user.email}`
+          })
+      })
+          .then((res) => {
+            return res.json()
+          })
         alert("Thank you for submitting! We will review your project.");
         setIsSubmitting(false);
         reset();

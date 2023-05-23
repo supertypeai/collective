@@ -61,7 +61,7 @@ const fetchData = async (userID) => {
   const data = await queryClient.fetchQuery(['profileData', userID], async () => {
     const { data, error } = await supabase
       .from('profile')
-      .select(`*, projects:project(*)`)
+      .select(`*, projects:project(*, makers:projectmembers(userid))`)
       .eq('auth_uuid', userID)
       .single();
 
@@ -177,7 +177,7 @@ const AppContextWrapper = ({ children }) => {
   }, [])
 
   return (
-    <AppContext.Provider value={{ isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn }}>
+    <AppContext.Provider value={{ isLoggedIn: isLoggedIn }}>
       {children}
     </AppContext.Provider>
   )

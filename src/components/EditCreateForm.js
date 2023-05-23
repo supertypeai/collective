@@ -7,20 +7,17 @@ import { Field, Form, Input } from "@/blocks/Form";
 import stackSectionChoices from "@/data/stackSectionChoices.json";
 import projectStatus from "@/data/projectStatus.json";
 import projectTypes from "@/data/projectTypes.json";
-import { AppContext } from "@/contexts/AppContext";
+import { EditContext } from "@/contexts/EditContext";
 import {
   StableSelect,
   StableCreatableSelect,
   fetchProfiles,
 } from "./CreateForm";
 
-const EditCreateForm = ({ setProjectState, project }) => {
-  const { isLoggedIn, setIsLoggedIn } = useContext(AppContext);
+const EditCreateForm = ({ setProjectState, projectid }) => {
+  const context = useContext(EditContext);
+  const [form, setForm] = context.f;
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [form, setForm] = useState({
-    ...project,
-    makers: project.makers?.map((maker) => maker.id),
-  });
   const [errorImage, setErrorImage] = useState();
   const [tagOptions, setTagOptions] = useState([]);
   const [typeOptions, setTypeOptions] = useState([]);
@@ -35,7 +32,12 @@ const EditCreateForm = ({ setProjectState, project }) => {
     formState: { errors },
     reset,
   } = useForm({
-    defaultValues: form,
+    defaultValues: {
+      ...form.projects.find((p) => p.id === projectid),
+      makers: form.projects
+        .find((p) => p.id === projectid)
+        .makers.map((maker) => maker.userid),
+    },
     mode: "onSubmit",
   });
 
@@ -71,21 +73,35 @@ const EditCreateForm = ({ setProjectState, project }) => {
     async (formData) => {
       const { makers, imgUpload, ...d } = formData;
 
-      if (imgUpload) {
-        if (
-          form.imgUrl.startsWith(
+      // check if the imgUrl is updated and the previous image was an uploaded image
+      if (
+        d.imgUrl !== form.projects.find((p) => p.id === projectid).imgUrl &&
+        form.projects
+          .find((p) => p.id === projectid)
+          .imgUrl.startsWith(
             "https://osfehplavmahboowlueu.supabase.co/storage/v1/object/public/images/project_images/"
           )
-        ) {
-          const { error } = await supabase.storage.remove(form.imgUrl);
+      ) {
+        // if yes, remove the previous image from the storage
+        const imgPath = form.projects
+          .find((p) => p.id === projectid)
+          .imgUrl.replace(
+            "https://osfehplavmahboowlueu.supabase.co/storage/v1/object/public/images/",
+            ""
+          );
+        const { error } = await supabase.storage
+          .from("images")
+          .remove([imgPath]);
 
-          if (error) {
-            alert("Sorry, something went wrong. Please try again.");
-            setIsSubmitting(false);
-            console.log(`Error deleting image:`, error);
-          }
+        if (error) {
+          alert("Sorry, something went wrong. Please try again.");
+          setIsSubmitting(false);
+          console.log(`Error deleting image:`, error);
         }
+      }
 
+      // if a new image is uploaded, add it to storage
+      if (uploadImage && imgUpload) {
         const file = imgUpload[0];
         const fileName = file.name;
         const filePath = `project_images/${d.handle}_${fileName}`;
@@ -102,13 +118,26 @@ const EditCreateForm = ({ setProjectState, project }) => {
         }
       }
 
-      if (JSON.stringify(makers) !== JSON.stringify(form.makers)) {
+      // check if the makers are modified
+      if (
+        JSON.stringify(makers) !==
+        JSON.stringify(
+          form.projects
+            .find((p) => p.id === projectid)
+            .makers.map((maker) => maker.userid)
+        )
+      ) {
         const newMakers = makers.filter(
-          (maker) => !form.makers.includes(maker)
+          (maker) =>
+            !form.projects
+              .find((p) => p.id === projectid)
+              .makers.map((maker) => maker.userid)
+              .includes(maker)
         );
-        const deletedMakers = form.makers.filter(
-          (maker) => !makers.includes(maker)
-        );
+        const deletedMakers = form.projects
+          .find((p) => p.id === projectid)
+          .makers.map((maker) => maker.userid)
+          .filter((maker) => !makers.includes(maker));
 
         if (newMakers.length > 0) {
           const { error: memberError } = await supabase
@@ -130,26 +159,23 @@ const EditCreateForm = ({ setProjectState, project }) => {
         }
 
         if (deletedMakers.length > 0) {
-          const { error: deleteMemberError } = await supabase
-            .from("projectmembers")
-            .delete()
-            .in(
-              "userid,projectid",
-              deletedMakers.map((maker) => [maker, d.id])
-            );
+          deletedMakers.map(async (makerid) => {
+            const { error: deleteMemberError } = await supabase
+              .from("projectmembers")
+              .delete()
+              .match({ userid: makerid, projectid: d.id });
 
-          if (deleteMemberError) {
-            alert("Sorry, something went wrong. Please try again.");
-            setIsSubmitting(false);
-            console.log(`Error uploading projectmembers:`, deleteMemberError);
-          }
+            if (deleteMemberError) {
+              alert("Sorry, something went wrong. Please try again.");
+              setIsSubmitting(false);
+              console.log(`Error uploading projectmembers:`, deleteMemberError);
+            }
+          });
         }
       }
 
-      const { data, error } = await supabase
-        .from("project")
-        .update(d)
-        .eq("id", d.id);
+      // update project data
+      const { error } = await supabase.from("project").update(d).eq("id", d.id);
       if (
         error?.message ===
         `duplicate key value violates unique constraint "project_handle_key"`
@@ -163,7 +189,7 @@ const EditCreateForm = ({ setProjectState, project }) => {
         setIsSubmitting(false);
         console.log(`Error uploading project:`, error);
       } else {
-        const otherProjects = isLoggedIn.user.projects.filter(
+        const otherProjects = form.projects.filter(
           (project) => project.id !== d.id
         );
         const updatedProjects = [
@@ -171,15 +197,14 @@ const EditCreateForm = ({ setProjectState, project }) => {
           {
             ...d,
             makers: makers.map((maker) => {
-              return { id: maker };
+              return { userid: maker };
             }),
           },
         ];
-        setIsLoggedIn({
-          ...isLoggedIn,
+        setForm({
+          ...form,
           projects: updatedProjects,
         });
-        setForm(formData);
         setIsSubmitting(false);
         setProjectState(false);
       }
