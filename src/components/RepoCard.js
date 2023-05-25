@@ -22,7 +22,7 @@ const RepoCard = ({ repo, owner }) => {
                     </div>
 
                     <div className="hidden sm:block sm:shrink-0">
-                        <button className='btn-xs rounded hover:bg-rose-700'>☆ {repo['stargazers_count']} Star</button>
+                        <button className='btn-xs rounded hover:bg-rose-700'>☆ {repo['stargazers_count']} Stars</button>
                     </div>
                 </div>
 
