@@ -9,7 +9,7 @@ const StackAndAffiliations = ({ stack, affiliations, projects }) => {
                 </div>
                 <div className="w-screen md:ml-8 md:w-2/3">
                     {affiliations}
-                    <UserProjects projects={projects} />
+                    {projects.length > 0 && <UserProjects projects={projects} />}
                 </div>
             </div>
         </div>
