@@ -179,6 +179,16 @@ const MatheusProfile = () => {
     }} />
 }
 
+const AbdielProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://avatars.githubusercontent.com/u/85111427?v=4",
+        name: "Abdiel Wilyar Goni",
+        profileLink: "/p/abdielwillyar",
+        short: "Cloud Computing Instructor @Orbit Future Academy. Keen interest in Internet of Things and voice recognition.",
+        tags: ['AI', 'IOT', 'Cloud']
+    }} />
+}
+
 
 const PopularTags = () => {
     return (
@@ -249,8 +259,9 @@ const Page = () => {
                                 <YevonnaelProfile />
                                 <VitoProfile />
                                 <NoelProfile />
-                                <FendyProfile />
                                 <MatheusProfile />
+                                <AbdielProfile />
+                                <FendyProfile />
                             </div>
                             <div className={styles.description}>
                                 <div>
