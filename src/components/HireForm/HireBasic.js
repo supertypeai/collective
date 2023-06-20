@@ -1,14 +1,30 @@
 import { useContext } from 'react'
 import { useForm, Controller } from "react-hook-form"
 import Select from "react-select";
+import { useRouter } from "next/router";
 
 import { HireContext } from '@/contexts/HireContext'
 import { Field, Form, Input } from "@/blocks/Form"
 
+const commitmentOptions = [
+    { value: "full-time", label: "Full-time" },
+    { value: "part-time", label: "Part-time" },
+    { value: "hourly", label: "Hourly" },
+    { value: "undecided", label: "I'll decide later" },
+]
+
+const remotenessOptions = [
+    { value: "remote", label: "Remote, anywhere in the world" },
+    { value: "mostly-remote", label: "Mostly remote" },
+    { value: "office", label: "Work from office" },
+    { value: "undecided", label: "I'll decide later" },
+]
+
 const HireBasic = ({ nextFormStep }) => {
 
     const context = useContext(HireContext)
-    const [form, setForm] = context.f
+    const router = useRouter()
+    const [form] = context.f
 
     const { register, control, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
@@ -17,8 +33,23 @@ const HireBasic = ({ nextFormStep }) => {
     });
 
     const saveData = (data) => {
-        setForm({ ...form, ...data, superinference: superinference });
-        nextFormStep();
+        fetch("/api/hiringNotification", {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              formData: data
+            })
+        })
+            .then((res) => {
+                return res.json()
+            })
+        
+        alert("Thank you for submitting! We will be in touch.");
+        setTimeout(() => {
+            router.push("/")
+        }, 1000);
     };
 
     return (
@@ -55,50 +86,45 @@ const HireBasic = ({ nextFormStep }) => {
                     </div>
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <Field label="Commitment Level"
-                            error={errors?.name}
+                            error={errors?.commitment}
                             hint="The level of time commitment you require from the consultant(s)."
                         >
-                            <Select
-                                id="commitment"
-                                className="text-black max-w-3xl"
-                                options={
-                                    [
-                                        { value: "full-time", label: "Full-time" },
-                                        { value: "part-time", label: "Part-time" },
-                                        { value: "hourly", label: "Hourly" },
-                                        { value: "undecided", label: "I'll decide later" },
-                                    ]
-                                }
-                                defaultValue={[
-                                    { value: "part-time", label: "Part-time" },
-                                ]}
-                                {...register("commitment")}
+                            <Controller
+                                control={control}
+                                name="commitment"
+                                defaultValue={commitmentOptions[1].value}
+                                render={({ field: { onChange, value, ref } }) => (
+                                    <Select
+                                        inputRef={ref}
+                                        className="text-black max-w-3xl"
+                                        options={commitmentOptions}
+                                        value={commitmentOptions.find((opt) => opt.value === value)}
+                                        onChange={(val) => onChange(val.value)}
+                                    />
+                                )}
                             />
                         </Field>
                     </div>
                     <div className="w-full md:w-1/2 px-3">
                         <Field label="Work Preference"
-                            error={errors?.name}
+                            error={errors?.remoteness}
                             hint="Open to working with your consultants remotely?"
                         >
-                            <Select
-                                id="remoteness"
-                                className="text-black max-w-3xl"
-                                options={
-                                    [
-                                        { value: "remote", label: "Remote, anywhere in the world" },
-                                        { value: "mostly-remote", label: "Mostly remote" },
-                                        { value: "office", label: "Work from office" },
-                                        { value: "undecided", label: "I'll decide later" },
-                                    ]
-                                }
-                                defaultValue={[
-                                    { value: "mostly-remote", label: "Mostly remote" },
-                                ]}
-                                {...register("commitment")}
+                            <Controller
+                                control={control}
+                                name="remoteness"
+                                defaultValue={remotenessOptions[1].value}
+                                render={({ field: { onChange, value, ref } }) => (
+                                    <Select
+                                        inputRef={ref}
+                                        className="text-black max-w-3xl"
+                                        options={remotenessOptions}
+                                        value={remotenessOptions.find((opt) => opt.value === value)}
+                                        onChange={(val) => onChange(val.value)}
+                                    />
+                                )}
                             />
                         </Field>
-
                     </div>
                     <div className="w-full md:w-1/2 px-3">
                         <Field label="🖊️ Description" error={errors?.description}>
@@ -119,6 +145,9 @@ const HireBasic = ({ nextFormStep }) => {
                     </div>
                 </div>
             </fieldset>
+            <button type="submit" className="btn btn-primary text-white mb-6">
+                Submit
+            </button>
         </Form>
     )
 }
