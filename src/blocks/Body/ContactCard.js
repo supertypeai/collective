@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { useContext } from 'react';
+import { AppContext } from '@/contexts/AppContext';
 
 const ContactCard = ({ data }) => {
-
+    const { isLoggedIn } = useContext(AppContext);
     return (
         <div className="col-span-10 lg:col-span-4 text-white my-8 mx-1 self-start">
             <h3 className="text-lg uppercase font-semibold leading-normal mb-2 my-4">Personal Details</h3>
@@ -46,8 +48,17 @@ const ContactCard = ({ data }) => {
                     {
                         data['availability'] !== "Unavailable" &&
                         <div className="basis-full 2xl:basis-1/5 2xl:text-right">
-                            <label htmlFor="enquire-modal"
-                                className="btn btn-outline btn-xs rounded hover:bg-rose-700">Enquire</label>
+                            {
+                                !isLoggedIn ? (
+                                    <label htmlFor="enquire-modal"
+                                        className="btn btn-outline btn-xs rounded hover:bg-rose-700">Enquire</label> 
+                                ) : (
+                                    <Link 
+                                        href={`/hire?proFR=${data['s_preferred_handle']}`}
+                                        className="btn btn-outline btn-xs rounded hover:bg-rose-700"
+                                    >Enquire</Link>
+                                )
+                            }
                         </div>
                     }
                 </div>
