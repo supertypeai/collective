@@ -121,8 +121,8 @@ const HireBasic = () => {
       const obj = stackSectionChoices.find((obj) => obj.value === category);
       return obj
         ? obj.examples
-            .filter((ex) => labels.includes(ex.label))
-            .map((ex) => ex.value)
+          .filter((ex) => labels.includes(ex.label))
+          .map((ex) => ex.value)
         : [];
     };
 
@@ -232,9 +232,9 @@ const HireBasic = () => {
             value={
               stackExamples[id]
                 ? {
-                    value: stackExamples[id].name,
-                    label: stackExamples[id].label,
-                  }
+                  value: stackExamples[id].name,
+                  label: stackExamples[id].label,
+                }
                 : null
             }
             onChange={(e) => {
@@ -403,9 +403,10 @@ const HireBasic = () => {
         </div>
         <div className="max-w-6xl grid grid-cols-5">
           <div className="w-full col-span-12 lg:col-span-3">
-            <StackSelectFactory id="1" name="Top of the Required Skills" />
-            <StackSelectFactory id="2" name="Middle of the Required Skills" />
-            <StackSelectFactory id="3" name="Bottom of the Required Skills" />
+            <span className="italic text-muted">Leave any Stack empty if undecided or unsure.</span>
+            <StackSelectFactory id="1" name="Desired Skills (Top Stack)" />
+            <StackSelectFactory id="2" name="Desired Skills (Middle Stack)" />
+            <StackSelectFactory id="3" name="Desired Skills (Bottom Stack)" />
           </div>
           {stackExamples &&
             Object.values(stackExamples).some(
