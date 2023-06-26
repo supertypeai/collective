@@ -137,13 +137,13 @@ const HireBasic = () => {
 
     // check that user has at least 3 stacks
     if (Object.keys(stack).length < 1) {
-      alert("Please provide at least one required skill");
+      alert("Please provide at least one desired skill");
       setIsSubmitting(false);
     } else if (
       Object.values(stack).some((el) => Object.values(el).flat().length < 1)
     ) {
       // check that user has at least three tags for each 3 stacks
-      alert("Please select at least 1 tag for the required skill");
+      alert("Please select at least 1 tag for the desired skill");
       setIsSubmitting(false);
     } else {
       if (data["budget_payment"] === "undecided") {
@@ -238,16 +238,22 @@ const HireBasic = () => {
                 : null
             }
             onChange={(e) => {
-              setStackExamples({
-                ...stackExamples,
-                [id]: {
-                  name: e.value,
-                  label: e.label,
-                  child: e.examples.map((e) => e.label),
-                  selected: [],
-                },
-              });
+              if (!e){
+                const {[id]:_, ...clearedExamples} = stackExamples;
+                setStackExamples(clearedExamples)
+              } else {
+                setStackExamples({
+                  ...stackExamples,
+                  [id]: {
+                    name: e.value,
+                    label: e.label,
+                    child: e.examples.map((e) => e.label),
+                    selected: [],
+                  },
+                })
+              }
             }}
+            isClearable={true}
           />
         </div>
         {stackExamples && stackExamples[id] && (
