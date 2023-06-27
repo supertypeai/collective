@@ -150,6 +150,7 @@ const EditStackDetails = () => {
                                 }
                             )
                         }}
+                        isDisabled={!isEditting}
                     />
                 </div>
                 {(stackExamples && stackExamples[id]) &&

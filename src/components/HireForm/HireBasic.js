@@ -8,6 +8,7 @@ import { HireContext } from "@/contexts/HireContext";
 import { Field, Form, Input } from "@/blocks/Form";
 import { PillsFromStack } from "../PillsFromStack";
 import stackSectionChoices from "@/data/stackSectionChoices.json";
+import languageChoices from "@/data/languageChoices.json";
 import AddedToStack from "../AddedToStack";
 import { StableSelect } from "../CreateForm";
 
@@ -38,6 +39,7 @@ const HireBasic = () => {
   const { proFR } = router.query;
   const [form] = context.f;
   const [stackExamples, setStackExamples] = useState({});
+  const [undecidedSkill, setUndecidedSkill] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const fetchData = async (userHandle) => {
@@ -136,11 +138,11 @@ const HireBasic = () => {
     });
 
     // check that user has at least 3 stacks
-    if (Object.keys(stack).length < 1) {
+    if (!undecidedSkill && Object.keys(stack).length < 1) {
       alert("Please provide at least one desired skill");
       setIsSubmitting(false);
     } else if (
-      Object.values(stack).some((el) => Object.values(el).flat().length < 1)
+      !undecidedSkill && Object.values(stack).some((el) => Object.values(el).flat().length < 1)
     ) {
       // check that user has at least three tags for each 3 stacks
       alert("Please select at least 1 tag for the desired skill");
@@ -152,7 +154,7 @@ const HireBasic = () => {
 
       const finalData = {
         ...data,
-        required_skills: stack,
+        required_skills: undecidedSkill ? {} : stack,
         from_profile: proFR ? proFR : null,
       };
 
@@ -203,7 +205,6 @@ const HireBasic = () => {
             className="text-black max-w-3xl"
             theme={(theme) => ({
               ...theme,
-              borderRadius: 0,
               colors: {
                 ...theme.colors,
                 primary25: "#fcaa8c",
@@ -230,7 +231,7 @@ const HireBasic = () => {
               )
             }
             value={
-              stackExamples[id]
+              !undecidedSkill && stackExamples[id]
                 ? {
                   value: stackExamples[id].name,
                   label: stackExamples[id].label,
@@ -254,13 +255,15 @@ const HireBasic = () => {
               }
             }}
             isClearable={true}
+            isDisabled={undecidedSkill}
           />
         </div>
-        {stackExamples && stackExamples[id] && (
+        {!undecidedSkill && stackExamples && stackExamples[id] && (
           <PillsFromStack
             id={id}
             stackExamples={stackExamples}
             setStackExamples={setStackExamples}
+            isEditting={!undecidedSkill}
           />
         )}
       </div>
@@ -287,7 +290,7 @@ const HireBasic = () => {
             >
               <Input
                 {...register("name", {
-                  required: "Please provide a name to address you by",
+                  required: "Please provide a name to address you by.",
                 })}
                 id="name"
                 placeholder="Pamela Morgan Beesly"
@@ -302,7 +305,7 @@ const HireBasic = () => {
             >
               <Input
                 {...register("email", {
-                  required: "Please sign in with your GitHub account",
+                  required: "Please provide your email so we can contact you.",
                 })}
                 id="email"
                 placeholder="pam.beesly@dundermifflin.com"
@@ -326,6 +329,24 @@ const HireBasic = () => {
                     options={commitmentOptions}
                     value={commitmentOptions.find((opt) => opt.value === value)}
                     onChange={(val) => onChange(val.value)}
+                    theme={(theme) => ({
+                      ...theme,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#fcaa8c",
+                        primary: "#f46d75",
+                      },
+                    })}
+                    styles={{
+                      // change text color of selected option
+                      singleValue: (provided, state) => ({
+                        ...provided,
+                        color: "#ad0705",
+                        fontWeight: "bold",
+                        fontSize: "0.8rem",
+                        textTransform: "uppercase",
+                      }),
+                    }}
                   />
                 )}
               />
@@ -348,13 +369,35 @@ const HireBasic = () => {
                     options={remotenessOptions}
                     value={remotenessOptions.find((opt) => opt.value === value)}
                     onChange={(val) => onChange(val.value)}
+                    theme={(theme) => ({
+                      ...theme,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#fcaa8c",
+                        primary: "#f46d75",
+                      },
+                    })}
+                    styles={{
+                      // change text color of selected option
+                      singleValue: (provided, state) => ({
+                        ...provided,
+                        color: "#ad0705",
+                        fontWeight: "bold",
+                        fontSize: "0.8rem",
+                        textTransform: "uppercase",
+                      }),
+                    }}
                   />
                 )}
               />
             </Field>
           </div>
           <div className="w-full md:w-1/2 px-3">
-            <Field label="Budget (USD)" error={errors?.budget}>
+            <Field 
+              label="Budget (USD)" 
+              error={errors?.budget}
+              hint="Expected budget (in USD) you set for this enquiry."
+            >
               <div className="grid grid-cols-2 gap-2">
                 <Controller
                   control={control}
@@ -367,6 +410,24 @@ const HireBasic = () => {
                       options={budgetOptions}
                       value={budgetOptions.find((opt) => opt.value === value)}
                       onChange={(val) => onChange(val.value)}
+                      theme={(theme) => ({
+                        ...theme,
+                        colors: {
+                          ...theme.colors,
+                          primary25: "#fcaa8c",
+                          primary: "#f46d75",
+                        },
+                      })}
+                      styles={{
+                        // change text color of selected option
+                        singleValue: (provided, state) => ({
+                          ...provided,
+                          color: "#ad0705",
+                          fontWeight: "bold",
+                          fontSize: "0.8rem",
+                          textTransform: "uppercase",
+                        }),
+                      }}
                     />
                   )}
                 />
@@ -375,7 +436,7 @@ const HireBasic = () => {
                     required:
                       watch("budget_payment") === "undecided"
                         ? false
-                        : "Please provide your budget",
+                        : "Please provide your budget or choose I'll decide later.",
                   })}
                   id="budget"
                   placeholder="100"
@@ -390,10 +451,67 @@ const HireBasic = () => {
             </Field>
           </div>
           <div className="w-full md:w-1/2 px-3">
+            <Field
+              label="Languages"
+              error={errors?.languages}
+              hint="Preferred language(s) for communication with the consultant(s)."
+            >
+              <Controller
+                control={control}
+                name="languages"
+                defaultValue={[]}
+                render={({ field: { onChange, value, ref } }) => (
+                  <StableSelect
+                    inputRef={ref}
+                    isMulti
+                    options={languageChoices}
+                    classNamePrefix="select"
+                    className="text-black max-w-3xl"
+                    value={value.map((v) => {
+                      const index = languageChoices.findIndex(
+                        (option) => option.value === v
+                      );
+                      if (index != -1) {
+                        return languageChoices[index];
+                      }
+                    })}
+                    onChange={(val) => {
+                        onChange(val.map((c) => c.value)) 
+                    }}
+                    theme={(theme) => ({
+                      ...theme,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#fcaa8c",
+                        primary: "#f46d75",
+                      },
+                    })}
+                    styles={{
+                      // change background color of tags
+                      multiValue: (styles) => {
+                        return {
+                          ...styles,
+                          // same primary-focus color from tailwind config
+                          backgroundColor: "#c4002f",
+                        };
+                      },
+                      // change color of text in tags
+                      multiValueLabel: (styles) => ({
+                        ...styles,
+                        color: "white",
+                      }),
+                    }}
+                  />
+                )}
+                rules={{ required: "Please select your preferred language(s)." }}
+              />
+            </Field>
+          </div>
+          <div className="w-full md:w-1/2 px-3">
             <Field label="Description" error={errors?.description}>
               <textarea
                 {...register("description", {
-                  required: "Description is a required field",
+                  required: "Description is a required field.",
                 })}
                 id="description"
                 name="description"
@@ -407,20 +525,34 @@ const HireBasic = () => {
             </Field>
           </div>
         </div>
-        <div className="max-w-6xl grid grid-cols-5">
+        <span className="italic text-muted">Leave any Stack empty if undecided or unsure. If you haven&apos;t decided any of them, choose I&apos;ll decide later.</span>
+        <div className="max-w-6xl grid grid-cols-5 mb-6">
           <div className="w-full col-span-12 lg:col-span-3">
-            <span className="italic text-muted">Leave any Stack empty if undecided or unsure.</span>
             <StackSelectFactory id="1" name="Desired Skills (Top Stack)" />
             <StackSelectFactory id="2" name="Desired Skills (Middle Stack)" />
             <StackSelectFactory id="3" name="Desired Skills (Bottom Stack)" />
+            <div>
+              <input 
+                type="checkbox" 
+                id="undecided-skills" 
+                name="undecided-skills" 
+                className="mr-3"
+                onChange={(e) => {
+                  setUndecidedSkill(prev => !prev)
+                }}
+                checked={undecidedSkill}
+              />
+              <label htmlFor="undecided-skills">I'll decide later</label>
+            </div>
           </div>
-          {stackExamples &&
+          {!undecidedSkill && stackExamples &&
             Object.values(stackExamples).some(
               (el) => el.selected?.length > 0
             ) && (
               <AddedToStack
                 stackExamples={stackExamples}
                 setStackExamples={setStackExamples}
+                isEditting={!undecidedSkill} 
               />
             )}
         </div>
