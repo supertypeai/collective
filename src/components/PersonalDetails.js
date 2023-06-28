@@ -1,19 +1,18 @@
 import { useContext, useId, useEffect, useState } from "react"
 import { useForm, Controller } from "react-hook-form"
 import Image from 'next/image';
-import CreatableSelect from 'react-select/creatable';
 import { inferFromGithub } from "superinference";
 
 import { Field, Form, Input } from "@/blocks/Form"
 import profileTagsChoices from '@/data/profileTagsChoices.json';
+import languageChoices from '@/data/languageChoices.json';
+import availabilityForWork from '@/data/availabilityForWork.json';
+import countryCity from '@/data/countryCity.json';
 import { signInWithGitHub } from "@/blocks/Mainframe/Navbar";
 import { NominateContext } from "@/contexts/NominateContext"
 import { AppContext } from "@/contexts/AppContext";
 import Link from "next/link";
-
-function StableSelect({ ...props }) {
-    return <CreatableSelect {...props} instanceId={useId()} />;
-}
+import { StableCreatableSelect, StableSelect } from "./CreateForm";
 
 const PersonalDetails = ({ nextFormStep }) => {
 
@@ -23,14 +22,19 @@ const PersonalDetails = ({ nextFormStep }) => {
     const [loading, setLoading] = useState(false);
     const [superinference, setSuperinference] = useState({});
 
-    const { register, control, handleSubmit, formState: { errors }, reset } = useForm({
+    const { register, control, handleSubmit, formState: { errors }, reset, watch } = useForm({
         defaultValues: {
             ...form
         }, mode: "onSubmit"
     });
 
     const saveData = (data) => {
-        setForm({ ...form, ...data, superinference: superinference });
+        setForm({ 
+            ...form, 
+            ...data, 
+            location: data["availability"] === "Unavailable" ? null : data["location"],
+            superinference: superinference 
+        });
         nextFormStep();
     };
 
@@ -208,6 +212,63 @@ const PersonalDetails = ({ nextFormStep }) => {
                     />
                 </Field>
 
+                <Field
+                    label="🗣️ Languages"
+                    error={errors?.languages}
+                    hint="Choose all language(s) you're proficient in."
+                >
+                    <Controller
+                        control={control}
+                        name="languages"
+                        defaultValue={[]}
+                        render={({ field: { onChange, value, ref } }) => (
+                        <StableSelect
+                            inputRef={ref}
+                            isMulti
+                            options={languageChoices}
+                            classNamePrefix="select"
+                            className="text-black max-w-3xl"
+                            value={value.map((v) => {
+                            const index = languageChoices.findIndex(
+                                (option) => option.value === v
+                            );
+                            if (index != -1) {
+                                return languageChoices[index];
+                            }
+                            })}
+                            onChange={(val) => {
+                                onChange(val.map((c) => c.value)) 
+                            }}
+                            theme={(theme) => ({
+                            ...theme,
+                            borderRadius: 0,
+                            colors: {
+                                ...theme.colors,
+                                primary25: "#fcaa8c",
+                                primary: "#f46d75",
+                            },
+                            })}
+                            styles={{
+                            // change background color of tags
+                            multiValue: (styles) => {
+                                return {
+                                ...styles,
+                                // same primary-focus color from tailwind config
+                                backgroundColor: "#c4002f",
+                                };
+                            },
+                            // change color of text in tags
+                            multiValueLabel: (styles) => ({
+                                ...styles,
+                                color: "white",
+                            }),
+                            }}
+                        />
+                        )}
+                        rules={{ required: "Please select your proficient language(s)" }}
+                    />
+                </Field>
+
                 <Field label="📚 Key Qualifications" error={errors?.tags} hint="A maximum of 10 most revelant qualifications">
 
                     <Controller
@@ -215,7 +276,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                         name="tags"
                         defaultValue={[]}
                         render={({ field: { onChange, value, ref } }) => (
-                            <StableSelect
+                            <StableCreatableSelect
                                 inputRef={ref}
                                 isMulti
                                 options={profileTagsChoices}
@@ -258,6 +319,106 @@ const PersonalDetails = ({ nextFormStep }) => {
                                 }}
                             />
                         )}
+                    />
+                </Field>
+                <Field label="🔍 Job Availability" error={errors?.availability} hint="Indicates your availability for work.">
+
+                    <Controller
+                        control={control}
+                        name="availability"
+                        defaultValue={""}
+                        render={({ field: { onChange, value, ref } }) => (
+                            <StableSelect
+                                inputRef={ref}
+                                options={availabilityForWork}
+                                classNamePrefix="select"
+                                className="text-black max-w-3xl"
+                                value={availabilityForWork.find(opt => opt.value === value)}
+                                onChange={val => onChange(val.value)}
+                                theme={theme => ({
+                                    ...theme,
+                                    borderRadius: 0,
+                                    colors: {
+                                        ...theme.colors,
+                                        primary25: '#fcaa8c',
+                                        primary: '#f46d75',
+                                    },
+                                })}
+                                styles={{
+                                    // change text color of selected option
+                                    singleValue: (provided, state) => ({
+                                        ...provided,
+                                        color: '#ad0705',
+                                        fontWeight: 'bold',
+                                        fontSize: '0.8rem',
+                                        textTransform: 'uppercase'
+                                    }),
+                                }}
+                                isSearchable={true}
+                            />
+                        )}
+                        rules={{ required: "Please select your job availability" }}
+                    />
+                </Field>
+                <Field label="📍Preferred Job Location" error={errors?.location}>
+
+                    <Controller
+                        control={control}
+                        name="location"
+                        defaultValue={""}
+                        render={({ field: { onChange, value, ref } }) => (
+                            <StableSelect
+                                inputRef={ref}
+                                options={
+                                    [
+                                        {"geoName": "Remote / Anywhere in the world"},
+                                        ...countryCity
+                                    ].map(c => {
+                                        return {
+                                            "value": c.geoName,
+                                            "label": c.geoName
+                                        }
+                                    })
+                                }
+                                classNamePrefix="select"
+                                className="text-black max-w-3xl"
+                                value={ watch("availability") === "Unavailable" ? null :
+                                    [
+                                        {"geoName": "Remote / Anywhere in the world"},
+                                        ...countryCity
+                                    ].map(c => {
+                                        return {
+                                            "value": c.geoName,
+                                            "label": c.geoName
+                                        }
+                                    })
+                                        .find(opt => opt.value === value)
+                                }
+                                onChange={val => onChange(val ? val.value : null)}
+                                theme={theme => ({
+                                    ...theme,
+                                    borderRadius: 0,
+                                    colors: {
+                                        ...theme.colors,
+                                        primary25: '#fcaa8c',
+                                        primary: '#f46d75',
+                                    },
+                                })}
+                                styles={{
+                                    // change text color of selected option
+                                    singleValue: (provided, state) => ({
+                                        ...provided,
+                                        color: '#ad0705',
+                                        fontWeight: 'bold',
+                                        fontSize: '0.8rem',
+                                        textTransform: 'uppercase'
+                                    }),
+                                }}
+                                isSearchable={true}
+                                isDisabled={watch("availability") === "Unavailable"}
+                            />
+                        )}
+                        rules={{ required: watch("availability") === "Unavailable" ? false : "Please select your preferred job location" }}
                     />
                 </Field>
                 <div className="my-4">
