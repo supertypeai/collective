@@ -542,7 +542,7 @@ const HireBasic = () => {
                 }}
                 checked={undecidedSkill}
               />
-              <label htmlFor="undecided-skills">I'll decide later</label>
+              <label htmlFor="undecided-skills">I&apos;ll decide later</label>
             </div>
           </div>
           {!undecidedSkill && stackExamples &&
