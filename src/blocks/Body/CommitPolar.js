@@ -20,8 +20,8 @@ const CommitPolar = ({ data, newCol }) => {
 
     const innerContent = (
         <>
-            <h3 className="text-lg uppercase font-semibold leading-normal mb-2 my-4">Last 12 Months</h3>
-            <p className="text-xs text-gray-400">Number of public contributions on GitHub</p>
+            <h3 className="text-lg uppercase font-semibold leading-normal mb-2 my-4">Activity Radar</h3>
+            <p className="text-xs text-gray-400">Public contributions on GitHub, trailing 12 months</p>
             <div className='max-w-xs'>
                 <GithubMonthlyCommit data={getCommitCountByMonthLogged()} />
             </div>

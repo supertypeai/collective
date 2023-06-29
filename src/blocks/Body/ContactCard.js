@@ -51,9 +51,9 @@ const ContactCard = ({ data }) => {
                             {
                                 !isLoggedIn ? (
                                     <label htmlFor="enquire-modal"
-                                        className="btn btn-outline btn-xs rounded hover:bg-rose-700">Enquire</label> 
+                                        className="btn btn-outline btn-xs rounded hover:bg-rose-700">Enquire</label>
                                 ) : (
-                                    <Link 
+                                    <Link
                                         href={`/hire?proFR=${data['s_preferred_handle']}`}
                                         className="btn btn-outline btn-xs rounded hover:bg-rose-700"
                                     >Enquire</Link>
@@ -65,10 +65,20 @@ const ContactCard = ({ data }) => {
                 {
                     data['availability'] !== "Unavailable" &&
                     <ul className="text-xs text-gray-400 mt-2">
-                        <li>Availability: {data['availability']}</li>
+                        <li>Availability: <span className="text-white">{data['availability']}</span></li>
                         {
                             data['location'] &&
-                            <li>Location: {data['location']}</li>
+                            <li>Location: <span className="text-white">{data['location']}</span></li>
+                        }
+                        {
+                            data['languages'] &&
+                            <li>Fluent in: <span className="text-white">
+                                {data['languages'].map((language, index) => (
+                                    // add comma after each language except the last one
+                                    index === data['languages'].length - 1 ? language : `${language}, `
+
+                                ))}
+                            </span></li>
                         }
                     </ul>
                 }

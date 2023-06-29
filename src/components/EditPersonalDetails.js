@@ -1,18 +1,15 @@
 import { useContext, useId, useState } from "react"
 import { useForm, Controller } from "react-hook-form"
 import { supabase } from "@/lib/supabaseClient";
-import CreatableSelect from 'react-select/creatable';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 import { Field, Form, Input } from "@/blocks/Form"
 import profileTagsChoices from '@/data/profileTagsChoices.json';
 import availabilityForWork from '@/data/availabilityForWork.json';
 import countryCity from '@/data/countryCity.json';
+import languageChoices from '@/data/languageChoices.json';
 import { EditContext } from "@/contexts/EditContext";
-
-function StableSelect({ ...props }) {
-    return <CreatableSelect {...props} instanceId={useId()} />;
-}
+import { StableCreatableSelect, StableSelect } from "./CreateForm";
 
 const EditPersonalDetails = () => {
 
@@ -23,7 +20,7 @@ const EditPersonalDetails = () => {
 
     let initialLength = form.tags.length;
 
-    const { register, control, handleSubmit, formState: { errors }, reset } = useForm({
+    const { register, control, handleSubmit, formState: { errors }, reset, watch } = useForm({
         defaultValues: {
             ...form
         }, mode: "onSubmit"
@@ -55,7 +52,11 @@ const EditPersonalDetails = () => {
 
     const saveData = (data) => {
         setIsSubmitting(true);
-        const newData = { ...form, ...data };
+        const newData = { 
+            ...form, 
+            ...data,
+            location: data["availability"] === "Unavailable" ? null : data["location"] 
+        };
         if (JSON.stringify(newData) !== JSON.stringify(form)) {
             updateForm(newData);
         } else {
@@ -142,6 +143,63 @@ const EditPersonalDetails = () => {
                         disabled={!isEditting}
                     />
                 </Field>
+                <Field
+                    label="🗣️ Languages"
+                    error={errors?.languages}
+                    hint="Choose all language(s) you're proficient in."
+                >
+                    <Controller
+                        control={control}
+                        name="languages"
+                        defaultValue={[]}
+                        render={({ field: { onChange, value, ref } }) => (
+                        <StableSelect
+                            inputRef={ref}
+                            isMulti
+                            options={languageChoices}
+                            classNamePrefix="select"
+                            className="text-black max-w-3xl"
+                            value={value.map((v) => {
+                            const index = languageChoices.findIndex(
+                                (option) => option.value === v
+                            );
+                            if (index != -1) {
+                                return languageChoices[index];
+                            }
+                            })}
+                            onChange={(val) => {
+                                onChange(val.map((c) => c.value)) 
+                            }}
+                            theme={(theme) => ({
+                            ...theme,
+                            borderRadius: 0,
+                            colors: {
+                                ...theme.colors,
+                                primary25: "#fcaa8c",
+                                primary: "#f46d75",
+                            },
+                            })}
+                            styles={{
+                            // change background color of tags
+                            multiValue: (styles) => {
+                                return {
+                                ...styles,
+                                // same primary-focus color from tailwind config
+                                backgroundColor: "#c4002f",
+                                };
+                            },
+                            // change color of text in tags
+                            multiValueLabel: (styles) => ({
+                                ...styles,
+                                color: "white",
+                            }),
+                            }}
+                            isDisabled={!isEditting}
+                        />
+                        )}
+                        rules={{ required: "Please select your proficient language(s)" }}
+                    />
+                </Field>
 
                 <Field label="📚 Key Qualifications" error={errors?.tags} hint="A maximum of 10 most revelant qualifications">
 
@@ -150,7 +208,7 @@ const EditPersonalDetails = () => {
                         name="tags"
                         defaultValue={[]}
                         render={({ field: { onChange, value, ref } }) => (
-                            <StableSelect
+                            <StableCreatableSelect
                                 inputRef={ref}
                                 isMulti
                                 options={profileTagsChoices}
@@ -239,13 +297,13 @@ const EditPersonalDetails = () => {
                                     }),
                                 }}
                                 isSearchable={true}
-                                isCreatable={true}
                                 isDisabled={!isEditting}
                             />
                         )}
+                        rules={{ required: "Please select your job availability" }}
                     />
                 </Field>
-                <Field label="📍Preferred Job Location" error={errors?.availability}>
+                <Field label="📍Preferred Job Location" error={errors?.location}>
 
                     <Controller
                         control={control}
@@ -267,7 +325,7 @@ const EditPersonalDetails = () => {
                                 }
                                 classNamePrefix="select"
                                 className="text-black max-w-3xl"
-                                value={
+                                value={ watch("availability") === "Unavailable" ? null :
                                     [
                                         {"geoName": "Remote / Anywhere in the world"},
                                         ...countryCity
@@ -300,11 +358,10 @@ const EditPersonalDetails = () => {
                                     }),
                                 }}
                                 isSearchable={true}
-                                isCreatable={true}
-                                isClearable={true}
-                                isDisabled={!isEditting}
+                                isDisabled={!isEditting || watch("availability") === "Unavailable"}
                             />
                         )}
+                        rules={{ required: watch("availability") === "Unavailable" ? false : "Please select your preferred job location" }}
                     />
                 </Field>
                 <div className="my-4">
