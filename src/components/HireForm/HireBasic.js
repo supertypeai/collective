@@ -239,8 +239,8 @@ const HireBasic = () => {
                 : null
             }
             onChange={(e) => {
-              if (!e){
-                const {[id]:_, ...clearedExamples} = stackExamples;
+              if (!e) {
+                const { [id]: _, ...clearedExamples } = stackExamples;
                 setStackExamples(clearedExamples)
               } else {
                 setStackExamples({
@@ -299,7 +299,7 @@ const HireBasic = () => {
           </div>
           <div className="w-full md:w-1/2 px-3">
             <Field
-              label="Company Email"
+              label="Your Work Email"
               error={errors?.email}
               hint="We'll use this to contact you."
             >
@@ -393,8 +393,8 @@ const HireBasic = () => {
             </Field>
           </div>
           <div className="w-full md:w-1/2 px-3">
-            <Field 
-              label="Budget (USD)" 
+            <Field
+              label="Budget (USD)"
               error={errors?.budget}
               hint="Expected budget (in USD) you set for this enquiry."
             >
@@ -476,7 +476,7 @@ const HireBasic = () => {
                       }
                     })}
                     onChange={(val) => {
-                        onChange(val.map((c) => c.value)) 
+                      onChange(val.map((c) => c.value))
                     }}
                     theme={(theme) => ({
                       ...theme,
@@ -525,17 +525,17 @@ const HireBasic = () => {
             </Field>
           </div>
         </div>
-        <span className="italic text-muted">Leave any Stack empty if undecided or unsure. If you haven&apos;t decided any of them, choose I&apos;ll decide later.</span>
+        <span className="italic text-muted">Leave any Stack empty if undecided or unsure.</span>
         <div className="max-w-6xl grid grid-cols-5 mb-6">
           <div className="w-full col-span-12 lg:col-span-3">
             <StackSelectFactory id="1" name="Desired Skills (Top Stack)" />
             <StackSelectFactory id="2" name="Desired Skills (Middle Stack)" />
             <StackSelectFactory id="3" name="Desired Skills (Bottom Stack)" />
             <div>
-              <input 
-                type="checkbox" 
-                id="undecided-skills" 
-                name="undecided-skills" 
+              <input
+                type="checkbox"
+                id="undecided-skills"
+                name="undecided-skills"
                 className="mr-3"
                 onChange={(e) => {
                   setUndecidedSkill(prev => !prev)
@@ -552,7 +552,7 @@ const HireBasic = () => {
               <AddedToStack
                 stackExamples={stackExamples}
                 setStackExamples={setStackExamples}
-                isEditting={!undecidedSkill} 
+                isEditting={!undecidedSkill}
               />
             )}
         </div>
@@ -563,11 +563,11 @@ const HireBasic = () => {
           className="btn btn-primary text-white mb-6"
           disabled
         >
-          Submitting...
+          📨 Submitting...
         </button>
       ) : (
         <button type="submit" className="btn btn-primary text-white mb-6">
-          Submit
+          📨 Make Enquiry
         </button>
       )}
     </Form>
