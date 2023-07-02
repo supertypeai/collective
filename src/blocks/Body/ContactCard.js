@@ -76,7 +76,6 @@ const ContactCard = ({ data }) => {
                                 {data['languages'].map((language, index) => (
                                     // add comma after each language except the last one
                                     index === data['languages'].length - 1 ? language : `${language}, `
-
                                 ))}
                             </span></li>
                         }

@@ -566,7 +566,7 @@ const HireBasic = () => {
           📨 Submitting...
         </button>
       ) : (
-        <button type="submit" className="btn btn-primary text-white mb-6">
+        <button type="submit" className="btn btn-primary text-white mb-6 rounded rounded-sm">
           📨 Make Enquiry
         </button>
       )}
