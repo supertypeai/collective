@@ -9,6 +9,7 @@ import EnquiryModal from './EnquiryModal';
 import CommitPolar from './CommitPolar';
 
 import { MeContext } from '@/contexts/MeContext';
+import SessionCard from './SessionCard';
 
 const Body = ({ stack, affiliations }) => {
 
@@ -39,6 +40,7 @@ const Body = ({ stack, affiliations }) => {
                         <RepoTags collaborations={contribution} />
                     }
                     <ContactCard data={data} />
+                    <SessionCard data={data} />
                     {
                         data.superinference.contribution &&
                         Object.values(data['superinference']['contribution']['contribution_count_per_month'])
