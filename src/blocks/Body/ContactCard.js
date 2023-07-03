@@ -11,8 +11,8 @@ const ContactCard = ({ data }) => {
             <div className="border-white border rounded-lg shadow-lg p-4">
                 <div className="flex items-start flex-row flex-wrap">
                     <div className="basis-1/6">
-                        <div className="avatar mr-2">
-                            <div className="w-12 rounded-full">
+                        <div className="avatar mr-3">
+                            <div className="w-12 rounded-full ring ring-primary dark:ring-info ring-offset-base-100 ring-offset-2">
                                 <Image src={data['superinference']['profile']['avatar_url']}
                                     alt={data['fullname']}
                                     width={50}

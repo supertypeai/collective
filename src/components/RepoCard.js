@@ -14,14 +14,14 @@ const RepoCard = ({ repo, owner }) => {
                     className="absolute inset-y-0 left-0 w-1 bg-info"
                 ></span>
 
-                <div className="sm:flex sm:justify-between sm:gap-4">
+                <div className="sm:flex sm:justify-between sm:gap-4 md:pb-2">
                     <div className='leading-none'>
                         <h3 className="font-bold link-info hover:opacity-70">
                             {owner}/{repo['name']}
                         </h3>
                     </div>
 
-                    <div className="hidden sm:block sm:shrink-0">
+                    <div className="block md:hidden sm:shrink-0">
                         <button className='btn-xs rounded hover:bg-rose-700'>☆ {repo['stargazers_count']} Stars</button>
                     </div>
                 </div>
