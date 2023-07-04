@@ -128,7 +128,7 @@ export const Navbar = ({ pdfBtn }) => {
                                 isLoggedIn.user?.s_preferred_handle &&
                                 <li>
                                     <Link href={`/p/${isLoggedIn.user.s_preferred_handle}`}>
-                                        Developer Profile
+                                        My Profile
                                     </Link>
                                 </li>
                             }
