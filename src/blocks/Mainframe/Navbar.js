@@ -108,11 +108,15 @@ export const Navbar = ({ pdfBtn }) => {
                         </svg>
                     </Link>
                 </div>
-                <div className="tooltip tooltip-bottom" data-tip="Add a Project">
-                    <label className="btn btn-circle btn-ghost">
-                        <Image src="/tools.png" alt="maker tools" width={20} height={20} />
-                    </label>
-                </div>
+                {isLoggedIn.user && 
+                    <div className="tooltip tooltip-bottom" data-tip="Add a Project">
+                        <Link href="/edit#project">
+                            <label className="btn btn-circle btn-ghost">
+                                <Image src="/tools.png" alt="maker tools" width={20} height={20} />
+                            </label>
+                        </Link>
+                    </div>
+                }
                 <ThemeToggle />
                 {isLoggedIn ?
                     <div className="dropdown dropdown-end">

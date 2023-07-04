@@ -1,202 +1,202 @@
 [
     {
-        "value": "afrikaans",
-        "label": "Afrikaans"
-    },
-    {
-        "value": "albanian",
-        "label": "Albanian"
-    },
-    {
-        "value": "arabic",
-        "label": "Arabic"
-    },
-    {
-        "value": "bengali",
-        "label": "Bengali"
-    },
-    {
-        "value": "bulgarian",
-        "label": "Bulgarian"
-    },
-    {
-        "value": "chinese_simplified",
-        "label": "Chinese (Simplified)"
-    },
-    {
-        "value": "chinese_traditional",
-        "label": "Chinese (Traditional)"
-    },
-    {
-        "value": "croatian",
-        "label": "Croatian"
-    },
-    {
-        "value": "czech",
-        "label": "Czech"
-    },
-    {
-        "value": "danish",
-        "label": "Danish"
-    },
-    {
-        "value": "dutch",
-        "label": "Dutch"
-    },
-    {
-        "value": "english",
+        "value": "English",
         "label": "English"
     },
     {
-        "value": "estonian",
-        "label": "Estonian"
-    },
-    {
-        "value": "filipino",
-        "label": "Filipino"
-    },
-    {
-        "value": "finnish",
-        "label": "Finnish"
-    },
-    {
-        "value": "french",
-        "label": "French"
-    },
-    {
-        "value": "german",
-        "label": "German"
-    },
-    {
-        "value": "greek",
-        "label": "Greek"
-    },
-    {
-        "value": "hebrew",
-        "label": "Hebrew"
-    },
-    {
-        "value": "hindi",
-        "label": "Hindi"
-    },
-    {
-        "value": "hungarian",
-        "label": "Hungarian"
-    },
-    {
-        "value": "icelandic",
-        "label": "Icelandic"
-    },
-    {
-        "value": "indonesian",
+        "value": "Indonesian",
         "label": "Indonesian"
     },
     {
-        "value": "italian",
+        "value": "Afrikaans",
+        "label": "Afrikaans"
+    },
+    {
+        "value": "Albanian",
+        "label": "Albanian"
+    },
+    {
+        "value": "Arabic",
+        "label": "Arabic"
+    },
+    {
+        "value": "Bengali",
+        "label": "Bengali"
+    },
+    {
+        "value": "Bulgarian",
+        "label": "Bulgarian"
+    },
+    {
+        "value": "Chinese_Simplified",
+        "label": "Chinese (Simplified)"
+    },
+    {
+        "value": "Chinese_Traditional",
+        "label": "Chinese (Traditional)"
+    },
+    {
+        "value": "Croatian",
+        "label": "Croatian"
+    },
+    {
+        "value": "Czech",
+        "label": "Czech"
+    },
+    {
+        "value": "Danish",
+        "label": "Danish"
+    },
+    {
+        "value": "Dutch",
+        "label": "Dutch"
+    },
+    {
+        "value": "Estonian",
+        "label": "Estonian"
+    },
+    {
+        "value": "Filipino",
+        "label": "Filipino"
+    },
+    {
+        "value": "Finnish",
+        "label": "Finnish"
+    },
+    {
+        "value": "French",
+        "label": "French"
+    },
+    {
+        "value": "German",
+        "label": "German"
+    },
+    {
+        "value": "Greek",
+        "label": "Greek"
+    },
+    {
+        "value": "Hebrew",
+        "label": "Hebrew"
+    },
+    {
+        "value": "Hindi",
+        "label": "Hindi"
+    },
+    {
+        "value": "Hungarian",
+        "label": "Hungarian"
+    },
+    {
+        "value": "Icelandic",
+        "label": "Icelandic"
+    },
+    {
+        "value": "Italian",
         "label": "Italian"
     },
     {
-        "value": "japanese",
+        "value": "Japanese",
         "label": "Japanese"
     },
     {
-        "value": "kannada",
+        "value": "Kannada",
         "label": "Kannada"
     },
     {
-        "value": "korean",
+        "value": "Korean",
         "label": "Korean"
     },
     {
-        "value": "latvian",
+        "value": "Latvian",
         "label": "Latvian"
     },
     {
-        "value": "lithuanian",
+        "value": "Lithuanian",
         "label": "Lithuanian"
     },
     {
-        "value": "malay",
+        "value": "Malay",
         "label": "Malay"
     },
     {
-        "value": "malayalam",
+        "value": "Malayalam",
         "label": "Malayalam"
     },
     {
-        "value": "marathi",
+        "value": "Marathi",
         "label": "Marathi"
     },
     {
-        "value": "norwegian",
+        "value": "Norwegian",
         "label": "Norwegian"
     },
     {
-        "value": "polish",
+        "value": "Polish",
         "label": "Polish"
     },
     {
-        "value": "portuguese",
+        "value": "Portuguese",
         "label": "Portuguese"
     },
     {
-        "value": "romanian",
+        "value": "Romanian",
         "label": "Romanian"
     },
     {
-        "value": "russian",
+        "value": "Russian",
         "label": "Russian"
     },
     {
-        "value": "serbian",
+        "value": "Serbian",
         "label": "Serbian"
     },
     {
-        "value": "slovak",
+        "value": "Slovak",
         "label": "Slovak"
     },
     {
-        "value": "slovenian",
+        "value": "Slovenian",
         "label": "Slovenian"
     },
     {
-        "value": "spanish",
+        "value": "Spanish",
         "label": "Spanish"
     },
     {
-        "value": "swahili",
+        "value": "Swahili",
         "label": "Swahili"
     },
     {
-        "value": "swedish",
+        "value": "Swedish",
         "label": "Swedish"
     },
     {
-        "value": "tamil",
+        "value": "Tamil",
         "label": "Tamil"
     },
     {
-        "value": "telugu",
+        "value": "Telugu",
         "label": "Telugu"
     },
     {
-        "value": "thai",
+        "value": "Thai",
         "label": "Thai"
     },
     {
-        "value": "turkish",
+        "value": "Turkish",
         "label": "Turkish"
     },
     {
-        "value": "ukrainian",
+        "value": "Ukrainian",
         "label": "Ukrainian"
     },
     {
-        "value": "urdu",
+        "value": "Urdu",
         "label": "Urdu"
     },
     {
-        "value": "vietnamese",
+        "value": "Vietnamese",
         "label": "Vietnamese"
     }
 ]
