@@ -41,6 +41,7 @@ const HireBasic = () => {
   const [stackExamples, setStackExamples] = useState({});
   const [undecidedSkill, setUndecidedSkill] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [fullname, setFullname] = useState();
 
   const fetchData = async (userHandle) => {
     const queryClient = new QueryClient();
@@ -49,7 +50,7 @@ const HireBasic = () => {
       async () => {
         const { data, error } = await supabase
           .from("profile")
-          .select(`stack`)
+          .select(`fullname, stack`)
           .eq("s_preferred_handle", userHandle)
           .single();
 
@@ -75,7 +76,7 @@ const HireBasic = () => {
 
   useEffect(() => {
     const fetchStacks = async () => {
-      const { stack } = await fetchData(proFR);
+      const { fullname, stack } = await fetchData(proFR);
       const stacks = Object.keys(stack).map((id) => {
         const key = Object.keys(stack[id])[0];
         const selected = stack[id][key];
@@ -95,6 +96,7 @@ const HireBasic = () => {
         3: stacks[2],
       };
       setStackExamples(initialStacks);
+      setFullname(fullname);
     };
     // Execute the data fetching on the client-side only
     if (proFR) {
@@ -274,12 +276,22 @@ const HireBasic = () => {
     <Form onSubmit={handleSubmit(saveData)}>
       <fieldset>
         <legend>
-          <h3 className="text-2xl font-bold">
-            🧑‍💼 Connect me with Collective consultants
-          </h3>
-          <p className="text-sm">
-            Help us find the right candidate(s) for your project.
-          </p>
+          { proFR ? (
+              <h3 className="text-2xl font-bold">
+                🧑‍💼 Enquiring about the services of {fullname}
+              </h3>
+            ) : (
+              <>
+                <h3 className="text-2xl font-bold">
+                  🧑‍💼 Connect me with Collective consultants
+                </h3>
+                <p className="text-sm">
+                  Help us find the right candidate(s) for your project.
+                </p>
+              </>
+            )
+          }
+          
         </legend>
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -459,7 +471,7 @@ const HireBasic = () => {
               <Controller
                 control={control}
                 name="languages"
-                defaultValue={[]}
+                defaultValue={[languageChoices[0].value]}
                 render={({ field: { onChange, value, ref } }) => (
                   <StableSelect
                     inputRef={ref}

@@ -292,7 +292,7 @@ const EditAffiliationDetails = () => {
                         </Field>
                     </div>
                 </div>
-                <div className="flex flex-wrap mb-6">
+                <div className="flex flex-wrap mb-6  min-h-[480px]">
                     <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                         <Field label="Start Date" error={errors?.affiliations?.org2?.start} hint="Used to create the timeline on your Developer Profile">
                             <StartDate id="2" />
