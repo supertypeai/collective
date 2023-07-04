@@ -18,12 +18,13 @@ const EditForm = () => {
 
     const router = useRouter();
     const { asPath } = router;
+    const hash = asPath.split('#')[1]
 
     // Extract query parameters from URL path
     const params = new URLSearchParams(asPath);
     const providerToken = params.get('provider_token');
 
-    const [activePage, setActivePage] = useState(providerToken ? "other" : "personal");
+    const [activePage, setActivePage] = useState(providerToken ? "other" : hash === "project" ? "project" : "personal");
 
     const { isLoggedIn } = useContext(AppContext);
 

@@ -421,7 +421,7 @@ const PersonalDetails = ({ nextFormStep }) => {
                         rules={{ required: watch("availability") === "Unavailable" ? false : "Please select your preferred job location" }}
                     />
                 </Field>
-                <div className="my-4">
+                <div className="mb-4 mt-28">
                     {
                         isLoggedIn.providerToken && isLoggedIn.githubUser ? (
                             <button type="submit" className="btn btn-primary text-white">Next {">"}</button>

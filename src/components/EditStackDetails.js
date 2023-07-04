@@ -202,7 +202,7 @@ const EditStackDetails = () => {
                                 <>
                                     <button 
                                         type="button" 
-                                        className="btn btn-secondary text-white mr-3"
+                                        className="btn btn-secondary text-white mr-3 mt-24"
                                         onClick={() => {
                                             setIsEditting(false)
                                             reset(form)
@@ -211,10 +211,10 @@ const EditStackDetails = () => {
                                     >
                                         Cancel
                                     </button>
-                                    <button type="submit" className="btn btn-warning text-black">Save Changes</button>
+                                    <button type="submit" className="btn btn-warning text-black mt-24">Save Changes</button>
                                 </>
                             ) : isSubmitting ? (
-                                <button type="submit" className="btn btn-warning text-black" disabled>Saving Changes...</button>
+                                <button type="submit" className="btn btn-warning text-black mt-24" disabled>Saving Changes...</button>
                             ) : (
                                 <></>
                             )
