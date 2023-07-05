@@ -33,7 +33,7 @@ const EditForm = () => {
     const [edit, setEdit] = useState(providerToken ? true : false);
     const [profileType, setProfileType] = useState("github");
     const [projectState, setProjectState] = useState(false);
-    
+
     useEffect(() => {
         if (isLoggedIn?.githubUser?.id) {
             setIsLoading(true);
@@ -62,17 +62,17 @@ const EditForm = () => {
         return (
             <EditContext.Provider value={{ f: [state, setState] }}>
                 <div className="drawer drawer-mobile h-full my-6">
-                    <input id="side-drawer" type="checkbox" className="drawer-toggle"/>
+                    <input id="side-drawer" type="checkbox" className="drawer-toggle" />
                     <div className="lg:drawer-side mr-3">
                         <label htmlFor="side-drawer" className="drawer-overlay"></label>
                         <ul className="menu w-50 text-base-content">
-                            <li className={activePage === "personal" ? "bordered" : ""}> 
+                            <li className={activePage === "personal" ? "bordered" : ""}>
                                 <a onClick={() => setActivePage("personal")}>🧑‍💼 Personal Details</a>
                             </li>
                             <li className={activePage === "stack" ? "bordered" : ""}>
                                 <a onClick={() => setActivePage("stack")}>🛠️ Tech Stacks</a>
                             </li>
-                            <li className={activePage === "work" ? "bordered" : ""}> 
+                            <li className={activePage === "work" ? "bordered" : ""}>
                                 <a onClick={() => setActivePage("work")}>💼 Affiliations &#38; Work</a>
                             </li>
                             <li className={activePage === "other" ? "bordered" : ""}>
@@ -98,9 +98,9 @@ const EditForm = () => {
                                     strokeWidth={2}
                                 >
                                     <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M4 6h16M4 12h16M4 18h16"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M4 6h16M4 12h16M4 18h16"
                                     />
                                 </svg>
                             </label>
@@ -115,7 +115,7 @@ const EditForm = () => {
                                     <EditAffiliationDetails />
                                 )}
                                 {activePage === "other" && <EditMiscellaneousDetails edit={edit} setEdit={setEdit} />}
-                                {activePage === "project" && projectState==="add" ? (
+                                {activePage === "project" && projectState === "add" ? (
                                     <CreateForm setProjectState={setProjectState} />
                                 ) : activePage === "project" && projectState.projectid ? (
                                     <EditCreateForm setProjectState={setProjectState} projectid={projectState.projectid} />
