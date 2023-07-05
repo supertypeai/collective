@@ -5,10 +5,12 @@ import { supabase } from "@/lib/supabaseClient";
 import CreatableSelect from 'react-select/creatable';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
+import { EditContext } from "@/contexts/EditContext";
 import { Field, Form, Input } from "@/blocks/Form"
 import Tooltip from "@/icons/Tooltip";
+import Edit from "@/icons/Edit";
 import profileTagsChoices from "@/data/profileTagsChoices.json"
-import { EditContext } from "@/contexts/EditContext";
+
 
 const placeholder = {
     1: {
@@ -71,7 +73,7 @@ const EditExecutive = () => {
 
     const saveData = (data) => {
         setIsSubmitting(true);
-        if(!data.affiliations.org3.optionally_selected){
+        if (!data.affiliations.org3.optionally_selected) {
             data.affiliations.org3 = {
                 "end": "",
                 "tags": "",
@@ -83,7 +85,7 @@ const EditExecutive = () => {
                 "optionally_selected": false
             }
         }
-        if(!haveWebsiteBlog){
+        if (!haveWebsiteBlog) {
             data = {
                 ...data,
                 website: null,
@@ -425,26 +427,12 @@ const EditExecutive = () => {
             <fieldset>
                 <span className="text-2xl font-bold">
                     👔 Personal Details
-                    <button 
-                        type="button" 
+                    <button
+                        type="button"
                         onClick={() => setIsEditting(true)}
                         hidden={isEditting}
                     >
-                        <svg 
-                            fill="none" 
-                            stroke="currentColor" 
-                            strokeWidth="1.5" 
-                            viewBox="0 0 24 24" 
-                            xmlns="http://www.w3.org/2000/svg" 
-                            aria-hidden="true"
-                            className="ml-2 mb-1 w-5 inline-block"
-                        >
-                            <path 
-                                strokeLinecap="round" 
-                                strokeLinejoin="round" 
-                                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                            />
-                        </svg>
+                        <Edit />
                     </button>
                 </span>
             </fieldset>
@@ -609,11 +597,11 @@ const EditExecutive = () => {
             </div>
 
             <div className="my-4">
-                { 
+                {
                     isEditting ? (
                         <>
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 className="btn btn-secondary text-white mr-3"
                                 onClick={() => {
                                     setIsEditting(false)
