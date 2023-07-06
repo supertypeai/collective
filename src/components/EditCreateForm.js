@@ -335,6 +335,7 @@ const EditCreateForm = ({ setProjectState, projectid }) => {
             })}
             type="file"
             accept=".jpg,.jpeg,.webp,.png"
+            className="file-input file-input-secondary border-white text-black w-full max-w-xs"
           />
         </Field>
       ) : (
