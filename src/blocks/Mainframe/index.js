@@ -20,7 +20,7 @@ const PageHead = ({ data, title }) => {
         <meta name="description" content={`${data.fullname} (${data.short}) | ${data.affiliations.length > 0 && data.affiliations[0]['title'] + ' ' + data.affiliations[0]['position']} | Supertype Collective`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* this is for image appearing on opengraph when shared on social media */}
-        <meta property="og:image" content={data.superinference.profile.avatar_url} />
+        <meta property="og:image" content={data.imgUrl} />
         <meta property="og:title" content={`${data.fullname} on Supertype Collective`} />
         <meta property="og:description" content={`${data.fullname} (${data.short}) | ${data.affiliations.length > 0 && data.affiliations[0]['title'] + ' ' + data.affiliations[0]['position']} | Supertype Collective`} />
         <meta property="og:site_name" content="Supertype Collective" />
@@ -148,7 +148,7 @@ const AppContextWrapper = ({ children }) => {
           [tokenProvider]: data.session.access_token,
           [tokenUser]: data.session.user,
           providerToken: data.session.provider_token,
-          avatarUrl: data.session.user.user_metadata.avatar_url,
+          avatarUrl: user.imgUrl ? user.imgUrl : data.session.user.user_metadata.avatar_url,
           user: user
         } : false)
 
