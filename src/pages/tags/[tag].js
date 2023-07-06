@@ -105,7 +105,7 @@ const featuredProfiles = (profiles) => {
                 profileLink: `/p/${profile.s_preferred_handle}`,
                 short: profile.short,
                 tags: profile.tags.slice(0, 5),
-                imgUrl: profile.superinference.profile.avatar_url
+                imgUrl: profile.imgUrl
             }}
                 key={profile.id}
             />

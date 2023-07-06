@@ -23,7 +23,7 @@ function Toprow({ children }) {
                 <div className="flex justify-center mb-2">
                     <div className="avatar">
                         <div className="w-52 rounded-lg">
-                            <Image src={data.superinference.profile.avatar_url}
+                            <Image src={data.imgUrl}
                                 alt={`${data.fullname} supertype`}
                                 className="mt-8 object-cover rounded text-center" width={300} height={300} priority />
                         </div>

@@ -169,7 +169,7 @@ const Page = ( props ) => {
                                                         <div className='w-12'>
                                                             <Link href={`/p/${member.s_preferred_handle}`}>
                                                                 <Image
-                                                                    src={member.superinference.profile.avatar_url}
+                                                                    src={member.imgUrl}
                                                                     alt={member.fullname}
                                                                     width={50} height={50}
                                                                 />
