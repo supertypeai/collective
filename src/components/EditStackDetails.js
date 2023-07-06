@@ -9,6 +9,7 @@ import { Form } from "@/blocks/Form"
 import stackSectionChoices from "@/data/stackSectionChoices.json"
 import { PillsFromStack } from "@/components/PillsFromStack";
 import AddedToStack from "@/components/AddedToStack";
+import Edit from "@/icons/Edit";
 
 const EditStackDetails = () => {
 
@@ -75,14 +76,14 @@ const EditStackDetails = () => {
         const getValuesByLabel = (category, labels) => {
             const obj = stackSectionChoices.find(obj => obj.value === category);
             return obj ? obj.examples.filter(ex => labels.includes(ex.label)).map(ex => ex.value) : [];
-        };          
+        };
 
         Object.keys(stackExamples).forEach(key => {
             stack[key] = {
                 [stackExamples[key].name]: getValuesByLabel(stackExamples[key].name, stackExamples[key].selected)
             }
         });
-        
+
         // check that user has at least 3 stacks
         if (Object.keys(stack).length < 3) {
             alert("Please select at least one tag for each stack");
@@ -93,8 +94,8 @@ const EditStackDetails = () => {
             return;
         }
 
-        const newData = { ...data, stack:stack };
-    
+        const newData = { ...data, stack: stack };
+
         if (JSON.stringify(newData) !== JSON.stringify(form)) {
             updateForm(newData);
         } else {
@@ -170,26 +171,12 @@ const EditStackDetails = () => {
                         <legend>
                             <span className="text-2xl font-bold">
                                 Configure Tech Stack
-                                <button 
-                                    type="button" 
+                                <button
+                                    type="button"
                                     onClick={() => setIsEditting(true)}
                                     hidden={isEditting}
                                 >
-                                    <svg 
-                                        fill="none" 
-                                        stroke="currentColor" 
-                                        strokeWidth="1.5" 
-                                        viewBox="0 0 24 24" 
-                                        xmlns="http://www.w3.org/2000/svg" 
-                                        aria-hidden="true"
-                                        className="ml-2 mb-1 w-5 inline-block"
-                                    >
-                                        <path 
-                                            strokeLinecap="round" 
-                                            strokeLinejoin="round" 
-                                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                                        />
-                                    </svg>
+                                    <Edit />
                                 </button>
                             </span>
                         </legend>
@@ -197,11 +184,11 @@ const EditStackDetails = () => {
                         <StackSelectFactory id="2" name="Middle of the Stack" />
                         <StackSelectFactory id="3" name="Bottom of the Stack" />
 
-                        { 
+                        {
                             isEditting ? (
                                 <>
-                                    <button 
-                                        type="button" 
+                                    <button
+                                        type="button"
                                         className="btn btn-secondary text-white mr-3 mt-24"
                                         onClick={() => {
                                             setIsEditting(false)
@@ -224,7 +211,7 @@ const EditStackDetails = () => {
             </div>
             {
                 (stackExamples && Object.values(stackExamples).some((el) => el.selected.length > 0)) &&
-                <AddedToStack stackExamples={stackExamples} setStackExamples={setStackExamples} isEditting={isEditting} profile={true}/>
+                <AddedToStack stackExamples={stackExamples} setStackExamples={setStackExamples} isEditting={isEditting} profile={true} />
             }
         </div>
     )
