@@ -1,6 +1,9 @@
 import { useState, useContext, useEffect } from "react";
 
+import { useForm, Controller } from "react-hook-form";
+
 import { AppContext } from "@/contexts/AppContext";
+import { Field, Form, Input } from "@/blocks/Form";
 import Pills from "@/blocks/Pills";
 import Alert from "../Misc/Alert";
 import Edit from "@/icons/Edit";
@@ -8,9 +11,14 @@ import Edit from "@/icons/Edit";
 const SessionScheduler = () => {
     const { isLoggedIn } = useContext(AppContext);
 
+    const [addPanelOpen, setAddPanelOpen] = useState(false)
+    const [addWeeklyMode, setAddWeeklyMode] = useState(true)
+    const [clickedAdd, setClickedAdd] = useState(false)
+
     useEffect(() => {
         console.log(isLoggedIn)
     }, [])
+
 
     if (!isLoggedIn) {
         return (
@@ -32,12 +40,82 @@ const SessionScheduler = () => {
         )
     }
 
+    const WeeklyRecurring = () => {
+        return (
+            <Form onSubmit={() => { console.log("data") }}>
+                Create a weekly recurring session
+                <fieldset>
+                    <Field label="Title">
+                        <Input id="title" placeholder="1 on 1 Tutoring Session" />
+                    </Field>
+                </fieldset>
+            </Form>
+        )
+    }
+    const OneTime = () => {
+        return (
+            <div>
+                Create a one-time session
+            </div>
+        )
+    }
+
     return (
         <div>
             <main className='min-h-screen grid grid-cols-3 gap-4 mt-8'>
                 <div className="col-span-3 md:col-span-2">
-                    <div className="md:flex md:flex-row">
-                        {/* button float to the right */}
+                    <div className="collapse">
+                        <input type="checkbox" onClick={
+                            () => {
+                                setAddPanelOpen(prev => !prev)
+                                setClickedAdd(true)
+                            }
+                        } />
+                        <div className="collapse-title">
+                            {
+                                addPanelOpen ? (
+                                    <span className="text-info btn btn-ghost">Hide
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
+                                            stroke="currentColor" className="w-6 h-6 ml-2 inline">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
+                                        </svg>
+                                    </span>
+                                ) :
+                                    (
+                                        <span class="relative flex h-3 w-3">
+                                            {
+                                                !clickedAdd && (
+                                                    <>
+                                                        <span class="absolute inline-flex h-full w-full rounded-full bg-rose-500 opacity-75 animate-ping" />
+                                                        <span class="relative inline-flex rounded-full h-3 w-3 bg-rose-600"></span>
+                                                    </>
+                                                )
+                                            }
+                                            <span className="btn btn-sm btn-ghost border rounded border-white text-white dark:btn-info">Add a Session +</span>
+                                        </span>
+                                    )
+                            }
+
+                        </div>
+                        <div className="collapse-content bg-gray-100 bg-opacity-10 dark:bg-stone-800 rounded">
+                            <h2 className="font-bold uppercase mt-4">Add a Session</h2>
+                            <div className="my-1">
+                                <div className="label-text mr-2 inline align-middle transition duration-700">
+                                    {addWeeklyMode ? "Weekly Recurring Session" : "One-time Session"}
+                                </div>
+                                <input
+                                    type="checkbox"
+                                    className="toggle toggle-primary dark:toggle-info align-middle"
+                                    checked={addWeeklyMode}
+                                    onChange={() => setAddWeeklyMode(prev => !prev)}
+                                />
+                                {
+                                    addWeeklyMode ? <WeeklyRecurring /> : <OneTime />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div className="md:flex md:flex-row mt-4">
                         <div className="grow">
                             <h3 className="font-display text-lg font-semibold text-gray-300">Current Sessions</h3>
                             <div className="container flex flex-col items-center justify-center mx-auto sm:py-2">
@@ -47,7 +125,7 @@ const SessionScheduler = () => {
                                             <p className="font-semibold tracking-tighter mb-1">
                                                 One-on-One Mentoring
                                             </p>
-                                            <p>1-hour • $60 • <div className="badge badge-neutral badge-sm">draft</div>
+                                            <p>1-hour • $60 • <span className="badge badge-neutral badge-sm">draft</span>
                                                 <Edit />
                                             </p>
                                         </div>
@@ -65,7 +143,7 @@ const SessionScheduler = () => {
                                             <p className="font-semibold tracking-tighter mb-1">
                                                 Technical Code Review: Large Language Models
                                             </p>
-                                            <p>2-hour • $80 • <div className="badge badge-secondary badge-sm">live</div>
+                                            <p>2-hour • $80 • <span className="badge badge-secondary badge-sm">live</span>
                                                 <Edit />
                                             </p>
                                         </div>
@@ -81,13 +159,7 @@ const SessionScheduler = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex-none w-full lg:w-48">
-                            <button className="btn btn-info btn-outline text-white">
-                                Add a Session +
-                            </button>
-                        </div>
                     </div>
-                    {/* {JSON.stringify(isLoggedIn.user)} */}
                 </div>
                 <div className="col-span-3 md:col-span-1 order-first lg:order-last">
                     <h3 className="font-display text-lg font-semibold text-gray-300">Preview Availability Box</h3>

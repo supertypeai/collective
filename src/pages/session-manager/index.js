@@ -5,7 +5,7 @@ const Page = () => {
 
     return (
         <Mainframe title="Edit Profile | Supertype Collective">
-            <h1 className="text-4xl font-bold">Offer Mentoring Sessions</h1>
+            <h1 className="text-4xl font-bold">Create Paid Sessions</h1>
             <SessionScheduler />
         </Mainframe>
     );
