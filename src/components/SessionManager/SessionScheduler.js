@@ -14,6 +14,11 @@ const SessionScheduler = () => {
     const [addPanelOpen, setAddPanelOpen] = useState(false)
     const [addWeeklyMode, setAddWeeklyMode] = useState(true)
     const [clickedAdd, setClickedAdd] = useState(false)
+    const [sessionDuration, setSessionDuration] = useState(null)
+    const [recurringDateTime, setRecurringDateTime] = useState({
+        'day_of_week': [],
+        'time': []
+    })
 
     useEffect(() => {
         console.log(isLoggedIn)
@@ -43,10 +48,62 @@ const SessionScheduler = () => {
     const WeeklyRecurring = () => {
         return (
             <Form onSubmit={() => { console.log("data") }}>
-                Create a weekly recurring session
+                <div className="badge badge-secondary dark:badge-info mt-2">Weekly recurring session</div>
                 <fieldset>
-                    <Field label="Title">
+                    <Field label="Title"
+                        hint="Give your session a title"
+                    >
                         <Input id="title" placeholder="1 on 1 Tutoring Session" />
+                    </Field>
+                </fieldset>
+
+                <fieldset>
+                    <Field
+                        hint={`Eg. A hourly rate of 40 USD/hour for ${sessionDuration || 2}-hour sessions will cost 
+                        ${sessionDuration ? sessionDuration * 40 : 80}
+                        USD per session.`}
+                    >
+                        <div className="join join-vertical lg:join-horizontal mt-4 text-black">
+                            <input type="number" name="hourly_rate" placeholder="40"
+                                className="join-item input input-bordered rounded-none" />
+                            <span className="join-item btn rounded-none bg-secondary border-none dark:bg-info">USD/hour</span>
+                            <div className="indicator">
+                                <span className="indicator-item badge badge-secondary">new</span>
+                                <select
+                                    className="select select-bordered join-item rounded-none"
+                                    onChange={(e) => setSessionDuration(e.target.value)}
+                                >
+                                    <option disabled selected>Per Session Duration</option>
+                                    <option value={1}>1-hour</option>
+                                    <option value={2}>2-hour</option>
+                                    <option value={3}>3-hour</option>
+                                    <option value={.5}>30-min</option>
+                                </select>
+                            </div>
+                        </div>
+                    </Field>
+                </fieldset>
+
+                <fieldset>
+                    <Field label="Day of Week"
+                        hint="Select the day(s) of the week you want to schedule your session"
+                    >
+                        <Pills
+                            name="day_of_week"
+                            tags={['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']}
+                            onClick={val => {
+
+                                // append to recurringDateTime['day_of_week']
+                                setRecurringDateTime(prev => {
+                                    return {
+                                        ...prev,
+                                        day_of_week:
+                                            [...prev.day_of_week, val]
+                                    }
+                                })
+                                console.log("recurringDateTime", recurringDateTime)
+                            }}
+                        />
                     </Field>
                 </fieldset>
             </Form>
@@ -95,7 +152,6 @@ const SessionScheduler = () => {
                                         </span>
                                     )
                             }
-
                         </div>
                         <div className="collapse-content bg-gray-100 bg-opacity-10 dark:bg-stone-800 rounded">
                             <h2 className="font-bold uppercase mt-4">Add a Session</h2>
