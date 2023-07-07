@@ -17,13 +17,16 @@ function* range(start, end, step) {
     }
 }
 
-const HourInput = ({ key, name, hourRate, setHourRate, ...props }) => {
+const HourInput = ({ keys, name, register, ...props }) => {
     return (
-        <input type="number" name={name} key={key} autoFocus={true}
+        <input
+            {...register("hourly_usd", {
+                required:
+                "Please provide your hourly rate",
+            })}
+            type="number" name={name} keys={keys} autoFocus={true}
             placeholder="40"
             className="join-item input input-bordered rounded-none text-black"
-            value={hourRate}
-            onChange={setHourRate}
         />
     )
 }
@@ -34,19 +37,29 @@ const SessionScheduler = () => {
     const [addPanelOpen, setAddPanelOpen] = useState(false)
     const [addWeeklyMode, setAddWeeklyMode] = useState(true)
     const [clickedAdd, setClickedAdd] = useState(false)
-    const [sessionDuration, setSessionDuration] = useState(0)
-    const [hourRate, setHourRate] = useState('')
     const [recurringDateTime, setRecurringDateTime] = useState({
         'day_of_week': [],
         'hours': []
     })
 
-    useEffect(() => {
-        // console.log(isLoggedIn)
-        console.log("hourRate", hourRate)
-        console.log("sessionDuration", sessionDuration)
-    }, [hourRate])
+    const {
+        register,
+        control,
+        handleSubmit,
+        formState: { errors },
+        reset,
+        watch,
+    } = useForm({
+    mode: "onSubmit",
+    });
 
+    const saveData = (data) => {
+        const finalData = {
+            ...data,
+            ...recurringDateTime
+        }
+        console.log(finalData)
+    };
 
     if (!isLoggedIn) {
         return (
@@ -68,34 +81,48 @@ const SessionScheduler = () => {
         )
     }
 
+    
     const WeeklyRecurring = () => {
         return (
-            <form onSubmit={() => { console.log("data") }}>
+            <Form onSubmit={handleSubmit(saveData)}>
                 <div className="badge badge-secondary dark:badge-info mt-2">Weekly recurring session</div>
                 <fieldset>
-                    <Field label="Title"
+                    <Field 
+                        label="Title"
                         hint="Keep this short. Any details should be in the description."
+                        error={errors?.title}
                     >
-                        <Input id="title" placeholder="1 on 1 Tutoring Session" maxLength="25" />
+                        <Input 
+                            {...register("title", {
+                                required:
+                                  "Please provide a title for your session",
+                            })}
+                            id="title" 
+                            placeholder="1 on 1 Tutoring Session" 
+                            maxLength="25"
+                        />
                     </Field>
                 </fieldset>
 
                 <fieldset>
                     <Field
-                        hint={`Eg. A hourly rate of ${hourRate || 40}
-                         USD/hour for ${sessionDuration || 2}-hour sessions will cost 
-                        ${sessionDuration ? sessionDuration * hourRate || 40 : 80}
+                        hint={`Eg. A hourly rate of ${watch("hourly_usd")|| 40}
+                         USD/hour for ${watch("duration") || 2}-hour sessions will cost 
+                        ${watch("duration") ? watch("duration") * watch("hourly_usd") || 40 : 80}
                         USD per session.`}
+                        error={errors?.hourly_usd || errors?.duration}
                     >
                         <div className="join join-vertical lg:join-horizontal mt-4 text-black">
-                            <HourInput key="hour_rate" name="hour_rate" hourRate={hourRate} setHourRate={(e) => setHourRate(e.target.value)} />
+                            <HourInput keys="hourly_usd" name="hourly_usd" register={register} />
                             <span className="join-item btn rounded-none bg-secondary border-none dark:bg-info animate-none">USD/hour</span>
                             <div className="indicator">
                                 <span className="indicator-item badge badge-secondary">new</span>
                                 <select
+                                    {...register("duration", {
+                                        required:
+                                        "Please provide your session duration",
+                                    })}
                                     className="select select-bordered join-item rounded-none"
-                                    onChange={(e) => setSessionDuration(e.target.value)}
-                                    value={sessionDuration}
                                 >
                                     <option disabled value={0}>Per Session Duration</option>
                                     <option value={1}>1-hour</option>
@@ -137,7 +164,7 @@ const SessionScheduler = () => {
                         <Pills
                             name="hours"
                             tags={
-                                [...range(0, 24, +sessionDuration || 2)].map((val) => {
+                                [...range(0, 24, +watch("duration") || 2)].map((val) => {
                                     // if val is between 0 and 9, add a 0 in front
                                     if (val < 10) {
                                         return `0${val}:00`
@@ -163,8 +190,13 @@ const SessionScheduler = () => {
                 <fieldset>
                     <Field label="Brief Description"
                         hint="Add some details to explain the key value that the mentee will get out of this session"
+                        error={errors?.description}
                     >
                         <textarea
+                            {...register("description", {
+                                required:
+                                "Please provide a description of your session",
+                            })}
                             id="description"
                             rows="2" required minLength="20" maxLength="220"
                             placeholder="1 on 1 consultation on your startup idea from a feasibility or technical viability perspective. I'll seek to provide honest feedback on your idea & work you through the technical hurdles you might face."
@@ -172,7 +204,15 @@ const SessionScheduler = () => {
                         />
                     </Field>
                 </fieldset>
-            </form>
+                <div className="my-4">
+                    <button
+                        type="submit"
+                        className="btn btn-primary text-white"
+                    >
+                        Submit
+                    </button>
+                </div>
+            </Form>
         )
     }
     const OneTime = () => {
