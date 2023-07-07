@@ -8,6 +8,15 @@ import Pills from "@/blocks/Pills";
 import Alert from "../Misc/Alert";
 import Edit from "@/icons/Edit";
 
+const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+function* range(start, end, step) {
+    while (start < end) {
+        yield start;
+        start += step;
+    }
+}
+
 const HourInput = ({ key, name, hourRate, setHourRate, ...props }) => {
     return (
         <input type="number" name={name} key={key} autoFocus={true}
@@ -29,12 +38,13 @@ const SessionScheduler = () => {
     const [hourRate, setHourRate] = useState('')
     const [recurringDateTime, setRecurringDateTime] = useState({
         'day_of_week': [],
-        'time': []
+        'hours': []
     })
 
     useEffect(() => {
         // console.log(isLoggedIn)
         console.log("hourRate", hourRate)
+        console.log("sessionDuration", sessionDuration)
     }, [hourRate])
 
 
@@ -64,9 +74,9 @@ const SessionScheduler = () => {
                 <div className="badge badge-secondary dark:badge-info mt-2">Weekly recurring session</div>
                 <fieldset>
                     <Field label="Title"
-                        hint="Give your session a title"
+                        hint="Keep this short. Any details should be in the description."
                     >
-                        <Input id="title" placeholder="1 on 1 Tutoring Session" />
+                        <Input id="title" placeholder="1 on 1 Tutoring Session" maxLength="25" />
                     </Field>
                 </fieldset>
 
@@ -91,7 +101,6 @@ const SessionScheduler = () => {
                                     <option value={1}>1-hour</option>
                                     <option value={2}>2-hour</option>
                                     <option value={3}>3-hour</option>
-                                    <option value={.5}>30-min</option>
                                 </select>
                             </div>
                         </div>
@@ -117,6 +126,49 @@ const SessionScheduler = () => {
                                 })
                                 console.log("recurringDateTime", recurringDateTime)
                             }}
+                        />
+                    </Field>
+                </fieldset>
+
+                <fieldset>
+                    <Field label="Available Hours"
+                        hint={`Select the hours you can be booked for this session. Times in ${tz} timezone.`}
+                    >
+                        <Pills
+                            name="hours"
+                            tags={
+                                [...range(0, 24, +sessionDuration || 2)].map((val) => {
+                                    // if val is between 0 and 9, add a 0 in front
+                                    if (val < 10) {
+                                        return `0${val}:00`
+                                    }
+                                    return `${val}:00`
+                                })
+                            }
+                            onClick={val => {
+
+                                setRecurringDateTime(prev => {
+                                    return {
+                                        ...prev,
+                                        hours:
+                                            [...prev.hours, val]
+                                    }
+                                })
+                                console.log("recurringDateTime", recurringDateTime)
+                            }}
+                        />
+                    </Field>
+                </fieldset>
+
+                <fieldset>
+                    <Field label="Brief Description"
+                        hint="Add some details to explain the key value that the mentee will get out of this session"
+                    >
+                        <textarea
+                            id="description"
+                            rows="2" required minLength="20" maxLength="220"
+                            placeholder="1 on 1 consultation on your startup idea from a feasibility or technical viability perspective. I'll seek to provide honest feedback on your idea & work you through the technical hurdles you might face."
+                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         />
                     </Field>
                 </fieldset>
