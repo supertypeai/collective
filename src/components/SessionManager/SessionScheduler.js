@@ -7,8 +7,10 @@ import { Field, Form, Input } from "@/blocks/Form";
 import Pills from "@/blocks/Pills";
 import Alert from "../Misc/Alert";
 import Edit from "@/icons/Edit";
+import Draft from "@/icons/Draft";
 import PreviewAvailability from "./PreviewAvailability";
 import CurrentSessions from "./CurrentSessions";
+import Publish from "@/icons/Publish";
 
 const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -144,17 +146,25 @@ const SessionScheduler = () => {
                             name="day_of_week"
                             tags={['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']}
                             onClick={val => {
-
-                                // append to recurringDateTime['day_of_week']
-                                setRecurringDateTime(prev => {
-                                    return {
-                                        ...prev,
-                                        day_of_week:
-                                            [...prev.day_of_week, val]
-                                    }
-                                })
-                                console.log("recurringDateTime", recurringDateTime)
+                                if (recurringDateTime['day_of_week'].includes(val)) {
+                                    setRecurringDateTime(prev => {
+                                        return {
+                                            ...prev,
+                                            day_of_week:
+                                                prev.day_of_week.filter(day => day !== val)
+                                        }
+                                    })
+                                } else {
+                                    setRecurringDateTime(prev => {
+                                        return {
+                                            ...prev,
+                                            day_of_week:
+                                                [...prev.day_of_week, val]
+                                        }
+                                    })
+                                }
                             }}
+                            selected={recurringDateTime['day_of_week']}
                         />
                     </Field>
                 </fieldset>
@@ -176,15 +186,26 @@ const SessionScheduler = () => {
                             }
                             onClick={val => {
 
-                                setRecurringDateTime(prev => {
-                                    return {
-                                        ...prev,
-                                        hours:
-                                            [...prev.hours, val]
-                                    }
-                                })
+                                if (recurringDateTime['hours'].includes(val)) {
+                                    setRecurringDateTime(prev => {
+                                        return {
+                                            ...prev,
+                                            hours:
+                                                prev.hours.filter(hour => hour !== val)
+                                        }
+                                    })
+                                } else {
+                                    setRecurringDateTime(prev => {
+                                        return {
+                                            ...prev,
+                                            hours:
+                                                [...prev.hours, val]
+                                        }
+                                    })
+                                }
                                 console.log("recurringDateTime", recurringDateTime)
                             }}
+                            selected={recurringDateTime['hours']}
                         />
                     </Field>
                 </fieldset>
@@ -209,11 +230,24 @@ const SessionScheduler = () => {
                 <div className="my-4">
                     <button
                         type="submit"
-                        className="btn btn-primary text-white dark:btn-info"
+                        className="btn btn-secondary text-white dark:btn-info"
                     >
-                        Submit
+                        <Publish /> &nbsp;
+                        Publish Session
+                    </button>
+                    <button
+                        className="btn btn-outline ml-2"
+                    >
+                        <Draft /> &nbsp;
+                        Save as Draft
                     </button>
                 </div>
+
+                <section className="text-xs">
+                    By publishing this session and accepting bookings, you agree to our
+                    <a href="#" className="text-info"> Terms of Service</a> and
+                    to comply with our <a href="#" className="text-info">Community Guidelines</a>.
+                </section>
             </Form>
         )
     }
