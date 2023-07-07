@@ -218,6 +218,7 @@ const EditPersonalDetails = () => {
               type="file"
               accept=".jpg,.jpeg,.webp,.png"
               disabled={!isEditting | githubImage}
+              className="file-input file-input-secondary border-white text-black w-full max-w-xs"
             />
           </Field>
         ) : (

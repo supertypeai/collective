@@ -149,17 +149,16 @@ const CreateForm = ({ setProjectState }) => {
             setIsSubmitting(false);
             // send notification to slack
             fetch("/api/slackNotification", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    message: `A user just created a Project called ${d.name}! Email: ${isLoggedIn.user.email}`
-                })
-            })
-                .then((res) => {
-                  return res.json()
-                })
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                message: `A user just created a Project called ${d.name}! Email: ${isLoggedIn.user.email}`,
+              }),
+            }).then((res) => {
+              return res.json();
+            });
 
             // if successful, alert() for 2 seconds and redirect to home page
             alert("Thank you for submitting! We will review your project.");
@@ -174,15 +173,14 @@ const CreateForm = ({ setProjectState }) => {
         fetch("/api/slackNotification", {
           method: "POST",
           headers: {
-              'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
-              message: `A user just created a Project called ${d.name}! Email: ${isLoggedIn.user.email}`
-          })
-      })
-          .then((res) => {
-            return res.json()
-          })
+            message: `A user just created a Project called ${d.name}! Email: ${isLoggedIn.user.email}`,
+          }),
+        }).then((res) => {
+          return res.json();
+        });
         alert("Thank you for submitting! We will review your project.");
         setIsSubmitting(false);
         reset();
@@ -297,6 +295,7 @@ const CreateForm = ({ setProjectState }) => {
             })}
             type="file"
             accept=".jpg,.jpeg,.webp,.png"
+            className="file-input file-input-secondary border-white text-black w-full max-w-xs"
           />
         </Field>
       ) : (
