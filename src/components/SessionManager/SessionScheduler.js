@@ -7,6 +7,8 @@ import { Field, Form, Input } from "@/blocks/Form";
 import Pills from "@/blocks/Pills";
 import Alert from "../Misc/Alert";
 import Edit from "@/icons/Edit";
+import PreviewAvailability from "./PreviewAvailability";
+import CurrentSessions from "./CurrentSessions";
 
 const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -22,7 +24,7 @@ const HourInput = ({ keys, name, register, ...props }) => {
         <input
             {...register("hourly_usd", {
                 required:
-                "Please provide your hourly rate",
+                    "Please provide your hourly rate",
             })}
             type="number" name={name} keys={keys} autoFocus={true}
             placeholder="40"
@@ -50,7 +52,7 @@ const SessionScheduler = () => {
         reset,
         watch,
     } = useForm({
-    mode: "onSubmit",
+        mode: "onSubmit",
     });
 
     const saveData = (data) => {
@@ -81,24 +83,24 @@ const SessionScheduler = () => {
         )
     }
 
-    
+
     const WeeklyRecurring = () => {
         return (
             <Form onSubmit={handleSubmit(saveData)}>
                 <div className="badge badge-secondary dark:badge-info mt-2">Weekly recurring session</div>
                 <fieldset>
-                    <Field 
+                    <Field
                         label="Title"
                         hint="Keep this short. Any details should be in the description."
                         error={errors?.title}
                     >
-                        <Input 
+                        <Input
                             {...register("title", {
                                 required:
-                                  "Please provide a title for your session",
+                                    "Please provide a title for your session",
                             })}
-                            id="title" 
-                            placeholder="1 on 1 Tutoring Session" 
+                            id="title"
+                            placeholder="1 on 1 Tutoring Session"
                             maxLength="25"
                         />
                     </Field>
@@ -106,7 +108,7 @@ const SessionScheduler = () => {
 
                 <fieldset>
                     <Field
-                        hint={`Eg. A hourly rate of ${watch("hourly_usd")|| 40}
+                        hint={`Eg. A hourly rate of ${watch("hourly_usd") || 40}
                          USD/hour for ${watch("duration") || 2}-hour sessions will cost 
                         ${watch("duration") ? watch("duration") * watch("hourly_usd") || 40 : 80}
                         USD per session.`}
@@ -120,7 +122,7 @@ const SessionScheduler = () => {
                                 <select
                                     {...register("duration", {
                                         required:
-                                        "Please provide your session duration",
+                                            "Please provide your session duration",
                                     })}
                                     className="select select-bordered join-item rounded-none"
                                 >
@@ -195,7 +197,7 @@ const SessionScheduler = () => {
                         <textarea
                             {...register("description", {
                                 required:
-                                "Please provide a description of your session",
+                                    "Please provide a description of your session",
                             })}
                             id="description"
                             rows="2" required minLength="20" maxLength="220"
@@ -207,7 +209,7 @@ const SessionScheduler = () => {
                 <div className="my-4">
                     <button
                         type="submit"
-                        className="btn btn-primary text-white"
+                        className="btn btn-primary text-white dark:btn-info"
                     >
                         Submit
                     </button>
@@ -279,6 +281,7 @@ const SessionScheduler = () => {
                     </div>
                     <div className="md:flex md:flex-row mt-4">
                         <div className="grow">
+                            <CurrentSessions />
                             <h3 className="font-display text-lg font-semibold text-gray-300">Current Sessions</h3>
                             <div className="container flex flex-col items-center justify-center mx-auto sm:py-2">
                                 <div className="flex flex-row flex-wrap justify-center mt-4">
@@ -324,9 +327,14 @@ const SessionScheduler = () => {
                     </div>
                 </div>
                 <div className="col-span-3 md:col-span-1 order-first lg:order-last">
-                    <h3 className="font-display text-lg font-semibold text-gray-300">Preview Availability Box</h3>
-                    <div className="container flex flex-col mx-auto mt-4 sm:py-2 h-2/4 border rounded">
+                    <h3 className="font-display text-lg font-semibold text-gray-300">Preview Sessions Availability</h3>
+                    <div className="container flex flex-col mx-auto mt-4 sm:py-2 h-2/4 rounded">
                         <p className="font-light mx-4 text-sm">This is what visitors will see when they visit your profile.</p>
+                        <PreviewAvailability user={{
+                            id: isLoggedIn?.user.id,
+                            name: isLoggedIn?.user.fullname,
+                            email: isLoggedIn?.user.email,
+                        }} />
                     </div>
                 </div>
             </main>
