@@ -3,35 +3,20 @@ import { useState, useContext, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 
 import { AppContext } from "@/contexts/AppContext";
-import { Field, Form, Input } from "@/blocks/Form";
+import { Field, Form } from "@/blocks/Form";
 import Pills from "@/blocks/Pills";
 import Alert from "../Misc/Alert";
-import Edit from "@/icons/Edit";
+
 import PreviewAvailability from "./PreviewAvailability";
 import CurrentSessions from "./CurrentSessions";
+import SessionTitle from "./components/SessionTitle";
+import SessionRate from "./components/SessionRate";
+import SessionDayOfWeek from "./components/SessionDayOfWeek";
+import SessionHours from "./components/SessionHours";
+import SessionDesc from "./components/SessionDesc";
 
-const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-function* range(start, end, step) {
-    while (start < end) {
-        yield start;
-        start += step;
-    }
-}
-
-const HourInput = ({ keys, name, register, ...props }) => {
-    return (
-        <input
-            {...register("hourly_usd", {
-                required:
-                    "Please provide your hourly rate",
-            })}
-            type="number" name={name} keys={keys} autoFocus={true}
-            placeholder="40"
-            className="join-item input input-bordered rounded-none text-black"
-        />
-    )
-}
+import Edit from "@/icons/Edit";
+import SessionSubmit from "./components/SessionSubmit";
 
 const SessionScheduler = () => {
     const { isLoggedIn } = useContext(AppContext);
@@ -65,11 +50,9 @@ const SessionScheduler = () => {
 
     if (!isLoggedIn) {
         return (
-            <div>
-                <Alert type="info">
-                    You need to log in to access this feature
-                </Alert>
-            </div>
+            <Alert type="info">
+                You need to log in to access this feature
+            </Alert>
         )
     }
 
@@ -88,135 +71,25 @@ const SessionScheduler = () => {
         return (
             <Form onSubmit={handleSubmit(saveData)}>
                 <div className="badge badge-secondary dark:badge-info mt-2">Weekly recurring session</div>
-                <fieldset>
-                    <Field
-                        label="Title"
-                        hint="Keep this short. Any details should be in the description."
-                        error={errors?.title}
-                    >
-                        <Input
-                            {...register("title", {
-                                required:
-                                    "Please provide a title for your session",
-                            })}
-                            id="title"
-                            placeholder="1 on 1 Tutoring Session"
-                            maxLength="25"
-                        />
-                    </Field>
-                </fieldset>
-
-                <fieldset>
-                    <Field
-                        hint={`Eg. A hourly rate of ${watch("hourly_usd") || 40}
-                         USD/hour for ${watch("duration") || 2}-hour sessions will cost 
-                        ${watch("duration") ? watch("duration") * watch("hourly_usd") || 40 : 80}
-                        USD per session.`}
-                        error={errors?.hourly_usd || errors?.duration}
-                    >
-                        <div className="join join-vertical lg:join-horizontal mt-4 text-black">
-                            <HourInput keys="hourly_usd" name="hourly_usd" register={register} />
-                            <span className="join-item btn rounded-none bg-secondary border-none dark:bg-info animate-none">USD/hour</span>
-                            <div className="indicator">
-                                <span className="indicator-item badge badge-secondary">new</span>
-                                <select
-                                    {...register("duration", {
-                                        required:
-                                            "Please provide your session duration",
-                                    })}
-                                    className="select select-bordered join-item rounded-none"
-                                >
-                                    <option disabled value={0}>Per Session Duration</option>
-                                    <option value={1}>1-hour</option>
-                                    <option value={2}>2-hour</option>
-                                    <option value={3}>3-hour</option>
-                                </select>
-                            </div>
-                        </div>
-                    </Field>
-                </fieldset>
-
-                <fieldset>
-                    <Field label="Day of Week"
-                        hint="Select the day(s) of the week you want to schedule your session"
-                    >
-                        <Pills
-                            name="day_of_week"
-                            tags={['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']}
-                            onClick={val => {
-
-                                // append to recurringDateTime['day_of_week']
-                                setRecurringDateTime(prev => {
-                                    return {
-                                        ...prev,
-                                        day_of_week:
-                                            [...prev.day_of_week, val]
-                                    }
-                                })
-                                console.log("recurringDateTime", recurringDateTime)
-                            }}
-                        />
-                    </Field>
-                </fieldset>
-
-                <fieldset>
-                    <Field label="Available Hours"
-                        hint={`Select the hours you can be booked for this session. Times in ${tz} timezone.`}
-                    >
-                        <Pills
-                            name="hours"
-                            tags={
-                                [...range(0, 24, +watch("duration") || 2)].map((val) => {
-                                    // if val is between 0 and 9, add a 0 in front
-                                    if (val < 10) {
-                                        return `0${val}:00`
-                                    }
-                                    return `${val}:00`
-                                })
-                            }
-                            onClick={val => {
-
-                                setRecurringDateTime(prev => {
-                                    return {
-                                        ...prev,
-                                        hours:
-                                            [...prev.hours, val]
-                                    }
-                                })
-                                console.log("recurringDateTime", recurringDateTime)
-                            }}
-                        />
-                    </Field>
-                </fieldset>
-
-                <fieldset>
-                    <Field label="Brief Description"
-                        hint="Add some details to explain the key value that the mentee will get out of this session"
-                        error={errors?.description}
-                    >
-                        <textarea
-                            {...register("description", {
-                                required:
-                                    "Please provide a description of your session",
-                            })}
-                            id="description"
-                            rows="2" required minLength="20" maxLength="220"
-                            placeholder="1 on 1 consultation on your startup idea from a feasibility or technical viability perspective. I'll seek to provide honest feedback on your idea & work you through the technical hurdles you might face."
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        />
-                    </Field>
-                </fieldset>
-                <div className="my-4">
-                    <button
-                        type="submit"
-                        className="btn btn-primary text-white dark:btn-info"
-                    >
-                        Submit
-                    </button>
-                </div>
-            </Form>
+                <SessionTitle register={register} error={errors?.title} />
+                <SessionRate
+                    register={register}
+                    error={errors?.hourly_usd || errors?.duration}
+                    watch={watch}
+                />
+                <SessionDayOfWeek
+                    register={register}
+                    error={errors?.day_of_week}
+                    recurringDateTime={recurringDateTime}
+                    setRecurringDateTime={setRecurringDateTime}
+                />
+                <SessionHours register={register} error={errors?.hours} watch={watch} recurringDateTime={recurringDateTime} setRecurringDateTime={setRecurringDateTime} />
+                <SessionDesc register={register} error={errors?.description} />
+                <SessionSubmit />
+            </Form >
         )
     }
+
     const OneTime = () => {
         return (
             <div>
