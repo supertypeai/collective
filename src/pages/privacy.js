@@ -4,14 +4,11 @@ import { Mainframe } from "@/blocks/Mainframe";
 const Page = () => {
     return (
         <Mainframe title="Supertype Collective | Privacy Policy">
-            <main className='w-full prose lg:prose-xl my-4 max-w-4xl text-justify'>
+            <main className="w-full prose lg:prose-xl my-4 max-w-4xl text-justify">
                 <h3 className="text-2xl">Privacy Policy</h3>
-                <p>
-                    Supertype Pte. Ltd. built the Supertype Collective app as
-                    an open source app. This SERVICE is provided by
-                    Supertype Pte. Ltd. at no cost and is intended for use as
-                    is.
-                </p>
+                <p className="text-sm text-gray-300">Last updated: 2023-07-11</p>
+
+                <div className="divider"></div>
                 <p>
                     This page is used to inform visitors regarding our
                     policies with the collection, use, and disclosure of Personal
@@ -37,15 +34,12 @@ const Page = () => {
                     we request will be retained by us and used as described in this privacy policy.
                 </p>
                 <p>
-                    The app does use third-party services that may collect
-                    information used to identify you.
-                </p> <p>
-                    Link to the privacy policy of third-party service providers used
-                    by the app
+                    This app uses Supertype&apos;s Umai, a fork of the open source project Umami -- a simple, fast, privacy-focused alternative to
+                    Google Analytics.
                 </p>
                 <ul>
                     <li>
-                        <Link href="https://www.umami.site/about/privacy-policy/" target="_blank" rel="noopener noreferrer" className="link link-info">Umami</Link>
+                        <Link href="https://github.com/supertypeai/umai" target="_blank" rel="noopener noreferrer" className="link link-info">Umai</Link>
                     </li>
                 </ul>
                 <p>
@@ -104,7 +98,8 @@ const Page = () => {
                     periodically for any changes. We will
                     notify you of any changes by posting the new Privacy Policy on
                     this page.
-                </p> <p>This policy is effective as of 2023-03-15</p> <p><strong>Contact Us</strong></p> <p>
+                </p>
+                <p><strong>Contact Us</strong></p> <p>
                     If you have any questions or suggestions about our
                     Privacy Policy, do not hesitate to contact us at s@supertype.ai.
                 </p>

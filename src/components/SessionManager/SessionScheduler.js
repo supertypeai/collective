@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 
 import { useForm, Controller } from "react-hook-form";
+import { supabase } from "@/lib/supabaseClient";
 
 import { AppContext } from "@/contexts/AppContext";
 import { Form } from "@/blocks/Form";
@@ -31,6 +32,10 @@ const SessionScheduler = () => {
         'day_of_week': [],
         'hours': []
     })
+    const [errorRecurringDateTime, setErrorRecurringDateTime] = useState({
+        'day_of_week': "",
+        'hours': ""
+    })
 
     const {
         register,
@@ -43,12 +48,43 @@ const SessionScheduler = () => {
         mode: "onSubmit",
     });
 
-    const saveData = (data) => {
+    const saveData = async (data) => {
+        const hasEmptyArray = Object.values(recurringDateTime).some((value) => value.length === 0);
+        if (hasEmptyArray) {
+            const error = {};
+            Object.keys(recurringDateTime).forEach((key) => {
+                if (recurringDateTime[key].length === 0) {
+                    error[key] = { message: `Please provide your available ${key.split("_")[0]}(s)` }
+                } else {
+                    error[key] = "";
+                }
+            });
+            setErrorRecurringDateTime(error);
+            return;
+        } else {
+            setErrorRecurringDateTime({ day_of_week: "", hours: "" });
+        }
+
+        const date = new Date();
+        const tzOffsetMinutes = -date.getTimezoneOffset();
+
         const finalData = {
             ...data,
-            ...recurringDateTime
+            ...recurringDateTime,
+            tz_gmt: tzOffsetMinutes,
+            created_at: new Date(),
         }
         console.log(finalData)
+        // const { error } = await supabase.from("sessionManager").insert([finalData]);
+    
+        // if (error) {
+        //     alert("Sorry, something went wrong. Please try again.");
+        //     console.log(error);
+        // } else {
+        //     alert("Thank you for submitting! We will be in touch.");
+        //     setAddPanelOpen(false);
+        //     reset();
+        // }
     };
 
     if (!isLoggedIn) {
@@ -65,7 +101,7 @@ const SessionScheduler = () => {
 
     const WeeklyRecurring = () => {
         return (
-            <Form onSubmit={handleSubmit(saveData)}>
+            <Form>
                 <div className="badge badge-secondary dark:badge-info mt-2">Weekly recurring session</div>
                 <SessionTitle register={register} error={errors?.title} />
                 <SessionRate
@@ -74,14 +110,13 @@ const SessionScheduler = () => {
                     watch={watch}
                 />
                 <SessionDayOfWeek
-                    register={register}
-                    error={errors?.day_of_week}
+                    error={errorRecurringDateTime?.day_of_week}
                     recurringDateTime={recurringDateTime}
                     setRecurringDateTime={setRecurringDateTime}
                 />
-                <SessionHours register={register} error={errors?.hours} watch={watch} recurringDateTime={recurringDateTime} setRecurringDateTime={setRecurringDateTime} />
+                <SessionHours error={errorRecurringDateTime?.hours} watch={watch} recurringDateTime={recurringDateTime} setRecurringDateTime={setRecurringDateTime} />
                 <SessionDesc register={register} error={errors?.description} />
-                <SessionSubmit />
+                <SessionSubmit handleSubmit={handleSubmit} saveData={saveData} />
             </Form >
         )
     }
@@ -89,7 +124,7 @@ const SessionScheduler = () => {
     const OneTime = () => {
         return (
             // may need to change this to handleSubmit2 to handle one-time events
-            <Form onSubmit={handleSubmit(saveData)}>
+            <Form>
                 <div className="badge badge-info dark:badge-secondary mt-2">One-time session</div>
                 <SessionTitle register={register} error={errors?.title} />
                 <SessionRate
@@ -99,7 +134,7 @@ const SessionScheduler = () => {
                 />
                 <SessionDayPicker register={register} error={errors?.daypicker} watch={watch} recurringDateTime={recurringDateTime} setRecurringDateTime={setRecurringDateTime} />
                 <SessionDesc register={register} error={errors?.description} />
-                <SessionSubmit />
+                <SessionSubmit handleSubmit={handleSubmit} saveData={saveData} />
             </Form >
         )
     }

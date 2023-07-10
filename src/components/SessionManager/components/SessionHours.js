@@ -10,7 +10,7 @@ function* range(start, end, step) {
     }
 }
 
-const SessionHours = ({ register, error, watch, recurringDateTime, setRecurringDateTime }) => {
+const SessionHours = ({ error, watch, recurringDateTime, setRecurringDateTime }) => {
     return (
         <fieldset>
             <Field label="Available Hours"
@@ -28,6 +28,7 @@ const SessionHours = ({ register, error, watch, recurringDateTime, setRecurringD
                             return `${val}:00`
                         })
                     }
+                    maxWidth="40"
                     onClick={val => {
 
                         if (recurringDateTime['hours'].includes(val)) {
