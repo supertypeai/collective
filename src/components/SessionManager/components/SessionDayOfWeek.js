@@ -1,7 +1,7 @@
 import { Field } from "@/blocks/Form"
 import Pills from "@/blocks/Pills"
 
-const SessionDayOfWeek = ({ register, error, recurringDateTime, setRecurringDateTime }) => {
+const SessionDayOfWeek = ({ error, recurringDateTime, setRecurringDateTime }) => {
     return (
         <fieldset>
             <Field label='Day of Week'
