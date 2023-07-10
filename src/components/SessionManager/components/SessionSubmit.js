@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import Draft from "@/icons/Draft";
 import Publish from "@/icons/Publish";
 
@@ -8,18 +10,18 @@ const SessionSubmit = ({ handleSubmit, saveData }) => {
                 <button
                     onClick={handleSubmit((data) => saveData({
                         ...data,
-                        is_live:true
+                        is_live: true
                     }))}
                     className="btn btn-secondary text-white dark:btn-info"
                 >
                     <Publish /> &nbsp;
                     Publish Session
                 </button>
-                <button 
+                <button
                     className="btn btn-outline ml-2"
                     onClick={handleSubmit((data) => saveData({
                         ...data,
-                        is_live:false
+                        is_live: false
                     }))}
                 >
                     <Draft /> &nbsp;
@@ -29,7 +31,7 @@ const SessionSubmit = ({ handleSubmit, saveData }) => {
 
             <section className="text-xs">
                 By publishing this session and accepting bookings, you agree to our
-                <a href="#" className="text-info"> Terms of Service</a> and
+                <Link href="/terms-and-conditions" className="text-info"> Terms of Service</Link> and
                 to comply with our <a href="#" className="text-info">Community Guidelines</a>.
             </section>
         </>
