@@ -30,13 +30,13 @@ const SessionHours = ({ error, watch, recurringDateTime, setRecurringDateTime })
                     }
                     maxWidth="40"
                     onClick={val => {
-
-                        if (recurringDateTime['hours'].includes(val)) {
+                        const currentVal = parseInt(val.split(":")[0], 10)
+                        if (recurringDateTime['hours'].includes(currentVal)) {
                             setRecurringDateTime(prev => {
                                 return {
                                     ...prev,
                                     hours:
-                                        prev.hours.filter(hour => hour !== val)
+                                        prev.hours.filter(hour => hour !== currentVal)
                                 }
                             })
                         } else {
@@ -44,13 +44,19 @@ const SessionHours = ({ error, watch, recurringDateTime, setRecurringDateTime })
                                 return {
                                     ...prev,
                                     hours:
-                                        [...prev.hours, val]
+                                        [...prev.hours, currentVal]
                                 }
                             })
                         }
                         console.log("recurringDateTime", recurringDateTime)
                     }}
-                    selected={recurringDateTime['hours']}
+                    selected={recurringDateTime['hours'].map((val) => {
+                        // if val is between 0 and 9, add a 0 in front
+                        if (val < 10) {
+                            return `0${val}:00`
+                        }
+                        return `${val}:00`
+                    })}
                 />
             </Field>
         </fieldset>

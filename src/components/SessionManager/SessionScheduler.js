@@ -68,23 +68,31 @@ const SessionScheduler = () => {
         const date = new Date();
         const tzOffsetMinutes = -date.getTimezoneOffset();
 
+        const { data: { user } } = await supabase.auth.getUser();
+
         const finalData = {
             ...data,
             ...recurringDateTime,
+            mentor: user.id,
             tz_gmt: tzOffsetMinutes,
             created_at: new Date(),
+        };
+
+        const { error } = await supabase.from("sessionManager").insert([finalData]);
+
+        if (error) {
+            alert("Sorry, something went wrong. Please try again.");
+            console.log(error);
+        } else {
+            alert("Thank you for submitting! We will be in touch.");
+            setAddPanelOpen(false);
+            setClickedAdd(false);
+            setRecurringDateTime({
+                'day_of_week': [],
+                'hours': []
+            })
+            reset();
         }
-        console.log(finalData)
-        // const { error } = await supabase.from("sessionManager").insert([finalData]);
-    
-        // if (error) {
-        //     alert("Sorry, something went wrong. Please try again.");
-        //     console.log(error);
-        // } else {
-        //     alert("Thank you for submitting! We will be in touch.");
-        //     setAddPanelOpen(false);
-        //     reset();
-        // }
     };
 
     if (!isLoggedIn) {
