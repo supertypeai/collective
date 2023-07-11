@@ -36,6 +36,8 @@ const SessionScheduler = () => {
         'day_of_week': "",
         'hours': ""
     })
+    const [selectedDate, setSelectedDate] = useState([])
+    const [errorDate, setErrorDate] = useState()
 
     const {
         register,
@@ -49,42 +51,72 @@ const SessionScheduler = () => {
     });
 
     const saveData = async (data) => {
-        const hasEmptyArray = Object.values(recurringDateTime).some((value) => value.length === 0);
-        if (hasEmptyArray) {
-            const error = {};
-            Object.keys(recurringDateTime).forEach((key) => {
-                if (recurringDateTime[key].length === 0) {
-                    error[key] = { message: `Please provide your available ${key.split("_")[0]}(s)` }
-                } else {
-                    error[key] = "";
-                }
-            });
-            setErrorRecurringDateTime(error);
-            return;
+        if (addWeeklyMode) {
+            const hasEmptyArray = Object.values(recurringDateTime).some((value) => value.length === 0);
+            if (hasEmptyArray) {
+                const error = {};
+                Object.keys(recurringDateTime).forEach((key) => {
+                    if (recurringDateTime[key].length === 0) {
+                        error[key] = { message: `Please provide your available ${key.split("_")[0]}(s)` }
+                    } else {
+                        error[key] = "";
+                    }
+                });
+                setErrorRecurringDateTime(error);
+                return;
+            } else {
+                setErrorRecurringDateTime({ day_of_week: "", hours: "" });
+            }
         } else {
-            setErrorRecurringDateTime({ day_of_week: "", hours: "" });
-        }
+            if(recurringDateTime.hours.length === 0){
+                setErrorRecurringDateTime(prev => {
+                    return {
+                        ...prev,
+                        hours: { message: "Please provide your available hour(s)" }
+                    }
+                })
+                return;
+            } else {
+                setErrorRecurringDateTime({ day_of_week: "", hours: ""})
+            }
 
+            if(selectedDate.length === 0){
+                setErrorDate({ message: "Please provide your available date(s)" })
+                return;
+            } else {
+                setErrorDate("")
+            }
+        }
+        
         const date = new Date();
         const tzOffsetMinutes = -date.getTimezoneOffset();
+
+        const { data: { user } } = await supabase.auth.getUser();
 
         const finalData = {
             ...data,
             ...recurringDateTime,
+            day_of_week: addWeeklyMode ? recurringDateTime.day_of_week : [],
+            one_time_date: addWeeklyMode ? [] : selectedDate,
+            mentor: user.id,
             tz_gmt: tzOffsetMinutes,
             created_at: new Date(),
+        };
+
+        const { error } = await supabase.from("sessionManager").insert([finalData]);
+
+        if (error) {
+            alert("Sorry, something went wrong. Please try again.");
+            console.log(error);
+        } else {
+            alert("Your session is successfully created!");
+            reset()
+            setRecurringDateTime({
+                'day_of_week': [],
+                'hours': []
+            })
+            setSelectedDate([])
         }
-        console.log(finalData)
-        // const { error } = await supabase.from("sessionManager").insert([finalData]);
-    
-        // if (error) {
-        //     alert("Sorry, something went wrong. Please try again.");
-        //     console.log(error);
-        // } else {
-        //     alert("Thank you for submitting! We will be in touch.");
-        //     setAddPanelOpen(false);
-        //     reset();
-        // }
     };
 
     if (!isLoggedIn) {
@@ -132,7 +164,7 @@ const SessionScheduler = () => {
                     error={errors?.hourly_usd || errors?.duration}
                     watch={watch}
                 />
-                <SessionDayPicker register={register} error={errors?.daypicker} watch={watch} recurringDateTime={recurringDateTime} setRecurringDateTime={setRecurringDateTime} />
+                <SessionDayPicker register={register} errorHours={errorRecurringDateTime?.hours} errorDate={errorDate} watch={watch} recurringDateTime={recurringDateTime} setRecurringDateTime={setRecurringDateTime} selectedDate={selectedDate} setSelectedDate={setSelectedDate}/>
                 <SessionDesc register={register} error={errors?.description} />
                 <SessionSubmit handleSubmit={handleSubmit} saveData={saveData} />
             </Form >

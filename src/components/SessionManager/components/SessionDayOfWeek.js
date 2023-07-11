@@ -1,6 +1,8 @@
 import { Field } from "@/blocks/Form"
 import Pills from "@/blocks/Pills"
 
+const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
 const SessionDayOfWeek = ({ error, recurringDateTime, setRecurringDateTime }) => {
     return (
         <fieldset>
@@ -10,14 +12,15 @@ const SessionDayOfWeek = ({ error, recurringDateTime, setRecurringDateTime }) =>
             >
                 <Pills
                     name="day_of_week"
-                    tags={['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']}
+                    tags={daysOfWeek}
                     onClick={val => {
-                        if (recurringDateTime['day_of_week'].includes(val)) {
+                        const currentVal = daysOfWeek.indexOf(val);
+                        if (recurringDateTime['day_of_week'].includes(currentVal)) {
                             setRecurringDateTime(prev => {
                                 return {
                                     ...prev,
                                     day_of_week:
-                                        prev.day_of_week.filter(day => day !== val)
+                                        prev.day_of_week.filter(day => day !== currentVal)
                                 }
                             })
                         } else {
@@ -25,12 +28,12 @@ const SessionDayOfWeek = ({ error, recurringDateTime, setRecurringDateTime }) =>
                                 return {
                                     ...prev,
                                     day_of_week:
-                                        [...prev.day_of_week, val]
+                                        [...prev.day_of_week, currentVal]
                                 }
                             })
                         }
                     }}
-                    selected={recurringDateTime['day_of_week']}
+                    selected={recurringDateTime['day_of_week'].map(index => daysOfWeek[index])}
                 />
             </Field>
         </fieldset>
