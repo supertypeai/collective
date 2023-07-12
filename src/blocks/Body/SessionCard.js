@@ -1,7 +1,84 @@
 import { useContext } from 'react';
+// import { supabase } from "@/lib/supabaseClient";
+// import { useQuery } from "@tanstack/react-query";
+
 import { AppContext } from '@/contexts/AppContext';
+import Recurring from '@/icons/Recurring';
+
+export const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+const extractDayFromDateTime = (dateTime) => {
+    const date = new Date(dateTime);
+    return date.toLocaleString('default', { weekday: 'short' });
+}
+
+const shortDate = (dateTime) => {
+    const date = new Date(dateTime);
+    return date.toLocaleString('default', { month: 'short', day: 'numeric' });
+}
+
+const OneTimeSession = ({ sessionData }) => {
+    return (
+        <div className='col-span-4 text-center text-xs border rounded'>
+            <div className='uppercase text-info'>{sessionData.title}</div>
+            <div className='font-bold text-md'>
+                <span className='font-light'>{extractDayFromDateTime(sessionData.one_time_date[0])},</span>
+                &nbsp;{shortDate(sessionData.one_time_date[0])}&nbsp;
+                {sessionData.one_time_date.length > 1 &&
+                    <span className="tooltip tooltip-info" data-tip="More available dates">
+                        &nbsp;
+                        <span className="badge badge-warning dark:badge-info badge-xs font-light text-[0.7em]">+{sessionData.one_time_date.length - 1}</span>
+                    </span>
+                }
+            </div>
+            <div className='uppercase'>19:30</div>
+        </div>
+    )
+}
+
+const RecurringSession = ({ sessionData }) => {
+    return (
+        <div className='col-span-4 text-center text-xs border rounded'>
+            <div className='uppercase text-info'>{sessionData.title}</div>
+            <div className='font-bold text-md'>
+                <span className='font-light'>FRI,</span>
+                &nbsp;20 Jul&nbsp;
+                <div className="tooltip tooltip-info" data-tip="Every Friday">
+                    <Recurring />
+                </div>
+            </div>
+            <div className='uppercase'>19:30</div>
+        </div>
+    )
+}
 
 
+const Sessions = ({ sessionData }) => {
+    if (sessionData && sessionData.length > 0)
+        return sessionData.map((sessionData) => {
+            return sessionData.one_time_date.length > 0 ?
+                <OneTimeSession sessionData={sessionData} />
+                : <RecurringSession sessionData={sessionData} />
+        })
+
+    else {
+        return <h1>No Sessions Yet!</h1>
+    }
+}
+
+
+// const fetchSessionOfUser = async (userId) => {
+//     const { data, error } = await supabase
+//         .from('sessionManager')
+//         .select()
+//         .eq('mentor', userId)
+//         .order('created_at', { ascending: false })
+
+//     if (error) throw new Error(error, "Error fetching session")
+
+//     if (!data) throw new Error("No session found")
+//     return data
+// }
 
 const SessionCard = ({ data }) => {
     const { isLoggedIn } = useContext(AppContext);
@@ -13,6 +90,15 @@ const SessionCard = ({ data }) => {
                 <h4 className='font-bold tracking-tight text-sm'>
                     Book a 1:1 session with {data['fullname']}
                 </h4>
+                <p className='text-xs text-gray-400'>
+                    {`Session times displayed in ${tz}`}
+                </p>
+
+
+                <div className='grid grid-cols-12 gap-2 mt-2'>
+                    <Sessions sessionData={data['sessions']} />
+                </div>
+
                 {/* 3 x 2 grid */}
                 <div className='grid grid-cols-12 gap-2 mt-2'>
                     <div className='col-span-4 text-center text-xs border rounded'>

@@ -90,15 +90,12 @@ const SessionScheduler = () => {
         
         const date = new Date();
         const tzOffsetMinutes = -date.getTimezoneOffset();
-
-        const { data: { user } } = await supabase.auth.getUser();
-
         const finalData = {
             ...data,
             ...recurringDateTime,
             day_of_week: addWeeklyMode ? recurringDateTime.day_of_week : [],
             one_time_date: addWeeklyMode ? [] : selectedDate,
-            mentor: user.id,
+            mentor: isLoggedIn.user.id,
             tz_gmt: tzOffsetMinutes,
             created_at: new Date(),
         };
