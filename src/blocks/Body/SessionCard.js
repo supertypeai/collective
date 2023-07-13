@@ -62,10 +62,9 @@ const Sessions = ({ sessionData }) => {
         })
 
     else {
-        return <h1>No Sessions Yet!</h1>
+        return null
     }
 }
-
 
 // const fetchSessionOfUser = async (userId) => {
 //     const { data, error } = await supabase
