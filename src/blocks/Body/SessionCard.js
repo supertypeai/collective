@@ -7,12 +7,12 @@ import Recurring from '@/icons/Recurring';
 
 export const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-const extractDayFromDateTime = (dateTime) => {
+export const extractDayFromDateTime = (dateTime) => {
     const date = new Date(dateTime);
     return date.toLocaleString('default', { weekday: 'short' });
 }
 
-const shortDate = (dateTime) => {
+export const shortDate = (dateTime) => {
     const date = new Date(dateTime);
     return date.toLocaleString('default', { month: 'short', day: 'numeric' });
 }
