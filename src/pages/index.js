@@ -151,7 +151,7 @@ const YevonnaelProfile = () => {
 
 const VitoProfile = () => {
     return <ProfileCard person={{
-        imgUrl: "https://media.licdn.com/dms/image/C5603AQEJIY10asFC2A/profile-displayphoto-shrink_200_200/0/1599668304059?e=1688601600&v=beta&t=sclBjHd2_jp3oAGki83MJ76Tm1a7-6Mh3pX03JVtY3k",
+        imgUrl: "https://supertype.ai/wp-content/uploads/2023/07/vito.webp",
         name: "Vito Ghifari",
         profileLink: "/p/vito",
         short: "Data Scientist @Supertype.ai. Develops machine learning applications for portfolio companies.",

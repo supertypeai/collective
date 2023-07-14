@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import sortByMonthName from '@/utils/sortByMonthName';
 import GithubMonthlyCommit from '../Viz/GithubMonthlyCommit';
+import { sortByMonthName } from '@/utils/dateformat';
 
 const CommitPolar = ({ data, newCol }) => {
 

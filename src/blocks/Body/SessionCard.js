@@ -4,17 +4,40 @@ import { useContext } from 'react';
 
 import { AppContext } from '@/contexts/AppContext';
 import Recurring from '@/icons/Recurring';
+import { tz, extractDayFromDateTime, shortDate } from '@/utils/dateformat';
 
-export const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-const extractDayFromDateTime = (dateTime) => {
-    const date = new Date(dateTime);
-    return date.toLocaleString('default', { weekday: 'short' });
+const generateDate = (date, hourString) => {
+    const dateObj = new Date(date);
+    // hourString = "19"
+    dateObj.setHours(hourString, 0, 0, 0);
+    return dateObj;
 }
 
-const shortDate = (dateTime) => {
-    const date = new Date(dateTime);
-    return date.toLocaleString('default', { month: 'short', day: 'numeric' });
+const moveDateByMins = (date, minutes) => {
+    const dateObj = new Date(date);
+    // take date and + / - by minString
+    dateObj.setMinutes(dateObj.getMinutes() + minutes);
+    return dateObj;
+}
+
+const moveDateTimeByMins = (date, hourString, sessionTimezone) => {
+    date = generateDate(date, hourString);
+    console.log("date", date)
+    const shiftedDate = moveDateByMins(date, sessionTimezone);
+    console.log("shiftedDate", shiftedDate)
+    return shiftedDate
+}
+
+
+const MoreDates = ({ number_of_days }) => {
+
+    if (number_of_days <= 1) return null;
+
+    return <span className="tooltip tooltip-info" data-tip="More available dates">
+        &nbsp;
+        <span className="badge badge-warning dark:badge-info badge-xs font-light text-[0.7em]">+{+number_of_days - 1}
+        </span>
+    </span>
 }
 
 const OneTimeSession = ({ sessionData }) => {
@@ -23,15 +46,20 @@ const OneTimeSession = ({ sessionData }) => {
             <div className='uppercase text-info'>{sessionData.title}</div>
             <div className='font-bold text-md'>
                 <span className='font-light'>{extractDayFromDateTime(sessionData.one_time_date[0])},</span>
-                &nbsp;{shortDate(sessionData.one_time_date[0])}&nbsp;
-                {sessionData.one_time_date.length > 1 &&
-                    <span className="tooltip tooltip-info" data-tip="More available dates">
-                        &nbsp;
-                        <span className="badge badge-warning dark:badge-info badge-xs font-light text-[0.7em]">+{sessionData.one_time_date.length - 1}</span>
-                    </span>
-                }
+                <span className='mx-1'>{
+                    shortDate(moveDateTimeByMins(sessionData.one_time_date[0], sessionData.hours[0], sessionData.tz_gmt))
+                }</span>
+                <MoreDates number_of_days={sessionData.one_time_date.length} />
             </div>
-            <div className='uppercase'>19:30</div>
+            <div className='uppercase'>
+                {sessionData.hours.map((hour) => {
+                    return (
+                        <div>
+                            {moveDateTimeByMins(sessionData.one_time_date[0], hour, sessionData.tz_gmt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </div>
+                    )
+                })}
+            </div>
         </div>
     )
 }
@@ -62,10 +90,9 @@ const Sessions = ({ sessionData }) => {
         })
 
     else {
-        return <h1>No Sessions Yet!</h1>
+        return null
     }
 }
-
 
 // const fetchSessionOfUser = async (userId) => {
 //     const { data, error } = await supabase

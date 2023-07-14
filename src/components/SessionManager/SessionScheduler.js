@@ -196,7 +196,7 @@ const SessionScheduler = () => {
                             </RecurringModeToggle>
                         </div>
                     </div>
-                    <CurrentSessions />
+                    <CurrentSessions sessions={isLoggedIn?.user.sessions}/>
                 </div>
                 <div className="col-span-3 md:col-span-1 order-first lg:order-last">
                     <h3 className="font-display text-lg font-semibold text-gray-300">Preview Sessions Availability</h3>
@@ -206,6 +206,7 @@ const SessionScheduler = () => {
                             id: isLoggedIn?.user.id,
                             name: isLoggedIn?.user.fullname,
                             email: isLoggedIn?.user.email,
+                            sessions: isLoggedIn?.user.sessions.filter(s => s.is_live === true)
                         }} />
                     </div>
                 </div>
