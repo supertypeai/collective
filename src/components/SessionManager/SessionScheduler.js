@@ -89,7 +89,7 @@ const SessionScheduler = () => {
         }
         
         const date = new Date();
-        const tzOffsetMinutes = -date.getTimezoneOffset();
+        const tzOffsetMinutes = date.getTimezoneOffset();
         const finalData = {
             ...data,
             ...recurringDateTime,
@@ -172,30 +172,34 @@ const SessionScheduler = () => {
         <div>
             <main className='min-h-screen grid grid-cols-3 gap-4 mt-8'>
                 <div className="col-span-3 md:col-span-2">
-                    <div className="collapse">
-                        <input type="checkbox" onClick={
-                            () => {
-                                setAddPanelOpen(prev => !prev)
-                                setClickedAdd(true)
-                            }
-                        } />
-                        <div className="collapse-title">
-                            {
-                                addPanelOpen
-                                    ? <CollapseUp />
-                                    : <span className="relative flex h-3 w-3">
-                                        {!clickedAdd && <PingAnimate />}
-                                        <span className="btn btn-sm btn-ghost border rounded border-white text-white dark:btn-info">Add a Session +</span>
-                                    </span>
-                            }
-                        </div>
-                        <div className="collapse-content bg-gray-100 bg-opacity-10 dark:bg-stone-800 rounded">
-                            <h2 className="font-bold uppercase mt-4">Add a Session</h2>
+                    <div>
+                        {
+                            addPanelOpen
+                                ? <CollapseUp hideCollapse={() => {
+                                    setAddPanelOpen(prev => !prev)
+                                    }}/>
+                                : <span className="relative flex h-3 w-3">
+                                    {!clickedAdd && <PingAnimate />}
+                                    <button 
+                                        className="btn btn-sm btn-ghost border rounded border-white text-white dark:btn-info"
+                                        onClick={
+                                            () => {
+                                                setAddPanelOpen(prev => !prev)
+                                                setClickedAdd(true)
+                                            }
+                                        }
+                                    >Add a Session +</button>
+                                </span>
+                        }
+                    </div>
+                    { addPanelOpen && (
+                        <div className="bg-gray-100 bg-opacity-10 dark:bg-stone-800 p-4 rounded">
+                            <h2 className="font-bold uppercase">Add a Session</h2>
                             <RecurringModeToggle addWeeklyMode={addWeeklyMode} setAddWeeklyMode={setAddWeeklyMode}>
                                 {addWeeklyMode ? <WeeklyRecurring /> : <OneTime />}
                             </RecurringModeToggle>
                         </div>
-                    </div>
+                    )}
                     <CurrentSessions sessions={isLoggedIn?.user.sessions}/>
                 </div>
                 <div className="col-span-3 md:col-span-1 order-first lg:order-last">

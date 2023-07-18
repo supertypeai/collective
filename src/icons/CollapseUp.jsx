@@ -1,6 +1,9 @@
-const CollapseUp = () => {
+const CollapseUp = ({ hideCollapse }) => {
   return (
-    <span className="text-info btn btn-ghost">
+    <button 
+      className="text-info btn btn-ghost"
+      onClick={hideCollapse}
+    >
       Hide
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -16,7 +19,7 @@ const CollapseUp = () => {
           d="M4.5 15.75l7.5-7.5 7.5 7.5"
         />
       </svg>
-    </span>
+    </button>
   );
 };
 

@@ -14,9 +14,14 @@ const generateDate = (date, hourString) => {
 }
 
 const moveDateByMins = (date, minutes) => {
+    // get current timezone offset
+    const currentDate = new Date();
+    const tzOffsetMinutes = currentDate.getTimezoneOffset();
+    // calculate difference between current timezone offset & the mentor's timezone offset
+    const diffMinutes = tzOffsetMinutes - minutes;
     const dateObj = new Date(date);
-    // take date and + / - by minString
-    dateObj.setMinutes(dateObj.getMinutes() + minutes);
+    // take date and + / - by diffMinutes
+    dateObj.setMinutes(dateObj.getMinutes() + diffMinutes);
     return dateObj;
 }
 
@@ -127,7 +132,7 @@ const SessionCard = ({ data }) => {
                 </div>
 
                 {/* 3 x 2 grid */}
-                <div className='grid grid-cols-12 gap-2 mt-2'>
+                {/* <div className='grid grid-cols-12 gap-2 mt-2'>
                     <div className='col-span-4 text-center text-xs border rounded'>
                         <div className='uppercase'>Thu</div>
                         <div className='font-extrabold text-md'>20 Jul</div>
@@ -153,7 +158,7 @@ const SessionCard = ({ data }) => {
                         <div className='font-extrabold text-md'>28 Jul</div>
                         <div className='uppercase'>17:00</div>
                     </div>
-                </div>
+                </div> */}
             </div>
         )
     }

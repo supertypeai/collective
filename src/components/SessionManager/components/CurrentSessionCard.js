@@ -1,4 +1,4 @@
-import { extractDayFromDateTime, shortDate } from "@/blocks/Body/SessionCard";
+import { extractDayFromDateTime, shortDate } from '@/utils/dateformat';
 import { daysOfWeek } from "./SessionDayOfWeek";
 import Pills from "@/blocks/Pills";
 import Edit from "@/icons/Edit";
