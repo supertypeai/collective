@@ -32,7 +32,7 @@ const SessionSubmit = ({ handleSubmit, saveData }) => {
             <section className="text-xs">
                 By publishing this session and accepting bookings, you agree to our
                 <Link href="/terms-and-conditions" className="text-info"> Terms of Service</Link> and
-                to comply with our <a href="/community-guidelines" className="text-info">Community Guidelines</a>.
+                to comply with our <Link href="/community-guidelines" className="text-info">Community Guidelines</Link>.
             </section>
         </>
     )

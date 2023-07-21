@@ -1,7 +1,8 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import { useForm, Controller } from "react-hook-form";
 import { supabase } from "@/lib/supabaseClient";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 
 import { AppContext } from "@/contexts/AppContext";
 import { Form } from "@/blocks/Form";
@@ -38,6 +39,7 @@ const SessionScheduler = () => {
     })
     const [selectedDate, setSelectedDate] = useState([])
     const [errorDate, setErrorDate] = useState()
+    const [isEditting, setIsEditting] = useState(false)
 
     const {
         register,
@@ -49,6 +51,82 @@ const SessionScheduler = () => {
     } = useForm({
         mode: "onSubmit",
     });
+
+    useEffect(() => {
+        console.log(isEditting)
+        if (isEditting && isEditting.day_of_week.length > 0) { 
+            reset(isEditting)
+            setAddWeeklyMode(true)
+            setRecurringDateTime({
+                'day_of_week': isEditting.day_of_week,
+                'hours': isEditting.hours
+            })
+        } else if (isEditting && isEditting.one_time_date.length > 0) {
+            reset(isEditting)
+            setAddWeeklyMode(false)
+            setSelectedDate(isEditting.one_time_date.map(d => new Date(d)))
+            setRecurringDateTime({
+                'hours': isEditting.hours
+            })
+        } else {
+            reset()
+        }
+    }, [isEditting])
+
+    const queryClient = useQueryClient();
+    const { mutate: submitNewSession } = useMutation(
+        async (finalData) => {
+            const { error } = await supabase.from("sessionManager").insert([finalData]);
+
+            if (error) {
+                alert("Sorry, something went wrong. Please try again.");
+                console.log(error);
+            } else {
+                alert("Your session is successfully created!");
+                reset()
+                setRecurringDateTime({
+                    'day_of_week': [],
+                    'hours': []
+                })
+                setSelectedDate([])
+                setAddPanelOpen(false)
+                setClickedAdd(false)
+            }
+        },{
+            onSuccess: () => {
+                queryClient.invalidateQueries("profileData");
+              }
+        }
+    )
+
+    const { mutate: editSession } = useMutation(
+        async (finalData) => {
+            console.log("update", finalData)
+            const { error } = await supabase
+                .from("sessionManager")
+                .update(finalData)
+                .eq("id", "9");
+
+            if (error) {
+                alert("Sorry, something went wrong. Please try again.");
+                console.log(error);
+            } else {
+                reset()
+                alert("Your session is successfully updated!");
+                setRecurringDateTime({
+                    'day_of_week': [],
+                    'hours': []
+                })
+                setSelectedDate([])
+                setAddWeeklyMode(true)
+                setIsEditting(false)
+            }
+        },{
+            onSuccess: () => {
+                queryClient.invalidateQueries("profileData");
+              }
+        }
+    )
 
     const saveData = async (data) => {
         if (addWeeklyMode) {
@@ -100,19 +178,10 @@ const SessionScheduler = () => {
             created_at: new Date(),
         };
 
-        const { error } = await supabase.from("sessionManager").insert([finalData]);
-
-        if (error) {
-            alert("Sorry, something went wrong. Please try again.");
-            console.log(error);
+        if (!isEditting) {
+            submitNewSession(finalData)
         } else {
-            alert("Your session is successfully created!");
-            reset()
-            setRecurringDateTime({
-                'day_of_week': [],
-                'hours': []
-            })
-            setSelectedDate([])
+            editSession(finalData)
         }
     };
 
@@ -168,39 +237,66 @@ const SessionScheduler = () => {
         )
     }
 
+    const SessionForm = ({ isEditting, addWeeklyMode, setAddWeeklyMode }) => {
+        return (
+            <div className="bg-gray-100 bg-opacity-10 dark:bg-stone-800 p-4 rounded mb-4">
+                <h2 className="font-bold uppercase">{ !isEditting ? "Add a Session" : "Edit Session" }</h2>
+                <RecurringModeToggle addWeeklyMode={addWeeklyMode} setAddWeeklyMode={setAddWeeklyMode}>
+                    {addWeeklyMode ? <WeeklyRecurring /> : <OneTime />}
+                </RecurringModeToggle>
+            </div>
+        )
+    }
+
     return (
         <div>
             <main className='min-h-screen grid grid-cols-3 gap-4 mt-8'>
                 <div className="col-span-3 md:col-span-2">
                     <div>
                         {
-                            addPanelOpen
-                                ? <CollapseUp hideCollapse={() => {
-                                    setAddPanelOpen(prev => !prev)
-                                    }}/>
-                                : <span className="relative flex h-3 w-3">
-                                    {!clickedAdd && <PingAnimate />}
-                                    <button 
-                                        className="btn btn-sm btn-ghost border rounded border-white text-white dark:btn-info"
-                                        onClick={
-                                            () => {
-                                                setAddPanelOpen(prev => !prev)
-                                                setClickedAdd(true)
+                            !isEditting ? (
+                                addPanelOpen
+                                    ? <CollapseUp hideCollapse={() => {
+                                        setAddPanelOpen(prev => !prev)
+                                        }}/>
+                                    : <span className="relative flex h-3 w-3">
+                                        {!clickedAdd && <PingAnimate />}
+                                        <button 
+                                            className="btn btn-sm btn-ghost border rounded border-white text-white dark:btn-info"
+                                            onClick={
+                                                () => {
+                                                    setAddPanelOpen(prev => !prev)
+                                                    setClickedAdd(true)
+                                                }
                                             }
-                                        }
-                                    >Add a Session +</button>
-                                </span>
+                                        >Add a Session +</button>
+                                    </span>
+                            ) : (
+                                <button
+                                    onClick={() => {
+                                        setIsEditting(false)
+                                        reset()
+                                        setSelectedDate([])
+                                        setRecurringDateTime({
+                                            'day_of_week': [],
+                                            'hours': []
+                                        })
+                                        setAddWeeklyMode(true)
+                                    }}
+                                    type="button"
+                                    className="text-left"
+                                >
+                                    {"< Back"}
+                                </button>
+                            )
                         }
                     </div>
-                    { addPanelOpen && (
-                        <div className="bg-gray-100 bg-opacity-10 dark:bg-stone-800 p-4 rounded">
-                            <h2 className="font-bold uppercase">Add a Session</h2>
-                            <RecurringModeToggle addWeeklyMode={addWeeklyMode} setAddWeeklyMode={setAddWeeklyMode}>
-                                {addWeeklyMode ? <WeeklyRecurring /> : <OneTime />}
-                            </RecurringModeToggle>
-                        </div>
+                    { (addPanelOpen || isEditting) && (
+                        <SessionForm isEditting={isEditting} addWeeklyMode={addWeeklyMode} setAddWeeklyMode={setAddWeeklyMode}/>
                     )}
-                    <CurrentSessions sessions={isLoggedIn?.user.sessions}/>
+                    { !addPanelOpen && !isEditting && (
+                        <CurrentSessions sessions={isLoggedIn?.user.sessions} setIsEditting={setIsEditting} />
+                    )}
                 </div>
                 <div className="col-span-3 md:col-span-1 order-first lg:order-last">
                     <h3 className="font-display text-lg font-semibold text-gray-300">Preview Sessions Availability</h3>

@@ -4,7 +4,7 @@ import Pills from "@/blocks/Pills";
 import Edit from "@/icons/Edit";
 
 
-const OneTimeSession = ({ sessionData }) => {
+const OneTimeSession = ({ sessionData, setIsEditting }) => {
   return (
       <div className="flex flex-col justify-center w-full p-2 mx-2 my-4 text-center rounded-md md:w-96 lg:w-44 bg-gray-100 text-white bg-opacity-10 dark:border dark:border-info text-sm lg:text-xs">
         <div className="flex-1 mb-3">
@@ -18,7 +18,12 @@ const OneTimeSession = ({ sessionData }) => {
             >
               {sessionData.is_live ? "live" : "draft"}
             </span>
-            <Edit />
+            <button
+              type="button"
+              onClick={() => setIsEditting(sessionData)}
+            >
+                <Edit />
+            </button>
           </p>
         </div>
         <div className="border-t pb-2 dark:border-gray-500" />
@@ -48,7 +53,7 @@ const OneTimeSession = ({ sessionData }) => {
     );
 }
 
-const RecurringSession = ({ sessionData }) => {
+const RecurringSession = ({ sessionData, setIsEditting }) => {
   return (
     <div className="flex flex-col justify-center w-full p-2 mx-2 my-4 text-center rounded-md md:w-96 lg:w-44 bg-gray-100 text-white bg-opacity-10 dark:border dark:border-info text-sm lg:text-xs">
       <div className="flex-1 mb-3">
@@ -62,7 +67,12 @@ const RecurringSession = ({ sessionData }) => {
           >
             {sessionData.is_live ? "live" : "draft"}
           </span>
-          <Edit />
+          <button
+            type="button"
+            onClick={() => setIsEditting(sessionData)}
+          >
+              <Edit />
+          </button>
         </p>
       </div>
       <div className="border-t pb-2 dark:border-gray-500" />
@@ -91,10 +101,10 @@ const RecurringSession = ({ sessionData }) => {
     </div>
   );
 }
-const CurrentSessionCard = ({ data }) => {
+const CurrentSessionCard = ({ data, setIsEditting }) => {
   return data.one_time_date.length > 0 ?
-    <OneTimeSession sessionData={data} /> :
-    <RecurringSession sessionData={data} />
+    <OneTimeSession sessionData={data} setIsEditting={setIsEditting} /> :
+    <RecurringSession sessionData={data} setIsEditting={setIsEditting} />
 };
 
 export default CurrentSessionCard;

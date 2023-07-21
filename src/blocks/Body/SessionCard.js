@@ -27,9 +27,9 @@ const moveDateByMins = (date, minutes) => {
 
 const moveDateTimeByMins = (date, hourString, sessionTimezone) => {
     date = generateDate(date, hourString);
-    console.log("date", date)
+    // console.log("date", date)
     const shiftedDate = moveDateByMins(date, sessionTimezone);
-    console.log("shiftedDate", shiftedDate)
+    // console.log("shiftedDate", shiftedDate)
     return shiftedDate
 }
 
@@ -59,7 +59,7 @@ const OneTimeSession = ({ sessionData }) => {
             <div className='uppercase'>
                 {sessionData.hours.map((hour) => {
                     return (
-                        <div>
+                        <div key={`${sessionData.id}_${hour}`}>
                             {moveDateTimeByMins(sessionData.one_time_date[0], hour, sessionData.tz_gmt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                         </div>
                     )
@@ -90,8 +90,8 @@ const Sessions = ({ sessionData }) => {
     if (sessionData && sessionData.length > 0)
         return sessionData.map((sessionData) => {
             return sessionData.one_time_date.length > 0 ?
-                <OneTimeSession sessionData={sessionData} />
-                : <RecurringSession sessionData={sessionData} />
+                <OneTimeSession sessionData={sessionData} key={sessionData.id} />
+                : <RecurringSession sessionData={sessionData} key={sessionData.id} />
         })
 
     else {
