@@ -42,7 +42,7 @@ const EditPersonalDetails = () => {
   const queryClient = useQueryClient();
   const { mutate: updateForm } = useMutation(
     async (formData) => {
-      const { wp, projects, imgUpload, ...d } = formData;
+      const { wp, projects, imgUpload, sessions, ...d } = formData;
 
       // check if the imgUrl is updated and the previous image was an uploaded image
       if (
