@@ -13,14 +13,19 @@ export const NODES = [
   AutoLinkNode,
 ];
 
+const makeJSONCompatible = (text) => {
+  return text.replace(/\n/g, "\\n").replace(/\t/g, "\\t").replace(/\r/g, "\\r");
+}
+
 export const legacyTextCompatibility = (text) => {
   let result;
   try {
     // if the the text can be parsed as JSON, return the text
-    result = JSON.parse(text);
+    JSON.parse(text);
     return text;
   } catch (error) {
     result = `{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"${text}","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}`;
+    result = makeJSONCompatible(result);
   }
 
   return result;
