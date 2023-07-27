@@ -7,34 +7,18 @@ import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { AutoLinkPlugin } from "@lexical/react/LexicalAutoLinkPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
-import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { TRANSFORMERS } from "@lexical/markdown";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useEffect, useState } from "react";
 
-import { legacyTextCompatibility, NODES, MATCHERS } from "./common";
+import { legacyTextCompatibility, NODES, MATCHERS, theme } from "./common";
 import Toolbar from "./Toolbar";
 
-const theme = {
+const editorTheme = {
+  ...theme,
   root: "p-4 rounded h-full min-h-[100px] focus:outline-none focus-visible:border-white bg-white text-black",
-  ltr: "text-left",
-  rtl: "text-right",
-  paragraph: "m-0 mb-4",
-  link: "cursor-pointer",
-  text: {
-    bold: "font-bold",
-    underline: "underline",
-    italic: "italic",
-    strikethrough: "line-through",
-    underlineStrikethrough: "underlined-line-through",
-  },
-  list: {
-    ul: "list-disc ml-5",
-    ol: "list-decimal ml-5",
-  },
-  quote: "border-l-4 border-neutral-200 pl-4",
-};
+}
 
 function onError(error) {
   console.error(error);
@@ -82,7 +66,7 @@ const Editor = React.forwardRef((props, ref) => {
 
   const initialConfig = {
     namespace: "IntroductionEditor",
-    theme: theme,
+    theme: editorTheme,
     onError: onError,
     nodes: NODES,
     editable: isEditting,
