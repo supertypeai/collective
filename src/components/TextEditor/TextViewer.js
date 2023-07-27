@@ -5,27 +5,12 @@ import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { AutoLinkPlugin } from "@lexical/react/LexicalAutoLinkPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
-import { legacyTextCompatibility, NODES, MATCHERS } from "./common";
+import { legacyTextCompatibility, NODES, MATCHERS, theme } from "./common";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 
-const theme = {
+const viewerTheme = {
+  ...theme,
   root: "h-full focus:outline-none focus-visible:border-white text-slate-200",
-  ltr: "text-left",
-  rtl: "text-right",
-  paragraph: "m-0 mb-4",
-  link: "cursor-pointer",
-  text: {
-    bold: "font-bold",
-    underline: "underline",
-    italic: "italic",
-    strikethrough: "line-through",
-    underlineStrikethrough: "underlined-line-through",
-  },
-  list: {
-    ul: "list-disc ml-5",
-    ol: "list-decimal ml-5",
-  },
-  quote: "border-l-4 border-neutral-200 pl-4",
 };
 
 function onError(error) {
@@ -35,7 +20,7 @@ function onError(error) {
 const TextViewer = ({ text }) => {
   const initialConfig = {
     namespace: "IntroductionViewer",
-    theme: theme,
+    theme: viewerTheme,
     onError: onError,
     nodes: NODES,
     editorState: legacyTextCompatibility(text),

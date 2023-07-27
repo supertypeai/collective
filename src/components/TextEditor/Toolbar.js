@@ -1,19 +1,24 @@
 import React, { useState } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import {
+  $getSelection,
+  $isRangeSelection,
   COMMAND_PRIORITY_LOW,
   FORMAT_TEXT_COMMAND,
   REDO_COMMAND,
   UNDO_COMMAND,
 } from "lexical";
 import { insertList } from "@lexical/list";
-import { TOGGLE_LINK_COMMAND } from "@lexical/link";
+import {
+  $createHeadingNode,
+  $createQuoteNode,
+} from '@lexical/rich-text';
+import { $setBlocksType } from "@lexical/selection";
 
 const INSERT_ORDERED_LIST_COMMAND = "insert-ordered-list";
 const INSERT_UNORDERED_LIST_COMMAND = "insert-unordered-list";
 
 const ToolbarItem = ({ icon, label, onClick, isActive }) => {
-  
   let style =
     "flex flex-col items-center justify-center w-10 h-9 hover:bg-neutral-200 focus:outline-none";
   if (isActive) {
@@ -21,12 +26,22 @@ const ToolbarItem = ({ icon, label, onClick, isActive }) => {
   }
 
   return (
-    <button className={style} onClick={onClick} aria-label={label}>
+    <button
+      className={style}
+      onClick={onClick}
+      aria-label={label}
+      type="button"
+    >
       <img src={icon} alt={label} className="w-4 h-4" />
     </button>
   );
 };
 
+const Divider = () => {
+  return (
+    <div className="inline-block w-0.5 self-stretch bg-neutral-100 opacity-100 dark:opacity-50"></div>
+  );
+};
 const Toolbar = ({ editable }) => {
   if (!editable) return;
 
@@ -53,6 +68,24 @@ const Toolbar = ({ editable }) => {
     COMMAND_PRIORITY_LOW
   );
 
+  const createQuoteNode = () => {
+    editor.update(() => {
+      const selection = $getSelection();
+      if ($isRangeSelection(selection)) {
+        $setBlocksType(selection, () => $createQuoteNode());
+      }
+    })
+  }
+
+  const createHeadingNode = (h) => {
+    editor.update(() => {
+      const selection = $getSelection();
+      if ($isRangeSelection(selection)) {
+        $setBlocksType(selection, () => $createHeadingNode(h));
+      }
+    })
+  }
+
   return (
     <div className="flex bg-white border-neutral-200 rounded-sm border">
       <ToolbarItem
@@ -65,7 +98,7 @@ const Toolbar = ({ editable }) => {
         label="Redo"
         onClick={() => editor.dispatchCommand(REDO_COMMAND)}
       />
-      <div className="inline-block w-0.5 self-stretch bg-neutral-100 opacity-100 dark:opacity-50"></div>
+      <Divider />
       <ToolbarItem
         icon="/toolbar/bold.svg"
         label="Bold"
@@ -93,14 +126,14 @@ const Toolbar = ({ editable }) => {
         }}
         isActive={isUnderline}
       />
-      <div className="inline-block w-0.5 self-stretch bg-neutral-100 opacity-100 dark:opacity-50"></div>
-      {/* <ToolbarItem
+      <Divider />
+      <ToolbarItem
         icon="/toolbar/quote.svg"
         label="Quote"
-        onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, "quote")}
-      /> */}
+        onClick={() => createQuoteNode()}
+      />
       <ToolbarItem
-        icon="/toolbar/list.svg"
+        icon="/toolbar/unordered-list.svg"
         label="Unordered List"
         onClick={() => editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND)}
       />
@@ -111,11 +144,22 @@ const Toolbar = ({ editable }) => {
           editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND);
         }}
       />
-      {/* <ToolbarItem
-        icon="/toolbar/link.svg"
-        label="Link"
-        onClick={() => editor.dispatchCommand(TOGGLE_LINK_COMMAND)}
-      /> */}
+      <Divider />
+      <ToolbarItem
+        icon="/toolbar/type-h1.svg"
+        label="Heading 1"
+        onClick={() => createHeadingNode("h1")}
+      />
+      <ToolbarItem
+        icon="/toolbar/type-h2.svg"
+        label="Heading 2"
+        onClick={() => createHeadingNode("h2")}
+      />
+      <ToolbarItem
+        icon="/toolbar/type-h3.svg"
+        label="Heading 3"
+        onClick={() => createHeadingNode("h3")}
+      />
     </div>
   );
 };
