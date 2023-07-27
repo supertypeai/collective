@@ -1,4 +1,4 @@
-import { useContext, useId, useEffect, useState } from "react"
+import { useContext, useId, useEffect, useState, useRef } from "react"
 import { useForm, Controller } from "react-hook-form"
 import Image from 'next/image';
 import { inferFromGithub } from "superinference";
@@ -13,6 +13,7 @@ import { NominateContext } from "@/contexts/NominateContext"
 import { AppContext } from "@/contexts/AppContext";
 import Link from "next/link";
 import { StableCreatableSelect, StableSelect } from "./CreateForm";
+import TextEditor from "./TextEditor/TextEditor";
 
 const PersonalDetails = ({ nextFormStep }) => {
 
@@ -21,6 +22,7 @@ const PersonalDetails = ({ nextFormStep }) => {
     const [form, setForm] = context.f
     const [loading, setLoading] = useState(false);
     const [superinference, setSuperinference] = useState({});
+    const editorRef = useRef();
 
     const { register, control, handleSubmit, formState: { errors }, reset, watch } = useForm({
         defaultValues: {
@@ -33,7 +35,8 @@ const PersonalDetails = ({ nextFormStep }) => {
             ...form, 
             ...data, 
             location: data["availability"] === "Unavailable" ? null : data["location"],
-            superinference: superinference 
+            superinference: superinference,
+            long: JSON.stringify(editorRef.current.getEditorState().toJSON()),
         });
         nextFormStep();
     };
@@ -195,11 +198,7 @@ const PersonalDetails = ({ nextFormStep }) => {
 
 
                 <Field label="🖊️ Introduction" error={errors?.long}>
-                    <textarea {...register("long")} id="long" name="long"
-                        rows="4" required minLength="40" maxLength="250"
-                        placeholder="I am a data scientist with 3 years of experience in the industry and a Fellow at Supertype Fellowship. I am passionate about open source and have contributed to several projects under this program."
-                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    />
+                    <TextEditor initialContent={""} isEditting={true} ref={editorRef} />
                 </Field>
 
                 <Field label="✨ Headline" error={errors?.short}
