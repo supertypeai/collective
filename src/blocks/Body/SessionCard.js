@@ -57,7 +57,7 @@ const OneTimeSession = ({ sessionData }) => {
                 <MoreDates number_of_days={sessionData.one_time_date.length} />
             </div>
             <div className='uppercase'>
-                {sessionData.hours.map((hour) => {
+                {sessionData.hours.sort().map((hour) => {
                     return (
                         <div key={`${sessionData.id}_${hour}`}>
                             {moveDateTimeByMins(sessionData.one_time_date[0], hour, sessionData.tz_gmt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}

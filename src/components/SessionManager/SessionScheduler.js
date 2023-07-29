@@ -24,7 +24,7 @@ import PingAnimate from "@/icons/PingAnimate";
 import SessionDayPicker from "./components/SessionDayPicker";
 
 const SessionScheduler = () => {
-    const { isLoggedIn } = useContext(AppContext);
+    const { isLoggedIn, setIsLoggedIn } = useContext(AppContext);
 
     const [addPanelOpen, setAddPanelOpen] = useState(false)
     const [addWeeklyMode, setAddWeeklyMode] = useState(true)
@@ -53,37 +53,42 @@ const SessionScheduler = () => {
     });
 
     useEffect(() => {
-        console.log(isEditting)
+        console.log("isEditting", isEditting)
         if (isEditting && isEditting.day_of_week.length > 0) { 
-            reset(isEditting)
             setAddWeeklyMode(true)
             setRecurringDateTime({
                 'day_of_week': isEditting.day_of_week,
                 'hours': isEditting.hours
             })
         } else if (isEditting && isEditting.one_time_date.length > 0) {
-            reset(isEditting)
             setAddWeeklyMode(false)
             setSelectedDate(isEditting.one_time_date.map(d => new Date(d)))
             setRecurringDateTime({
                 'hours': isEditting.hours
             })
-        } else {
-            reset()
         }
     }, [isEditting])
 
     const queryClient = useQueryClient();
     const { mutate: submitNewSession } = useMutation(
         async (finalData) => {
-            const { error } = await supabase.from("sessionManager").insert([finalData]);
+            const { data, error } = await supabase.from("sessionManager").insert([finalData]);
 
             if (error) {
                 alert("Sorry, something went wrong. Please try again.");
                 console.log(error);
             } else {
                 alert("Your session is successfully created!");
-                reset()
+                reset({})
+                setIsLoggedIn(prev => {
+                    return {
+                        ...prev, 
+                        user: {
+                            ...prev.user, 
+                            sessions: [...prev.user.sessions, data[0]]
+                        }
+                    }
+                })
                 setRecurringDateTime({
                     'day_of_week': [],
                     'hours': []
@@ -101,17 +106,25 @@ const SessionScheduler = () => {
 
     const { mutate: editSession } = useMutation(
         async (finalData) => {
-            console.log("update", finalData)
             const { error } = await supabase
                 .from("sessionManager")
                 .update(finalData)
-                .eq("id", "9");
+                .eq("id", finalData.id);
 
             if (error) {
                 alert("Sorry, something went wrong. Please try again.");
                 console.log(error);
             } else {
-                reset()
+                reset({})
+                setIsLoggedIn(prev => {
+                    return {
+                        ...prev, 
+                        user: {
+                            ...prev.user, 
+                            sessions: prev.user.sessions.map(s => s.id === finalData.id ? finalData : s)
+                        }
+                    }
+                })
                 alert("Your session is successfully updated!");
                 setRecurringDateTime({
                     'day_of_week': [],
@@ -275,7 +288,7 @@ const SessionScheduler = () => {
                                 <button
                                     onClick={() => {
                                         setIsEditting(false)
-                                        reset()
+                                        reset({})
                                         setSelectedDate([])
                                         setRecurringDateTime({
                                             'day_of_week': [],
@@ -295,7 +308,7 @@ const SessionScheduler = () => {
                         <SessionForm isEditting={isEditting} addWeeklyMode={addWeeklyMode} setAddWeeklyMode={setAddWeeklyMode}/>
                     )}
                     { !addPanelOpen && !isEditting && (
-                        <CurrentSessions sessions={isLoggedIn?.user.sessions} setIsEditting={setIsEditting} />
+                        <CurrentSessions sessions={isLoggedIn?.user.sessions} setIsEditting={setIsEditting} reset={reset} />
                     )}
                 </div>
                 <div className="col-span-3 md:col-span-1 order-first lg:order-last">
