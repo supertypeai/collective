@@ -25,11 +25,15 @@ function onError(error) {
 }
 
 const Placeholder = ({ isEditing, text }) => {
-  if (text) return;
+  if (text && !isEditing) return;
 
   let style =
-    "overflow-hidden absolute top-4 left-4 text-black select-none pointer-events-none opacity-50";
-  if (isEditing) style += " top-14";
+    "overflow-hidden absolute left-4 text-black select-none pointer-events-none opacity-50";
+  if (isEditing) {
+    style += " top-14";
+  } else {
+    style += " top-4";
+  }
 
   return (
     <div className={style}>
@@ -96,6 +100,7 @@ const TextEditor = React.forwardRef((props, ref) => {
         <AutoLinkPlugin matchers={MATCHERS} />
         <SetEditablePlugin isEditting={isEditting} />
         <EditorCapturePlugin ref={ref} />
+        <AutoLinkPlugin matchers={MATCHERS} />
       </LexicalComposer>
     </div>
   );

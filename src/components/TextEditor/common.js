@@ -35,7 +35,7 @@ export const theme = {
   ltr: "text-left",
   rtl: "text-right",
   paragraph: "m-0 mb-4",
-  link: "cursor-pointer",
+  link: "cursor-pointer text-blue-500 hover:underline",
   text: {
     bold: "font-bold",
     underline: "underline",
