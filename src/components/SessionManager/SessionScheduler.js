@@ -40,6 +40,7 @@ const SessionScheduler = () => {
     const [selectedDate, setSelectedDate] = useState([])
     const [errorDate, setErrorDate] = useState()
     const [isEditting, setIsEditting] = useState(false)
+    const [deletedSession, setDeletedSession] = useState()
 
     const {
         register,
@@ -53,7 +54,6 @@ const SessionScheduler = () => {
     });
 
     useEffect(() => {
-        console.log("isEditting", isEditting)
         if (isEditting && isEditting.day_of_week.length > 0) { 
             setAddWeeklyMode(true)
             setRecurringDateTime({
@@ -133,6 +133,26 @@ const SessionScheduler = () => {
                 setSelectedDate([])
                 setAddWeeklyMode(true)
                 setIsEditting(false)
+            }
+        },{
+            onSuccess: () => {
+                queryClient.invalidateQueries("profileData");
+              }
+        }
+    )
+
+    const { mutate: deleteSession } = useMutation(
+        async (sessionData) => {
+            const { error: deleteError } = await supabase
+              .from("sessionManager")
+              .delete()
+              .eq("id", sessionData.id);
+
+            if (deleteError) {
+              alert("Sorry, something went wrong. Please try again.");
+              console.log(`Error deleting session:`, deleteError);
+            } else {
+              window.location.reload();  
             }
         },{
             onSuccess: () => {
@@ -308,7 +328,7 @@ const SessionScheduler = () => {
                         <SessionForm isEditting={isEditting} addWeeklyMode={addWeeklyMode} setAddWeeklyMode={setAddWeeklyMode}/>
                     )}
                     { !addPanelOpen && !isEditting && (
-                        <CurrentSessions sessions={isLoggedIn?.user.sessions} setIsEditting={setIsEditting} reset={reset} />
+                        <CurrentSessions sessions={isLoggedIn?.user.sessions} setIsEditting={setIsEditting} reset={reset} setDeletedSession={setDeletedSession}/>
                     )}
                 </div>
                 <div className="col-span-3 md:col-span-1 order-first lg:order-last">
@@ -321,6 +341,23 @@ const SessionScheduler = () => {
                             email: isLoggedIn?.user.email,
                             sessions: isLoggedIn?.user.sessions.filter(s => s.is_live === true)
                         }} />
+                    </div>
+                </div>
+                {/* helper modal for wordpress blog */}
+                <input type="checkbox" id="delete-modal" className="modal-toggle" />
+                <div className="modal">
+                    <div className="modal-box w-3/5 max-w-4xl text-gray-500">
+                        <h3 className="font-bold text-xl">Delete this session?</h3>
+                        <p className="text-sm my-4">There is no way to recover the session once it&apos;s deleted. Make sure you have no further intention to provide the session before proceeding.</p>
+                        <div className="text-right">
+                        <label className="btn mr-0 mb-2 sm:mr-2 sm:mb-0" htmlFor="delete-modal">Cancel</label>
+                        <button 
+                            className="btn btn-primary text-white"
+                            onClick={() => deleteSession(deletedSession)}
+                        >
+                            Delete Session
+                        </button>
+                        </div>
                     </div>
                 </div>
             </main>

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import CurrentSessionCard from "./components/CurrentSessionCard";
 
-const CurrentSessions = ({ sessions, setIsEditting, reset }) => {
+const CurrentSessions = ({ sessions, setIsEditting, reset, setDeletedSession }) => {
   return (
     <div className="md:flex md:flex-row mt-4">
       <div className="grow">
@@ -26,7 +26,7 @@ const CurrentSessions = ({ sessions, setIsEditting, reset }) => {
               </h3>
               <div className="container flex flex-col items-center justify-center mx-auto sm:py-2">
                 <div className="flex flex-row flex-wrap justify-center mt-4">
-                  { sessions.map(s => <CurrentSessionCard data={s} setIsEditting={setIsEditting} reset={reset} key={s.id}/>) }
+                  { sessions.map(s => <CurrentSessionCard data={s} setIsEditting={setIsEditting} reset={reset} setDeletedSession={setDeletedSession} key={s.id}/>) }
                 </div>
               </div>
             </div>

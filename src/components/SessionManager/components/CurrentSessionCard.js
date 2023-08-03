@@ -4,7 +4,7 @@ import Pills from "@/blocks/Pills";
 import Edit from "@/icons/Edit";
 import Delete from "@/icons/Delete";
 
-const OneTimeSession = ({ sessionData, setIsEditting, reset }) => {
+const OneTimeSession = ({ sessionData, setIsEditting, reset, setDeletedSession }) => {
   return (
     <div className="flex flex-col justify-center w-full p-2 mx-2 my-4 text-center rounded-md md:w-96 lg:w-48 bg-gray-100 text-white bg-opacity-10 dark:border dark:border-info text-sm lg:text-xs">
       <div className="flex-1 mb-3">
@@ -30,15 +30,13 @@ const OneTimeSession = ({ sessionData, setIsEditting, reset }) => {
           >
             <Edit />
           </button>
-          <button
-            type="button"
-            onClick={() => {
-              // setIsEditting(sessionData);
-              // reset(sessionData);
-            }}
+          <label
+            htmlFor="delete-modal"
+            className="hover:cursor-pointer"
+            onClick={() => setDeletedSession(sessionData)}
           >
             <Delete />
-          </button>
+          </label>
         </p>
       </div>
       <div className="border-t pb-2 dark:border-gray-500" />
@@ -75,7 +73,7 @@ const OneTimeSession = ({ sessionData, setIsEditting, reset }) => {
   );
 };
 
-const RecurringSession = ({ sessionData, setIsEditting, reset }) => {
+const RecurringSession = ({ sessionData, setIsEditting, reset, setDeletedSession }) => {
   return (
     <div className="flex flex-col justify-center w-full p-2 mx-2 my-4 text-center rounded-md md:w-96 lg:w-48 bg-gray-100 text-white bg-opacity-10 dark:border dark:border-info text-sm lg:text-xs">
       <div className="flex-1 mb-3">
@@ -101,15 +99,13 @@ const RecurringSession = ({ sessionData, setIsEditting, reset }) => {
           >
             <Edit />
           </button>
-          <button
-            type="button"
-            onClick={() => {
-              // setIsEditting(sessionData)
-              // reset(sessionData)
-            }}
+          <label
+            htmlFor="delete-modal"
+            className="hover:cursor-pointer"
+            onClick={() => setDeletedSession(sessionData)}
           >
             <Delete />
-          </button>
+          </label>
         </p>
       </div>
       <div className="border-t pb-2 dark:border-gray-500" />
@@ -141,18 +137,20 @@ const RecurringSession = ({ sessionData, setIsEditting, reset }) => {
     </div>
   );
 };
-const CurrentSessionCard = ({ data, setIsEditting, reset }) => {
+const CurrentSessionCard = ({ data, setIsEditting, reset, setDeletedSession }) => {
   return data.one_time_date.length > 0 ? (
     <OneTimeSession
       sessionData={data}
       setIsEditting={setIsEditting}
       reset={reset}
+      setDeletedSession={setDeletedSession}
     />
   ) : (
     <RecurringSession
       sessionData={data}
       setIsEditting={setIsEditting}
       reset={reset}
+      setDeletedSession={setDeletedSession}
     />
   );
 };
