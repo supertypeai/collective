@@ -51,7 +51,7 @@ const SetEditablePlugin = ({ isEditting }) => {
     editor.update(() => {
       editor.setEditable(isEditting);
     });
-  }, [isEditting]);
+  }, [editor, isEditting]);
 };
 
 const EditorCapturePlugin = React.forwardRef((props, ref) => {
@@ -65,6 +65,7 @@ const EditorCapturePlugin = React.forwardRef((props, ref) => {
 
   return null;
 });
+EditorCapturePlugin.displayName = "EditorCapturePlugin";
 
 const TextEditor = React.forwardRef((props, ref) => {
   let { initialContent, isEditting } = props;
@@ -105,5 +106,6 @@ const TextEditor = React.forwardRef((props, ref) => {
     </div>
   );
 });
+TextEditor.displayName = "TextEditor";
 
 export default TextEditor;
