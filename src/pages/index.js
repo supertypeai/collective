@@ -121,7 +121,7 @@ const FendyProfile = () => {
 
 const StevenProfile = () => {
     return <ProfileCard person={{
-        imgUrl: "https://media.licdn.com/dms/image/C5603AQGhkBvqkMjz6g/profile-displayphoto-shrink_400_400/0/1593682236390?e=1691625600&v=beta&t=w6kCJ6N2ALLjFPs1aTUI05hiYiJJeGPTTMtSE2WPzqo",
+        imgUrl: "https://osfehplavmahboowlueu.supabase.co/storage/v1/object/public/images/profile_images/auberg_d23046ceee9878af83639934f613da78.webp",
         name: "Steven Christian",
         profileLink: "/p/auberg",
         short: "Head of Data Analytics @Danamas and former mentor @Supertype.ai. Led teams in building machine learning solutions for companies in the last 3 years.",

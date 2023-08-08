@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import Link from 'next/link';
 // import { supabase } from "@/lib/supabaseClient";
 // import { useQuery } from "@tanstack/react-query";
 
@@ -14,17 +15,22 @@ const generateDate = (date, hourString) => {
 }
 
 const moveDateByMins = (date, minutes) => {
+    // get current timezone offset
+    const currentDate = new Date();
+    const tzOffsetMinutes = currentDate.getTimezoneOffset();
+    // calculate difference between current timezone offset & the mentor's timezone offset
+    const diffMinutes = tzOffsetMinutes - minutes;
     const dateObj = new Date(date);
-    // take date and + / - by minString
-    dateObj.setMinutes(dateObj.getMinutes() + minutes);
+    // take date and + / - by diffMinutes
+    dateObj.setMinutes(dateObj.getMinutes() + diffMinutes);
     return dateObj;
 }
 
 const moveDateTimeByMins = (date, hourString, sessionTimezone) => {
     date = generateDate(date, hourString);
-    console.log("date", date)
+    // console.log("date", date)
     const shiftedDate = moveDateByMins(date, sessionTimezone);
-    console.log("shiftedDate", shiftedDate)
+    // console.log("shiftedDate", shiftedDate)
     return shiftedDate
 }
 
@@ -40,22 +46,76 @@ const MoreDates = ({ number_of_days }) => {
     </span>
 }
 
+const getNearestDate = (day) => {
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // Set the time to midnight
+
+    let daysUntilTargetDay = (day + 7 - currentDate.getDay()) % 7;
+
+    if (daysUntilTargetDay === 0) {
+        daysUntilTargetDay = 7; // Target day is today, get next week's occurrence
+    }
+
+    currentDate.setDate(currentDate.getDate() + daysUntilTargetDay);
+    return currentDate;
+}
+
 const OneTimeSession = ({ sessionData }) => {
+    const oneTime = sessionData.one_time_date.filter(d => new Date(d) > new Date())
+
+    if (oneTime.length === 0) {
+        return (<></>)
+    } else {
+        return (
+            <div className='col-span-4 text-center text-xs border rounded'>
+                <div className='uppercase link-info hover:opacity-70'>
+                    <Link href={`/book/${sessionData.id}`}>
+                        {sessionData.title}
+                    </Link>
+                </div>
+                <div className='font-bold text-md'>
+                    <span className='font-light'>{extractDayFromDateTime(oneTime[0])},</span>
+                    <span className='mx-1'>{
+                        shortDate(moveDateTimeByMins(oneTime[0], sessionData.hours[0], sessionData.tz_gmt))
+                    }</span>
+                    <MoreDates number_of_days={oneTime.length} />
+                </div>
+                <div className='uppercase'>
+                    {sessionData.hours.sort().map((hour) => {
+                        return (
+                            <div key={`${sessionData.id}_${hour}`}>
+                                {moveDateTimeByMins(oneTime[0], hour, sessionData.tz_gmt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
+        )
+    }
+}
+
+const RecurringSession = ({ sessionData }) => {
+    const date = getNearestDate(sessionData.day_of_week[0])
     return (
         <div className='col-span-4 text-center text-xs border rounded'>
-            <div className='uppercase text-info'>{sessionData.title}</div>
+            <div className='uppercase link-info hover:opacity-70'>
+                <Link href={`/book/${sessionData.id}`}>
+                    {sessionData.title}
+                </Link>
+            </div>
             <div className='font-bold text-md'>
-                <span className='font-light'>{extractDayFromDateTime(sessionData.one_time_date[0])},</span>
-                <span className='mx-1'>{
-                    shortDate(moveDateTimeByMins(sessionData.one_time_date[0], sessionData.hours[0], sessionData.tz_gmt))
-                }</span>
-                <MoreDates number_of_days={sessionData.one_time_date.length} />
+                <span className='font-light'>{extractDayFromDateTime(date)},</span>
+                &nbsp;{shortDate(moveDateTimeByMins(date, sessionData.hours[0], sessionData.tz_gmt))}&nbsp;
+                <div className="tooltip tooltip-info" data-tip="Every Week">
+                    <Recurring />
+                </div>
+                <MoreDates number_of_days={sessionData.day_of_week.length} />
             </div>
             <div className='uppercase'>
-                {sessionData.hours.map((hour) => {
+                {sessionData.hours.sort().map((hour) => {
                     return (
-                        <div>
-                            {moveDateTimeByMins(sessionData.one_time_date[0], hour, sessionData.tz_gmt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        <div key={`${sessionData.id}_${hour}`}>
+                            {moveDateTimeByMins(date, hour, sessionData.tz_gmt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                         </div>
                     )
                 })}
@@ -64,31 +124,16 @@ const OneTimeSession = ({ sessionData }) => {
     )
 }
 
-const RecurringSession = ({ sessionData }) => {
-    return (
-        <div className='col-span-4 text-center text-xs border rounded'>
-            <div className='uppercase text-info'>{sessionData.title}</div>
-            <div className='font-bold text-md'>
-                <span className='font-light'>FRI,</span>
-                &nbsp;20 Jul&nbsp;
-                <div className="tooltip tooltip-info" data-tip="Every Friday">
-                    <Recurring />
-                </div>
-            </div>
-            <div className='uppercase'>19:30</div>
-        </div>
-    )
-}
-
 
 const Sessions = ({ sessionData }) => {
     if (sessionData && sessionData.length > 0)
-        return sessionData.map((sessionData) => {
-            return sessionData.one_time_date.length > 0 ?
-                <OneTimeSession sessionData={sessionData} />
-                : <RecurringSession sessionData={sessionData} />
-        })
-
+        return sessionData
+            .filter((session) => session.is_live)
+            .map((sessionData) => {
+                return sessionData.one_time_date.length > 0 ?
+                    <OneTimeSession sessionData={sessionData} key={sessionData.id} />
+                    : <RecurringSession sessionData={sessionData} key={sessionData.id} />
+            })
     else {
         return null
     }
@@ -127,7 +172,7 @@ const SessionCard = ({ data }) => {
                 </div>
 
                 {/* 3 x 2 grid */}
-                <div className='grid grid-cols-12 gap-2 mt-2'>
+                {/* <div className='grid grid-cols-12 gap-2 mt-2'>
                     <div className='col-span-4 text-center text-xs border rounded'>
                         <div className='uppercase'>Thu</div>
                         <div className='font-extrabold text-md'>20 Jul</div>
@@ -153,7 +198,7 @@ const SessionCard = ({ data }) => {
                         <div className='font-extrabold text-md'>28 Jul</div>
                         <div className='uppercase'>17:00</div>
                     </div>
-                </div>
+                </div> */}
             </div>
         )
     }
@@ -168,7 +213,7 @@ const SessionCard = ({ data }) => {
                         <SessionPicker />
                         <div className='italic text-sm text-white'>
                             <span className='text-xs'>
-                                Slots are in your local timezone. Feature to be added soon.
+                                Booking feature to be added soon.
                             </span>
                         </div>
                     </div>

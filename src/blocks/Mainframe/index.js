@@ -177,7 +177,7 @@ const AppContextWrapper = ({ children }) => {
   }, [])
 
   return (
-    <AppContext.Provider value={{ isLoggedIn: isLoggedIn }}>
+    <AppContext.Provider value={{ isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn }}>
       {children}
     </AppContext.Provider>
   )

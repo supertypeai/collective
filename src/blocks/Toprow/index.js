@@ -10,6 +10,7 @@ import ForkBadge from './ForkBadge';
 import { MeContext } from '@/contexts/MeContext';
 
 import PercentileBadge from './PercentileBadge';
+import TextViewer from '@/components/TextEditor/TextViewer';
 
 
 
@@ -48,7 +49,7 @@ function Toprow({ children }) {
                         {data.fullname}
                     </h3>
                     <p className='mb-4'>{data.short || 'Full Stack Engineer'}</p>
-                    <p className='mb-4'>{data.long || ''}</p>
+                    <TextViewer text={data.long} />
                     {children}
                 </div>
                 <div className="mt-4">

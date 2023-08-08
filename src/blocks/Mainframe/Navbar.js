@@ -139,7 +139,11 @@ export const Navbar = ({ pdfBtn }) => {
                             <li>
                                 <Link href="/edit" className="justify-between">
                                     Profile Editor
-                                    <span className="badge">New</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/session-manager" className="justify-between">
+                                    Session Manager
                                 </Link>
                             </li>
                             <li>

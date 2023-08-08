@@ -50,7 +50,7 @@ const EditExecutive = () => {
     const queryClient = useQueryClient();
     const { mutate: updateForm } = useMutation(
         async (formData) => {
-            const { wp, projects, ...d } = formData;
+            const { wp, projects, sessions, ...d } = formData;
             const { error } = await supabase.from('profile').update(d).eq('id', formData.id);
             if (error?.message === `duplicate key value violates unique constraint "profile_s_preferred_handle_key"`) {
                 alert("Your new preferred collective handle already exists, please use another one.");

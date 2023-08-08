@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { supabase } from "@/lib/supabaseClient";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
@@ -11,6 +11,7 @@ import languageChoices from "@/data/languageChoices.json";
 import { EditContext } from "@/contexts/EditContext";
 import { StableCreatableSelect, StableSelect } from "./CreateForm";
 import Edit from "@/icons/Edit";
+import TextEditor from "./TextEditor/TextEditor";
 
 const EditPersonalDetails = () => {
   const context = useContext(EditContext);
@@ -20,6 +21,7 @@ const EditPersonalDetails = () => {
   const [errorImage, setErrorImage] = useState();
   const [uploadImage, setUploadImage] = useState(false);
   const [githubImage, setGithubImage] = useState(false);
+  const editorRef = useRef();
 
   let initialLength = form.tags.length;
 
@@ -40,7 +42,7 @@ const EditPersonalDetails = () => {
   const queryClient = useQueryClient();
   const { mutate: updateForm } = useMutation(
     async (formData) => {
-      const { wp, projects, imgUpload, ...d } = formData;
+      const { wp, projects, imgUpload, sessions, ...d } = formData;
 
       // check if the imgUrl is updated and the previous image was an uploaded image
       if (
@@ -125,6 +127,7 @@ const EditPersonalDetails = () => {
       imgUrl: githubImage
         ? form.superinference.profile.avatar_url
         : data["imgUrl"],
+      long: JSON.stringify(editorRef.current.getEditorState().toJSON()),
     };
 
     if (uploadImage) {
@@ -274,18 +277,7 @@ const EditPersonalDetails = () => {
         </label>
 
         <Field label="🖊️ Introduction" error={errors?.long}>
-          <textarea
-            {...register("long")}
-            id="long"
-            name="long"
-            rows="4"
-            required
-            minLength="40"
-            maxLength="250"
-            placeholder="I am a data scientist with 3 years of experience in the industry and a Fellow at Supertype Fellowship. I am passionate about open source and have contributed to several projects under this program."
-            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-            disabled={!isEditting}
-          />
+          <TextEditor isEditting={isEditting} ref={editorRef} initialContent={form.long} />
         </Field>
 
         <Field
