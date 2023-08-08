@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import Link from 'next/link';
 // import { supabase } from "@/lib/supabaseClient";
 // import { useQuery } from "@tanstack/react-query";
 
@@ -45,29 +46,33 @@ const MoreDates = ({ number_of_days }) => {
     </span>
 }
 
-const getNearestDate = (day) => {    
+const getNearestDate = (day) => {
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0); // Set the time to midnight
-    
+
     let daysUntilTargetDay = (day + 7 - currentDate.getDay()) % 7;
-    
+
     if (daysUntilTargetDay === 0) {
         daysUntilTargetDay = 7; // Target day is today, get next week's occurrence
     }
-    
+
     currentDate.setDate(currentDate.getDate() + daysUntilTargetDay);
     return currentDate;
 }
 
 const OneTimeSession = ({ sessionData }) => {
     const oneTime = sessionData.one_time_date.filter(d => new Date(d) > new Date())
-    
-    if(oneTime.length === 0){
-        return(<></>)
+
+    if (oneTime.length === 0) {
+        return (<></>)
     } else {
         return (
             <div className='col-span-4 text-center text-xs border rounded'>
-                <div className='uppercase text-info'>{sessionData.title}</div>
+                <div className='uppercase link-info hover:opacity-70'>
+                    <Link href={`/book/${sessionData.id}`}>
+                        {sessionData.title}
+                    </Link>
+                </div>
                 <div className='font-bold text-md'>
                     <span className='font-light'>{extractDayFromDateTime(oneTime[0])},</span>
                     <span className='mx-1'>{
@@ -93,7 +98,11 @@ const RecurringSession = ({ sessionData }) => {
     const date = getNearestDate(sessionData.day_of_week[0])
     return (
         <div className='col-span-4 text-center text-xs border rounded'>
-            <div className='uppercase text-info'>{sessionData.title}</div>
+            <div className='uppercase link-info hover:opacity-70'>
+                <Link href={`/book/${sessionData.id}`}>
+                    {sessionData.title}
+                </Link>
+            </div>
             <div className='font-bold text-md'>
                 <span className='font-light'>{extractDayFromDateTime(date)},</span>
                 &nbsp;{shortDate(moveDateTimeByMins(date, sessionData.hours[0], sessionData.tz_gmt))}&nbsp;
@@ -204,7 +213,7 @@ const SessionCard = ({ data }) => {
                         <SessionPicker />
                         <div className='italic text-sm text-white'>
                             <span className='text-xs'>
-                                Slots are in your local timezone. Feature to be added soon.
+                                Booking feature to be added soon.
                             </span>
                         </div>
                     </div>
