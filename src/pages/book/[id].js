@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import { useQuery, QueryClient, dehydrate } from '@tanstack/react-query'
 
 import { Mainframe } from '@/blocks/Mainframe'
+import Calendar from '@/icons/Calendar';
 
 const fetchBookIds = async () => {
     const { data, error } = await supabase
@@ -92,13 +94,54 @@ export async function getStaticPaths() {
     }
 }
 
+const AuthorBox = ({ author }) => {
+
+    return (
+        <div className="col-span-3 md:col-span-1 order-first lg:order-last">
+            <h3 className="font-display text-xl text-gray-300">
+                About <span className='font-semibold ml-1'>{author["fullname"]}</span>
+            </h3>
+            <p>
+                {author["short"]}
+            </p>
+            <div className='divider'></div>
+            <p className='mt-2 font-light'>
+                {author["long"]}
+            </p>
+        </div>
+    )
+}
+
 const Page = (props) => {
     const { data, isLoading, error } = useBook(props.id)
 
     return (
         <Mainframe>
-            {/* {JSON.stringify(props)} */}
-            {JSON.stringify(data)}
+            {isLoading && <div className='place-self-center'>Loading...</div>}
+            {error && <div className='place-self-center'>Error: {error.message}</div>}
+            {!isLoading && !error && data && (
+                <>
+                    <h1 className="text-4xl uppercase font-semibold dark:text-info">
+                        {data["title"]}
+                    </h1>
+
+                    <main className='min-h-screen grid grid-cols-3 gap-4 mt-8 px-1'>
+                        <div className="col-span-3 md:col-span-2">
+                            <section className="pb-6">
+                                <p className='font-light'>
+                                    {data["description"]}
+                                </p>
+                            </section>
+                            <section className="pb-4">
+                                <Calendar /> Book a Session
+                            </section>
+                            {JSON.stringify(data)}
+                        </div>
+                        <AuthorBox author={data["mentor"]} />
+                    </main>
+                    {JSON.stringify(data)}
+                </>
+            )}
         </Mainframe>
     )
 }
