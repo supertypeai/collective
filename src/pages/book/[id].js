@@ -4,6 +4,7 @@ import { useQuery, QueryClient, dehydrate } from '@tanstack/react-query'
 
 import { Mainframe } from '@/blocks/Mainframe'
 import Calendar from '@/icons/Calendar';
+import { getNearestDate } from '@/utils/dateformat';
 
 const fetchBookIds = async () => {
     const { data, error } = await supabase
@@ -112,6 +113,21 @@ const AuthorBox = ({ author }) => {
     )
 }
 
+const OneTimeSession = ({ data }) => {
+    const oneTime = data.one_time_date.filter(d => new Date(d) > new Date())
+
+    if (oneTime.length === 0) {
+        return null
+    }
+    return (
+        JSON.stringify(oneTime)
+    )
+}
+
+const RecurringSession = ({ data }) => {
+    return JSON.stringify(data)
+}
+
 const Page = (props) => {
     const { data, isLoading, error } = useBook(props.id)
 
@@ -134,8 +150,10 @@ const Page = (props) => {
                             </section>
                             <section className="pb-4">
                                 <Calendar /> Book a Session
+                                {
+                                    data["one_time_date"].length > 0 ? <OneTimeSession data={data} /> : <RecurringSession data={data} />
+                                }
                             </section>
-                            {JSON.stringify(data)}
                         </div>
                         <AuthorBox author={data["mentor"]} />
                     </main>
