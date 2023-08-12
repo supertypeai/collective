@@ -121,7 +121,7 @@ const OneTimeSession = ({ data }) => {
     if (futureDates.length === 0) {
         return null
     }
-    return <BookingCards futureDates={futureDates} />
+    return <BookingCards futureDates={futureDates} tz_gmt={data.tz_gmt} hours={data.hours} duration={data.duration} />
 }
 
 const RecurringSession = ({ data }) => {

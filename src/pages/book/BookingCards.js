@@ -1,21 +1,23 @@
 import { useState } from 'react';
-import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
+import { Splide, SplideSlide } from '@splidejs/react-splide';
 
-const BookingCards = ({ futureDates }) => {
+import { getDayOfWeek } from '@/utils/dateformat';
+
+const BookingCards = ({ futureDates, tz_gmt, hours, duration }) => {
 
     const [selectedDatetime, setSelectedDatetime] = useState(null)
 
     return (
         <>
             <Splide options={{
-                perPage: 3,
-                gap: '.1rem',
+                perPage: 4,
+                gap: '1rem',
                 padding: '1rem',
                 pagination: false,
                 breakpoints: {
                     640: {
-                        perPage: 1,
+                        perPage: 2,
                         perMove: 1,
                     },
                     768: {
@@ -29,7 +31,7 @@ const BookingCards = ({ futureDates }) => {
                 {futureDates.map((date, index) => {
                     return (
                         <SplideSlide key={index}>
-                            <div className='border-2 rounded bg-secondary dark:bg-black px-2 w-48'>
+                            <div className='rounded bg-secondary dark:bg-white dark:bg-opacity-20 px-2 w-48'>
                                 <input
                                     type="radio"
                                     name="selectedDatetime"
@@ -41,14 +43,21 @@ const BookingCards = ({ futureDates }) => {
                                 <label htmlFor={date} className=''>
                                     {date}
                                 </label>
+                                <p className='text-sm'>
+                                    {getDayOfWeek(date)}
+                                </p>
                             </div>
                         </SplideSlide>
                     )
                 })}
             </Splide>
 
+            <div className="divider" />
 
             {JSON.stringify(futureDates)}
+            {JSON.stringify(tz_gmt)}
+            {JSON.stringify(hours)}
+            {JSON.stringify(duration)}
         </>
     )
 }
