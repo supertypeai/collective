@@ -27,3 +27,44 @@ export const sortByMonthName = (monthNames, isReverse = false) => {
     safeCopyMonthNames.sort(comparator);
     return safeCopyMonthNames;
 }
+
+export const moveDateTimeByMins = (date, hourString, sessionTimezone) => {
+    const generateDate = (date, hourString) => {
+        const dateObj = new Date(date);
+        // hourString = "19"
+        dateObj.setHours(hourString, 0, 0, 0);
+        return dateObj;
+    }
+
+    const moveDateByMins = (date, minutes) => {
+        // get current timezone offset
+        const currentDate = new Date();
+        const tzOffsetMinutes = currentDate.getTimezoneOffset();
+        // calculate difference between current timezone offset & the mentor's timezone offset
+        const diffMinutes = tzOffsetMinutes - minutes;
+        const dateObj = new Date(date);
+        // take date and + / - by diffMinutes
+        dateObj.setMinutes(dateObj.getMinutes() + diffMinutes);
+        return dateObj;
+    }
+
+    date = generateDate(date, hourString);
+    // console.log("date", date)
+    const shiftedDate = moveDateByMins(date, sessionTimezone);
+    // console.log("shiftedDate", shiftedDate)
+    return shiftedDate
+}
+
+export const getNearestDate = (day) => {
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // Set the time to midnight
+
+    let daysUntilTargetDay = (day + 7 - currentDate.getDay()) % 7;
+
+    if (daysUntilTargetDay === 0) {
+        daysUntilTargetDay = 7; // Target day is today, get next week's occurrence
+    }
+
+    currentDate.setDate(currentDate.getDate() + daysUntilTargetDay);
+    return currentDate;
+}
