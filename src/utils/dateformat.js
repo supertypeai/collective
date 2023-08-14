@@ -1,10 +1,5 @@
 export const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-export const extractDayFromDateTime = (dateTime) => {
-    const date = new Date(dateTime);
-    return date.toLocaleString('default', { weekday: 'short' });
-}
-
 export const shortDate = (dateTime) => {
     const date = new Date(dateTime);
     return date.toLocaleString('default', { month: 'short', day: 'numeric' });
@@ -67,4 +62,15 @@ export const getNearestDate = (day) => {
 
     currentDate.setDate(currentDate.getDate() + daysUntilTargetDay);
     return currentDate;
+}
+
+// export const getDayOfWeek = (date) => {
+//     const dayOfWeek = new Date(date).getDay();
+//     return isNaN(dayOfWeek) ? null :
+//         ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][dayOfWeek];
+// }
+
+export const extractDayFromDateTime = (dateTime, format = "short") => {
+    const date = new Date(dateTime);
+    return date.toLocaleString('default', { weekday: format });
 }

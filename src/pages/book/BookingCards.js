@@ -1,21 +1,29 @@
 import { useState } from 'react';
-import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
+import { Splide, SplideSlide } from '@splidejs/react-splide';
 
-const BookingCards = ({ futureDates }) => {
+import Clock from '@/icons/Clock';
+import Calendar from '@/icons/Calendar';
+import { tz, extractDayFromDateTime, shortDate, moveDateTimeByMins } from '@/utils/dateformat';
+
+const BookingCards = ({ futureDates, tz_gmt, hours, duration }) => {
 
     const [selectedDatetime, setSelectedDatetime] = useState(null)
 
     return (
-        <>
+        <section className="pb-4">
+            <Calendar /> Book a Session
+            <p className='text-xs text-gray-400'>
+                {`Session times displayed in ${tz}`}
+            </p>
             <Splide options={{
-                perPage: 3,
-                gap: '.1rem',
+                perPage: 4,
+                gap: '1rem',
                 padding: '1rem',
                 pagination: false,
                 breakpoints: {
                     640: {
-                        perPage: 1,
+                        perPage: 2,
                         perMove: 1,
                     },
                     768: {
@@ -24,32 +32,70 @@ const BookingCards = ({ futureDates }) => {
                     },
                 }
             }}
-                className='mt-2'
+                className='my-4'
             >
                 {futureDates.map((date, index) => {
                     return (
                         <SplideSlide key={index}>
-                            <div className='border-2 rounded bg-secondary dark:bg-black px-2 w-48'>
+                            <div className='rounded bg-secondary dark:bg-white dark:bg-opacity-20 px-2 w-48'>
                                 <input
                                     type="radio"
                                     name="selectedDatetime"
                                     id={date}
                                     value={date}
-                                    onChange={(e) => setSelectedDatetime(e.target.value)}
+                                    onChange={(e) => setSelectedDatetime({
+                                        ...selectedDatetime,
+                                        date: e.target.value,
+                                    })}
                                     className='mr-2'
                                 />
-                                <label htmlFor={date} className=''>
-                                    {date}
+                                <label htmlFor={date} className='text-sm'>
+                                    {shortDate(moveDateTimeByMins(date, hours[0], tz_gmt))}
                                 </label>
+                                <p className='uppercase font-medium'>
+                                    {extractDayFromDateTime(date, "long")}
+                                </p>
                             </div>
                         </SplideSlide>
                     )
                 })}
             </Splide>
 
+            <Clock /> Pick a Time Slot
+            <p className='text-xs text-gray-400'>
+                {`Session times displayed in ${tz}`}
+            </p>
+            <div className='grid grid-cols-12 gap-2 mt-2'>
+                {hours.map((hour, index) => {
+                    return (
+                        <div key={index} className='col-span-4 text-center text-xs rounded bg-secondary dark:bg-white dark:bg-opacity-20 px-2'>
+                            <input
+                                type="radio"
+                                name="selectedTime"
+                                id={hour}
+                                value={hour}
+                                onChange={(e) => setSelectedDatetime({
+                                    ...selectedDatetime,
+                                    hours: e.target.value,
+                                })}
+                                className='mr-2'
+                            />
+                            <label htmlFor={hour} className='text-sm'>
+                                {moveDateTimeByMins(selectedDatetime['date'], hour, tz_gmt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </label>
+                        </div>
+                    )
+                })}
+            </div>
+            <div className="divider" />
+            <p>
 
-            {JSON.stringify(futureDates)}
-        </>
+                {/* {JSON.stringify(futureDates)} */}
+                {/* {JSON.stringify(tz_gmt)} */}
+                {JSON.stringify(hours)}
+                {/* {JSON.stringify(duration)} */}
+            </p>
+        </section>
     )
 }
 

@@ -137,26 +137,7 @@ const SessionCard = ({ data }) => {
                         <div className='font-extrabold text-md'>20 Jul</div>
                         <div className='uppercase'>19:30</div>
                     </div>
-                    <div className='col-span-4 text-center text-xs border rounded'>
-                        <div className='uppercase'>Fri</div>
-                        <div className='font-extrabold text-md'>21 Jul</div>
-                        <div className='uppercase'>18:00</div>
-                    </div>
-                    <div className='col-span-4 text-center text-xs border rounded'>
-                        <div className='uppercase'>Thu</div>
-                        <div className='font-extrabold text-md'>27 Jul</div>
-                        <div className='uppercase'>19:30</div>
-                    </div>
-                    <div className='col-span-4 text-center text-xs border rounded'>
-                        <div className='uppercase'>Thu</div>
-                        <div className='font-extrabold text-md'>28 Jul</div>
-                        <div className='uppercase'>16:00</div>
-                    </div>
-                    <div className='col-span-4 text-center text-xs border rounded'>
-                        <div className='uppercase'>Thu</div>
-                        <div className='font-extrabold text-md'>28 Jul</div>
-                        <div className='uppercase'>17:00</div>
-                    </div>
+                    ...
                 </div> */}
             </div>
         )
