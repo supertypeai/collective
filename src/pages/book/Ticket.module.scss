@@ -2,13 +2,6 @@ $accent: #b1976b;
 $grey: #ecedef;
 $black: #cccccc;
 
-.cardWrap {
-  width: 27em;
-  margin: 3em auto;
-  color: #fff;
-  font-family: sans-serif;
-}
-
 .card {
   background: linear-gradient(to bottom, $accent 0%, $accent 26%, $grey 26%, $grey 100%);
   height: 15em;

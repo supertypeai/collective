@@ -7,7 +7,7 @@ import Calendar from '@/icons/Calendar';
 import { tz, extractDayFromDateTime, shortDate, moveDateTimeByMins } from '@/utils/dateformat';
 import Ticket from './Ticket';
 
-const BookingCards = ({ futureDates, tz_gmt, hours, duration, rate }) => {
+const BookingCards = ({ title, mentor, futureDates, tz_gmt, hours, duration, rate }) => {
 
     const [selectedDatetime, setSelectedDatetime] = useState(null)
 
@@ -92,17 +92,13 @@ const BookingCards = ({ futureDates, tz_gmt, hours, duration, rate }) => {
             </div>
             <div className="divider" />
             <Ticket
+                title={title}
+                mentor={mentor}
                 duration={duration}
                 rate={rate}
                 selectedDatetime={selectedDatetime}
+                tz={tz}
             />
-            <p>
-
-                {/* {JSON.stringify(futureDates)} */}
-                {/* {JSON.stringify(rate)} */}
-                {/* {JSON.stringify(hours)} */}
-                {/* {JSON.stringify(duration)} */}
-            </p>
         </section>
     )
 }
