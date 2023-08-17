@@ -35,7 +35,7 @@ const BookingCards = ({ title, mentor, futureDates, tz_gmt, hours, duration, rat
             }}
                 className='my-4'
             >
-                {futureDates.map((date, index) => {
+                {futureDates && futureDates.map((date, index) => {
                     return (
                         <SplideSlide key={index}>
                             <div className='rounded bg-secondary dark:bg-white dark:bg-opacity-20 px-2 w-48'>
@@ -67,7 +67,7 @@ const BookingCards = ({ title, mentor, futureDates, tz_gmt, hours, duration, rat
                 {`Session times displayed in ${tz}`}
             </p>
             <div className='grid grid-cols-12 gap-2 mt-2'>
-                {hours.map((hour, index) => {
+                {hours && hours.map((hour, index) => {
                     return (
                         <div key={index} className='col-span-4 text-center text-xs rounded bg-secondary dark:bg-white dark:bg-opacity-20 px-2'>
                             <input
