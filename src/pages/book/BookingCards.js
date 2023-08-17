@@ -5,8 +5,9 @@ import { Splide, SplideSlide } from '@splidejs/react-splide';
 import Clock from '@/icons/Clock';
 import Calendar from '@/icons/Calendar';
 import { tz, extractDayFromDateTime, shortDate, moveDateTimeByMins } from '@/utils/dateformat';
+import Ticket from './Ticket';
 
-const BookingCards = ({ futureDates, tz_gmt, hours, duration }) => {
+const BookingCards = ({ title, mentor, futureDates, tz_gmt, hours, duration, rate }) => {
 
     const [selectedDatetime, setSelectedDatetime] = useState(null)
 
@@ -80,21 +81,24 @@ const BookingCards = ({ futureDates, tz_gmt, hours, duration }) => {
                                 })}
                                 className='mr-2'
                             />
-                            <label htmlFor={hour} className='text-sm'>
-                                {moveDateTimeByMins(selectedDatetime['date'], hour, tz_gmt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            <label className='text-sm'>
+                                {
+                                    hour < 12 ? `${hour}:00 am` : hour === 12 ? `${hour}:00 pm` : `${hour - 12}:00 pm`
+                                }
                             </label>
                         </div>
                     )
                 })}
             </div>
             <div className="divider" />
-            <p>
-
-                {/* {JSON.stringify(futureDates)} */}
-                {/* {JSON.stringify(tz_gmt)} */}
-                {JSON.stringify(hours)}
-                {/* {JSON.stringify(duration)} */}
-            </p>
+            <Ticket
+                title={title}
+                mentor={mentor}
+                duration={duration}
+                rate={rate}
+                selectedDatetime={selectedDatetime}
+                tz={tz}
+            />
         </section>
     )
 }

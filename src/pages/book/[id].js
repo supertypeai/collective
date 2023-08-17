@@ -3,10 +3,7 @@ import { supabase } from '@/lib/supabaseClient';
 import { useQuery, QueryClient, dehydrate } from '@tanstack/react-query'
 
 import { Mainframe } from '@/blocks/Mainframe'
-import Calendar from '@/icons/Calendar';
-import { tz } from '@/utils/dateformat';
 import BookingCards from './BookingCards';
-import Clock from '@/icons/Clock';
 
 const fetchBookIds = async () => {
     const { data, error } = await supabase
@@ -81,11 +78,9 @@ export async function getStaticPaths() {
             queryKey: ['bookingIds'],
             queryFn: () => fetchBookIds(),
         });
-        console.log("data", data)
         const paths = data.map((booking) => ({
             params: { id: booking.id.toString() },
         }))
-        console.log("paths", paths)
 
         return {
             paths, fallback: false
@@ -117,12 +112,13 @@ const AuthorBox = ({ author }) => {
 
 const OneTimeSession = ({ data }) => {
     const futureDates = data.one_time_date.filter(d => new Date(d) > new Date())
-    const [selectedDatetime, setSelectedDatetime] = useState(null)
 
     if (futureDates.length === 0) {
         return null
     }
-    return <BookingCards futureDates={futureDates} tz_gmt={data.tz_gmt} hours={data.hours} duration={data.duration} />
+    return <BookingCards
+        title={data.title} mentor={data.mentor.fullname}
+        futureDates={futureDates} tz_gmt={data.tz_gmt} hours={data.hours} duration={data.duration} rate={data.hourly_usd} />
 }
 
 const RecurringSession = ({ data }) => {
