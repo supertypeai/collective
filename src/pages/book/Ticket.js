@@ -123,12 +123,13 @@ const Checkout = ({ selectedDatetime, billableAmt }) => {
         appearance,
     };
 
-    const BillableText = () => <p className="text-xs text-gray-400 mt-1 text-center">
-        {`$${billableAmt} USD`}
-    </p>
+    // const BillableText = () => <div className="text-xs text-gray-400 mt-1 text-center">
+    //     {`$${billableAmt} USD`}
+    // </div>
 
     if (!selectedDatetime || Object.keys(selectedDatetime).length < 2
-    ) return <BillableText />
+        // ) return <BillableText />
+    ) return null;
 
     if (!clientSecret) return <BillableText />
 
@@ -150,6 +151,10 @@ const Ticket = ({ title, mentor, duration, rate, selectedDatetime, tz }) => {
         hour =
             selectedDatetime.hours < 12 ? `${hour}:00 am` : selectedDatetime.hours === 12 ? `${selectedDatetime.hours}:00 pm` : `${selectedDatetime.hours - 12}:00 pm`
     }
+
+    const BillableText = () => <p className="text-xs text-gray-400 mt-1 text-center">
+        {`$${duration * rate} USD`}
+    </p>
 
     return (
         <div className='my-4'>
@@ -193,22 +198,33 @@ const Ticket = ({ title, mentor, duration, rate, selectedDatetime, tz }) => {
                     <h3>{duration * 60}</h3>
                     <span>mins</span>
                 </div>
-                {/* checkout button */}
 
-                {isLoggedIn ? <Checkout
-                    selectedDatetime={selectedDatetime}
-                    billableAmt={duration * rate}
-                />
-                    : (
-                        <>
-                            <div className={styles.barcode}></div>
-                            <p className="text-xs text-gray-400 mt-1">
-                                Please sign in first.
-                            </p>
-                        </>
-                    )
+                <div className={styles.barcode}></div>
+                <BillableText />
+                {!isLoggedIn &&
+                    <p className="text-xs text-gray-400 mt-1">
+                        Please sign in first.
+                    </p>
                 }
+
+                {/* {!isLoggedIn ?
+                    <div className='text-center'>
+                        <div className={styles.barcode}></div>
+                        <BillableText />
+                        <p className="text-xs text-gray-400 mt-1">
+                            Please sign in first.
+                        </p>
+                    </div>
+                    :
+                    <BillableText />
+                } */}
+
             </div>
+            {isLoggedIn && <Checkout
+                selectedDatetime={selectedDatetime}
+                billableAmt={duration * rate}
+            />
+            }
 
         </div>
     )
