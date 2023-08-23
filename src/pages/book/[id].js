@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import { useQuery, QueryClient, dehydrate } from '@tanstack/react-query'
 
 import { Mainframe } from '@/blocks/Mainframe'
 import BookingCards from './BookingCards';
+import { getNearestDate } from '@/utils/dateformat'
 
 const fetchBookIds = async () => {
     const { data, error } = await supabase
@@ -122,7 +123,37 @@ const OneTimeSession = ({ data }) => {
 }
 
 const RecurringSession = ({ data }) => {
-    return JSON.stringify(data)
+
+    const [dates, setDates] = useState([])
+
+    useEffect(() => {
+        const dates = [];
+
+        for (let i = 0; dates.length <= 6; i++) {
+
+            let bufferToAdd = i * 7
+
+            for (let j = 0; j < data.day_of_week.length; j++) {
+                const date = getNearestDate(data.day_of_week[j])
+
+                let newDate = new Date(date)
+                newDate.setDate(newDate.getDate() + bufferToAdd)
+                dates.push(newDate)
+            }
+        }
+
+        setDates(dates);
+    }, [data]);
+
+    if (dates.length === 0) {
+        return null
+    }
+    return <BookingCards
+        title={data.title} mentor={data.mentor.fullname}
+        futureDates={dates} tz_gmt={data.tz_gmt} hours={data.hours} duration={data.duration} rate={data.hourly_usd} />
+
+    return JSON.stringify(dates)
+    // return JSON.stringify(data)
 }
 
 const Page = (props) => {
@@ -151,7 +182,7 @@ const Page = (props) => {
                         </div>
                         <AuthorBox author={data["mentor"]} />
                     </main>
-                    {JSON.stringify(data)}
+                    {/* {JSON.stringify(data)} */}
                 </>
             )}
         </Mainframe>
