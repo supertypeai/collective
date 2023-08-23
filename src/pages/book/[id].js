@@ -151,7 +151,7 @@ const Page = (props) => {
                         </div>
                         <AuthorBox author={data["mentor"]} />
                     </main>
-                    {JSON.stringify(data)}
+                    {/* {JSON.stringify(data)} */}
                 </>
             )}
         </Mainframe>

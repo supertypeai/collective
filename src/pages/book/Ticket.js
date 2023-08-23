@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from 'react'
 import { loadStripe } from "@stripe/stripe-js";
+import { useTheme } from 'next-themes'
 import {
     Elements,
     PaymentElement,
@@ -19,6 +20,7 @@ const CheckoutForm = () => {
     const elements = useElements();
 
     const [message, setMessage] = useState(null);
+    const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
@@ -65,6 +67,7 @@ const CheckoutForm = () => {
             confirmParams: {
                 // set this to payment completion url
                 return_url: window.location.href,
+                receipt_email: email
             },
         })
         if (error.type === "card_error" || error.type === "validation_error") {
@@ -77,7 +80,9 @@ const CheckoutForm = () => {
     };
 
     return (
-        <form id="payment-form" onSubmit={handleSubmit}>
+        <form id="payment-form" onSubmit={handleSubmit} className='mt-4'>
+            <LinkAuthenticationElement id="link-authentication-element"
+                onChange={(e) => setEmail(e.target.value)} />
             <PaymentElement id="payment-element" />
             <button
                 className="btn btn-info btn-block mt-4 btn-sm"
@@ -96,6 +101,7 @@ const CheckoutForm = () => {
 
 const Checkout = ({ selectedDatetime, billableAmt }) => {
 
+    const { theme } = useTheme()
     const [clientSecret, setClientSecret] = useState("")
 
     useEffect(() => {
@@ -113,19 +119,26 @@ const Checkout = ({ selectedDatetime, billableAmt }) => {
 
 
     const appearance = {
-        theme: 'stripe',
+        // theme: 'night', // 'stripe', 'night', 'flat'
+        // if theme === 'dark' use 'night' as theme
+        theme: theme === 'dark' ? 'night' : 'flat',
         variables: {
             colorPrimary: '#b1976b',
         },
+        rules: {
+            '.Label': {
+                color: '#b1976b',
+            }
+        }
     };
     const options = {
         clientSecret,
         appearance,
     };
 
-    // const BillableText = () => <div className="text-xs text-gray-400 mt-1 text-center">
-    //     {`$${billableAmt} USD`}
-    // </div>
+    const BillableText = () => <div className="text-xs text-gray-400 mt-1 text-center">
+        {`$${billableAmt} USD`}
+    </div>
 
     if (!selectedDatetime || Object.keys(selectedDatetime).length < 2
         // ) return <BillableText />
@@ -157,57 +170,58 @@ const Ticket = ({ title, mentor, duration, rate, selectedDatetime, tz }) => {
     </p>
 
     return (
-        <div className='my-4'>
-            <div className={styles.card + " lg:w-72 " + styles.cardLeft}>
-                <h1 className={styles.h1}>Mentorship <span>Session</span></h1>
-                <div className={styles.title}>
-                    <h2>{title}</h2>
-                    <span>Session Name</span>
+        <div className='flex flex-col space-y-4'>
+            <div className='my-4'>
+                <div className={styles.card + " lg:w-72 " + styles.cardLeft}>
+                    <h1 className={styles.h1}>Mentorship <span>Session</span></h1>
+                    <div className={styles.title}>
+                        <h2>{title}</h2>
+                        <span>Session Name</span>
+                    </div>
+                    <div className={styles.name}>
+                        <h2>{mentor}</h2>
+                        <span>Mentor&apos;s name</span>
+                    </div>
+                    <div className={styles.seat}>
+                        <h2>{duration * 60}</h2>
+                        <span>minutes</span>
+                    </div>
+                    <div className={styles.time}>
+                        {
+                            !selectedDatetime || Object.keys(selectedDatetime).length < 2 ? <h2 className="text-xs mt-1 text-warning">
+                                <Warning /> Choose a &amp; time</h2> :
+                                <>
+                                    <h2>{
+                                        new Date(selectedDatetime.date).toLocaleDateString('en-US', {
+                                            day: 'numeric',
+                                            month: 'short',
+                                            year: 'numeric'
+                                        })
+                                    }, {hour}</h2>
+                                    <span>{tz} Time</span>
+                                </>
+                        }
+                    </div>
+
                 </div>
-                <div className={styles.name}>
-                    <h2>{mentor}</h2>
-                    <span>Mentor&apos;s name</span>
-                </div>
-                <div className={styles.seat}>
-                    <h2>{duration * 60}</h2>
-                    <span>minutes</span>
-                </div>
-                <div className={styles.time}>
-                    {
-                        !selectedDatetime || Object.keys(selectedDatetime).length < 2 ? <h2 className="text-xs mt-1 text-warning">
-                            <Warning /> Choose a &amp; time</h2> :
-                            <>
-                                <h2>{
-                                    new Date(selectedDatetime.date).toLocaleDateString('en-US', {
-                                        day: 'numeric',
-                                        month: 'short',
-                                        year: 'numeric'
-                                    })
-                                }, {hour}</h2>
-                                <span>{tz} Time</span>
-                            </>
+                <div className={styles.card + " w-[10em] " + styles.cardRight}>
+                    <div className="eye">
+                    </div>
+                    <div className={styles.eye}></div>
+                    <div className={styles.number}>
+                        <h3>{duration * 60}</h3>
+                        <span>mins</span>
+                    </div>
+
+                    <div className={styles.barcode}></div>
+                    <BillableText />
+                    {!isLoggedIn &&
+                        <p className="text-xs text-gray-400 mt-1">
+                            Please sign in first.
+                        </p>
                     }
-                </div>
 
-            </div>
-            <div className={styles.card + " w-[10em] " + styles.cardRight}>
-                <div className="eye">
-                </div>
-                <div className={styles.eye}></div>
-                <div className={styles.number}>
-                    <h3>{duration * 60}</h3>
-                    <span>mins</span>
-                </div>
-
-                <div className={styles.barcode}></div>
-                <BillableText />
-                {!isLoggedIn &&
-                    <p className="text-xs text-gray-400 mt-1">
-                        Please sign in first.
-                    </p>
-                }
-
-                {/* {!isLoggedIn ?
+                    {/* {!isLoggedIn ?
                     <div className='text-center'>
                         <div className={styles.barcode}></div>
                         <BillableText />
@@ -219,14 +233,19 @@ const Ticket = ({ title, mentor, duration, rate, selectedDatetime, tz }) => {
                     <BillableText />
                 } */}
 
-            </div>
-            {isLoggedIn && <Checkout
-                selectedDatetime={selectedDatetime}
-                billableAmt={duration * rate}
-            />
-            }
+                </div>
 
+            </div>
+            {
+                isLoggedIn && <div className='mt-4'>
+                    <Checkout
+                        selectedDatetime={selectedDatetime}
+                        billableAmt={duration * rate}
+                    />
+                </div>
+            }
         </div>
+
     )
 }
 
