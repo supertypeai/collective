@@ -2,13 +2,13 @@ import { Field } from "@/blocks/Form";
 import Pills from "@/blocks/Pills";
 
 export const daysOfWeek = [
-  "Sunday",
+  "Sunday", //0
   "Monday",
   "Tuesday",
   "Wednesday",
   "Thursday",
   "Friday",
-  "Saturday",
+  "Saturday", //6
 ];
 
 const SessionDayOfWeek = ({

@@ -161,15 +161,15 @@ const SessionCard = ({ data }) => {
             </div>
         )
     }
-
-    if (isLoggedIn) return <BookSession />
-    return (
-        <div>
-            Please sign in to access this feature.
-            <label htmlFor="enquire-modal"
-                className="btn btn-outline btn-xs rounded hover:bg-rose-700">Enquire</label>
-        </div>
-    )
+    return <BookSession />
+    // if (isLoggedIn) return <BookSession />
+    // return (
+    //     <div>
+    //         Please sign in to access this feature.
+    //         <label htmlFor="enquire-modal"
+    //             className="btn btn-outline btn-xs rounded hover:bg-rose-700">Enquire</label>
+    //     </div>
+    // )
 }
 
 export default SessionCard
