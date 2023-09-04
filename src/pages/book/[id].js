@@ -111,18 +111,19 @@ const AuthorBox = ({ author }) => {
     )
 }
 
-const OneTimeSession = ({ data }) => {
+const OneTimeSession = ({ data, id }) => {
     const futureDates = data.one_time_date.filter(d => new Date(d) > new Date())
 
     if (futureDates.length === 0) {
         return null
     }
     return <BookingCards
+        id={id}
         title={data.title} mentor={data.mentor.fullname}
         futureDates={futureDates} tz_gmt={data.tz_gmt} hours={data.hours} duration={data.duration} rate={data.hourly_usd} />
 }
 
-const RecurringSession = ({ data }) => {
+const RecurringSession = ({ data, id }) => {
 
     const [dates, setDates] = useState([])
 
@@ -149,6 +150,7 @@ const RecurringSession = ({ data }) => {
         return null
     }
     return <BookingCards
+        id={id}
         title={data.title} mentor={data.mentor.fullname}
         futureDates={dates} tz_gmt={data.tz_gmt} hours={data.hours} duration={data.duration} rate={data.hourly_usd} />
 
@@ -177,7 +179,7 @@ const Page = (props) => {
                                 </p>
                             </section>
                             {
-                                data["one_time_date"].length > 0 ? <OneTimeSession data={data} /> : <RecurringSession data={data} />
+                                data["one_time_date"].length > 0 ? <OneTimeSession data={data} id={props.id} /> : <RecurringSession data={data} id={props.id} />
                             }
                         </div>
                         <AuthorBox author={data["mentor"]} />

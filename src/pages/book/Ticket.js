@@ -12,6 +12,7 @@ import {
 import styles from './Ticket.module.scss'
 import { AppContext } from '@/contexts/AppContext'
 import Warning from '@/icons/Warning';
+import { numericShortDate } from '@/utils/dateformat';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
@@ -99,23 +100,28 @@ const CheckoutForm = () => {
 }
 
 
-const Checkout = ({ selectedDatetime, billableAmt }) => {
+const Checkout = ({ selectedDatetime, billableAmt, metadata }) => {
 
     const { theme } = useTheme()
     const [clientSecret, setClientSecret] = useState("")
 
     useEffect(() => {
-        // Create PaymentIntent as soon as the page loads
-        fetch("/api/create-payment-intent", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(
-                { items: [{ price: billableAmt, quantity: 1 }] }
-            ),
-        })
-            .then((res) => res.json())
-            .then((data) => setClientSecret(data.clientSecret));
-    }, []);
+        // Create PaymentIntent as soon as date and hours chosen
+        if (selectedDatetime?.date && selectedDatetime?.hours) {
+            fetch("/api/create-payment-intent", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(
+                    { 
+                        items: [{ price: billableAmt, quantity: 1 }],
+                        metadata: metadata
+                    }
+                ),
+            })
+                .then((res) => res.json())
+                .then((data) => setClientSecret(data.clientSecret));
+        }
+    }, [selectedDatetime]);
 
 
     const appearance = {
@@ -155,15 +161,9 @@ const Checkout = ({ selectedDatetime, billableAmt }) => {
 }
 
 
-const Ticket = ({ title, mentor, duration, rate, selectedDatetime, tz }) => {
+const Ticket = ({ id, title, mentor, duration, rate, selectedDatetime, displayDatetime, tz }) => {
 
     const { isLoggedIn } = useContext(AppContext);
-
-    let hour = null
-    if (selectedDatetime && Object.keys(selectedDatetime).length == 2) {
-        hour =
-            selectedDatetime.hours < 12 ? `${hour}:00 am` : selectedDatetime.hours === 12 ? `${selectedDatetime.hours}:00 pm` : `${selectedDatetime.hours - 12}:00 pm`
-    }
 
     const BillableText = () => <p className="text-xs text-gray-400 mt-1 text-center">
         {`$${duration * rate} USD`}
@@ -188,16 +188,16 @@ const Ticket = ({ title, mentor, duration, rate, selectedDatetime, tz }) => {
                     </div>
                     <div className={styles.time}>
                         {
-                            !selectedDatetime || Object.keys(selectedDatetime).length < 2 ? <h2 className="text-xs mt-1 text-warning">
-                                <Warning /> Choose a &amp; time</h2> :
+                            !displayDatetime || Object.keys(displayDatetime).length < 2 ? <h2 className="text-xs mt-1 text-warning">
+                                <Warning /> Choose a date &amp; time</h2> :
                                 <>
                                     <h2>{
-                                        new Date(selectedDatetime.date).toLocaleDateString('en-US', {
+                                        new Date(displayDatetime.date).toLocaleDateString('en-US', {
                                             day: 'numeric',
                                             month: 'short',
                                             year: 'numeric'
                                         })
-                                    }, {hour}</h2>
+                                    }, {displayDatetime.hour}</h2>
                                     <span>{tz} Time</span>
                                 </>
                         }
@@ -237,10 +237,17 @@ const Ticket = ({ title, mentor, duration, rate, selectedDatetime, tz }) => {
 
             </div>
             {
-                isLoggedIn && <div className='mt-4'>
+                isLoggedIn && selectedDatetime && <div className='mt-4'>
                     <Checkout
                         selectedDatetime={selectedDatetime}
                         billableAmt={duration * rate}
+                        metadata={{
+                            user: isLoggedIn.user.id,
+                            session: id,
+                            bill: duration*rate,
+                            date: numericShortDate(selectedDatetime?.date),
+                            hour: selectedDatetime?.hours
+                        }}
                     />
                 </div>
             }
