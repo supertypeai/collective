@@ -149,7 +149,8 @@ const AppContextWrapper = ({ children }) => {
           [tokenUser]: data.session.user,
           providerToken: data.session.provider_token,
           avatarUrl: user.imgUrl || data.session.user.user_metadata.avatar_url,
-          user: user
+          user: user,
+          authId: data.session.user.id
         } : false)
 
         // check if the slack notification has already been sent
