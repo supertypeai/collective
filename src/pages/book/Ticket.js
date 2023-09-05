@@ -242,7 +242,7 @@ const Ticket = ({ id, title, mentor, duration, rate, selectedDatetime, displayDa
                         selectedDatetime={selectedDatetime}
                         billableAmt={duration * rate}
                         metadata={{
-                            user: isLoggedIn.user.id,
+                            user: isLoggedIn.authId,
                             session: id,
                             bill: duration*rate,
                             date: numericShortDate(selectedDatetime?.date),

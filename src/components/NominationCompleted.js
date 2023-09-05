@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form"
 import { supabase } from "@/lib/supabaseClient";
 
 import { NominateContext } from "@/contexts/NominateContext"
+import { AppContext } from "@/contexts/AppContext";
 import { Field, Form, Input } from "@/blocks/Form"
 import Tooltip from "@/icons/Tooltip";
 
@@ -15,6 +16,7 @@ const RegistrationCompleted = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const context = useContext(NominateContext);
+    const { isLoggedIn } = useContext(AppContext);
     const [form] = context.f
     const router = useRouter()
 
@@ -23,15 +25,13 @@ const RegistrationCompleted = () => {
     const postToSupabase = async (data) => {
         setIsSubmitting(true)
 
-        const { data: { user } } = await supabase.auth.getUser();
-
         const { error } = await supabase
             .from('profile')
             .insert([
                 {
                     ...data,
                     created_at: new Date(),
-                    auth_uuid: user.id
+                    auth_uuid: isLoggedIn.authId
                 }
             ])
 

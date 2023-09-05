@@ -87,8 +87,6 @@ const ExecutiveForm = () => {
 
         const { website_or_blog, ...d } = data;
 
-        const { data: { user } } = await supabase.auth.getUser();
-
         const { error } = await supabase
             .from('profile')
             .insert([
@@ -96,7 +94,7 @@ const ExecutiveForm = () => {
                     ...d,
                     isExecutive: true,
                     created_at: new Date(),
-                    auth_uuid: user.id,
+                    auth_uuid: isLoggedIn.authId,
                     superinference: { 
                         profile: {
                             avatar_url: isLoggedIn.linkedinUser.identities[0].identity_data.avatar_url
