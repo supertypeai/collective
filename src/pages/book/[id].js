@@ -3,7 +3,7 @@ import { supabase } from '@/lib/supabaseClient';
 import { useQuery, QueryClient, dehydrate } from '@tanstack/react-query'
 
 import { Mainframe } from '@/blocks/Mainframe'
-import BookingCards from './BookingCards';
+import BookingCards from '../../components/BookingCards';
 import { getNearestDate } from '@/utils/dateformat'
 
 const fetchBookIds = async () => {
@@ -28,7 +28,8 @@ const fetchBooking = async (id) => {
             *, 
             mentor:profile(
                 fullname, short, long
-            )
+            ),
+            booked: bookedSession(*)
         `)
         .eq('id', id)
         .single();
@@ -120,7 +121,8 @@ const OneTimeSession = ({ data, id }) => {
     return <BookingCards
         id={id}
         title={data.title} mentor={data.mentor.fullname}
-        futureDates={futureDates} tz_gmt={data.tz_gmt} hours={data.hours} duration={data.duration} rate={data.hourly_usd} />
+        futureDates={futureDates} tz_gmt={data.tz_gmt} hours={data.hours} duration={data.duration} rate={data.hourly_usd}
+        bookedSession={data.booked} />
 }
 
 const RecurringSession = ({ data, id }) => {
@@ -152,7 +154,8 @@ const RecurringSession = ({ data, id }) => {
     return <BookingCards
         id={id}
         title={data.title} mentor={data.mentor.fullname}
-        futureDates={dates} tz_gmt={data.tz_gmt} hours={data.hours} duration={data.duration} rate={data.hourly_usd} />
+        futureDates={dates} tz_gmt={data.tz_gmt} hours={data.hours} duration={data.duration} rate={data.hourly_usd} 
+        bookedSession={data.booked} />
 
     return JSON.stringify(dates)
     // return JSON.stringify(data)
