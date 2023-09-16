@@ -20,9 +20,33 @@ const MoreDates = ({ number_of_days }) => {
 
 
 const OneTimeSession = ({ sessionData }) => {
-    const oneTime = sessionData.one_time_date.filter(d => new Date(d) > new Date())
+    const bookedSlots = sessionData.booked.reduce((result, s) => {
+        result[s.date] = result[s.date] ? [...result [s.date], s.hour] : [s.hour]
+        return result; 
+    }, {})
 
-    if (oneTime.length === 0) {
+    const availableSlots = sessionData.one_time_date.reduce((result, d) => {
+        if(new Date(d) > new Date()){
+            const bookedHours = bookedSlots[d] || [];
+            const availableHours = sessionData.hours.filter(hour => !bookedHours.includes(hour));
+            if (availableHours.length > 0){
+                result[d] = availableHours;
+            }    
+        }
+        return result;
+    }, {});
+
+    let availableHours = new Set();
+
+    Object.values(availableSlots).forEach(hoursArray => {
+        hoursArray.forEach(hour => {
+            availableHours.add(hour);
+        });
+    });
+
+    availableHours = [...availableHours];
+
+    if (Object.keys(availableSlots).length === 0) {
         return (<></>)
     } else {
         return (
@@ -33,17 +57,17 @@ const OneTimeSession = ({ sessionData }) => {
                     </Link>
                 </div>
                 <div className='font-bold text-md'>
-                    <span className='font-light'>{extractDayFromDateTime(oneTime[0])},</span>
+                    <span className='font-light'>{extractDayFromDateTime(Object.keys(availableSlots)[0])},</span>
                     <span className='mx-1'>{
-                        shortDate(moveDateTimeByMins(oneTime[0], sessionData.hours[0], sessionData.tz_gmt))
+                        shortDate(moveDateTimeByMins(Object.keys(availableSlots)[0], sessionData.hours[0], sessionData.tz_gmt))
                     }</span>
-                    <MoreDates number_of_days={oneTime.length} />
+                    <MoreDates number_of_days={Object.keys(availableSlots).length} />
                 </div>
                 <div className='uppercase'>
-                    {sessionData.hours.sort().map((hour) => {
+                    {availableHours.sort().map((hour) => {
                         return (
                             <div key={`${sessionData.id}_${hour}`}>
-                                {moveDateTimeByMins(oneTime[0], hour, sessionData.tz_gmt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                {moveDateTimeByMins(Object.keys(availableSlots)[0], hour, sessionData.tz_gmt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                             </div>
                         )
                     })}

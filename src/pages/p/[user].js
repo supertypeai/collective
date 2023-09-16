@@ -11,7 +11,7 @@ const fetchUser = async (user) => {
     const { data, error } = await supabase
         .from('profile')
         .select(
-            `*, projects:project(*), sessions:sessionManager(*)`
+            `*, projects:project(*), sessions:sessionManager(*, booked: bookedSession(*))`
         )
         .eq('s_preferred_handle', user)
         .single()
