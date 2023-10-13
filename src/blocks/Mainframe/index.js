@@ -148,7 +148,7 @@ const AppContextWrapper = ({ children }) => {
           [tokenProvider]: data.session.access_token,
           [tokenUser]: data.session.user,
           providerToken: data.session.provider_token,
-          avatarUrl: user.imgUrl || data.session.user.user_metadata.avatar_url,
+          avatarUrl: user?.imgUrl || data.session.user.user_metadata.avatar_url,
           user: user,
           authId: data.session.user.id
         } : false)
