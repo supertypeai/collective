@@ -23,15 +23,16 @@ function Toprow({ children }) {
                 {/* align avatar to center of div */}
                 <div className="flex justify-center mb-2">
                     <div className="avatar">
-                        <div className="w-52 rounded-lg">
+                        <div className="w-52 ">
                             <Image src={data.imgUrl}
                                 alt={`${data.fullname} supertype`}
-                                className="mt-8 object-cover rounded text-center" width={300} height={300} priority />
+                                className="mt-8 object-cover rounded text-center" width={300} height={300} priority
+                            />
                         </div>
                     </div>
                 </div>
 
-                { 
+                {
                     data.superinference.stats && (
                         <>
                             <CommitBadge count={data.superinference.contribution.contribution_count} />

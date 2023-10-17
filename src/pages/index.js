@@ -89,6 +89,16 @@ const WilsenProfile = () => {
     }} />
 }
 
+const BrianProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://osfehplavmahboowlueu.supabase.co/storage/v1/object/public/images/profile_images/brianloe_ppm.png",
+        name: "Cornelius Brian Loe",
+        profileLink: "/p/brianloe",
+        short: "Data Scientist @Supertype.ai. Aspire to help businesses streamline data processes and create intelligent data-driven solutions.",
+        tags: ['AI', 'Database', 'Server']
+    }} />
+}
+
 const DivaProfile = () => {
     return <ProfileCard person={{
         imgUrl: "https://avatars.githubusercontent.com/u/79572421?v=4",
@@ -249,9 +259,10 @@ const Page = () => {
                                 <VCCalvinProfile />
                                 <GeraldProfile />
                                 <StaneProfile />
-                                <PatrickProfile />
                                 <TimotiusProfile />
                                 <WilsenProfile />
+                                <BrianProfile />
+                                <PatrickProfile />
                                 <DivaProfile />
                                 <StevenProfile />
                                 <FiqeyProfile />
