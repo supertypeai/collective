@@ -37,6 +37,7 @@ const PersonalDetails = ({ nextFormStep }) => {
             location: data["availability"] === "Unavailable" ? null : data["location"],
             superinference: superinference,
             long: JSON.stringify(editorRef.current.getEditorState().toJSON()),
+            imgUrl: superinference.profile.avatar_url
         });
         nextFormStep();
     };

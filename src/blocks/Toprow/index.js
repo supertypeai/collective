@@ -24,19 +24,10 @@ function Toprow({ children }) {
                 <div className="flex justify-center mb-2">
                     <div className="avatar">
                         <div className="w-52 ">
-                            {
-                                data.imgUrl ? (
-                                    <Image src={data.imgUrl}
-                                        alt={`${data.fullname} supertype`}
-                                        className="mt-8 object-cover rounded text-center" width={300} height={300} priority />)
-                                    : (
-                                        <div className='mt-8 avatar'>
-                                            <div className='rounded-full w-52 h-52 bg-gray-400 text-center pt-20 text-4xl bg-opacity-10'>
-                                                {data.github_handle.charAt(0).toUpperCase()}
-                                            </div>
-                                        </div>
-                                    )
-                            }
+                            <Image src={data.imgUrl}
+                                alt={`${data.fullname} supertype`}
+                                className="mt-8 object-cover rounded text-center" width={300} height={300} priority
+                            />
                         </div>
                     </div>
                 </div>
