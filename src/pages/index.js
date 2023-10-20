@@ -99,6 +99,16 @@ const BrianProfile = () => {
     }} />
 }
 
+const NisaProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://avatars.githubusercontent.com/u/73590231?v=4",
+        name: "Khairunnisa",
+        profileLink: "/p/nisa-basalamah",
+        short: "Aspiring Full-Stack Web Developer @Supertype.ai and Passionate Part-Time Scratch Tutor @Kodland.",
+        tags: ['API', 'Frontend', 'Database', 'Server']
+    }} />
+}
+
 const DivaProfile = () => {
     return <ProfileCard person={{
         imgUrl: "https://avatars.githubusercontent.com/u/79572421?v=4",
@@ -262,6 +272,7 @@ const Page = () => {
                                 <TimotiusProfile />
                                 <WilsenProfile />
                                 <BrianProfile />
+                                <NisaProfile />
                                 <PatrickProfile />
                                 <DivaProfile />
                                 <StevenProfile />
