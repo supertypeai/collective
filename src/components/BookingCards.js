@@ -28,8 +28,6 @@ const BookingCards = ({ id, title, mentor, futureDates, tz_gmt, hours, duration,
         return result;
       }, {});
 
-      console.log(availableSlots)
-
     return (
         <section className="pb-4">
             {Object.keys(availableSlots).length > 0 ? (

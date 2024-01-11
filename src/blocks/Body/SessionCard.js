@@ -20,10 +20,10 @@ const MoreDates = ({ number_of_days }) => {
 
 
 const OneTimeSession = ({ sessionData }) => {
-    const bookedSlots = sessionData.booked.reduce((result, s) => {
+    const bookedSlots = sessionData.booked ? sessionData.booked.reduce((result, s) => {
         result[s.date] = result[s.date] ? [...result [s.date], s.hour] : [s.hour]
         return result; 
-    }, {})
+    }, {}) : {};
 
     const availableSlots = sessionData.one_time_date.reduce((result, d) => {
         if(new Date(d) > new Date()){
@@ -175,11 +175,11 @@ const SessionCard = ({ data }) => {
                 <div className="border-white border rounded-lg shadow-lg p-4">
                     <div className="flex items-start flex-row flex-wrap">
                         <SessionPicker />
-                        <div className='italic text-sm text-white'>
+                        {/* <div className='italic text-sm text-white'>
                             <span className='text-xs'>
                                 Booking feature to be added soon.
                             </span>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>

@@ -72,7 +72,7 @@ const SessionScheduler = () => {
     const queryClient = useQueryClient();
     const { mutate: submitNewSession } = useMutation(
         async (finalData) => {
-            const { data, error } = await supabase.from("sessionManager").insert([finalData]);
+            const { data, error } = await supabase.from("sessionManager").insert([finalData]).select();
 
             if (error) {
                 alert("Sorry, something went wrong. Please try again.");
@@ -222,7 +222,7 @@ const SessionScheduler = () => {
         return <Alert type="info">Please log in to access this feature</Alert>
     }
 
-    if (isLoggedIn && !isLoggedIn.user.canSession) {
+    if (isLoggedIn && !isLoggedIn.user?.canSession) {
         return (
             <Alert type="info">
                 Currently in <b>closed private</b>. Please request for your profile to be reviewed to access this feature.

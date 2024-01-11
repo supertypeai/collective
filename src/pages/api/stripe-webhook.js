@@ -25,7 +25,7 @@ export default async function handler(req, res) {
                 const paymentIntent = event.data.object;
                 
                 if (paymentIntent.status === 'succeeded'){
-                    const { data, error } = await supabase
+                    const { error } = await supabase
                         .from('bookedSession')
                         .insert([
                             {
