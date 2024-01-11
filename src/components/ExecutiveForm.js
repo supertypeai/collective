@@ -32,7 +32,7 @@ function StableSelect({ ...props }) {
 
 export async function signInWithLinkedIn() {
     const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'linkedin',
+        provider: 'linkedin_oidc',
         options: {
             // redirect to their last page
             redirectTo: window.location.href
