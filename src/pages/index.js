@@ -161,7 +161,7 @@ const OwennProfile = () => {
 
 const YevonnaelProfile = () => {
     return <ProfileCard person={{
-        imgUrl: "https://media.licdn.com/dms/image/C5603AQGs3KGCH0sosg/profile-displayphoto-shrink_800_800/0/1650428580016?e=2147483647&v=beta&t=YHbcliPKaxkyS1LSyItgl42pRiMAPJI-1v-nE2lIcE4",
+        imgUrl: "https://supertype.ai/wp-content/uploads/2024/01/Yevonnael-Andrew-2.jpg",
         name: "Yevonnael Andrew",
         profileLink: "/p/yevonnael",
         short: "Cybersecurity and Software Engineer @AAG, Cybersecurity Researcher @Swiss German University. Works in Web3.",
@@ -206,6 +206,16 @@ const AbdielProfile = () => {
         profileLink: "/p/abdielwillyar",
         short: "Cloud Computing Instructor @Orbit Future Academy. Keen interest in Internet of Things and voice recognition.",
         tags: ['AI', 'IOT', 'Cloud']
+    }} />
+}
+
+const AdrienProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://avatars.githubusercontent.com/u/85111427?v=4",
+        name: "Adrien",
+        profileLink: "/p/dokmy",
+        short: "Self-taught developer and indie hacker trying to build things for the world.",
+        tags: ['AI', 'Frontend']
     }} />
 }
 
@@ -282,6 +292,7 @@ const Page = () => {
                                 <VitoProfile />
                                 <NoelProfile />
                                 <MatheusProfile />
+                                <AdrienProfile />
                                 <AbdielProfile />
                                 <FendyProfile />
                             </div>
