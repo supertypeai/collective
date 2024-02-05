@@ -309,6 +309,28 @@ const Page = () => {
                     <PopularTags />
                     <div className="mt-4">
                         <h3 className="text-lg font-semibold my-4">🚧 Collective is building...</h3>
+                        {/* first row */}
+                        <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 my-2">
+                            <div className="card w-54 shadow-xl image-full bg-gray-100 bg-opacity-10">
+                                <figure>
+                                    <Image src="https://raw.githubusercontent.com/supertypeai/sectors-kb/main/sectorsapp.png"
+                                        alt="Superinference"
+                                        width={400}
+                                        height={240}
+                                        className="opacity-30"
+                                    />
+                                </figure>
+                                <div className="card-body p-4">
+                                    <h2 className="card-title">Supertype Sectors</h2>
+                                    <p className="text-xs">One stop financial data and analytics infrastructure: Indonesia-first market intelligence, in-depth stock research, AI-powered analytics and sector reports.</p>
+                                    <div className="card-actions justify-end">
+                                        <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
+                                            href="/r/sectors"
+                                        >Explore</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         {/* flex to fit 2 in a row on large screens*/}
                         <div className="flex flex-col md:flex-row md:space-x-4 space-y-2">
                             <div className="card w-54 md:w-46 shadow-xl image-full">
@@ -458,6 +480,29 @@ const Page = () => {
                                     </div>
                                 </div>
 
+                            </div>
+                        </div>
+
+                        {/* seventh grid row on large screens */}
+                        <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 mt-2">
+                            <div className="card w-54 shadow-xl image-full bg-gray-100 bg-opacity-10">
+                                <figure>
+                                    <Image src="https://raw.githubusercontent.com/supertypeai/mischost/main/collective/img/fastlegal_promo.jpeg"
+                                        alt="FastLegal"
+                                        width={300}
+                                        height={240}
+                                        className="opacity-30"
+                                    />
+                                </figure>
+                                <div className="card-body p-4">
+                                    <h2 className="card-title">FastLegal</h2>
+                                    <p className="text-xs">Supercharge your legal research with FastLegal (natural language search, AI-powered summaries and chat)</p>
+                                    <div className="card-actions justify-end">
+                                        <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
+                                            href="/r/fastlegal"
+                                        >Explore</Link>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
