@@ -211,7 +211,7 @@ const AbdielProfile = () => {
 
 const AdrienProfile = () => {
     return <ProfileCard person={{
-        imgUrl: "https://avatars.githubusercontent.com/u/85111427?v=4",
+        imgUrl: "https://raw.githubusercontent.com/supertypeai/mischost/main/collective/img/adrien.jpg",
         name: "Adrien",
         profileLink: "/p/dokmy",
         short: "Self-taught developer and indie hacker trying to build things for the world.",
