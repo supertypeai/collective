@@ -1,347 +1,571 @@
-import { useContext, useId, useEffect, useState } from "react"
-import { useForm, Controller } from "react-hook-form"
+import { useContext, useRef, useState } from "react";
+import { useForm, Controller } from "react-hook-form";
 import { supabase } from "@/lib/supabaseClient";
-import CreatableSelect from 'react-select/creatable';
-import { useQueryClient, useMutation } from '@tanstack/react-query';
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 
-import { Field, Form, Input } from "@/blocks/Form"
-import profileTagsChoices from '@/data/profileTagsChoices.json';
-import availabilityForWork from '@/data/availabilityForWork.json';
-import countryCity from '@/data/countryCity.json';
+import { Field, Form, Input } from "@/blocks/Form";
+import profileTagsChoices from "@/data/profileTagsChoices.json";
+import availabilityForWork from "@/data/availabilityForWork.json";
+import countryCity from "@/data/countryCity.json";
+import languageChoices from "@/data/languageChoices.json";
 import { EditContext } from "@/contexts/EditContext";
-import { AppContext } from "@/contexts/AppContext";
+import { StableCreatableSelect, StableSelect } from "./CreateForm";
+import Edit from "@/icons/Edit";
+import TextEditor from "./TextEditor/TextEditor";
 
-function StableSelect({ ...props }) {
-    return <CreatableSelect {...props} instanceId={useId()} />;
-}
+const EditPersonalDetails = () => {
+  const context = useContext(EditContext);
+  const [form, setForm] = context.f;
+  const [isEditting, setIsEditting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorImage, setErrorImage] = useState();
+  const [uploadImage, setUploadImage] = useState(false);
+  const [githubImage, setGithubImage] = useState(false);
+  const editorRef = useRef();
 
-const EditPersonalDetails = ({ nextFormStep }) => {
+  let initialLength = form.tags.length;
 
-    const context = useContext(EditContext);
-    const [form, setForm] = context.f
-    const [isEditting, setIsEditting] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    watch,
+  } = useForm({
+    defaultValues: {
+      ...form,
+    },
+    mode: "onSubmit",
+  });
 
-    let initialLength = form.tags.length;
+  const queryClient = useQueryClient();
+  const { mutate: updateForm } = useMutation(
+    async (formData) => {
+      const { wp, projects, imgUpload, sessions, ...d } = formData;
 
-    const { register, control, handleSubmit, formState: { errors }, reset } = useForm({
-        defaultValues: {
-            ...form
-        }, mode: "onSubmit"
-    });
+      // check if the imgUrl is updated and the previous image was an uploaded image
+      if (
+        d.imgUrl !== form.imgUrl &&
+        form.imgUrl.startsWith(
+          "https://osfehplavmahboowlueu.supabase.co/storage/v1/object/public/images/profile_images/"
+        )
+      ) {
+        // if yes, remove the previous image from the storage
+        const imgPath = form.imgUrl.replace(
+          "https://osfehplavmahboowlueu.supabase.co/storage/v1/object/public/images/",
+          ""
+        );
+        const { error } = await supabase.storage
+          .from("images")
+          .remove([imgPath]);
 
-    const queryClient = useQueryClient();
-    const { mutate: updateForm } = useMutation(
-        async (formData) => {
-            const { data, error } = await supabase.from('profile').update(formData).eq('id', formData.id);
-            if (error?.message === `duplicate key value violates unique constraint "profile_s_preferred_handle_key"`) {
-                alert("Your new preferred collective handle already exists, please use another one.");
-            } else if (error?.message === `duplicate key value violates unique constraint "Profile_email_key"`) {
-                alert("Your new email already exists, please use another email.");
-            } else if (error) {
-                alert("Sorry, something went wrong. Please try again.");
-                console.log(error);
-            } else {
-                setForm(formData);
-                setIsEditting(false);
-            }
-        },
-        {
-            onSuccess: () => {
-                queryClient.invalidateQueries('profileData');
-            }
+        if (error) {
+          alert("Sorry, something went wrong. Please try again.");
+          setIsSubmitting(false);
+          console.log(`Error deleting image:`, error);
         }
-    );
+      }
 
-    const saveData = (data) => {
-        setIsSubmitting(true);
-        const newData = { ...form, ...data };
-        if (JSON.stringify(newData) !== JSON.stringify(form)) {
-            updateForm(newData);
-        } else {
-            setIsEditting(false);
+      // if a new image is uploaded, add it to storage
+      if (uploadImage && imgUpload) {
+        const file = imgUpload[0];
+        const fileName = file.name;
+        const filePath = `profile_images/${d.s_preferred_handle}_${fileName}`;
+        const { error: imageError } = await supabase.storage
+          .from("images")
+          .upload(filePath, file, {
+            cacheControl: "3600",
+            upsert: false,
+          });
+
+        if (imageError) {
+          setErrorImage(imageError);
+          setIsSubmitting(false);
         }
-        setIsSubmitting(false);
+      }
+
+      const { error } = await supabase
+        .from("profile")
+        .update(d)
+        .eq("id", formData.id);
+      if (
+        error?.message ===
+        `duplicate key value violates unique constraint "profile_s_preferred_handle_key"`
+      ) {
+        alert(
+          "Your new preferred collective handle already exists, please use another one."
+        );
+      } else if (
+        error?.message ===
+        `duplicate key value violates unique constraint "Profile_email_key"`
+      ) {
+        alert("Your new email already exists, please use another email.");
+      } else if (error) {
+        alert("Sorry, something went wrong. Please try again.");
+        console.log(error);
+      } else {
+        console.log(formData);
+        setForm(formData);
+        setIsEditting(false);
+      }
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("profileData");
+      },
+    }
+  );
+
+  const saveData = (data) => {
+    setIsSubmitting(true);
+    const newData = {
+      ...form,
+      ...data,
+      location:
+        data["availability"] === "Unavailable" ? null : data["location"],
+      imgUrl: githubImage
+        ? form.superinference.profile.avatar_url
+        : data["imgUrl"],
+      long: JSON.stringify(editorRef.current.getEditorState().toJSON()),
     };
 
-    return (
-        <Form onSubmit={handleSubmit(saveData)}>
-            <fieldset>
-                <legend>
-                    <span className="text-2xl font-bold">
-                        🧑‍💼 Personal Details
-                        <button 
-                            type="button" 
-                            onClick={() => setIsEditting(true)}
-                            hidden={isEditting}
-                        >
-                            <svg 
-                                fill="none" 
-                                stroke="currentColor" 
-                                strokeWidth="1.5" 
-                                viewBox="0 0 24 24" 
-                                xmlns="http://www.w3.org/2000/svg" 
-                                aria-hidden="true"
-                                className="ml-2 mb-1 w-5 inline-block"
-                            >
-                                <path 
-                                    strokeLinecap="round" 
-                                    strokeLinejoin="round" 
-                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                                />
-                            </svg>
-                        </button>
-                    </span>
-                </legend>  
-                <Field label="Preferred Collective Handle"
-                    error={errors?.s_preferred_handle}
-                    hint="This will be in the link to your Maker's Profile"
-                >
-                    <Input
-                        {...register("s_preferred_handle", { required: "Please provide a handle to be used in the link to your Maker's Profile" })}
-                        id="s_preferred_handle"
-                        placeholder="pambeesly"
-                        disabled={!isEditting}
-                        required
-                    />
-                </Field>
-                <Field label="Full name" error={errors?.fullname}>
-                    <Input
-                        {...register("fullname", { required: "Full name is a required field" })}
-                        id="fullname"
-                        placeholder="Pamela Morgan Beesly"
-                        disabled={!isEditting}
-                    />
-                </Field>
-                <Field label="Email" error={errors?.email}>
-                    <Input
-                        {...register("email", { required: "Email is required" })}
-                        type="email"
-                        id="email"
-                        placeholder="pamela@dundermifflin.com"
-                        disabled={!isEditting}
-                    />
-                </Field>
+    if (uploadImage) {
+      if (newData.imgUpload[0] && newData.imgUpload[0].size > 1048576) {
+        // Maximum size of 1 MB (in bytes)
+        setErrorImage({ message: "Image's size is larger than 1 MB." });
+        setIsSubmitting(false);
+      } else {
+        newData.imgUrl = `https://osfehplavmahboowlueu.supabase.co/storage/v1/object/public/images/profile_images/${newData.s_preferred_handle}_${newData.imgUpload[0].name}`;
+        const { imgUpload, ...d } = newData;
+        if (JSON.stringify(d) !== JSON.stringify(form)) {
+          updateForm(newData);
+        } else {
+          setIsEditting(false);
+        }
+      }
+    } else {
+      const { imgUpload, ...d } = newData;
+      if (JSON.stringify(d) !== JSON.stringify(form)) {
+        updateForm(d);
+      } else {
+        setIsEditting(false);
+      }
+    }
+    setIsSubmitting(false);
+  };
 
+  return (
+    <Form onSubmit={handleSubmit(saveData)}>
+      <fieldset>
+        <legend>
+          <span className="text-2xl font-bold">
+            Personal Details
+            <button
+              type="button"
+              onClick={() => setIsEditting(true)}
+              hidden={isEditting}
+            >
+              <Edit />
+            </button>
+          </span>
+        </legend>
+        <Field
+          label="Preferred Collective Handle"
+          error={errors?.s_preferred_handle}
+          hint="This will be in the link to your Developer Profile"
+        >
+          <Input
+            {...register("s_preferred_handle", {
+              required:
+                "Please provide a handle to be used in the link to your Developer Profile",
+            })}
+            id="s_preferred_handle"
+            placeholder="pambeesly"
+            disabled={!isEditting}
+          />
+        </Field>
+        <Field label="Full name" error={errors?.fullname}>
+          <Input
+            {...register("fullname", {
+              required: "Full name is a required field",
+            })}
+            id="fullname"
+            placeholder="Pamela Morgan Beesly"
+            disabled={!isEditting}
+          />
+        </Field>
+        <Field label="Email" error={errors?.email}>
+          <Input
+            {...register("email", { required: "Email is required" })}
+            type="email"
+            id="email"
+            placeholder="pamela@dundermifflin.com"
+            disabled={!isEditting}
+          />
+        </Field>
 
-                <Field label="🖊️ Introduction" error={errors?.long}>
-                    <textarea {...register("long")} id="long" name="long"
-                        rows="4" required minLength="40" maxLength="250"
-                        placeholder="I am a data scientist with 3 years of experience in the industry and a Fellow at Supertype Fellowship. I am passionate about open source and have contributed to several projects under this program."
-                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                        disabled={!isEditting}
-                   />
-                </Field>
+        {uploadImage ? (
+          <Field
+            label="Upload Profile Image"
+            error={errorImage || errors?.imgUpload}
+            hint="Your profile image (.jpg/.jpeg/.png/.webp), max 1 MB"
+          >
+            <input
+              {...register("imgUpload", {
+                required: {
+                  value: uploadImage,
+                  message: "Upload image is a required field",
+                },
+              })}
+              type="file"
+              accept=".jpg,.jpeg,.webp,.png"
+              disabled={!isEditting | githubImage}
+              className="file-input file-input-secondary border-white text-black w-full max-w-xs"
+            />
+          </Field>
+        ) : (
+          <Field
+            label="Profile Image URL"
+            error={errors?.imgUrl}
+            hint="Your profile image (.jpg/.jpeg/.png/.webp)"
+          >
+            <Input
+              {...register("imgUrl", {
+                required: {
+                  value: !uploadImage,
+                  message: "Image URL is a required field",
+                },
+              })}
+              id="imgUrl"
+              placeholder="https://avatars.githubusercontent.com/u/69672839?v=4"
+              disabled={!isEditting | githubImage}
+            />
+          </Field>
+        )}
 
-                <Field label="✨ Headline" error={errors?.short}
-                    hint="A short headline that appears below your name."
-                >
-                    <Input
-                        {...register("short", { required: "Please provide a short Headline" })}
-                        id="short"
-                        placeholder="Full Stack Data Scientist @SupertypeAI"
-                        disabled={!isEditting}
-                    />
-                </Field>
+        <label className="flex">
+          <div>
+            <input
+              type="checkbox"
+              id="github"
+              name="github"
+              className="mr-3"
+              onChange={(e) => {
+                setGithubImage((prev) => !prev);
+                if (e.target.checked) {
+                  setUploadImage(false);
+                }
+              }}
+              checked={githubImage}
+              disabled={!isEditting}
+            />
+            <label htmlFor="github" className="label-text">
+              Use my GitHub profile image
+            </label>
+          </div>
+          <span className="label-text mr-2 ml-auto">
+            Don&apos;t have a profile image URL?
+          </span>
+          <input
+            type="checkbox"
+            className="toggle"
+            onChange={() => setUploadImage((prev) => !prev)}
+            checked={uploadImage}
+            disabled={!isEditting | githubImage}
+          />
+        </label>
 
-                <Field label="📚 Key Qualifications" error={errors?.tags} hint="A maximum of 10 most revelant qualifications">
+        <Field label="🖊️ Introduction" error={errors?.long}>
+          <TextEditor isEditting={isEditting} ref={editorRef} initialContent={form.long} />
+        </Field>
 
-                    <Controller
-                        control={control}
-                        name="tags"
-                        defaultValue={[]}
-                        render={({ field: { onChange, value, ref } }) => (
-                            <StableSelect
-                                inputRef={ref}
-                                isMulti
-                                options={profileTagsChoices}
-                                classNamePrefix="select"
-                                className="text-black max-w-3xl"
-                                value={
-                                    value.map(v => {
-                                        const index = profileTagsChoices.findIndex(option => option.value === v);
-                                        if (index != -1) {
-                                            return (profileTagsChoices[index]);
-                                        } else {
-                                            return ({ "value": v, "label": v });
-                                        }
-                                    })
-                                }
-                                onChange={val => {
-                                    if(initialLength > 10){
-                                        val.length < initialLength && onChange(val.map(c => c.value));
-                                        initialLength = val.length;
-                                    } else {
-                                        val.length <= 10 && onChange(val.map(c => c.value));
-                                    }
-                                }}
-                                theme={theme => ({
-                                    ...theme,
-                                    borderRadius: 0,
-                                    colors: {
-                                        ...theme.colors,
-                                        primary25: '#fcaa8c',
-                                        primary: '#f46d75',
-                                    },
-                                })}
-                                styles={{
-                                    // change background color of tags
-                                    multiValue: (styles, { data }) => {
-                                        return {
-                                            ...styles,
-                                            // same primary-focus color from tailwind config
-                                            backgroundColor: '#c4002f',
-                                        };
-                                    },
-                                    // change color of text in tags
-                                    multiValueLabel: (styles, { data }) => ({
-                                        ...styles,
-                                        color: 'white',
-                                    }),
-                                }}
-                                isSearchable={initialLength > 10 ? false : true}
-                                isCreatable={initialLength > 10 ? false : true}
-                                isDisabled={!isEditting}
-                            />
-                        )}
-                    />
-                </Field>
-                <Field label="🔍 Job Availability" error={errors?.availability} hint="Indicates your availability for work.">
+        <Field
+          label="✨ Headline"
+          error={errors?.short}
+          hint="A short headline that appears below your name."
+        >
+          <Input
+            {...register("short", {
+              required: "Please provide a short Headline",
+            })}
+            id="short"
+            placeholder="Full Stack Data Scientist @SupertypeAI"
+            disabled={!isEditting}
+          />
+        </Field>
+        <Field
+          label="🗣️ Languages"
+          error={errors?.languages}
+          hint="Choose all language(s) you're proficient in."
+        >
+          <Controller
+            control={control}
+            name="languages"
+            defaultValue={[]}
+            render={({ field: { onChange, value, ref } }) => (
+              <StableSelect
+                inputRef={ref}
+                isMulti
+                options={languageChoices}
+                classNamePrefix="select"
+                className="text-black max-w-3xl"
+                value={value.map((v) => {
+                  const index = languageChoices.findIndex(
+                    (option) => option.value === v
+                  );
+                  if (index != -1) {
+                    return languageChoices[index];
+                  }
+                })}
+                onChange={(val) => {
+                  onChange(val.map((c) => c.value));
+                }}
+                theme={(theme) => ({
+                  ...theme,
+                  borderRadius: 0,
+                  colors: {
+                    ...theme.colors,
+                    primary25: "#fcaa8c",
+                    primary: "#f46d75",
+                  },
+                })}
+                styles={{
+                  // change background color of tags
+                  multiValue: (styles) => {
+                    return {
+                      ...styles,
+                      // same primary-focus color from tailwind config
+                      backgroundColor: "#c4002f",
+                    };
+                  },
+                  // change color of text in tags
+                  multiValueLabel: (styles) => ({
+                    ...styles,
+                    color: "white",
+                  }),
+                }}
+                isDisabled={!isEditting}
+              />
+            )}
+            rules={{ required: "Please select your proficient language(s)" }}
+          />
+        </Field>
 
-                    <Controller
-                        control={control}
-                        name="availability"
-                        defaultValue={""}
-                        render={({ field: { onChange, value, ref } }) => (
-                            <StableSelect
-                                inputRef={ref}
-                                options={availabilityForWork}
-                                classNamePrefix="select"
-                                className="text-black max-w-3xl"
-                                value={availabilityForWork.find(opt => opt.value === value)}
-                                onChange={val => onChange(val.value)}
-                                theme={theme => ({
-                                    ...theme,
-                                    borderRadius: 0,
-                                    colors: {
-                                        ...theme.colors,
-                                        primary25: '#fcaa8c',
-                                        primary: '#f46d75',
-                                    },
-                                })}
-                                styles={{
-                                    // change text color of selected option
-                                    singleValue: (provided, state) => ({
-                                        ...provided,
-                                        color: '#ad0705',
-                                        fontWeight: 'bold',
-                                        fontSize: '0.8rem',
-                                        textTransform: 'uppercase'
-                                    }),
-                                }}
-                                isSearchable={true}
-                                isCreatable={true}
-                                isDisabled={!isEditting}
-                            />
-                        )}
-                    />
-                </Field>
-                <Field label="📍Preferred Job Location" error={errors?.availability}>
+        <Field
+          label="📚 Key Qualifications"
+          error={errors?.tags}
+          hint="A maximum of 10 most revelant qualifications"
+        >
+          <Controller
+            control={control}
+            name="tags"
+            defaultValue={[]}
+            render={({ field: { onChange, value, ref } }) => (
+              <StableCreatableSelect
+                inputRef={ref}
+                isMulti
+                options={profileTagsChoices}
+                classNamePrefix="select"
+                className="text-black max-w-3xl"
+                value={value.map((v) => {
+                  const index = profileTagsChoices.findIndex(
+                    (option) => option.value === v
+                  );
+                  if (index != -1) {
+                    return profileTagsChoices[index];
+                  } else {
+                    return { value: v, label: v };
+                  }
+                })}
+                onChange={(val) => {
+                  if (initialLength > 10) {
+                    val.length < initialLength &&
+                      onChange(val.map((c) => c.value));
+                    initialLength = val.length;
+                  } else {
+                    val.length <= 10 && onChange(val.map((c) => c.value));
+                  }
+                }}
+                theme={(theme) => ({
+                  ...theme,
+                  borderRadius: 0,
+                  colors: {
+                    ...theme.colors,
+                    primary25: "#fcaa8c",
+                    primary: "#f46d75",
+                  },
+                })}
+                styles={{
+                  // change background color of tags
+                  multiValue: (styles, { data }) => {
+                    return {
+                      ...styles,
+                      // same primary-focus color from tailwind config
+                      backgroundColor: "#c4002f",
+                    };
+                  },
+                  // change color of text in tags
+                  multiValueLabel: (styles, { data }) => ({
+                    ...styles,
+                    color: "white",
+                  }),
+                }}
+                isSearchable={initialLength > 10 ? false : true}
+                isCreatable={initialLength > 10 ? false : true}
+                isDisabled={!isEditting}
+              />
+            )}
+          />
+        </Field>
+        <Field
+          label="🔍 Job Availability"
+          error={errors?.availability}
+          hint="Indicates your availability for work."
+        >
+          <Controller
+            control={control}
+            name="availability"
+            defaultValue={""}
+            render={({ field: { onChange, value, ref } }) => (
+              <StableSelect
+                inputRef={ref}
+                options={availabilityForWork}
+                classNamePrefix="select"
+                className="text-black max-w-3xl"
+                value={availabilityForWork.find((opt) => opt.value === value)}
+                onChange={(val) => onChange(val.value)}
+                theme={(theme) => ({
+                  ...theme,
+                  borderRadius: 0,
+                  colors: {
+                    ...theme.colors,
+                    primary25: "#fcaa8c",
+                    primary: "#f46d75",
+                  },
+                })}
+                styles={{
+                  // change text color of selected option
+                  singleValue: (provided, state) => ({
+                    ...provided,
+                    color: "#ad0705",
+                    fontWeight: "bold",
+                    fontSize: "0.8rem",
+                    textTransform: "uppercase",
+                  }),
+                }}
+                isSearchable={true}
+                isDisabled={!isEditting}
+              />
+            )}
+            rules={{ required: "Please select your job availability" }}
+          />
+        </Field>
+        <Field label="📍Preferred Job Location" error={errors?.location}>
+          <Controller
+            control={control}
+            name="location"
+            defaultValue={""}
+            render={({ field: { onChange, value, ref } }) => (
+              <StableSelect
+                inputRef={ref}
+                options={[
+                  { geoName: "Remote / Anywhere in the world" },
+                  ...countryCity,
+                ].map((c) => {
+                  return {
+                    value: c.geoName,
+                    label: c.geoName,
+                  };
+                })}
+                classNamePrefix="select"
+                className="text-black max-w-3xl"
+                value={
+                  watch("availability") === "Unavailable"
+                    ? null
+                    : [
+                        { geoName: "Remote / Anywhere in the world" },
+                        ...countryCity,
+                      ]
+                        .map((c) => {
+                          return {
+                            value: c.geoName,
+                            label: c.geoName,
+                          };
+                        })
+                        .find((opt) => opt.value === value)
+                }
+                onChange={(val) => onChange(val ? val.value : null)}
+                theme={(theme) => ({
+                  ...theme,
+                  borderRadius: 0,
+                  colors: {
+                    ...theme.colors,
+                    primary25: "#fcaa8c",
+                    primary: "#f46d75",
+                  },
+                })}
+                styles={{
+                  // change text color of selected option
+                  singleValue: (provided, state) => ({
+                    ...provided,
+                    color: "#ad0705",
+                    fontWeight: "bold",
+                    fontSize: "0.8rem",
+                    textTransform: "uppercase",
+                  }),
+                }}
+                isSearchable={true}
+                isDisabled={
+                  !isEditting || watch("availability") === "Unavailable"
+                }
+              />
+            )}
+            rules={{
+              required:
+                watch("availability") === "Unavailable"
+                  ? false
+                  : "Please select your preferred job location",
+            }}
+          />
+        </Field>
+        <div className="my-4">
+          {isEditting ? (
+            <>
+              <button
+                type="button"
+                className="btn btn-secondary text-white mr-3 mt-64"
+                onClick={() => {
+                  setIsEditting(false);
+                  setGithubImage(false);
+                  setUploadImage(false);
+                  reset(form);
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="btn btn-warning text-black mt-64"
+              >
+                Save Changes
+              </button>
+            </>
+          ) : isSubmitting ? (
+            <button
+              type="submit"
+              className="btn btn-warning text-black mt-64"
+              disabled
+            >
+              Saving Changes...
+            </button>
+          ) : (
+            <></>
+          )}
+        </div>
+      </fieldset>
+    </Form>
+  );
+};
 
-                    <Controller
-                        control={control}
-                        name="location"
-                        defaultValue={""}
-                        render={({ field: { onChange, value, ref } }) => (
-                            <StableSelect
-                                inputRef={ref}
-                                options={
-                                    [
-                                        {"geoName": "Remote / Anywhere in the world"},
-                                        ...countryCity
-                                    ].map(c => {
-                                        return {
-                                            "value": c.geoName,
-                                            "label": c.geoName
-                                        }
-                                    })
-                                }
-                                classNamePrefix="select"
-                                className="text-black max-w-3xl"
-                                value={
-                                    [
-                                        {"geoName": "Remote / Anywhere in the world"},
-                                        ...countryCity
-                                    ].map(c => {
-                                        return {
-                                            "value": c.geoName,
-                                            "label": c.geoName
-                                        }
-                                    })
-                                        .find(opt => opt.value === value)
-                                }
-                                onChange={val => onChange(val ? val.value : null)}
-                                theme={theme => ({
-                                    ...theme,
-                                    borderRadius: 0,
-                                    colors: {
-                                        ...theme.colors,
-                                        primary25: '#fcaa8c',
-                                        primary: '#f46d75',
-                                    },
-                                })}
-                                styles={{
-                                    // change text color of selected option
-                                    singleValue: (provided, state) => ({
-                                        ...provided,
-                                        color: '#ad0705',
-                                        fontWeight: 'bold',
-                                        fontSize: '0.8rem',
-                                        textTransform: 'uppercase'
-                                    }),
-                                }}
-                                isSearchable={true}
-                                isCreatable={true}
-                                isClearable={true}
-                                isDisabled={!isEditting}
-                            />
-                        )}
-                    />
-                </Field>
-                <div className="my-4">
-                    { 
-                        isEditting ? (
-                            <>
-                                <button 
-                                    type="button" 
-                                    className="btn btn-secondary text-white mr-3"
-                                    onClick={() => {
-                                        setIsEditting(false)
-                                        reset(form)
-                                    }}
-                                >
-                                    Cancel
-                                </button>
-                                <button type="submit" className="btn btn-warning text-black">Save Changes</button>
-                            </>
-                        ) : isSubmitting ? (
-                            <button type="submit" className="btn btn-warning text-black" disabled>Saving Changes...</button>
-                        ) : (
-                            <button 
-                                type="button" 
-                                className="btn btn-primary text-white"
-                                onClick={() => nextFormStep()}
-                            >
-                                Next {">"}
-                            </button>
-                        )
-                    }
-                </div>
-            </fieldset>
-
-        </Form>
-    )
-}
-
-
-export default EditPersonalDetails
+export default EditPersonalDetails;

@@ -20,7 +20,7 @@ const PageHead = ({ data, title }) => {
         <meta name="description" content={`${data.fullname} (${data.short}) | ${data.affiliations.length > 0 && data.affiliations[0]['title'] + ' ' + data.affiliations[0]['position']} | Supertype Collective`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {/* this is for image appearing on opengraph when shared on social media */}
-        <meta property="og:image" content={data.superinference.profile.avatar_url} />
+        <meta property="og:image" content={data.imgUrl} />
         <meta property="og:title" content={`${data.fullname} on Supertype Collective`} />
         <meta property="og:description" content={`${data.fullname} (${data.short}) | ${data.affiliations.length > 0 && data.affiliations[0]['title'] + ' ' + data.affiliations[0]['position']} | Supertype Collective`} />
         <meta property="og:site_name" content="Supertype Collective" />
@@ -61,7 +61,7 @@ const fetchData = async (userID) => {
   const data = await queryClient.fetchQuery(['profileData', userID], async () => {
     const { data, error } = await supabase
       .from('profile')
-      .select()
+      .select(`*, projects:project(*, makers:projectmembers(userid)), sessions:sessionManager(*)`)
       .eq('auth_uuid', userID)
       .single();
 
@@ -74,12 +74,37 @@ const fetchData = async (userID) => {
       throw new Error(error, 'Error fetching this user');
     }
 
-    if (data && data['wp_blog_root_url'] && data['wp_blog_author_id']) {
+    if (data && data['wp_blog_root_url'] && (data['wp_blog_author_id'] || data['wp_blog_root_url'].startsWith("https://medium.com"))) {
       let url = '';
-      // check if this root url is numeric or not
+      // check if this root url is from medium and is numeric or not
 
-      if (!data['wp_blog_root_url'].includes('.')) {
-        url = `https://public-api.wordpress.com/rest/v1.1/sites/${data['wp_blog_root_url']}/posts?author=${data['wp_blog_author_id']}&number=5&fields=id,link,title,date,excerpt`
+      if (data['wp_blog_root_url'].startsWith("https://medium.com")) {
+        const username = data['wp_blog_root_url'].split("@")[1]
+        url = `https://medium.com/feed/@${username}`;
+        const res_wp = await fetch("/api/medium", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            url: url
+          })
+        })
+        const wp_json = await res_wp.json();
+        const wp_data = wp_json['items'].slice(0, 5).map(post => {
+          return {
+            id: post.id.split("/p/")[1],
+            title: post.title,
+            link: post.link,
+            date: post.published,
+            excerpt: {
+              rendered: post.description ? post.description.split("Continue reading on")[0] : "<p></p>"
+            }
+          }
+        });
+        data['wp'] = wp_data;
+      } else if (!data['wp_blog_root_url'].includes('.')) {
+        url = `https://public-api.wordpress.com/rest/v1.1/sites/${data['wp_blog_root_url']}/posts?author=${data['wp_blog_author_id']}&number=5&fields=id,URL,title,date,excerpt`
         const res_wp = await fetch(url)
         const wp_data = await res_wp.json();
         data['wp'] = wp_data['posts']
@@ -107,7 +132,6 @@ const AppContextWrapper = ({ children }) => {
 
     async function checkUser() {
       const { data } = await supabase.auth.getSession()
-      console.log("supabase data", data)
 
       if (data.session) {
         const tokenProvider = `${data.session.user.app_metadata.provider}Token`
@@ -124,8 +148,9 @@ const AppContextWrapper = ({ children }) => {
           [tokenProvider]: data.session.access_token,
           [tokenUser]: data.session.user,
           providerToken: data.session.provider_token,
-          avatarUrl: data.session.user.user_metadata.avatar_url,
-          user: user
+          avatarUrl: user?.imgUrl || data.session.user.user_metadata.avatar_url,
+          user: user,
+          authId: data.session.user.id
         } : false)
 
         // check if the slack notification has already been sent
@@ -153,14 +178,14 @@ const AppContextWrapper = ({ children }) => {
   }, [])
 
   return (
-    <AppContext.Provider value={{ isLoggedIn: isLoggedIn }}>
+    <AppContext.Provider value={{ isLoggedIn: isLoggedIn, setIsLoggedIn: setIsLoggedIn }}>
       {children}
     </AppContext.Provider>
   )
 }
 
 
-export const Mainframe = ({ data, title, children, dehydratedState }) => {
+export const Mainframe = ({ data, title, children }) => {
 
   const [createProfileCTA, setCreateProfileCTA] = useState(true)
 

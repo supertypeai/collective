@@ -1,11 +1,13 @@
-import { useEffect, useContext } from "react";
-import Link from "next/link";
+import { useEffect } from "react";
+import Image from "next/image";
 import { Mainframe } from "@/blocks/Mainframe";
 import YouInputCTA from "@/components/YouInputCTA";
 import ProfileCard from "@/components/ProfileCard";
-import { AppContext } from "@/contexts/AppContext";
 import AddDevProfileCTA from "@/components/AddDevProfileCTA";
+import PopularTagBadge from "@/components/PopularTagBadge";
+
 import styles from '@/styles/Home.module.css'
+import Link from "next/link";
 
 const AurelliaProfile = () => {
     return <ProfileCard person={{
@@ -87,6 +89,26 @@ const WilsenProfile = () => {
     }} />
 }
 
+const BrianProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://osfehplavmahboowlueu.supabase.co/storage/v1/object/public/images/profile_images/brianloe_ppm.png",
+        name: "Cornelius Brian Loe",
+        profileLink: "/p/brianloe",
+        short: "Data Scientist @Supertype.ai. Aspire to help businesses streamline data processes and create intelligent data-driven solutions.",
+        tags: ['AI', 'Database', 'Server']
+    }} />
+}
+
+const NisaProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://avatars.githubusercontent.com/u/73590231?v=4",
+        name: "Khairunnisa",
+        profileLink: "/p/nisa-basalamah",
+        short: "Aspiring Full-Stack Web Developer @Supertype.ai and Passionate Part-Time Scratch Tutor @Kodland.",
+        tags: ['API', 'Frontend', 'Database', 'Server']
+    }} />
+}
+
 const DivaProfile = () => {
     return <ProfileCard person={{
         imgUrl: "https://avatars.githubusercontent.com/u/79572421?v=4",
@@ -119,10 +141,10 @@ const FendyProfile = () => {
 
 const StevenProfile = () => {
     return <ProfileCard person={{
-        imgUrl: "https://media.licdn.com/dms/image/C5603AQGhkBvqkMjz6g/profile-displayphoto-shrink_200_200/0/1593682236390?e=1684972800&v=beta&t=L7tMwyheXMS6onUyua3VmjNU6CnXHEIllbzgzEGg99w",
+        imgUrl: "https://osfehplavmahboowlueu.supabase.co/storage/v1/object/public/images/profile_images/auberg_d23046ceee9878af83639934f613da78.webp",
         name: "Steven Christian",
         profileLink: "/p/auberg",
-        short: "Head of Data Analytics @Danamas. Led teams in building machine learning solutions for companies in the last 3 years.",
+        short: "Head of Data Analytics @Danamas and former mentor @Supertype.ai. Led teams in building machine learning solutions for companies in the last 3 years.",
         tags: ['AI', 'Database']
     }} />
 }
@@ -139,7 +161,7 @@ const OwennProfile = () => {
 
 const YevonnaelProfile = () => {
     return <ProfileCard person={{
-        imgUrl: "https://media.licdn.com/dms/image/C5603AQGs3KGCH0sosg/profile-displayphoto-shrink_800_800/0/1650428580016?e=2147483647&v=beta&t=YHbcliPKaxkyS1LSyItgl42pRiMAPJI-1v-nE2lIcE4",
+        imgUrl: "https://supertype.ai/wp-content/uploads/2024/01/Yevonnael-Andrew-2.jpg",
         name: "Yevonnael Andrew",
         profileLink: "/p/yevonnael",
         short: "Cybersecurity and Software Engineer @AAG, Cybersecurity Researcher @Swiss German University. Works in Web3.",
@@ -147,6 +169,55 @@ const YevonnaelProfile = () => {
     }} />
 }
 
+const VitoProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://supertype.ai/wp-content/uploads/2023/07/vito.webp",
+        name: "Vito Ghifari",
+        profileLink: "/p/vito",
+        short: "Data Scientist @Supertype.ai. Develops machine learning applications for portfolio companies.",
+        tags: ['AI', 'DataOps', 'API', 'Server', 'Database']
+    }} />
+}
+
+const NoelProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://avatars.githubusercontent.com/u/8803461?v=4",
+        name: "Noel Chew",
+        profileLink: "/p/noelchew",
+        short: "Mobile Application Developer and software entrepreneur @Yuno Solutions",
+        tags: ['Mobile', 'Server', 'Frontend']
+    }} />
+}
+
+const MatheusProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://avatars.githubusercontent.com/u/21157504?v=4",
+        name: "Matheus Aaron",
+        profileLink: "/p/pwaaron",
+        short: "Marketing Analytics @Shopee and former teaching assistant (python) @National University of Singapore",
+        tags: ['AI', 'Database', 'Backend']
+    }} />
+}
+
+const AbdielProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://avatars.githubusercontent.com/u/85111427?v=4",
+        name: "Abdiel Wilyar Goni",
+        profileLink: "/p/abdielwillyar",
+        short: "Cloud Computing Instructor @Orbit Future Academy. Keen interest in Internet of Things and voice recognition.",
+        tags: ['AI', 'IOT', 'Cloud']
+    }} />
+}
+
+const AdrienProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://raw.githubusercontent.com/supertypeai/mischost/main/collective/img/adrien.jpg",
+        name: "Adrien",
+        profileLink: "/p/dokmy",
+        short: "Self-taught developer and indie hacker trying to build things for the world.",
+        tags: ['AI', 'Frontend']
+    }} />
+}
 
 
 const PopularTags = () => {
@@ -155,22 +226,9 @@ const PopularTags = () => {
             <h3 className="text-lg font-semibold">🔥 Popular Tags</h3>
 
             <div className="flex justify-center w-full text-center mt-2">
-                <div className="bg-gray-100 text-white bg-opacity-10 mx-1 py-1 px-[4px] rounded">
-                    <Link href="/tags/ai" className="text-[0.7rem] flex">
-                        Artificial Intelligence <div className="badge badge-info badge-sm px-1 self-center ml-1">8</div>
-                    </Link>
-                </div>
-                <div className="bg-gray-100 text-white bg-opacity-10 mx-1 py-1 px-[4px] rounded">
-                    <Link href="/tags/data-science" className="text-[0.7rem] flex">
-                        Data Science <div className="badge badge-info badge-sm px-1 self-center ml-1">10+</div>
-                    </Link>
-                </div>
-                <div className="bg-gray-100 text-white bg-opacity-10 mx-1 py-1 px-[4px] rounded">
-                    <Link href="/tags/machine-learning" className="text-[0.7rem] flex">
-                        Machine Learning <div className="badge badge-info badge-sm px-1 self-center ml-1">10+</div>
-                    </Link>
-                </div>
-
+                <PopularTagBadge slug="ai" count="8" />
+                <PopularTagBadge slug="data-science" count="10+" />
+                <PopularTagBadge slug="machine-learning" count="10+" />
             </div>
         </div>
     )
@@ -178,8 +236,6 @@ const PopularTags = () => {
 
 
 const Page = () => {
-
-    const { isLoggedIn } = useContext(AppContext);
 
     // remove typewriter effect after 5 seconds
     useEffect(() => {
@@ -223,14 +279,21 @@ const Page = () => {
                                 <VCCalvinProfile />
                                 <GeraldProfile />
                                 <StaneProfile />
-                                <PatrickProfile />
                                 <TimotiusProfile />
                                 <WilsenProfile />
+                                <BrianProfile />
+                                <NisaProfile />
+                                <PatrickProfile />
                                 <DivaProfile />
                                 <StevenProfile />
                                 <FiqeyProfile />
                                 <OwennProfile />
                                 <YevonnaelProfile />
+                                <VitoProfile />
+                                <NoelProfile />
+                                <MatheusProfile />
+                                <AdrienProfile />
+                                <AbdielProfile />
                                 <FendyProfile />
                             </div>
                             <div className={styles.description}>
@@ -243,8 +306,162 @@ const Page = () => {
                 </div>
                 <div className="col-span-3 md:col-span-1 order-first lg:order-last">
                     <YouInputCTA />
-                    <AddDevProfileCTA />
                     <PopularTags />
+                    <div className="mt-4">
+                        <h3 className="text-lg font-semibold my-4">🚧 Collective is building...</h3>
+                        {/* flex to fit 2 in a row on large screens*/}
+                        <div className="flex flex-col md:flex-row md:space-x-4 space-y-2">
+                            <div className="card w-54 md:w-46 shadow-xl image-full">
+                                <figure>
+                                    <Image src="https://raw.githubusercontent.com/supertypeai/collective/main/assets/lightdark.webp"
+                                        alt="Supertype Collective"
+                                        width={480}
+                                        height={200}
+                                        className="opacity-30"
+                                    />
+                                </figure>
+                                <div className="card-body p-4">
+                                    <h2 className="card-title">Supertype Collective</h2>
+                                    <p className="text-xs">Supertype Collective is a community of analytics developers, data scientists and engineering leaders building products across the full stack.</p>
+                                    <div className="card-actions justify-end">
+                                        <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
+                                            href="/r/collective"
+                                        >Explore</Link>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card w-54 md:w-46 shadow-xl image-full">
+                                <figure>
+                                    <Image src="https://raw.githubusercontent.com/onlyphantom/generations-frontend/main/public/supertype_fellowship_p.png"
+                                        alt="Supertype Fellowship"
+                                        width={480}
+                                        height={180}
+                                        className="opacity-30"
+                                    />
+                                </figure>
+                                <div className="card-body p-4">
+                                    <h2 className="card-title">Supertype Fellowship</h2>
+                                    <p className="text-xs">A self-paced Development program where participants learn analytics and software engineering by building real-world projects with a community of peers and mentors.</p>
+                                    <div className="card-actions justify-end">
+                                        <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
+                                            href="/r/fellowship"
+                                        >Explore</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* second banner row on large screens */}
+                        <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 mt-2">
+                            <div className="card w-54 shadow-xl image-full bg-black-900 bg-opacity-90">
+                                <figure>
+                                    <Image src="https://supertype.ai/wp-content/uploads/2022/09/S-Lanscape-02-1024x576.jpg"
+                                        alt="Supertype Summary"
+                                        width={420}
+                                        height={240}
+                                        className="opacity-30"
+                                    />
+                                </figure>
+                                <div className="card-body p-4">
+                                    <h2 className="card-title">Supertype Summary</h2>
+                                    <p className="text-xs">Supertype Summary generates highly polished, analysis-driven PDF reports of any Google Play apps in minutes with <i>no human input</i> by unleashing state-of-the-art NLP on user-generated app reviews. It summarizes key findings, and help identify key factors in your app experience in a way that is fully automatic and reliable.</p>
+                                    <div className="card-actions justify-end">
+                                        <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
+                                            href="/r/summary"
+                                        >Explore</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* third banner row on large screens */}
+                        <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 mt-2">
+                            <div className="card w-54 shadow-xl image-full bg-gray-100 bg-opacity-10">
+                                <figure>
+                                    <Image src="https://user-images.githubusercontent.com/69706675/236219588-6e970684-b78e-42c4-982b-68f415f1818c.png"
+                                        alt="Superinference"
+                                        width={300}
+                                        height={240}
+                                        className="opacity-30"
+                                    />
+                                </figure>
+                                <div className="card-body p-4">
+                                    <h2 className="card-title">Superinference</h2>
+                                    <p className="text-xs">Superinference is a library that infers analysis-ready attributes from a person&apos;s social media username or unique identifier and returns them as JSON objects.
+
+                                        It supports both token-based (OAuth) authorization for authenticated requests and unauthenticated requests for public data.</p>
+                                    <div className="card-actions justify-end">
+                                        <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
+                                            href="/r/superinference"
+                                        >Explore</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* fourth grid row on large screens */}
+                        <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 mt-2">
+                            <div className="card w-54 md:w-46 shadow-xl image-full">
+                                <figure>
+                                    <Image src="https://supertype.ai/wp-content/uploads/2023/03/tsa_positive_tweets.png"
+                                        alt="Twitter Sentiment Analyzer"
+                                        width={480}
+                                        height={180}
+                                        className="opacity-30"
+                                    />
+                                </figure>
+                                <div className="card-body p-4">
+                                    <h2 className="card-title">Twitter Sentiment Analyzer</h2>
+                                    <p className="text-xs">A web app that performs sentiment analysis on the latest tweets based on the entered search term</p>
+                                    <div className="card-actions justify-end">
+                                        <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
+                                            href="/r/twitter-sentiment"
+                                        >Explore</Link>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card w-54 md:w-46 shadow-xl image-full">
+                                <figure>
+                                    <Image src="https://raw.githubusercontent.com/supertypeai/wordpress-posts-react/main/assets/wordpress-blog-feed.png"
+                                        alt="Wordpress-posts-react"
+                                        width={300}
+                                        height={240}
+                                        className="opacity-30"
+                                    />
+                                </figure>
+                                <div className="card-body p-4">
+                                    <h2 className="card-title">wordpress-posts-react</h2>
+                                    <p className="text-xs">A lightweight (&lt;3 kb minified!) set of React hooks &amp; components to asynchronously fetch and display WordPress posts.</p>
+                                    <div className="card-actions justify-end">
+                                        <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
+                                            href="/r/wordpress-posts-react"
+                                        >Explore</Link>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {/* fifth grid row on large screens */}
+                        <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 mt-2">
+                            <div className="card card-side w-54 md:w-46 shadow-xl">
+                                <figure>
+                                    <Image src="https://raw.githubusercontent.com/divakartika/nomiden/main/images/nomiden2.png"
+                                        alt="nomiden"
+                                        width={300}
+                                        height={240}
+                                        className="opacity-30"
+                                    />
+                                </figure>
+                                <div className="card-body p-4">
+                                    <h2 className="card-title">Nomiden</h2>
+                                    <p className="text-xs">enriches your data from Indonesian ID Numbers, i.e. personal ID number (Nomor Induk Kependudukan, &quot;NIK&quot;) and family ID number (Kartu Keluarga).</p>
+                                    <div className="card-actions justify-end">
+                                        <Link className="btn btn-secondary btn-xs dark:btn-info hover:opacity-75"
+                                            href="/r/nomiden"
+                                        >Explore</Link>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <AddDevProfileCTA />
                 </div>
             </main>
         </Mainframe >

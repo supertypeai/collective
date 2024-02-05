@@ -1,5 +1,6 @@
 import { useId, useState, useContext, useEffect } from "react";
 import { useRouter } from "next/router";
+import Link from 'next/link';
 import Image from "next/image";
 import { useForm, Controller } from "react-hook-form"
 import { supabase } from "@/lib/supabaseClient";
@@ -31,7 +32,7 @@ function StableSelect({ ...props }) {
 
 export async function signInWithLinkedIn() {
     const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'linkedin',
+        provider: 'linkedin_oidc',
         options: {
             // redirect to their last page
             redirectTo: window.location.href
@@ -86,8 +87,6 @@ const ExecutiveForm = () => {
 
         const { website_or_blog, ...d } = data;
 
-        const { data: { user } } = await supabase.auth.getUser();
-
         const { error } = await supabase
             .from('profile')
             .insert([
@@ -95,7 +94,7 @@ const ExecutiveForm = () => {
                     ...d,
                     isExecutive: true,
                     created_at: new Date(),
-                    auth_uuid: user.id,
+                    auth_uuid: isLoggedIn.authId,
                     superinference: { 
                         profile: {
                             avatar_url: isLoggedIn.linkedinUser.identities[0].identity_data.avatar_url
@@ -167,20 +166,20 @@ const ExecutiveForm = () => {
                 </Field>
 
                 <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <Field label="WordPress Site ID (Optional)"
+                    <div className="w-full px-3 mb-6 md:mb-0">
+                        <Field label="Medium Link or WordPress Site ID (Optional)"
                             hint={<>
-                                <label htmlFor="wp-helper" className="link link-info hover:text-gray-400"><Tooltip />Optional article blogroll if you write on WordPress</label>. Use the root domain for self-hosted WordPress sites.</>
+                                <label htmlFor="wp-helper" className="link link-info hover:text-gray-400"><Tooltip />Optional article blogroll if you write on WordPress</label> or Medium. Use the Medium link or root domain for self-hosted WordPress sites.</>
                             }
                         >
                             <Input
                                 {...register("wp_blog_root_url")}
                                 id="wp_blog_root_url"
-                                placeholder="self-hosted-site.com OR 2384101920 (WordPress.com Site ID)"
+                                placeholder="https://medium.com/@username OR self-hosted-site.com OR 2384101920 (WordPress.com Site ID)"
                             />
                         </Field>
                     </div>
-                    <div className="w-full md:w-1/2 px-3">
+                    <div className="w-full px-3">
                         <Field label="WordPress Author ID (Optional)"
                             hint="This is your Author ID on WordPress. You can find it in your WordPress profile or in the URL of your author page."
                         >
@@ -257,7 +256,6 @@ const ExecutiveForm = () => {
                     id={`affiliations.org${id}.currentWorkHere`}
                     name={`affiliations.org${id}.currentWorkHere`}
                     {...register(`affiliations.org${id}.currentWorkHere`)}
-                // checked
                 />
                 <span className="label-text">Currently work here</span>
             </>
@@ -464,8 +462,19 @@ const ExecutiveForm = () => {
         )
     }
 
+    if (isLoggedIn.user && isLoggedIn.user.id) return (
+        <div className="min-h-screen mt-2">
+            You already have a profile in the database
+            <br />
+            {/* back to home button */}
+            <Link href="/" className="btn btn-secondary mt-4 px-3 py-2 my-auto rounded-md text-sm border-2">
+                &lt; Back to Home
+            </Link>
+        </div>
+    )
+
     return (
-        <Form onSubmit={handleSubmit(saveData)} className="mt-4 max-w-7xl xl:px-8">
+        <Form onSubmit={handleSubmit(saveData)} className="mt-4 max-w-7xl">
             <fieldset>
                 <h3 className="text-2xl font-bold">👔 Executive&apos;s Profile</h3>
                 <p className="text-sm">The following details will be used to create your Executive&apos;s Profile.</p>
@@ -474,10 +483,10 @@ const ExecutiveForm = () => {
                 <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                     <Field label="Preferred Collective Handle"
                         error={errors?.s_preferred_handle}
-                        hint="This will be in the link to your Executive Profile, if available"
+                        hint="This will be in the link to your Executive Profile"
                     >
                         <Input
-                            {...register("s_preferred_handle")}
+                            {...register("s_preferred_handle", { required: "Please provide a handle to be used in the link to your Executive Profile" })}
                             id="s_preferred_handle"
                             placeholder={
                                 isLoggedIn.linkedinUser ?

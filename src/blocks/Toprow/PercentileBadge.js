@@ -33,7 +33,6 @@ const PercentileBadge = ({ s_location, s_followers }) => {
         () => fetch(
             `/api/githubRanker?country=${location}&threshold=${s_followers}`
         ).then((res) => {
-            console.log("res", res)
             return res.json()
         }),
         {

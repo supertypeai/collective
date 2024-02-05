@@ -5,10 +5,12 @@ import { supabase } from "@/lib/supabaseClient";
 import CreatableSelect from 'react-select/creatable';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 
+import { EditContext } from "@/contexts/EditContext";
 import { Field, Form, Input } from "@/blocks/Form"
 import Tooltip from "@/icons/Tooltip";
+import Edit from "@/icons/Edit";
 import profileTagsChoices from "@/data/profileTagsChoices.json"
-import { EditContext } from "@/contexts/EditContext";
+
 
 const placeholder = {
     1: {
@@ -48,7 +50,8 @@ const EditExecutive = () => {
     const queryClient = useQueryClient();
     const { mutate: updateForm } = useMutation(
         async (formData) => {
-            const { data, error } = await supabase.from('profile').update(formData).eq('id', formData.id);
+            const { wp, projects, sessions, ...d } = formData;
+            const { error } = await supabase.from('profile').update(d).eq('id', formData.id);
             if (error?.message === `duplicate key value violates unique constraint "profile_s_preferred_handle_key"`) {
                 alert("Your new preferred collective handle already exists, please use another one.");
             } else if (error?.message === `duplicate key value violates unique constraint "Profile_email_key"`) {
@@ -70,7 +73,7 @@ const EditExecutive = () => {
 
     const saveData = (data) => {
         setIsSubmitting(true);
-        if(!data.affiliations.org3.optionally_selected){
+        if (!data.affiliations.org3.optionally_selected) {
             data.affiliations.org3 = {
                 "end": "",
                 "tags": "",
@@ -82,7 +85,7 @@ const EditExecutive = () => {
                 "optionally_selected": false
             }
         }
-        if(!haveWebsiteBlog){
+        if (!haveWebsiteBlog) {
             data = {
                 ...data,
                 website: null,
@@ -114,21 +117,21 @@ const EditExecutive = () => {
                 </Field>
 
                 <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                        <Field label="WordPress Site ID (Optional)"
+                    <div className="w-full px-3 mb-6 md:mb-0">
+                        <Field label="Medium Link or WordPress Site ID (Optional)"
                             hint={<>
-                                <label htmlFor="wp-helper" className="link link-info hover:text-gray-400"><Tooltip />Optional article blogroll if you write on WordPress</label>. Use the root domain for self-hosted WordPress sites.</>
+                                <label htmlFor="wp-helper" className="link link-info hover:text-gray-400"><Tooltip />Optional article blogroll if you write on WordPress</label> or Medium. Use the Medium link or root domain for self-hosted WordPress sites.</>
                             }
                         >
                             <Input
                                 {...register("wp_blog_root_url")}
                                 id="wp_blog_root_url"
-                                placeholder="self-hosted-site.com OR 2384101920 (WordPress.com Site ID)"
+                                placeholder="https://medium.com/@username OR self-hosted-site.com OR 2384101920 (WordPress.com Site ID)"
                                 disabled={!isEditting}
                             />
                         </Field>
                     </div>
-                    <div className="w-full md:w-1/2 px-3">
+                    <div className="w-full px-3">
                         <Field label="WordPress Author ID (Optional)"
                             hint="This is your Author ID on WordPress. You can find it in your WordPress profile or in the URL of your author page."
                         >
@@ -210,7 +213,6 @@ const EditExecutive = () => {
                     name={`affiliations.org${id}.currentWorkHere`}
                     disabled={!isEditting}
                     {...register(`affiliations.org${id}.currentWorkHere`)}
-                // checked
                 />
                 <span className="label-text">Currently work here</span>
             </>
@@ -421,43 +423,28 @@ const EditExecutive = () => {
     }
 
     return (
-        <Form onSubmit={handleSubmit(saveData)} className="mt-4 max-w-7xl xl:px-8">
+        <Form onSubmit={handleSubmit(saveData)} className="mt-4 max-w-7xl">
             <fieldset>
                 <span className="text-2xl font-bold">
                     👔 Personal Details
-                    <button 
-                        type="button" 
+                    <button
+                        type="button"
                         onClick={() => setIsEditting(true)}
                         hidden={isEditting}
                     >
-                        <svg 
-                            fill="none" 
-                            stroke="currentColor" 
-                            strokeWidth="1.5" 
-                            viewBox="0 0 24 24" 
-                            xmlns="http://www.w3.org/2000/svg" 
-                            aria-hidden="true"
-                            className="ml-2 mb-1 w-5 inline-block"
-                        >
-                            <path 
-                                strokeLinecap="round" 
-                                strokeLinejoin="round" 
-                                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                            />
-                        </svg>
+                        <Edit />
                     </button>
                 </span>
             </fieldset>
             <Field label="Preferred Collective Handle"
                 error={errors?.s_preferred_handle}
-                hint="This will be in the link to your Maker's Profile"
+                hint="This will be in the link to your Executive Profile"
             >
                 <Input
-                    {...register("s_preferred_handle")}
+                    {...register("s_preferred_handle", { required: "Please provide a handle to be used in the link to your Executive Profile" })}
                     id="s_preferred_handle"
                     placeholder="pambeesly"
                     disabled={!isEditting}
-                    required
                 />
             </Field>
             <Field label="Full name" error={errors?.fullname}>
@@ -593,7 +580,6 @@ const EditExecutive = () => {
 
             <div className="collapse">
                 <input type="checkbox"
-                    // {...register("website_or_blog")}
                     className="collapse-checkbox"
                     checked={haveWebsiteBlog}
                     onChange={(e) => {
@@ -611,11 +597,11 @@ const EditExecutive = () => {
             </div>
 
             <div className="my-4">
-                { 
+                {
                     isEditting ? (
                         <>
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 className="btn btn-secondary text-white mr-3"
                                 onClick={() => {
                                     setIsEditting(false)

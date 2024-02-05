@@ -1,0 +1,14 @@
+[
+    {"value": "community", "label": "Community"},
+    {"value": "developer tool", "label": "Developer Tool"},
+    {"value": "education", "label": "Education"},
+    {"value": "enterprise", "label": "Enterprise"},
+    {"value": "freemium", "label": "Freemium"},
+    {"value": "game development", "label": "Game Development"},
+    {"value": "mobile application", "label": "Mobile Application"},
+    {"value": "npm", "label": "npm"},
+    {"value": "open source", "label": "Open Source"},
+    {"value": "pypi", "label": "PyPI"},
+    {"value": "saas", "label": "SaaS"},
+    {"value": "web application", "label": "Web Application"}
+]

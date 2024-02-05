@@ -1,6 +1,5 @@
-import { useContext, useRef } from 'react';
+import { useContext } from 'react';
 import Image from 'next/image'
-import { useQuery } from "@tanstack/react-query";
 
 import scrollToSection from '@/utils/scrollToSection';
 import Pills from '@/blocks/Pills'
@@ -10,9 +9,8 @@ import StarBadge from './StarsBadge';
 import ForkBadge from './ForkBadge';
 import { MeContext } from '@/contexts/MeContext';
 
-import countryEmoji from '@/data/countryEmoji.json'
-import countryCity from '@/data/countryCity.json'
 import PercentileBadge from './PercentileBadge';
+import TextViewer from '@/components/TextEditor/TextViewer';
 
 
 
@@ -25,15 +23,16 @@ function Toprow({ children }) {
                 {/* align avatar to center of div */}
                 <div className="flex justify-center mb-2">
                     <div className="avatar">
-                        <div className="w-52 rounded-lg">
-                            <Image src={data.superinference.profile.avatar_url}
+                        <div className="w-52 ">
+                            <Image src={data.imgUrl}
                                 alt={`${data.fullname} supertype`}
-                                className="mt-8 object-cover rounded text-center" width={300} height={300} priority />
+                                className="mt-8 object-cover rounded text-center" width={300} height={300} priority
+                            />
                         </div>
                     </div>
                 </div>
 
-                { 
+                {
                     data.superinference.stats && (
                         <>
                             <CommitBadge count={data.superinference.contribution.contribution_count} />
@@ -51,13 +50,12 @@ function Toprow({ children }) {
                         {data.fullname}
                     </h3>
                     <p className='mb-4'>{data.short || 'Full Stack Engineer'}</p>
-                    <p className='mb-4'>{data.long || ''}</p>
+                    <TextViewer text={data.long} />
                     {children}
                 </div>
                 <div className="mt-4">
                     <Pills tags={data.tags} maxWidth="800px"
                         onClick={
-                            // () => scrollToSection(`aff-0`)
                             () => scrollToSection("affiliations")
                         }
                     />

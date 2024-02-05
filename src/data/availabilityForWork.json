@@ -1,18 +1,22 @@
-[  
-    {    
-        "value": "Full-time",    
-        "label": "Full-time"  
-    },  
-    {    
-        "value": "Part-time",    
-        "label": "Part-time"  
-    },  
-    {    
-        "value": "Flexible",    
-        "label": "Flexible"  
-    },  
-    {    
-        "value": "Unavailable",    
-        "label": "Unavailable"  
+[
+    {
+        "value": "Full-time",
+        "label": "Full-time"
+    },
+    {
+        "value": "Part-time",
+        "label": "Part-time"
+    },
+    {
+        "value": "Flexible",
+        "label": "Flexible"
+    },
+    {
+        "value": "Unavailable",
+        "label": "Unavailable"
+    },
+    {
+        "value": "Hourly-based Consulting",
+        "label": "Hourly-based Consulting"
     }
 ]

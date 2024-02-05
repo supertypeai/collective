@@ -2,14 +2,16 @@ import { useContext, useCallback } from 'react';
 import WpArticles from "../WpArticles"
 import StackAndAffiliations from './StackAndAffiliations';
 import GitHubProjects from './GitHubProjects';
+import UserProjects from './UserProjects';
 import ContactCard from './ContactCard';
 import RepoTags from './RepoTags';
 import EnquiryModal from './EnquiryModal';
 import CommitPolar from './CommitPolar';
 
 import { MeContext } from '@/contexts/MeContext';
+import SessionCard from './SessionCard';
 
-const Body = ({ stack, affiliations, children }) => {
+const Body = ({ stack, affiliations }) => {
 
     const data = useContext(MeContext);
 
@@ -17,7 +19,7 @@ const Body = ({ stack, affiliations, children }) => {
         (data, div) => {
 
             let contribution;
-            if(data.superinference.contribution){
+            if (data.superinference.contribution) {
                 contribution = {
                     ...data['superinference']['contribution']['contribution_count_per_repo_org_owner'],
                     ...data['superinference']['contribution']['contribution_count_per_repo_user_owner']
@@ -38,8 +40,9 @@ const Body = ({ stack, affiliations, children }) => {
                         <RepoTags collaborations={contribution} />
                     }
                     <ContactCard data={data} />
+                    <SessionCard data={data} />
                     {
-                        data.superinference.contribution && 
+                        data.superinference.contribution &&
                         Object.values(data['superinference']['contribution']['contribution_count_per_month'])
                             .reduce((acc, x) => acc + x[0], 0) > 0 &&
                         <CommitPolar data={data['superinference']['contribution']['contribution_count_per_month']} newCol={
@@ -66,7 +69,7 @@ const Body = ({ stack, affiliations, children }) => {
     )
 
 
-    if (data['wp']) {
+    if (data['wp']?.length > 0) {
 
         return (
             <>
@@ -74,7 +77,7 @@ const Body = ({ stack, affiliations, children }) => {
                     <div className="col-span-12 text-white lg:col-span-4 justify-center justify-self-center lg:justify-self-start mt-8">
                         <WpArticles wp_data={data['wp']} />
                     </div>
-                    <StackAndAffiliations stack={stack} affiliations={affiliations} />
+                    <StackAndAffiliations stack={stack} affiliations={affiliations} projects={data['projects']} />
                 </div>
 
                 {/* when true, this moves each section to its own div */}
@@ -87,8 +90,8 @@ const Body = ({ stack, affiliations, children }) => {
         )
     } else {
         return (
-            <div className="grid grid-cols-12 items-center grid-flow gap-4 bg-black bg-opacity-30 px-1 sm:px-4 lg:px-8 rounded-b-none auto-rows-max">
-                <StackAndAffiliations stack={stack} affiliations={affiliations} />
+            <div className="grid grid-cols-12 grid-flow gap-4 bg-black bg-opacity-30 px-1 sm:px-4 lg:px-8 rounded-b-none auto-rows-max">
+                <StackAndAffiliations stack={stack} affiliations={affiliations} projects={data['projects']} />
                 {autoColumnLayout(data, false)}
                 <EnquiryModal>
                     <h3 className="font-bold text-lg">We&apos;re working on this functionality.</h3>

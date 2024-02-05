@@ -1,4 +1,6 @@
-const StackAndAffiliations = ({ stack, affiliations }) => {
+import UserProjects from "./UserProjects"
+
+const StackAndAffiliations = ({ stack, affiliations, projects }) => {
     return (
         <div className="mx-auto sm:max-w-80 lg:col-span-8 justify-center justify-self-center lg:justify-self-start mt-8">
             <div className="md:flex mt-14 text-center md:ml-8">
@@ -7,6 +9,7 @@ const StackAndAffiliations = ({ stack, affiliations }) => {
                 </div>
                 <div className="w-screen md:ml-8 md:w-2/3">
                     {affiliations}
+                    {projects.length > 0 && <UserProjects projects={projects} />}
                 </div>
             </div>
         </div>

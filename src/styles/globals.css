@@ -112,6 +112,10 @@ a {
   }
 }
 
+.card.image-full:before {
+  opacity: 0.2;
+}
+
 .btn-info:hover {
   background-color: #887048;
   border: none;
