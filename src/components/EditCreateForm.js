@@ -263,9 +263,9 @@ const EditCreateForm = ({ setProjectState, projectid }) => {
       </fieldset>
 
       <Field
-        label="Preferred Collective Handle"
+        label="Preferred Project Handle"
         error={errors?.handle}
-        hint="This will be in the link to your project page (https://collective.supertype.ai/r/{your_handle})"
+        hint="This will form the link to your project page (https://collective.supertype.ai/r/{project_handle})"
       >
         <Input
           {...register("handle", {
@@ -441,9 +441,9 @@ const EditCreateForm = ({ setProjectState, projectid }) => {
       </Field>
 
       <Field
-        label="📚 Related Qualifications"
+        label="📚 Technology Qualifications"
         error={errors?.tags}
-        hint="A maximum of 10 most revelant qualifications"
+        hint="A maximum of 10 most revelant technologies used in your project"
       >
         <Controller
           control={control}
@@ -503,7 +503,7 @@ const EditCreateForm = ({ setProjectState, projectid }) => {
       <Field
         label="🔖 Types"
         error={errors?.types}
-        hint="Indicates what your project's categories"
+        hint="Pick a category that best describes your project"
       >
         <Controller
           control={control}

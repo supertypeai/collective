@@ -7,16 +7,16 @@ const PopularTagBadge = ({ slug, count, link = true }) => {
 
             {
                 link ?
-                    <Link href={`/tags/${slug}`} className="text-[0.7rem] flex">
+                    <Link href={`/tags/${slug}`} className="text-[0.7rem] ">
                         {getTagInfo(slug, 'label')}
                         {
                             count &&
-                            <div className="badge border-none bg-red-800 dark:bg-info dark:text-black badge-sm px-1 self-center ml-1">
+                            <div className="badge border-none bg-red-800 dark:bg-info dark:text-black badge-sm px-1 ml-1">
                                 {count}
                             </div>
                         }
                     </Link>
-                    : <span className="text-[0.7rem] flex whitespace-nowrap">
+                    : <span className="text-[0.7rem]  whitespace-nowrap">
                         {getTagInfo(slug, 'label')}
                     </span>
 
