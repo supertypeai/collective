@@ -75,7 +75,7 @@ const TimotiusProfile = () => {
         name: "Timotius Marselo",
         profileLink: "/p/timotius",
         short: "Data Scientist @Supertype.ai. Solving problems in the forecasting and predictive maintenance domains.",
-        tags: ['AI', 'Server']
+        tags: ['Server', 'DataOps', 'Database', 'AI']
     }} />
 }
 
@@ -85,7 +85,7 @@ const WilsenProfile = () => {
         name: "Geraldus Wilsen",
         profileLink: "/p/wilsen",
         short: "Data Scientist @Supertype.ai. Builds amazing dashboards that ties analysis and visualization together.",
-        tags: ['AI', 'Dashboard']
+        tags: ['AI', 'Dashboard', 'DataOps', 'Database']
     }} />
 }
 
@@ -219,14 +219,25 @@ const AdrienProfile = () => {
     }} />
 }
 
+const ChristeigenProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://avatars.githubusercontent.com/u/104551182?v=4",
+        name: "Christeigen Theodore Suhalim",
+        profileLink: "/p/christeigen",
+        short: "Building the next generation of fintech apps with data and automation @Supertype.ai.",
+        tags: ['AI', 'Database', 'Server']
+    }} />
+}
+
+
 
 const PopularTags = () => {
     return (
         <div className="mt-4">
             <h3 className="text-lg font-semibold">🔥 Popular Tags</h3>
 
-            <div className="flex justify-center w-full text-center mt-2">
-                <PopularTagBadge slug="ai" count="8" />
+            <div className="flex justify-center w-full  mt-2">
+                <PopularTagBadge slug="ai" count="10+" />
                 <PopularTagBadge slug="data-science" count="10+" />
                 <PopularTagBadge slug="machine-learning" count="10+" />
             </div>
@@ -279,22 +290,23 @@ const Page = () => {
                                 <VCCalvinProfile />
                                 <GeraldProfile />
                                 <StaneProfile />
-                                <TimotiusProfile />
-                                <WilsenProfile />
-                                <BrianProfile />
                                 <NisaProfile />
                                 <PatrickProfile />
-                                <DivaProfile />
-                                <StevenProfile />
+                                <TimotiusProfile />
+                                <WilsenProfile />
+                                <ChristeigenProfile />
+                                <BrianProfile />
                                 <FiqeyProfile />
+                                <DivaProfile />
+                                <AdrienProfile />
+                                <StevenProfile />
+                                <FendyProfile />
                                 <OwennProfile />
                                 <YevonnaelProfile />
                                 <VitoProfile />
-                                <NoelProfile />
                                 <MatheusProfile />
-                                <AdrienProfile />
                                 <AbdielProfile />
-                                <FendyProfile />
+                                <NoelProfile />
                             </div>
                             <div className={styles.description}>
                                 <div>

@@ -161,7 +161,7 @@ const CreateForm = ({ setProjectState }) => {
             });
 
             // if successful, alert() for 2 seconds and redirect to home page
-            alert("Thank you for submitting! We will review your project.");
+            alert("Thank you for your submission! Pending a quick review, your project will be live on Collective soon.");
             reset();
             setProjectState(false);
           }
@@ -181,7 +181,7 @@ const CreateForm = ({ setProjectState }) => {
         }).then((res) => {
           return res.json();
         });
-        alert("Thank you for submitting! We will review your project.");
+        alert("Thank you for your submission! Pending a quick review, your project will be live on Collective soon.");
         setIsSubmitting(false);
         reset();
         setProjectState(false);
@@ -223,9 +223,9 @@ const CreateForm = ({ setProjectState }) => {
       </fieldset>
 
       <Field
-        label="Preferred Collective Handle"
+        label="Preferred Project Handle"
         error={errors?.handle}
-        hint="This will be in the link to your project page (https://collective.supertype.ai/r/{your_handle})"
+        hint="This will form the link to your project page (https://collective.supertype.ai/r/{project_handle})"
       >
         <Input
           {...register("handle", {
@@ -264,7 +264,9 @@ const CreateForm = ({ setProjectState }) => {
           </Field>
         </div>
         <div className="w-full md:w-1/2 md:pl-3">
-          <Field label="GitHub URL" error={errors?.github}>
+          <Field label="GitHub URL" error={errors?.github}
+            hint="Leave blank if not available"
+          >
             <Input
               {...register("github", {
                 pattern: {
@@ -401,9 +403,9 @@ const CreateForm = ({ setProjectState }) => {
       </Field>
 
       <Field
-        label="📚 Related Qualifications"
+        label="📚 Technology Qualifications"
         error={errors?.tags}
-        hint="A maximum of 10 most revelant qualifications"
+        hint="A maximum of 10 most revelant technologies used in your project"
       >
         <Controller
           control={control}
@@ -463,7 +465,7 @@ const CreateForm = ({ setProjectState }) => {
       <Field
         label="🔖 Types"
         error={errors?.types}
-        hint="Indicates what your project's categories"
+        hint="Pick a category that best describes your project"
       >
         <Controller
           control={control}
