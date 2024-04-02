@@ -229,6 +229,16 @@ const ChristeigenProfile = () => {
     }} />
 }
 
+const AidityaProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://avatars.githubusercontent.com/u/79420878?v=4",
+        name: "Aidityas Adhakim",
+        profileLink: "/p/aidityasadhakim",
+        short: "Analytics Developer and apprentice @Supertype.ai.",
+        tags: ['AI', 'Database', 'Frontend']
+    }} />
+}
+
 
 
 const PopularTags = () => {
@@ -304,6 +314,7 @@ const Page = () => {
                                 <OwennProfile />
                                 <YevonnaelProfile />
                                 <VitoProfile />
+                                <AidityaProfile />
                                 <MatheusProfile />
                                 <AbdielProfile />
                                 <NoelProfile />
