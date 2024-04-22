@@ -157,19 +157,27 @@ const AppContextWrapper = ({ children }) => {
         const notificationSent = localStorage.getItem('slackNotificationSent');
 
         if (new Date() - new Date(data.session.user.created_at) <= 10000 && !notificationSent) {
-          fetch("/api/slackNotification", {
+          fetch(`/api/sendgrid-contact`, {
             method: "POST",
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-              message: `A new user has signed up! Email: ${data.session.user.email}`
-            })
+            body: JSON.stringify({ email: data.session.user.email }),
           })
             .then((res) => {
-              return res.json()
-            })
-
+              fetch("/api/slackNotification", {
+                method: "POST",
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  message: `A new user has signed up! Email: ${data.session.user.email}`
+                })
+              })
+                .then((res) => {
+                  return res.json()
+                })
+            });
           localStorage.setItem('slackNotificationSent', 'true');
         }
       }
