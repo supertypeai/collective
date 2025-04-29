@@ -43,7 +43,7 @@ export const BadgeFrame = ({ count, type, imgSrc, emojiImg }) => {
                 </div>
             }
             <div className="col-span-2 text-center leading-none -top-[0.1rem] relative">
-                <p className={`${colorText[type]} dark:text-info font-bold text-sm`}>{count.toLocaleString()}</p>
+                <p className={`${colorText[type]} dark:text-info font-bold text-sm`}>{count.toLocaleString("en-US")}</p>
                 <p className='text-[0.6rem]'>
                     {emoji[type]} {type}
                 </p>

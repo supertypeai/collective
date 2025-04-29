@@ -11,6 +11,8 @@ const nextConfig = {
       // linkedin
       'media-exp1.licdn.com',
       'media.licdn.com',
+      'i1.rgstatic.net',
+      'www.internnet.id'
     ],
   }
 }

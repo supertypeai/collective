@@ -2,7 +2,7 @@ export const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 export const shortDate = (dateTime) => {
     const date = new Date(dateTime);
-    return date.toLocaleString('default', { month: 'short', day: 'numeric' });
+    return date.toLocaleString('en-US', { month: 'short', day: 'numeric' });
 }
 
 export const sortByMonthName = (monthNames, isReverse = false) => {
@@ -72,7 +72,7 @@ export const getNearestDate = (day) => {
 
 export const extractDayFromDateTime = (dateTime, format = "short") => {
     const date = new Date(dateTime);
-    return date.toLocaleString('default', { weekday: format });
+    return date.toLocaleString('en-US', { weekday: format });
 }
 
 export const numericShortDate = (dateTime) => {

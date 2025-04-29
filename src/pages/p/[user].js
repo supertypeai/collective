@@ -7,6 +7,11 @@ import Body from '@/blocks/Body'
 import Affiliations from '@/blocks/Affiliations'
 import { generateStack } from '@/blocks/Stack'
 
+export const shorten = (str, maxLen, separator = " ") => {
+    if (str.length <= maxLen) return str;
+    return str.substring(0, str.lastIndexOf(separator, maxLen)) + " ...";
+};
+
 const fetchUser = async (user) => {
     const { data, error } = await supabase
         .from('profile')
@@ -32,15 +37,17 @@ const fetchUser = async (user) => {
         if (data['wp_blog_root_url'].startsWith("https://medium.com")) {
             const username = data['wp_blog_root_url'].split("@")[1]
             url = `https://medium.com/feed/@${username}`;
-            const res_wp = await parse(url);
+            const proxy_url = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`;
+            const res = await fetch(proxy_url);
+            const res_wp = await res.json();
             const wp_data = res_wp['items'].slice(0, 5).map(post => {
                 return {
-                    id: post.id.split("/p/")[1],
-                    title: post.title,
-                    link: post.link,
-                    date: post.published,
+                    id: post.guid ? post.guid.split("/p/")[1] : "",
+                    title: post.title ? post.title: "",
+                    link: post.link ? post.link : "",
+                    date: post.pubDate ? post.pubDate : "",
                     excerpt: {
-                        rendered: post.description ? post.description.split("Continue reading on")[0] : "<p></p>"
+                        rendered: post.description ? shorten(post.description.split("Continue reading on")[0], 250) : "<p></p>"
                     }
                 }
             });
@@ -142,7 +149,6 @@ const Profile = (props) => {
                 affiliations={<Affiliations />}
             >
             </Body>
-            {JSON.stringify(data)}
         </Mainframe>
     )
 }

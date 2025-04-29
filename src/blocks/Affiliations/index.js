@@ -3,7 +3,7 @@ import { MeContext } from '@/contexts/MeContext';
 
 const formatDateToMonthYear = (date) => {
     const dateObj = new Date(date);
-    const month = dateObj.toLocaleString('default', { month: 'short' });
+    const month = dateObj.toLocaleString('en-US', { month: 'short' });
     const year = dateObj.getFullYear();
     return `${month}' ${year}`;
 }
