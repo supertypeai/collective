@@ -161,7 +161,7 @@ const OwennProfile = () => {
 
 const YevonnaelProfile = () => {
     return <ProfileCard person={{
-        imgUrl: "https://supertype.ai/wp-content/uploads/2024/01/Yevonnael-Andrew-2.jpg",
+        imgUrl: "https://i1.rgstatic.net/ii/profile.image/11431281119867871-1676288640297_Q512/Yevonnael-Andrew-2.jpg",
         name: "Yevonnael Andrew",
         profileLink: "/p/yevonnael",
         short: "Cybersecurity and Software Engineer @AAG, Cybersecurity Researcher @Swiss German University. Works in Web3.",
@@ -171,7 +171,7 @@ const YevonnaelProfile = () => {
 
 const VitoProfile = () => {
     return <ProfileCard person={{
-        imgUrl: "https://supertype.ai/wp-content/uploads/2023/07/vito.webp",
+        imgUrl: "https://www.internnet.id/team/Data_Vito%20Ghifari.png",
         name: "Vito Ghifari",
         profileLink: "/p/vito",
         short: "Data Scientist @Supertype.ai. Develops machine learning applications for portfolio companies.",
@@ -229,16 +229,25 @@ const ChristeigenProfile = () => {
     }} />
 }
 
-const AidityaProfile = () => {
+const AidityasProfile = () => {
     return <ProfileCard person={{
         imgUrl: "https://avatars.githubusercontent.com/u/79420878?v=4",
         name: "Aidityas Adhakim",
         profileLink: "/p/aidityasadhakim",
-        short: "Analytics Developer and apprentice @Supertype.ai.",
+        short: "Full Stack Data Scientist @Supertype.ai.",
         tags: ['AI', 'Database', 'Frontend']
     }} />
 }
 
+const KenProfile = () => {
+    return <ProfileCard person={{
+        imgUrl: "https://avatars.githubusercontent.com/u/88850771?v=4",
+        name: "Kenneth Ezekiel",
+        profileLink: "/p/kenezekiel",
+        short: "Analytics Developer and apprentice @Supertype.ai.",
+        tags: ['AI', 'Database', 'Server']
+    }} />
+}
 
 
 const PopularTags = () => {
@@ -299,8 +308,10 @@ const Page = () => {
                                 <SamuelProfile />
                                 <VCCalvinProfile />
                                 <GeraldProfile />
-                                <StaneProfile />
+                                <AidityasProfile />
                                 <NisaProfile />
+                                <KenProfile />
+                                <StaneProfile />
                                 <PatrickProfile />
                                 <TimotiusProfile />
                                 <WilsenProfile />
@@ -314,7 +325,6 @@ const Page = () => {
                                 <OwennProfile />
                                 <YevonnaelProfile />
                                 <VitoProfile />
-                                <AidityaProfile />
                                 <MatheusProfile />
                                 <AbdielProfile />
                                 <NoelProfile />
