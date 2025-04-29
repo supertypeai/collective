@@ -67,7 +67,7 @@ const OneTimeSession = ({ sessionData }) => {
                     {availableHours.sort().map((hour) => {
                         return (
                             <div key={`${sessionData.id}_${hour}`}>
-                                {moveDateTimeByMins(Object.keys(availableSlots)[0], hour, sessionData.tz_gmt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                {moveDateTimeByMins(Object.keys(availableSlots)[0], hour, sessionData.tz_gmt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
                             </div>
                         )
                     })}
@@ -98,7 +98,7 @@ const RecurringSession = ({ sessionData }) => {
                 {sessionData.hours.sort().map((hour) => {
                     return (
                         <div key={`${sessionData.id}_${hour}`}>
-                            {moveDateTimeByMins(date, hour, sessionData.tz_gmt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            {moveDateTimeByMins(date, hour, sessionData.tz_gmt).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
                         </div>
                     )
                 })}
