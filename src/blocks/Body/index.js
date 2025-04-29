@@ -19,7 +19,7 @@ const Body = ({ stack, affiliations }) => {
         (data, div) => {
 
             let contribution;
-            if (data.superinference.contribution) {
+            if (data?.superinference.contribution) {
                 contribution = {
                     ...data['superinference']['contribution']['contribution_count_per_repo_org_owner'],
                     ...data['superinference']['contribution']['contribution_count_per_repo_user_owner']
@@ -31,7 +31,7 @@ const Body = ({ stack, affiliations }) => {
 
             const innerContent = (
                 <>
-                    {data['show_repo'] > 0 &&
+                    {data && data['show_repo'] > 0 &&
                         <GitHubProjects repos={data['superinference']['stats']['top_repo_stars_forks']} count={data['show_repo']} owner={data["github_handle"]} />
                     }
                     {
@@ -42,7 +42,7 @@ const Body = ({ stack, affiliations }) => {
                     <ContactCard data={data} />
                     <SessionCard data={data} />
                     {
-                        data.superinference.contribution &&
+                        data?.superinference.contribution &&
                         Object.values(data['superinference']['contribution']['contribution_count_per_month'])
                             .reduce((acc, x) => acc + x[0], 0) > 0 &&
                         <CommitPolar data={data['superinference']['contribution']['contribution_count_per_month']} newCol={
@@ -69,7 +69,7 @@ const Body = ({ stack, affiliations }) => {
     )
 
 
-    if (data['wp']?.length > 0) {
+    if (data  && data['wp']?.length > 0) {
 
         return (
             <>
@@ -77,7 +77,7 @@ const Body = ({ stack, affiliations }) => {
                     <div className="col-span-12 text-white lg:col-span-4 justify-center justify-self-center lg:justify-self-start mt-8">
                         <WpArticles wp_data={data['wp']} />
                     </div>
-                    <StackAndAffiliations stack={stack} affiliations={affiliations} projects={data['projects']} />
+                    <StackAndAffiliations stack={stack} affiliations={affiliations} projects={data?.projects || []} />
                 </div>
 
                 {/* when true, this moves each section to its own div */}
@@ -91,7 +91,7 @@ const Body = ({ stack, affiliations }) => {
     } else {
         return (
             <div className="grid grid-cols-12 grid-flow gap-4 bg-black bg-opacity-30 px-1 sm:px-4 lg:px-8 rounded-b-none auto-rows-max">
-                <StackAndAffiliations stack={stack} affiliations={affiliations} projects={data['projects']} />
+                <StackAndAffiliations stack={stack} affiliations={affiliations} projects={data?.projects || []} />
                 {autoColumnLayout(data, false)}
                 <EnquiryModal>
                     <h3 className="font-bold text-lg">We&apos;re working on this functionality.</h3>

@@ -143,7 +143,7 @@ const SessionCard = ({ data }) => {
         return (
             <div className='mb-2'>
                 <h4 className='font-bold tracking-tight text-sm'>
-                    Book a 1:1 session with {data['fullname']}
+                    Book a 1:1 session with {data?.['fullname']}
                 </h4>
                 <p className='text-xs text-gray-400'>
                     {`Session times displayed in ${tz}`}
@@ -151,7 +151,7 @@ const SessionCard = ({ data }) => {
 
 
                 <div className='grid grid-cols-12 gap-2 mt-2'>
-                    <Sessions sessionData={data['sessions']} />
+                    <Sessions sessionData={data?.['sessions']} />
                 </div>
 
                 {/* 3 x 2 grid */}

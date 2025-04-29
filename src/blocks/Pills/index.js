@@ -19,7 +19,7 @@ const createColorfulTags = (tags, colors = COLORS, onClick, selected, isEditting
   const unSelectableClasses = `text-rose-100 ${isEditting ? "hover:bg-rose-900 cursor-pointer" : "cursor-not-allowed"} border rounded-md text-xs 
                       whitespace-nowrap font-medium mr-1 px-2 mb-1 leading-6`
 
-  for (let i = 0; i < tags.length; i++) {
+  for (let i = 0; i < tags?.length; i++) {
     const pill = tags[i];
     // let color = colors[i % colors.length];
     // console.log("color", color)

@@ -13,8 +13,8 @@ const ContactCard = ({ data }) => {
                     <div className="basis-1/6">
                         <div className="avatar mr-3">
                             <div className="w-12 rounded-full ring ring-primary dark:ring-info ring-offset-base-100 ring-offset-2">
-                                <Image src={data['superinference']['profile']['avatar_url']}
-                                    alt={data['fullname']}
+                                <Image src={data?.['superinference']?.['profile']?.['avatar_url'] || '/default-avatar.png'}
+                                    alt={data?.['fullname']}
                                     width={50}
                                     height={50}
                                 />
@@ -22,23 +22,23 @@ const ContactCard = ({ data }) => {
                         </div>
                     </div>
                     <div className="basis-4/6 2xl:basis-3/5 leading-none">
-                        <span className='leading-none font-semibold'>{data['fullname']}</span>
+                        <span className='leading-none font-semibold'>{data?.['fullname']}</span>
                         {/* social links */}
                         <div className="flex flex-row gap-x-2 mt-1">
                             {
-                                data['website'] &&
+                                data?.['website'] &&
                                 <Link href={data['website']} target="_blank" rel="noopener noreferrer" className='text-sm link-info hover:opacity-70'>
                                     Website
                                 </Link>
                             }
                             {
-                                data['linkedin'] &&
+                                data?.['linkedin'] &&
                                 <Link href={data['linkedin']} target="_blank" rel="noopener noreferrer" className='text-sm link-info hover:opacity-70'>
                                     LinkedIn
                                 </Link>
                             }
                             {
-                                data['github_handle'] &&
+                                data?.['github_handle'] &&
                                 <Link href={`https:github.com/${data['github_handle']}`} target="_blank" rel="noopener noreferrer" className='text-sm link-info hover:opacity-70'>
                                     GitHub
                                 </Link>
@@ -46,7 +46,7 @@ const ContactCard = ({ data }) => {
                         </div>
                     </div>
                     {
-                        data['availability'] !== "Unavailable" &&
+                        data?.['availability'] !== "Unavailable" &&
                         <div className="basis-full 2xl:basis-1/5 2xl:text-right">
                             {
                                 !isLoggedIn ? (
@@ -63,15 +63,15 @@ const ContactCard = ({ data }) => {
                     }
                 </div>
                 {
-                    data['availability'] !== "Unavailable" &&
+                    data?.['availability'] !== "Unavailable" &&
                     <ul className="text-xs text-gray-400 mt-2">
-                        <li>Availability: <span className="text-white">{data['availability']}</span></li>
+                        <li>Availability: <span className="text-white">{data?.['availability']}</span></li>
                         {
-                            data['location'] &&
-                            <li>Location: <span className="text-white">{data['location']}</span></li>
+                            data?.['location'] &&
+                            <li>Location: <span className="text-white">{data?.['location']}</span></li>
                         }
                         {
-                            data['languages'] &&
+                            data?.['languages'] &&
                             <li>Fluent in: <span className="text-white">
                                 {data['languages'].map((language, index) => (
                                     // add comma after each language except the last one
